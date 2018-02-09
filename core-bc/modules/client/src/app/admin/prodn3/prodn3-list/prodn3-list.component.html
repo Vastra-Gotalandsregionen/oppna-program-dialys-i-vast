@@ -1,0 +1,102 @@
+<mat-toolbar class="action-toolbar">
+  <h1>
+    Concise SumNivå 3
+  </h1>
+  <div class="action-toolbar-spacer"></div>
+  <a  class="action-toolbar-item"routerLink="create" mat-fab matTooltip="Lägg till ny Concise SumNivå 3"><mat-icon>add</mat-icon></a>
+  <app-sidenav-toggle-button class="action-toolbar-item"></app-sidenav-toggle-button>
+</mat-toolbar>
+
+<p>
+  Redigera undernivå för Concise organisation. Redigerat namn ersätter automatiskt tidigare namn i hela APK.
+</p>
+
+<mat-card>
+
+  <mat-card-title class="edge2edge">
+    <mat-toolbar class="action-toolbar">
+
+      <mat-checkbox class="action-toolbar-item" (click)="toggleOnlyUnused()" [(ngModel)]="onlyUnused">Endast oanvända</mat-checkbox>
+
+      <div class="action-toolbar-spacer"></div>
+
+        <button class="action-toolbar-item" matTooltip="{{showFilter ? 'Göm' : 'Visa'}} filter" (click)="showFilter = !showFilter">
+          <mat-icon>filter_list</mat-icon>
+        </button>
+
+    </mat-toolbar>
+  </mat-card-title>
+
+  <mat-card-content *ngIf="showFilter">
+    <div>
+      <mat-form-field>
+        <mat-select placeholder="Visa bara för Concise SumNivå 1" [formControl]="filterProdn1" (change)="onFilterProdn1Change()">
+          <mat-option value="">Visa alla</mat-option>
+          <mat-option *ngFor="let prodn1 of prodn1s$ | async" [value]="prodn1.id">
+            {{prodn1.kortnamn}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div [@slideIn]="showFilter && selectedProdn1.value ? 'in' : 'out'">
+      <mat-form-field>
+        <mat-select placeholder="Visa bara för Concise SumNivå 2" [formControl]="filterProdn2" (change)="onFilterProdn2Change()">
+          <mat-option value="">Visa alla</mat-option>
+          <mat-option *ngFor="let prodn2 of availableProdn2s$ | async" [value]="prodn2.id">
+            {{prodn2.kortnamn}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </mat-card-content>
+
+  <mat-card-content>
+
+    <table class="apk-table prod3-table">
+      <thead>
+      <tr>
+        <th class="row-prod1">Concise SumNivå 1</th>
+        <th class="row-prod2">Concise SumNivå 2</th>
+        <th class="row-short-name">Concise SumNivå 3</th>
+        <th class="row-status">Status</th>
+        <th class="row-menu"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let prodn3 of response?.content">
+        <td>
+          <span matTooltip="{{prodn3.prodn2?.prodn1?.kortnamn?.length > 20 ? prodn3.prodn2?.prodn1?.kortnamn : null}}">{{prodn3.prodn2?.prodn1?.kortnamn | ellipsis:20}}</span>
+        </td>
+        <td>
+          <span matTooltip="{{prodn3.prodn2?.kortnamn?.length > 25 ? prodn3.prodn2?.kortnamn : null}}">{{prodn3.prodn2?.kortnamn | ellipsis:25}}</span>
+        </td>
+        <td>
+          <span matTooltip="{{prodn3.kortnamn?.length > 25 ? prodn3.kortnamn : null}}">{{prodn3.kortnamn | ellipsis:25}}</span>
+        </td>
+        <td>
+          <mat-icon matTooltip="Autoradering" *ngIf="prodn3.autoradering">delete_forever</mat-icon>
+          <mat-icon matTooltip="Markerad som raderad" *ngIf="prodn3.raderad">clear</mat-icon>
+        </td>
+        <td>
+          <a routerLink="{{prodn3.id}}/edit" matTooltip="Redigera">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+
+  <mat-card-actions *ngIf="response">
+    <mat-toolbar class="paging-toolbar">
+      <div *ngIf="response" class="search-summary">
+        Visar sida {{response.number + 1}} av {{response.totalPages}}. Totalt antal: {{response.totalElements}}
+      </div>
+      <div class="paging-toolbar-spacer"></div>
+      <button (click)="previousPage()" mat-button [disabled]="response.first"><mat-icon>arrow_back</mat-icon> Föregående</button>
+      <button (click)="nextPage()" mat-button [disabled]="response.last">Nästa <mat-icon>arrow_forward</mat-icon></button>
+    </mat-toolbar>
+  </mat-card-actions>
+</mat-card>

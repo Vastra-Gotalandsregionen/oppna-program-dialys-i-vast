@@ -1,0 +1,46 @@
+.menu-bar.mat-toolbar {
+
+  min-height: auto;
+
+  .mat-toolbar-row {
+    height: auto;
+  }
+
+  a,
+  a:visited {
+    color: white;
+    text-decoration: none;
+  }
+
+  .mat-list {
+    display: flex;
+    padding: 0;
+
+    .mat-list-item {
+      .mat-list-item-content {
+        height: auto;
+        padding: 0;
+
+        a {
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          font-weight: normal;
+          padding: 10px 30px;
+
+          &:hover {
+            border-bottom-color: white;
+          }
+
+          &.active,
+          &.active:hover {
+            border-bottom-color: orange;
+          }
+
+        }
+
+      }
+    }
+
+  }
+
+}

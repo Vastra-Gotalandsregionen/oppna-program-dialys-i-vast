@@ -1,0 +1,8 @@
+.user-avatar {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  flex-shrink: 0;
+  background-size: cover;
+  @include border-radius(50%);
+}

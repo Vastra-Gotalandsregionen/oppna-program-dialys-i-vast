@@ -1,0 +1,588 @@
+<div *ngIf="apkForm; else loading">
+  <form class="apk-form" #theForm="ngForm" [formGroup]="apkForm" (ngSubmit)="save()" autocomplete="off"
+        novalidate>
+
+      <mat-toolbar class="meta-toolbar" *ngIf="data.arbetsplatskodlan">
+
+        <div class="meta-toolbar-item">
+          <span>Skapad:</span> <span>{{data.regDatum | dateX: 'YYYY-MM-DD HH:mm'}}</span>
+        </div>
+
+        <div class="meta-toolbar-item">
+          <span>Ändrad:</span> <span>{{data.andringsdatum}}</span>
+        </div>
+
+        <div class="meta-toolbar-item">
+          <span>Senast ändrad av:</span> <span>{{data.userIdNew || data.userId}}</span>
+        </div>
+
+        <div class="meta-toolbar-spacer"></div>
+
+        <div class="meta-toolbar-item">
+          <span>ID:</span> <span>{{data.id}}</span>
+        </div>
+
+      </mat-toolbar>
+
+
+    <mat-card class="example-card">
+      <mat-card-content>
+
+        <h3>Välj ägarform <mat-icon matTooltip="Ange arbetsplatsens ägare. Krävs av eHälsomyndigheten">help</mat-icon></h3>
+
+
+        <mat-radio-group formControlName="agarform" class="col-2">
+          <mat-radio-button value="1">Landsting</mat-radio-button>
+          <mat-radio-button value="2">Kommun</mat-radio-button>
+          <mat-radio-button value="3">Statlig</mat-radio-button>
+          <mat-radio-button value="4">Privat, vårdavtal</mat-radio-button>
+          <mat-radio-button value="5">Privat, enl lag om läkarvårdsersättning</mat-radio-button>
+          <mat-radio-button value="6">Privat, utan offentlig finansiering</mat-radio-button>
+          <mat-radio-button value="7">Kommunförbund</mat-radio-button>
+          <mat-radio-button value="9">Övrigt</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-divider class="space-vertical" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'"></mat-divider>
+
+        <div class="checkbox-container" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+          <mat-checkbox align="end" formControlName="groupCode">Gruppkod</mat-checkbox>
+          <mat-icon matTooltip="Markeras om arbetsplatskoden är gemensam för en särskild typ av förskrivare, t.ex. pensionärer">help</mat-icon>
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card [@slideIn]="apkForm.value.agarform === '1' || apkForm.value.agarform === '4' || apkForm.value.agarform === '5' ? 'in' :'out'" class="example-card">
+
+      <mat-card-content>
+        <h3>Sök efter enhet i KIV</h3>
+
+        <mat-input-container>
+          <input placeholder="Skriv in enhetsnamn / verksamhetsnamn etc" type="text" matInput [matAutocomplete]="unitAutocompleteRef"
+                 formControlName="unitSearch">
+        </mat-input-container>
+
+        <mat-autocomplete class="autocomplete" #unitAutocompleteRef="matAutocomplete" [displayWith]="displayUnitFn">
+          <mat-option class="mat-option" *ngFor="let unit of unitSearchResult" [value]="unit">
+            {{dnToFriendly(unit.dn)}}
+          </mat-option>
+        </mat-autocomplete>
+
+        <div *ngIf="apkForm.value.unitSearch?.dn">
+          <div><span class="label">Enhetens sökväg: </span><span style="word-break: break-all">{{dnToFriendly(apkForm.value.unitSearch?.dn)}}</span></div>
+
+          <h3>Uppgifter som kan fyllas i:</h3>
+          <p>
+            <span class="label">Postadress: </span><span>{{getAddressObject(apkForm.value.unitSearch).postadress}}</span><br/>
+            <span class="label">Postnummer: </span><span>{{getAddressObject(apkForm.value.unitSearch).postnr}}</span><br/>
+            <span class="label">Postort: </span><span>{{getAddressObject(apkForm.value.unitSearch).postort}}</span><br/>
+            <span class="label">Motpart: </span><span>{{displayAo3Fn(ao3IdMap.get(firstValue(apkForm.value?.unitSearch?.attributes?.vgrAo3kod)))}}</span><br/>
+            <span class="label">HSA-ID: </span><span>{{apkForm.value?.unitSearch?.attributes?.hsaIdentity}}</span><br/>
+            <span class="label">Benämning: </span><span>{{apkForm.value?.unitSearch?.attributes?.ou}}</span><br/>
+          </p>
+
+          <button type="button" mat-raised-button (click)="selectUnit(apkForm.value.unitSearch)">Fyll i uppgifter</button>
+          <span><mat-icon matTooltip="Fyller automatiskt i uppgifter från KIV i formuläret nedan">help</mat-icon></span>
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <div class="apk-validate">
+
+      <mat-card class="example-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Ange ekonomiska koder</h3>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-input-container>
+                <input placeholder="Motpart" type="text" matInput [matAutocomplete]="ao3AutocompleteRef"
+                       formControlName="ao3">
+
+                <mat-icon matTooltip="Ekonomisk kod på tre siffror. Fylls i automatiskt från KIV, annars välj i rullisten.">help</mat-icon>
+
+                <mat-error *ngIf="getErrors('ao3')?.required">
+                 {{messages.get('field-is-required')}}
+               </mat-error>
+               <mat-error *ngIf="getErrors('ao3')?.invalidName">
+                 {{messages.get('field-is-invalid-choose-from-dropdown-list')}}
+               </mat-error>
+
+              </mat-input-container>
+
+              <mat-autocomplete class="autocomplete" #ao3AutocompleteRef="matAutocomplete" [displayWith]="displayAo3Fn">
+                <mat-option class="mat-option" *ngFor="let option of filteredAo3Options | async" [value]="option">
+                  {{ option.ao3id}} - {{ option.foretagsnamn }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-input-container>
+                <input matInput placeholder="Ansvar" formControlName="ansvar" type="text"/>
+                <mat-icon matTooltip="Ekonomisk kod. Fylls i manuellt. Normalt fem siffror.">help</mat-icon>
+
+                <mat-error *ngIf="getErrors('ansvar')?.required">
+                  {{messages.get('field-is-required')}}
+                </mat-error>
+                <mat-error *ngIf="getErrors('ansvar')?.invalidName">
+                  {{messages.get('field-is-invalid')}}
+                </mat-error>
+              </mat-input-container>
+            </div>
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field" *ngIf="apkForm.value.agarform === '4' || apkForm.value.agarform === '5' || apkForm.value.agarform === '6'">
+              <mat-input-container>
+                <textarea matInput placeholder="Frivillig uppgift" formControlName="frivilligUppgift" rows="3"></textarea>
+                <mat-icon matTooltip="Förklaring...">help</mat-icon>
+              </mat-input-container>
+            </div>
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <div formGroupName="externfakturaGroup" ngClass="{{theForm.submitted ? 'submitted' : ''}}">
+                <div>
+                  <label class="field-label">Faktureras externt</label>
+
+                  <mat-radio-group formControlName="externfakturamodell">
+                      <mat-radio-button value="ovr">Ja</mat-radio-button>
+                      <mat-radio-button value="nej">Nej</mat-radio-button>
+                  </mat-radio-group>
+
+                  <mat-icon matTooltip="Skall alltid vara ”Nej” för landstingets egna arbetsplatser och normalt även för privata vårdgivare. Markera ”Ja” om förmånskostnaden enligt avtal ska faktureras aktuell arbetsplats.">help</mat-icon>
+                </div>
+              </div>
+
+              <div *ngIf="apkForm.value.externfakturaGroup.externfakturamodell === 'ovr'">
+
+                <mat-input-container>
+                  <input matInput placeholder="Vårdgivarkod" formControlName="externfaktura" type="text"/>
+                  <mat-icon matTooltip="Kod för arbetsplats som har avtal med VGR">help</mat-icon>
+                  <mat-error>{{messages.get('field-is-required')}}</mat-error>
+                </mat-input-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <div formGroupName="vgpvGroup" ngClass="{{theForm.submitted ? 'submitted' : ''}}">
+                <label class="field-label">VGPV</label>
+                <mat-radio-group formControlName="vgpv">
+                  <mat-radio-button value="true">Ja</mat-radio-button>
+                  <mat-radio-button value="false">Nej</mat-radio-button>
+                </mat-radio-group>
+
+                <mat-icon matTooltip="Markera ”Ja” om arbetsplatsen tillhör landstingets Vårdval">help</mat-icon>
+              </div>
+            </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="example-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Ange vårdadministrativa koder</h3>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-input-container>
+                <input placeholder="Vårdform" type="text" matInput
+                       [matAutocomplete]="vardformAutocompleteRef" formControlName="vardform">
+                <mat-icon matTooltip="Ange arbetsplatsens huvudinriktning. Krävs av eHälsomyndigheten.">help</mat-icon>
+
+                <mat-error *ngIf="getErrors('vardform')?.required">
+                  {{messages.get('field-is-required')}}
+                </mat-error>
+                <mat-error *ngIf="getErrors('vardform')?.invalidName">
+                  {{messages.get('field-is-invalid-choose-from-dropdown-list')}}
+                </mat-error>
+              </mat-input-container>
+
+              <mat-autocomplete class="autocomplete" #vardformAutocompleteRef="matAutocomplete"
+                               [displayWith]="displayVardformFn">
+                <mat-option class="mat-option" *ngFor="let option of filteredVardformOptions | async" [value]="option">
+                  {{ option.vardformid}} - {{ option.vardformtext }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-input-container>
+                <input placeholder="Medicinsk verksamhetskod" type="text" matInput
+                       [matAutocomplete]="verksamhetAutocompleteRef" formControlName="verksamhet" name="verksamhet">
+                <mat-icon matTooltip="Ange arbetsplatsens verksamhet. Krävs av eHälsomyndigheten.">help</mat-icon>
+
+                 <mat-error *ngIf="getErrors('verksamhet')?.required">
+                   {{messages.get('field-is-required')}}
+                 </mat-error>
+                 <mat-error *ngIf="getErrors('verksamhet')?.invalidName">
+                   {{messages.get('field-is-invalid-choose-from-dropdown-list')}}
+                 </mat-error>
+
+              </mat-input-container>
+
+              <mat-autocomplete class="autocomplete" #verksamhetAutocompleteRef="matAutocomplete"
+                               [displayWith]="displayVerksamhetFn">
+                <mat-option class="mat-option" *ngFor="let option of filteredVerksamhetOptions | async" [value]="option">
+                  {{ option.verksamhetid}} - {{ option.verksamhettext }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="example-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Välj Concise SumNivå</h3>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-form-field>
+                <mat-select #prodn1Select placeholder="Concise SumNivå 1" formControlName="prodn1" ngClass="{{theForm.submitted ? 'submitted' : ''}}">
+                  <mat-option *ngFor="let prodn1 of allProdn1s" [value]="prodn1">
+                    {{prodn1.kortnamn}}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="prodn1Select.errorState && getErrors('prodn1')?.required">
+                  {{messages.get('field-is-required')}}
+                </mat-error>
+
+                <mat-icon matTooltip="Välj grundnivå för Concise organisation i rullisten">help</mat-icon>
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-form-field>
+                <mat-select #prodn2Select placeholder="Concise SumNivå 2" formControlName="prodn2" ngClass="{{theForm.submitted ? 'submitted' : ''}}">
+                  <mat-option *ngFor="let prodn2 of prodn2Options" [value]="prodn2">
+                    {{prodn2.kortnamn}}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="prodn2Select.errorState && getErrors('prodn2')?.required">
+                  {{messages.get('field-is-required')}}
+                </mat-error>
+
+                <mat-icon matTooltip="Välj mellannivå för Concise organisation i rullisten">help</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-form-field>
+                <mat-select #prodn3Select placeholder="Concise SumNivå 3" formControlName="prodn3" ngClass="{{theForm.submitted ? 'submitted' : ''}}">
+                  <mat-option *ngFor="let prodn3 of prodn3Options" [value]="prodn3">
+                    {{prodn3.kortnamn}}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="prodn3Select.errorState && getErrors('prodn3')?.required">
+                  {{messages.get('field-is-required')}}
+                </mat-error>
+
+                <mat-icon matTooltip="Välj undernivå för Concise organisation i rullisten">help</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="example-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Ange kontaktuppgifter</h3>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-input-container>
+                <input placeholder="HSA-ID" matInput formControlName="hsaid" type="text"/>
+                <mat-icon matTooltip="Kan lämnas tomt, alternativt 26 tecken giltigt HSA-ID för enhet eller funktion. &quot;Saknas&quot; är också OK. ">help</mat-icon>
+
+                <mat-error>{{messages.get('field-is-invalid')}}</mat-error>
+              </mat-input-container>
+            </div>
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-input-container>
+                <input placeholder="Benämning/enhetsnamn"
+                  type="text" matInput formControlName="benamning" name="banamning">
+
+                  <mat-error>{{messages.get('field-is-required')}}</mat-error>
+              </mat-input-container>
+            </div>
+          </div>
+
+          <div class="apk-form-field-ctn">
+            <div class="apk-form-field">
+              <mat-input-container>
+                <input placeholder="Benämning/enhetsnamn kort version (max 35 tecken)"
+                  type="text" matInput formControlName="benamningKort" name="benamningKort" (keydown)="benamningKortKeyDown($event)" maxlength="35">
+                <mat-icon matTooltip="Visas i Concise. Förkorta på lämpligt sätt till max 35 tecken.">help</mat-icon>
+                <mat-error>{{messages.get('field-is-required')}}</mat-error>
+              </mat-input-container>
+            </div>
+          </div>
+
+          <div formGroupName="addressGroup">
+
+            <div class="apk-form-field-ctn">
+              <div class="apk-form-field">
+                <mat-input-container>
+                  <input placeholder="Adress" type="text" matInput formControlName="postadress">
+                  <mat-error>{{messages.get('field-is-required')}}</mat-error>
+                </mat-input-container>
+              </div>
+            </div>
+
+            <div class="apk-form-field-ctn">
+              <div class="apk-form-field">
+                <mat-input-container>
+                  <input placeholder="Postnummer" type="text" matInput formControlName="postnr">
+                  <mat-error>{{messages.get('field-is-required')}}</mat-error>
+                </mat-input-container>
+              </div>
+            </div>
+
+            <div class="apk-form-field-ctn">
+              <div class="apk-form-field">
+                <mat-input-container>
+                  <input placeholder="Postort" type="text" matInput formControlName="postort">
+                  <mat-error>{{messages.get('field-is-required')}}</mat-error>
+                </mat-input-container>
+              </div>
+            </div>
+
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="example-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Ange giltighetstid</h3>
+
+          <mat-input-container class="date">
+            <input #fromDatePickerInput placeholder="Giltig fr.o.m. (ÅÅÅÅ-MM-DD)" matInput [matDatepicker]="fromDatepicker"
+                   formControlName="fromDatum">
+            <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+
+            <mat-error>{{messages.get('field-is-invalid')}}</mat-error>
+          </mat-input-container>
+
+          <mat-datepicker #fromDatepicker></mat-datepicker>
+
+          <div class="checkbox-container">
+            <mat-checkbox align="end" formControlName="noTillDatum" #noTillDatumCheckbox>Giltig tills vidare</mat-checkbox>
+            <mat-icon matTooltip="Avmarkera och fyll i ”Giltig t.o.m.” om arbetsplatsen ska ha begränsad giltighet.">help</mat-icon>
+          </div>
+
+          <mat-input-container class="date">
+            <input #toDateInput placeholder="Giltig t.o.m. (ÅÅÅÅ-MM-DD)" matInput [matDatepicker]="toDatepicker"
+                   formControlName="tillDatum"/>
+            <mat-datepicker-toggle matSuffix [for]="toDatepicker" [disabled]="noTillDatumCheckbox.checked"></mat-datepicker-toggle>
+
+            <mat-error *ngIf="getErrors('tillDatum')?.required">
+              {{messages.get('field-is-required')}}
+            </mat-error>
+            <mat-error *ngIf="getErrors('tillDatum')?.toDateBeforeFromDate">
+              {{messages.get('till-datum-is-before-from-datum')}}
+            </mat-error>
+
+          </mat-input-container>
+          <mat-datepicker startView="year" #toDatepicker></mat-datepicker>
+
+        </mat-card-content>
+      </mat-card>
+
+
+      <mat-card class="example-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Ange övrig info</h3>
+
+          <mat-input-container>
+            <textarea placeholder="Anmärkning" matInput formControlName="anmarkning" rows="6"></textarea>
+          </mat-input-container>
+
+        </mat-card-content>
+
+      </mat-card>
+
+      <mat-card class="example-card" [@slideIn]="data.arbetsplatskodlan ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Enhetens arbetsplatskod</h3>
+
+          <p>{{ data.arbetsplatskodlan }} </p>
+
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="example-card" [@slideIn]="apkForm.value.agarform && !data.arbetsplatskodlan ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Generera arbetsplatskod</h3>
+
+          <div class="checkbox-container">
+            <mat-checkbox align="end" formControlName="generateAutomatically">Generera automatiskt</mat-checkbox>
+            <mat-icon matTooltip="Avmarkera om arbetsplatsen ska ha en specifik kod.">help</mat-icon>
+          </div>
+
+          <div [@slideIn]="!apkForm.value.generateAutomatically ? 'in' : 'out'">
+            <mat-input-container>
+              <input placeholder="Skriv in arbetsplatskoden manuellt. Börja med &quot;14&quot;." autocomplete="off" matInput formControlName="arbetsplatskodlan" />
+
+              <mat-error *ngIf="getErrors('arbetsplatskodlan')?.alreadyExists">
+                {{messages.get('code-already-exists')}}
+              </mat-error>
+              <mat-error *ngIf="getErrors('arbetsplatskodlan')?.invalidBeginning">
+                {{messages.get('invalid-beginning')}}
+              </mat-error>
+
+              <mat-error  *ngIf="getErrors('arbetsplatskodlan')?.required">
+                {{messages.get('field-is-required')}}
+              </mat-error>
+            </mat-input-container>
+
+            <div>
+              <span>Högsta befintliga arbetsplatskod med samma inledning:</span>
+              <span>{{highestBeginningWith}}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="example-card" [@slideIn]="data.arbetsplatskodlan ? 'in' : 'out'">
+        <mat-card-content>
+
+          <h3>Ersätts av</h3>
+
+          <mat-input-container>
+            <input placeholder="Arbetsplatskod som ersätter denna" type="text" matInput
+                   formControlName="ersattav">
+          </mat-input-container>
+
+          <div [@slideIn]="replacedBy ? 'in': 'out'">
+            <div><span class="label">Arbetsplatskod: </span><a routerLink="/apk/{{replacedBy?.id}}">{{replacedBy?.arbetsplatskodlan}}</a></div>
+
+            <p>
+              <span class="label">Benämning: </span><span>{{replacedBy?.benamning}}</span><br/>
+            </p>
+
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="example-card" *ngIf="($replaces | async)?.length > 0">
+        <mat-card-content>
+          <h3>Ersätter</h3>
+
+          <div *ngFor="let data of $replaces | async">
+            <a routerLink="/apk/{{data.id}}">{{data.arbetsplatskodlan}}</a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="example-card" *ngIf="hasArchivedDatas">
+        <mat-card-content>
+
+          <h3>Tidigare versioner</h3>
+
+          <p><a routerLink="/apk/{{data.id}}/archivedDatas">Se tidigare versioner</a> </p>
+
+        </mat-card-content>
+      </mat-card>
+
+      <div class="button-row">
+
+        <button type="submit"
+                [disabled]="apkForm.pristine" mat-raised-button class="btn btn-success">Spara
+        </button>
+
+        <button type="button"
+                [disabled]="apkForm.pristine" mat-raised-button class="btn btn-success" (click)="resetForm()">Återställ
+        </button>
+
+      </div>
+
+      <div *ngIf="saveMessage" class="alert alert-danger">{{saveMessage}}</div>
+
+      <div class="debug" *ngIf="getShowDebug()">
+
+        <br />
+        <hr />
+        <br />
+
+        <mat-card>
+          <mat-card-title>Debug - search results</mat-card-title>
+          <mat-card-content>
+            <pre>
+              {{unitSearchResult | json}}
+              {{data | json}}
+            </pre>
+            <!--<pre>dirty: {{ao3Control.dirty | json}}</pre>
+            <pre>invalid: {{ao3Control.invalid | json}}</pre>
+            <pre>pristine: {{ao3Control.pristine | json}}</pre>
+            <pre>status: {{ao3Control.status | json}}</pre>
+            <pre>touched: {{ao3Control.touched | json}}</pre>
+            <pre>untouched: {{ao3Control.untouched | json}}</pre>
+            <pre>value: {{ao3Control.value | json}}</pre>
+            <pre>errors: {{ao3Control.errors | json}}</pre>
+            <pre>valid: {{ao3Control.valid | json}}</pre>
+            -->
+            <!--<p>&nbsp;</p>-->
+            <!--<apkFormFormapkFormForm.checkValidity | json}}</pre>-->
+            <!--<pre>currentForm: {{currentForm | json}}</pre>-->
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-title>Debug info</mat-card-title>
+          <mat-card-content>
+            <pre>{{apkForm.value | json}}</pre>
+            <pre>{{apkForm.status}}</pre>
+            <pre>apkForm.status:</pre>
+            <pre>{{apkForm.controls}}</pre>
+            <pre>apkForm ao3 errors:</pre>
+            <pre>{{apkForm.get('ao3').errors | json}}</pre>
+            <pre>{{apkForm.status}}</pre>
+            <pre>{{apkForm.errors}}</pre>
+            <pre>{{apkForm.pristine}}</pre>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<ng-template #loading>
+  Läser in...
+</ng-template>

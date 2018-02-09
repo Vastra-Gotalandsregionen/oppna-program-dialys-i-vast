@@ -1,0 +1,58 @@
+<mat-toolbar class="action-toolbar">
+  <h1>
+    Motpart
+  </h1>
+  <div class="action-toolbar-spacer"></div>
+  <a class="action-toolbar-item" class="action-toolbar-item"routerLink="create" mat-fab matTooltip="Lägg till ny Motpart"><mat-icon>add</mat-icon></a>
+  <app-sidenav-toggle-button class="action-toolbar-item"></app-sidenav-toggle-button>
+</mat-toolbar>
+
+<p>
+  Redigerad motpartskod ersätts inte automatiskt. Varje arbetsplatskod måste redigeras mot den nya motpartskoden.
+</p>
+
+<mat-card>
+
+  <mat-card-content>
+
+    <table class="apk-table a03-table">
+      <thead>
+      <tr>
+        <th class="row-name">Namn</th>
+        <th class="row-contact-person">Kontaktperson</th>
+        <th class="row-company-number">Motpart</th>
+        <th class="row-company-number">Företagsnr</th>
+        <th class="row-status">Status</th>
+        <th class="row-menu"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ao3 of response?.content">
+        <td>{{ao3.foretagsnamn}}</td>
+        <td>{{ao3.kontaktperson}}</td>
+        <td>{{ao3.ao3id}}</td>
+        <td>{{ao3.foretagsnr}}</td>
+        <td>
+          <mat-icon matTooltip="Markerad som raderad" *ngIf="ao3.raderad">clear</mat-icon>
+        </td>
+        <td>
+          <a routerLink="{{ao3.id}}/edit" matTooltip="Redigera">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+
+  <mat-card-actions *ngIf="response">
+    <mat-toolbar class="paging-toolbar">
+      <div *ngIf="response" class="search-summary">
+        Visar sida {{response.number + 1}} av {{response.totalPages}}. Totalt antal: {{response.totalElements}}
+      </div>
+      <div class="paging-toolbar-spacer"></div>
+      <button (click)="previousPage()" mat-button [disabled]="response.first"><mat-icon>arrow_back</mat-icon> Föregående</button>
+      <button (click)="nextPage()" mat-button [disabled]="response.last">Nästa <mat-icon>arrow_forward</mat-icon></button>
+    </mat-toolbar>
+  </mat-card-actions>
+</mat-card>

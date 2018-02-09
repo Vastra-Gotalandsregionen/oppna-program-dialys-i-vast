@@ -1,0 +1,41 @@
+<!--<div #rootDiv *ngIf="content">-->
+<div #rootDiv >
+  <div *ngIf="content">
+  <form #theForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()"
+        novalidate>
+
+    <mat-card class="info-card">
+      <mat-card-content>
+        <div class="content-wrapper" [ngStyle]="{'max-height': height}" >
+          <div class="apk-content" [innerHTML]="content.content" *ngIf="!editingContent"></div>
+        </div>
+
+        <ckeditor
+          [readonly]="false"
+          formControlName="content"
+          *ngIf="editingContent">
+        </ckeditor>
+
+        <div class="fade-area" [ngStyle]="{'height': !editingContent && (offsetHeight==='auto' || (expandable && !expanded)) ? '60px': '0'}"></div>
+        <a class="toggle-expand" href="" *ngIf="!editingContent && expandable" (click)="toggleExpand(); false">{{expanded ? 'Visa mindre' : 'Visa mer'}}</a>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-toolbar class="edit-toolbar" *ngIf="admin && getShowContentEdit()">
+      <a href="#" class="edit-toolbar-item" matTooltip="Redigera" *ngIf="!editingContent" (click)="editContent(); false">
+        <mat-icon>edit</mat-icon>
+      </a>
+
+      <a href="#" class="edit-toolbar-item" matTooltip="Spara" *ngIf="editingContent" (click)="saveContent(); false">
+        <mat-icon>save</mat-icon>
+      </a>
+
+      <a href="#" class="edit-toolbar-item" *ngIf="editingContent" (click)="cancelContent(); false">
+        Avbryt
+      </a>
+    </mat-toolbar>
+
+  </form>
+  </div>
+
+</div>

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title="">Bekräfta</h1>
+
+<div class="confirm-dialog">
+
+    <div mat-dialog-content>{{data.text}}</div>
+
+    <div mat-dialog-actions>
+        <button mat-button class="btn btn-primary" (click)="dialogRef.close('confirm')" mat-raised-button>{{data.confirmButtonText}}</button>
+        <button mat-button class="btn btn-default" (click)="dialogRef.close('abort')">Avbryt</button>
+    </div>
+</div>

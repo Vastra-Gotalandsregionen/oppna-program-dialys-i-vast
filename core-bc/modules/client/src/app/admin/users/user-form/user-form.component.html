@@ -1,0 +1,46 @@
+<div *ngIf="userForm; else loading">
+
+  <form #formRef="ngForm" [formGroup]="userForm" (ngSubmit)="save()" novalidate autocomplete="off">
+    <mat-card>
+      <mat-card-content>
+
+        <mat-input-container>
+          <input id="userId" placeholder="VGR-ID" type="text" matInput formControlName="userId">
+          <mat-error *ngIf="getErrors('userId')?.alreadyExists">
+            VGR-ID:t är upptaget
+          </mat-error>
+        </mat-input-container>
+        <mat-input-container>
+          <input id="firstName" placeholder="Fornamn" type="text" matInput formControlName="firstName">
+        </mat-input-container>
+        <mat-input-container>
+          <input id="lastName" placeholder="Efternamn" type="text" matInput formControlName="lastName">
+        </mat-input-container>
+        <mat-input-container>
+          <input id="mail" placeholder="E-Post" type="text" matInput formControlName="mail">
+        </mat-input-container>
+
+        <div formGroupName="roleGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+          <label class="field-label">Behörighet</label>
+          <mat-radio-group formControlName="role">
+            <mat-radio-button value="ADMIN">ADMIN</mat-radio-button>
+            <mat-radio-button value="USER">USER</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="btn-container button-row">
+          <button mat-raised-button type="submit">Spara</button>
+        </div>
+
+        <div *ngIf="saveMessage" class="alert alert-danger">{{saveMessage}}</div>
+
+      </mat-card-content>
+    </mat-card>
+
+  </form>
+
+</div>
+
+<ng-template #loading>
+  Läser in...
+</ng-template>

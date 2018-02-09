@@ -1,0 +1,46 @@
+<mat-toolbar class="action-toolbar">
+  <h1>
+    Concise SumNivå 1
+  </h1>
+  <div class="action-toolbar-spacer"></div>
+  <a class="action-toolbar-item" routerLink="create" mat-fab matTooltip="Lägg till ny Concise SumNivå 1" *ngIf="admin">
+    <mat-icon>add</mat-icon>
+  </a>
+  <app-sidenav-toggle-button class="action-toolbar-item"></app-sidenav-toggle-button>
+</mat-toolbar>
+
+<p>
+  Redigera grundnivå för Concise organisation. Redigerat namn ersätter automatiskt tidigare namn i hela APK.
+</p>
+
+<mat-card>
+
+  <mat-card-content>
+
+    <table class="apk-table prod1-table">
+      <thead>
+      <tr>
+        <th class="row-short-name">Concise SumNivå 1</th>
+        <th class="row-status">Status</th>
+        <th class="row-menu"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let prodn1 of prodn1s$ | async">
+        <td>
+          <span matTooltip="{{prodn1.kortnamn?.length > 35 ? prodn1.kortnamn : null}}">{{prodn1.kortnamn | ellipsis:35}}</span>
+        </td>
+        <td>
+          <mat-icon matTooltip="Markerad som raderad" *ngIf="prodn1.raderad">clear</mat-icon>
+          <mat-icon matTooltip="Används inte i någon arbetsplatskod" *ngIf="orphanProdn1s.indexOf(prodn1.id) > -1">warning</mat-icon>
+        </td>
+        <td>
+          <a routerLink="{{prodn1.id}}/edit" matTooltip="Redigera">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+</mat-card>

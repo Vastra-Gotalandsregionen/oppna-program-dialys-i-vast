@@ -1,0 +1,59 @@
+<div *ngIf="links" >
+  <form #theForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()"
+        novalidate>
+
+    <div class="row" formArrayName="links">
+
+      <div *ngFor="let link of links.controls; let i=index" [formGroupName]="i">
+
+        <div class="col c4" *ngIf="(loggedIn) || (!loggedIn && !link.get('privateContent').value)">
+          <div class="col-inner">
+            <a [href]="link.get('url').value" class="link-box" *ngIf="!editingLink(i)">
+              <mat-icon class="link-box-icon" aria-hidden="true">file_download</mat-icon>
+
+              <span class="link-box-label">{{link.get('label').value}}</span>
+            </a>
+
+            <mat-card *ngIf="editingLink(i) && admin">
+              <mat-card-content>
+                <mat-input-container>
+                  <input placeholder="Namn" matInput formControlName="label"/>
+                </mat-input-container>
+
+                <mat-input-container>
+                  <input placeholder="URL" matInput formControlName="url"/>
+                </mat-input-container>
+
+                <div class="checkbox-container">
+                  <mat-checkbox align="end" formControlName="privateContent">Visa bara för inloggade</mat-checkbox>
+                </div>
+
+
+              </mat-card-content>
+            </mat-card>
+
+            <mat-toolbar class="edit-toolbar" *ngIf="admin && getShowContentEdit()">
+              <a href="#" class="edit-toolbar-item" matTooltip="Redigera" *ngIf="!editingLink(i)"
+                 (click)="editLink(i); false">
+                <mat-icon>edit</mat-icon>
+              </a>
+
+              <a href="#" class="edit-toolbar-item" matTooltip="Spara" *ngIf="editingLink(i)" (click)="saveLink(i); false">
+                <mat-icon>save</mat-icon>
+              </a>
+
+              <a href="#" class="edit-toolbar-item" *ngIf="editingLink(i)" (click)="cancelLink(i); false">
+                Avbryt
+              </a>
+            </mat-toolbar>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </form>
+</div>

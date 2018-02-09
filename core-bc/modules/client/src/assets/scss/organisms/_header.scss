@@ -1,0 +1,90 @@
+.header {
+  background: $vgr-blue;
+  color: #fff;
+
+  .logo {
+    margin: 0 auto;
+    width: 500px;
+  }
+
+  .mat-toolbar {
+    background: transparent;
+    color: #fff;
+    font-size: 1.0em;
+    font-weight: normal;
+  }
+
+  .menu-toggle {
+    background: transparent;
+    color: #fff;
+    box-shadow: none;
+    @include border-radius(0);
+  }
+
+  .header-toolbar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .header-controls {
+
+    .user-avatar {
+      height: 32px;
+      width: 32px;
+    }
+
+    .header-control-item {
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+
+      button {
+        text-transform: none;
+
+        &.on {
+          border: 1px solid white;
+        }
+
+      }
+
+    }
+
+  }
+
+  .header-top-bar {
+    background: darken($vgr-blue, 10);
+    background: $vgr-blue;
+    padding: 10px 0;
+    //padding-bottom: 20px;
+
+    @include small {
+      background-image: url(assets/images/dekorelement.svg);
+      background-repeat: no-repeat;
+      background-size: 910px;
+      background-position: center 0;
+    }
+
+    @include medium {
+      //background-size: 112%;
+      background-size: 1200px;
+      background-position: center -20px;
+    }
+
+    @include large {
+      background-size: 1400px;
+      background-position: center -50px;
+    }
+
+    @include xlarge {
+      background-size: 1700px;
+      background-position: center -100px;
+    }
+
+
+  }
+
+  .header-menu-bar {
+    background: $vgr-blue-dark;
+  }
+
+
+}

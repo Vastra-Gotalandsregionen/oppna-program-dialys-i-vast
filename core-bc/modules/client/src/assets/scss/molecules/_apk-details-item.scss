@@ -1,0 +1,40 @@
+.apk-details-item {
+
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  margin: 12px 0;
+  padding: 0 0 12px 0;
+
+  // Clearfix
+  &:after {
+      content:" ";
+      display:table;
+      clear:both;
+  }
+
+  &:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .apk-details-item-label {
+    box-sizing: border-box;
+    color: #999;
+    float: left;
+    margin-right: 10px;
+    width: 20%;
+    word-break: break-all;
+  }
+
+  .apk-details-item-data {
+    float: left;
+    width: 79%;
+  }
+
+}

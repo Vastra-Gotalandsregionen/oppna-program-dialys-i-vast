@@ -1,0 +1,23 @@
+.sort-button,
+.sort-button.mat-button {
+  font-size: 100%;
+  font-weight: bold;
+  padding: 0;
+  text-decoration: none;
+
+  @include border-radius(0);
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.sort-field {
+    &.desc {
+      .mat-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+
+}

@@ -1,0 +1,50 @@
+.search-summary {
+  //background: #eee;
+  font-size: 0.9em;
+  text-align: right;
+}
+
+a.active {
+  font-weight: bold;
+}
+
+.example-card {
+  //width: 400px;
+  margin-bottom: 24px;
+}
+
+.example-card {
+  overflow: hidden;
+}
+
+.mat-sidenav-content {
+  padding: 12px;
+}
+
+.mat-sidenav {
+  border-right: 1px solid #dedede;
+}
+
+div.mat-autocomplete-panel {
+  max-width: none;
+}
+
+
+table {
+  td, th {
+    padding-right: 8px;
+    text-align: left;
+  }
+
+  thead {
+
+    th {
+      border-bottom: 1px solid #ddd;
+    }
+  }
+
+}
+
+.mat-card-actions {
+  border-top: 1px solid #ddd;
+}
