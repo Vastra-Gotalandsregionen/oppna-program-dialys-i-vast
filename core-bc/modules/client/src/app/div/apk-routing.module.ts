@@ -1,4 +1,4 @@
-import {ApkComponent} from './patients/apk.component';
+import {ApkComponent} from './patients/patients.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ApkDetailComponent} from './apk-detail/apk-detail.component';

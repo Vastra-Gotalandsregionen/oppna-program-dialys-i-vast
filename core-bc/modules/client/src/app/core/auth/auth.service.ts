@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {JwtHelper} from 'angular2-jwt/angular2-jwt';
-import {Patient} from '../../model/data';
+import {Patient} from '../../model/patient';
 import {Router} from '@angular/router';
 import {Http} from '@angular/http';
 import {Observable} from "rxjs/Observable";

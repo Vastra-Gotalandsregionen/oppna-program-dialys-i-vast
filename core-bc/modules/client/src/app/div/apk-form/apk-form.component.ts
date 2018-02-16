@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Patient} from '../../model/data';
+import {Patient} from '../../model/patient';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {RequestOptions, Headers, Response} from '@angular/http';
 import {Ao3} from '../../model/ao3';

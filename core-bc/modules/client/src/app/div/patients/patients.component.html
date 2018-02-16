@@ -13,12 +13,12 @@
     <mat-toolbar class="action-toolbar">
 
       <mat-input-container class="action-toolbar-item" (keydown)="$event.stopPropagation();">
-        <input matInput placeholder="Skriv in arbetsplatskod, benämning, datum med mera för att filtrera listan nedan..." [formControl]="stateCtrl" [(ngModel)]="query">
+        <input matInput placeholder="Skriv in personnummer eller för/efter-namn för att filtrera listan nedan." [formControl]="stateCtrl" [(ngModel)]="query">
       </mat-input-container>
 
-      <mat-checkbox class="action-toolbar-item" [formControl]="onlyMyDatasCtrl" [(ngModel)]="onlyMyDatas" *ngIf="loggedIn">Bara <span class="tooltip-text" matTooltip="{{usersProdn1sString$ | async}}">mina dialys-i-vast</span></mat-checkbox>
+      <mat-checkbox class="action-toolbar-item" [formControl]="onlyMyDatasCtrl" [(ngModel)]="onlyMyDatas" *ngIf="loggedIn">Bara <span class="tooltip-text" matTooltip="{{usersProdn1sString$ | async}}">mina patienter</span></mat-checkbox>
 
-      <mat-checkbox class="action-toolbar-item" [formControl]="onlyActiveDatasCtrl" [(ngModel)]="onlyActiveDatas">Bara aktiva dialys-i-vast</mat-checkbox>
+      <mat-checkbox class="action-toolbar-item" [formControl]="onlyActiveDatasCtrl" [(ngModel)]="onlyActiveDatas">Med PD-rekvisition som snart går ut</mat-checkbox>
 
       <div class="action-toolbar-spacer"></div>
 

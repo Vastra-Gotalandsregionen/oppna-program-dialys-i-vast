@@ -2,7 +2,7 @@ import {FormControl} from '@angular/forms';
 import {Location} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {RequestOptions, URLSearchParams, Headers, Response} from '@angular/http';
-import {Patient} from '../../model/data';
+import {Patient} from '../../model/patient';
 import {RestResponse} from '../../model/rest-response';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
@@ -16,8 +16,8 @@ import {HostListener} from "@angular/core";
 
 @Component({
   selector: 'app-apk',
-  templateUrl: './apk.component.html',
-  styleUrls: ['./apk.component.css']
+  templateUrl: './patients.component.html',
+  styleUrls: ['./patients.component.css']
 })
 export class ApkComponent extends ApkBase implements OnInit {
 
