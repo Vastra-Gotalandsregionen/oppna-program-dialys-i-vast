@@ -1,7 +1,7 @@
 import {HomeComponent} from './home/home.component';
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {UserLoggedInGuard} from "./apk/guard/user-logged-in.guard";
+import {UserLoggedInGuard} from "./div/guard/user-logged-in.guard";
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
       },
       {
         path: 'apk',
-        loadChildren: './apk/apk.module#ApkModule',
+        loadChildren: './div/apk.module#ApkModule',
         canActivate: [UserLoggedInGuard],
       },
       {

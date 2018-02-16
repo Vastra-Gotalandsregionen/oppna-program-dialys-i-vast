@@ -8,7 +8,7 @@ import {HomeComponent} from './home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core/core.module';
-import {UserLoggedInGuard} from "./apk/guard/user-logged-in.guard";
+import {UserLoggedInGuard} from "./div/guard/user-logged-in.guard";
 
 @NgModule({
   declarations: [
