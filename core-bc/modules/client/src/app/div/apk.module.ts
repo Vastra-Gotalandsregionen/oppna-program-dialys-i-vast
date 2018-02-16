@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {ApkComponent} from './apk/apk.component';
+import {ApkComponent} from './patients/apk.component';
 import {ApkDetailComponent} from './apk-detail/apk-detail.component';
 import {ApkEditComponent} from './apk-edit/apk-edit.component';
 import {ApkCreateComponent} from './apk-create/apk-create.component';
