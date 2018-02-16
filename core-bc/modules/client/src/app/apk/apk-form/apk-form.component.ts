@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Data} from '../../model/data';
+import {Patient} from '../../model/data';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {RequestOptions, Headers, Response} from '@angular/http';
 import {Ao3} from '../../model/ao3';
@@ -40,9 +40,9 @@ export class ApkFormComponent extends ApkBase implements OnInit {
 
   apkForm: FormGroup;
 
-  data: Data;
-  replacedBy: Data;
-  $replaces: Observable<Data[]>;
+  data: Patient;
+  replacedBy: Patient;
+  $replaces: Observable<Patient[]>;
   unitSearchResult: UnitSearchResult[];
   highestBeginningWith: string;
 
@@ -83,7 +83,7 @@ export class ApkFormComponent extends ApkBase implements OnInit {
 
   ngOnInit() {
 
-    const defaultData = new Data();
+    const defaultData = new Patient();
 
     // Messages:
     this.messages = new Map<string, string>();
@@ -95,16 +95,16 @@ export class ApkFormComponent extends ApkBase implements OnInit {
     this.messages.set('till-datum-is-before-from-datum', 'Giltig t.o.m. kan inte vara före Giltig fr.o.m.')
 
     // Default values:
-    defaultData.externfakturamodell = 'nej';
+    /*defaultData.externfakturamodell = 'nej';*/
 
-    let dataObservable: Observable<Data>;
+    /*let dataObservable: Observable<Patient>;
     if (this.dataId) {
       dataObservable = this.http.get('/api/data/' + this.dataId).map(response => response.json());
     } else {
       dataObservable = Observable.from([defaultData]);
-    }
+    }*/
 
-    const ao3Observable = this.http.get('/api/ao3').map(response => response.json().content);
+    /*const ao3Observable = this.http.get('/api/ao3').map(response => response.json().content);
     const vardformObservable = this.http.get('/api/vardform').map(response => response.json().content);
     const verksamhetObservable = this.http.get('/api/verksamhet').map(response => response.json());
     const prodn1 = this.http.get('/api/prodn1').map(response => response.json());
@@ -115,7 +115,7 @@ export class ApkFormComponent extends ApkBase implements OnInit {
         const vardforms = result[1];
         const verksamhets = result[2];
 
-        const data = <Data> result[3];
+        const data = <Patient> result[3];
 
         let prodn1s = <Prodn1[]> result[4]; // These won't change as opposed to prodn2 and prodn3 which may change.
 
@@ -153,7 +153,7 @@ export class ApkFormComponent extends ApkBase implements OnInit {
 
         this.buildForm();
 
-      });
+      });*/
   }
 
   getShowDebug(): boolean {
@@ -186,6 +186,24 @@ export class ApkFormComponent extends ApkBase implements OnInit {
 
   private buildForm() {
     this.apkForm = this.formBuilder.group({
+      'adress': [this.data.adress],
+      'efternamn': [this.data.efternamn],
+      'epost': [this.data.epost],
+      'fornamn': [this.data.fornamn],
+      'id': [this.data.id],
+      'isDeleted': [this.data.isDeleted],
+      'mobil': [this.data.mobil],
+      'pas': [this.data.pas],
+      'pnr': [this.data.pnr],
+      'portkod': [this.data.portkod],
+      'postNr': [this.data.postNr],
+      'postOrt': [this.data.postOrt],
+      'samtycke': [this.data.samtycke],
+      'telefon': [this.data.telefon],
+      'utdelDag': [this.data.utdelDag],
+      'utdelText': [this.data.utdelText],
+      'utdelVecka': [this.data.utdelVecka]}
+      /*{
       'unitSearch': [],
       'arbetsplatskodlan': [{
         value: this.data.arbetsplatskodlan,
@@ -237,9 +255,9 @@ export class ApkFormComponent extends ApkBase implements OnInit {
       ],
       //}, Validators.compose([datePattern(), Validators.required])],
       'ersattav': [this.data.ersattav, []],
-    });
+    }*/);
 
-    this.apkForm.get('unitSearch').valueChanges
+    /*this.apkForm.get('unitSearch').valueChanges
       .filter(value => {
         const requiredLength = value && value.length >= 3;
         if (!requiredLength) {
@@ -256,10 +274,11 @@ export class ApkFormComponent extends ApkBase implements OnInit {
       .subscribe(
         result => this.unitSearchResult = result,
         error => console.log('error: ' + error)
-      );
+      );*/
 
 
     // Init ersattav
+/*
     this.apkForm.get('ersattav').valueChanges
       .startWith(this.data.ersattav)
       .filter(value => {
@@ -281,13 +300,16 @@ export class ApkFormComponent extends ApkBase implements OnInit {
           return null;
         }
       })
-      .subscribe((result: Data) => {
+      .subscribe((result: Patient) => {
           this.replacedBy = result;
         }
       );
+*/
 
+/*
     this.$replaces = this.http.get('/api/data/ersattav/' + this.data.arbetsplatskodlan)
       .map(response => response.json());
+*/
 
     this.apkForm.statusChanges.subscribe(value => {
       if (value === 'VALID') {
@@ -295,6 +317,7 @@ export class ApkFormComponent extends ApkBase implements OnInit {
       }
     });
 
+/*
     this.apkForm.get('noTillDatum').valueChanges
       .subscribe((checked: boolean) => {
         if (checked) {
@@ -303,7 +326,9 @@ export class ApkFormComponent extends ApkBase implements OnInit {
           this.apkForm.get('tillDatum').enable();
         }
       });
+*/
 
+/*
     this.apkForm.get('groupCode').valueChanges
       .subscribe((checked: boolean) => {
         if (checked) {
@@ -312,7 +337,9 @@ export class ApkFormComponent extends ApkBase implements OnInit {
           this.apkForm.get('addressGroup').enable();
         }
       });
+*/
 
+/*
     this.apkForm.get('agarform').valueChanges
       .subscribe((value: string) => {
         this.isPrivate = value === '4' || value === '5' || value === '6';
@@ -323,8 +350,9 @@ export class ApkFormComponent extends ApkBase implements OnInit {
           this.apkForm.get('frivilligUppgift').disable();
         }
       });
+*/
 
-    const benamning = this.apkForm.get('benamning');
+/*    const benamning = this.apkForm.get('benamning');
     const benamningKort = this.apkForm.get('benamningKort');
 
     this.benamningKortActivelyEdited = benamningKort.value && benamningKort.value.length > 0;
@@ -333,9 +361,9 @@ export class ApkFormComponent extends ApkBase implements OnInit {
       if (!value || value.length === 0) {
         this.benamningKortActivelyEdited = false;
       }
-    });
+    });*/
 
-    benamning.valueChanges
+    /*benamning.valueChanges
       .subscribe((value: string) => {
         if (!this.benamningKortActivelyEdited || benamningKort.value.length === 0) {
           if (value && value.length <= 35) {
@@ -345,21 +373,21 @@ export class ApkFormComponent extends ApkBase implements OnInit {
           }
         }
       });
-
-    this.initProdnControls(this.data.prodn3);
+*/
+    /*this.initProdnControls(this.data.prodn3);
 
     if (this.data.id) {
       this.http.getPage('/api/archivedData/' + this.data.id)
         .map(response => response.json())
-        .subscribe((archivedDatas: Data[]) => {
+        .subscribe((archivedDatas: Patient[]) => {
           this.hasArchivedDatas = archivedDatas.length > 0;
         });
-    }
+    }*/
 
-    this.initAo3FormControl();
+    /*this.initAo3FormControl();
     this.initExternFakturaModellControl();
     this.initVardformControl();
-    this.initVerksamhetControl();
+    this.initVerksamhetControl();*/
     this.initGenerateAutomaticallyControls();
 
     this.markAsPristineToWorkaroundIEIssue();
@@ -503,7 +531,7 @@ export class ApkFormComponent extends ApkBase implements OnInit {
   }
 
   private initProdnControls(prodn3: Prodn3) {
-    if (prodn3) {
+    /*if (prodn3) {
       // We assume the form is already built, so we don't need to fetch the prodn3 again.
 
       // Now we know prodn3. Based on that we want to find prodn2, prodn1 as well as options for prodn2 and prodn3.
@@ -525,7 +553,7 @@ export class ApkFormComponent extends ApkBase implements OnInit {
         });
     } else {
       this.listenToChangesToProdnx();
-    }
+    }*/
 
   }
 
@@ -577,7 +605,26 @@ export class ApkFormComponent extends ApkBase implements OnInit {
 
     const data = this.clone(this.data);
     const formModel = this.apkForm.value;
-    data.lankod = data.lankod || '14'; // Hard-coded
+
+    data.adress = formModel.adress;
+    data.efternamn = formModel.efternamn;
+    data.epost = formModel.epost;
+    data.fornamn = formModel.fornamn;
+    data.id = formModel.id;
+    data.isDeleted = formModel.isDeleted;
+    data.mobil = formModel.mobil;
+    data.pas = formModel.pas;
+    data.pnr = formModel.pnr;
+    data.portkod = formModel.portkod;
+    data.postNr = formModel.postNr;
+    data.postOrt = formModel.postOrt;
+    data.samtycke = formModel.samtycke;
+    data.telefon = formModel.telefon;
+    data.utdelDag = formModel.utdelDag;
+    data.utdelText = formModel.utdelText;
+    data.utdelVecka = formModel.utdelVecka;
+
+    /*data.lankod = data.lankod || '14'; // Hard-coded
     data.arbetsplatskodlan = data.arbetsplatskodlan || formModel.arbetsplatskodlan;
     data.agarform = formModel.agarform;
     data.groupCode = formModel.groupCode;
@@ -602,15 +649,15 @@ export class ApkFormComponent extends ApkBase implements OnInit {
     data.vgpv = formModel.vgpvGroup.vgpv;
     data.fromDatum = formModel.fromDatum && typeof formModel.fromDatum === 'object' ? Util.dateToString(formModel.fromDatum) : formModel.fromDatum;
     data.tillDatum = formModel.tillDatum && typeof formModel.tillDatum === 'object' ? Util.dateToString(formModel.tillDatum) : formModel.tillDatum;
-    data.ersattav = formModel.ersattav;
+    data.ersattav = formModel.ersattav;*/
 
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
 
-    this.http.put('/api/data', JSON.stringify(data), options)
+    this.http.put('/api/patient', JSON.stringify(data), options)
       .map(response => response.json())
       .subscribe(
-        (data: Data) => {
+        (data: Patient) => {
           this.data = data;
           this.buildForm();
           this.snackBar.open('Lyckades spara!', null, {duration: 3000});
@@ -620,8 +667,8 @@ export class ApkFormComponent extends ApkBase implements OnInit {
         });
   }
 
-  private clone(source: Data): Data {
-    let target = new Data();
+  private clone(source: Patient): Patient {
+    let target = new Patient();
     Object.assign(target, source);
     return target;
   }

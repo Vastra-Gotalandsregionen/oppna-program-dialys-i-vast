@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {JwtHelper} from 'angular2-jwt/angular2-jwt';
-import {Data} from '../../model/data';
+import {Patient} from '../../model/data';
 import {Router} from '@angular/router';
 import {Http} from '@angular/http';
 import {Observable} from "rxjs/Observable";
@@ -118,15 +118,15 @@ export class AuthService {
     return false;
   }
 
-  userHasDataEditPermission(data: Data) {
+  userHasDataEditPermission(data: Patient) {
     if (this.isAdmin()) {
       return true;
     }
 
     const token = this.getToken();
-    if (token && token.prodn1s) {
+    /*if (token && token.prodn1s) {
       return token.prodn1s.indexOf(data.prodn1.id) > -1;
-    }
+    }*/
     return false;
   }
 

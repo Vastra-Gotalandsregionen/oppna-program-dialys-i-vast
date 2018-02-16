@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Data} from '../../model/data';
+import {Patient} from '../../model/data';
 import {AuthService} from '../../core/auth/auth.service';
 import {ApkBase} from "../apk-base/apk-base";
 import {Observable} from 'rxjs/Observable';
@@ -17,10 +17,10 @@ export class ApkDetailComponent extends ApkBase implements OnInit {
   @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
 
   id: string;
-  data: Data;
-  $replacedBy: Observable<Data>;
-  $replaces: Observable<Data>;
-  archivedDatas: Data[] = [];
+  data: Patient;
+  $replacedBy: Observable<Patient>;
+  $replaces: Observable<Patient>;
+  archivedDatas: Patient[] = [];
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
@@ -33,28 +33,30 @@ export class ApkDetailComponent extends ApkBase implements OnInit {
       this.id = params.id;
 
       if (this.id) {
-        const $data = this.http.get('/api/data/' + this.id)
+        const $data = this.http.get('/api/patient/' + this.id)
           .map(response => response.json())
           .share();
 
-        $data.subscribe((data: Data) => {
+        $data.subscribe((data: Patient) => {
           this.data = data;
         });
 
-        this.$replacedBy = $data
-          .filter((data: Data) => !!data.ersattav)
-          .mergeMap((data: Data) => this.http.get('/api/data/arbetsplatskodlan/' + data.ersattav))
+/*        this.$replacedBy = $data
+          .filter((data: Patient) => !!data.ersattav)
+          .mergeMap((data: Patient) => this.http.get('/api/data/arbetsplatskodlan/' + data.ersattav))
           .map(response => response.json());
 
         this.$replaces = $data
-          .mergeMap((data: Data) => this.http.get('/api/data/ersattav/' + data.arbetsplatskodlan))
-          .map(response => response.json());
+          .mergeMap((data: Patient) => this.http.get('/api/data/ersattav/' + data.arbetsplatskodlan))
+          .map(response => response.json());*/
 
+/*
         this.http.getPage('/api/archivedData/' + this.id)
           .map(response => response.json())
-          .subscribe((archivedDatas: Data[]) => {
+          .subscribe((archivedDatas: Patient[]) => {
             this.archivedDatas = archivedDatas;
           });
+*/
 
       }
     });
@@ -64,7 +66,7 @@ export class ApkDetailComponent extends ApkBase implements OnInit {
     return this.id;
   }
 
-  userHasEditPermission(data: Data) {
+  userHasEditPermission(data: Patient) {
     return this.authService.userHasDataEditPermission(data);
   }
 }

@@ -2,7 +2,7 @@ import {FormControl} from '@angular/forms';
 import {Location} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {RequestOptions, URLSearchParams, Headers, Response} from '@angular/http';
-import {Data} from '../../model/data';
+import {Patient} from '../../model/data';
 import {RestResponse} from '../../model/rest-response';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
@@ -33,7 +33,7 @@ export class ApkComponent extends ApkBase implements OnInit {
   onlyMyDatas: boolean;
   location: Location;
 
-  response: RestResponse<Data>;
+  response: RestResponse<Patient>;
   sort: { field: string, ascending: boolean };
   usersProdn1sString$: Observable<string>;
 
@@ -104,13 +104,13 @@ export class ApkComponent extends ApkBase implements OnInit {
 
       });
 
-    if (this.authService.jwt) {
+    /*if (this.authService.jwt) {
       this.usersProdn1sString$ = this.http.get('/api/prodn1')
         .map(response => response.json())
         .map((prodn1: Prodn1[]) => prodn1.map(prodn1 => prodn1.kortnamn).join(', '));
     } else {
       this.usersProdn1sString$ = Observable.from('');
-    }
+    }*/
   }
 
   private updateState() {
@@ -145,6 +145,7 @@ export class ApkComponent extends ApkBase implements OnInit {
   }
 
   private handleResponse(response) {
+    console.log('handleResponse', response)
     this.response = response;
 
     this.totalPagesArr = new Array(0);
@@ -186,8 +187,8 @@ export class ApkComponent extends ApkBase implements OnInit {
 
     const requestOptions = new RequestOptions();
     requestOptions.params = params;
-
-    return this.http.get('/api/data', requestOptions).map(response => response.json());
+    console.log('reguestOptions: ', requestOptions);
+    return this.http.get('/api/patient/filter', requestOptions).map(response => response.json());
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -232,7 +233,7 @@ export class ApkComponent extends ApkBase implements OnInit {
     this.updateState();
   }
 
-  userHasEditPermission(data: Data) {
+  userHasEditPermission(data: Patient) {
     return this.authService.userHasDataEditPermission(data);
   }
 
@@ -244,7 +245,7 @@ export class ApkComponent extends ApkBase implements OnInit {
     return this.authService.isAdmin();
   }
 
-  // getStatus(data: Data) {
+  // getStatus(data: Patient) {
   //
   //   const tillDatum = data.tillDatum;
   //
@@ -263,7 +264,7 @@ export class ApkComponent extends ApkBase implements OnInit {
   //
   // }
 
-  confirmDelete(data: Data) {
+  confirmDelete(data: Patient) {
     let dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         text: 'Är du säker att du vill ta bort vald arbetsplatskod?',

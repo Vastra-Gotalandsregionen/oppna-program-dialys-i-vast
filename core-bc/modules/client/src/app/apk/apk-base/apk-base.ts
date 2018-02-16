@@ -1,13 +1,13 @@
 import {Util} from "../../core/util/util";
-import {Data} from '../../model/data';
+import {Patient} from '../../model/data';
 
 export class ApkBase {
 
   constructor() {}
 
-  getStatus(data: Data) {
+  getStatus(data: Patient) {
 
-    const tillDatum = data.tillDatum;
+    /*const tillDatum = data.tillDatum;
 
     if (!tillDatum) {
       // No value means "until further notice".
@@ -20,8 +20,9 @@ export class ApkBase {
       return 'closed'
     } else {
       return 'valid';
-    }
+    }*/
 
+    return 'valid';
   }
 
 }

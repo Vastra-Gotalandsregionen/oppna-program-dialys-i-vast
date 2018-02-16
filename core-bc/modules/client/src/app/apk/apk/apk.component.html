@@ -30,33 +30,24 @@
     <table *ngIf="response" class="apk-table apks-table">
       <thead>
         <tr>
-          <th class="row-apk" matTooltip="Krävs på elektroniska och pappersrecept för läkemedelssubvention">
-            Arbetsplatskod
-          </th>
-          <th class="row-name" matTooltip="Arbetsplatsens namn">
-            <button class="sort-button" mat-button (click)="toggleSort('benamning')" [ngClass]="{'sort-field': sort?.field === 'benamning', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
-              Benämning <mat-icon>arrow_drop_up</mat-icon>
+          <th class="row-pnr">
+            <button class="sort-button" mat-button (click)="toggleSort('pnr')" [ngClass]="{'sort-field': sort?.field === 'pnr', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
+              Personnummer <mat-icon>arrow_drop_up</mat-icon>
             </button>
           </th>
-          <th class="row-prod1" matTooltip="Grundnivå för organisation i Concise statistiksystem">
-            Concise SumNivå 1
-          </th>
-          <th class="row-prod2" matTooltip="Mellannivå för organisation i Concise statistiksystem">
-            Concise SumNivå 2
-          </th>
-          <th class="row-prod3" matTooltip="Undernivå för organisation i Concise statistiksystem">
-            Concise SumNivå 3
-          </th>
-          <th class="row-ansvar" matTooltip="Ekonomisk kod">
-            Ansvar
-          </th>
-          <th class="row-to-date">
-            <button class="sort-button" mat-button (click)="toggleSort('tillDatum')" [ngClass]="{'sort-field': sort?.field === 'tillDatum', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
-              Giltig till <mat-icon>arrow_drop_up</mat-icon>
+          <th class="row-efternamn">
+            <button class="sort-button" mat-button (click)="toggleSort('efternamn')" [ngClass]="{'sort-field': sort?.field === 'efternamn', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
+              Efternamn <mat-icon>arrow_drop_up</mat-icon>
             </button>
           </th>
-          <th class="row-status" matTooltip="Händelser som påverkar arbetsplatskoden t.ex. giltighet">
-            Status
+          <th class="row-fornamn">
+            Förnamn
+          </th>
+          <th class="row-senaste-rekvisition" matTooltip="Undernivå för organisation i Concise statistiksystem">
+            Senaste rekvisition
+          </th>
+          <th class="row-senaste-bestallning" matTooltip="Ekonomisk kod">
+            Senaste beställning
           </th>
           <th class="row-menu" matTooltip="Klicka på prickarna för att visa flera val">Meny</th>
         </tr>
@@ -65,34 +56,32 @@
         <tr *ngFor="let data of response.content">
           <td>
             <a routerLink="{{data.id}}" routerLinkActive="active">
-              {{data.arbetsplatskodlan}}
+              {{data.pnr}}
             </a>
           </td>
           <td>
             <a routerLink="{{data.id}}" routerLinkActive="active">
-              <span matTooltip="{{data.benamning?.length > 35 ? data.benamning : null}}">{{data.benamning | ellipsis:35}}</span>
+              {{data.efternamn}}
             </a>
           </td>
           <td>
-            <span matTooltip="{{data.prodn1?.kortnamn?.length > 12 ? data.prodn1.kortnamn : null}}">{{data.prodn1?.kortnamn | ellipsis:12}}</span>
+            <a routerLink="{{data.id}}" routerLinkActive="active">
+              {{data.fornamn}}
+            </a>
           </td>
           <td>
-            <span matTooltip="{{data.prodn3?.prodn2?.kortnamn?.length > 12 ? data.prodn3?.prodn2?.kortnamn : null}}">{{data.prodn3?.prodn2?.kortnamn | ellipsis:12}}</span>
+            Senaste rek
           </td>
           <td>
-            <span matTooltip="{{data.prodn3?.kortnamn?.length > 12 ? data.prodn3?.kortnamn : null}}">{{data.prodn3?.kortnamn | ellipsis:12}}</span>
+            Senaste best
           </td>
-          <td>
-            {{data.ansvar}}
-          </td>
-          <td>
-            {{data.tillDatum ? data.tillDatum : 'Tills vidare'}}
-          </td>
+<!--
           <td>
             <mat-icon *ngIf="getStatus(data) === 'closed'" style="color: #ebb62f;" matTooltip="Giltighetsdatum passerat.">error</mat-icon>
             <mat-icon *ngIf="getStatus(data) === 'fullyClosed'" style="color: #d33;" matTooltip="Giltighetsdatum passerat för över ett år sedan.">error</mat-icon>
             <mat-icon *ngIf="data.hsaidMissingInKiv" style="color: #dd7900;" matTooltip="HSA-ID saknas i KIV">warning</mat-icon>
           </td>
+-->
           <td>
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>

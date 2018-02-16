@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {Data} from "../../model/data";
+import {Patient} from "../../model/data";
 import {ActivatedRoute} from '@angular/router';
 import {JwtHttp} from "../../core/jwt-http";
 
@@ -11,11 +11,11 @@ import {JwtHttp} from "../../core/jwt-http";
 export class ArchivedDatasComponent implements OnInit {
 
   // id: string;
-  data: Data;
-  /*newerData: Data;
-  olderData: Data;*/
-  archivedDatas: Data[];
-  currentPlusArchivedDatas: Data[];
+  data: Patient;
+  /*newerData: Patient;
+  olderData: Patient;*/
+  archivedDatas: Patient[];
+  currentPlusArchivedDatas: Patient[];
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp) { }
@@ -26,12 +26,12 @@ export class ArchivedDatasComponent implements OnInit {
 
     this.http.get('/api/data/' + id)
       .map(response => response.json())
-      .do((data: Data) => {
+      .do((data: Patient) => {
         this.data = data;
       })
-      .mergeMap((data: Data) => this.http.get('/api/archivedData/' + data.id))
+      .mergeMap((data: Patient) => this.http.get('/api/archivedData/' + data.id))
       .map(response => response.json())
-      .subscribe((archivedDatas: Data[]) => {
+      .subscribe((archivedDatas: Patient[]) => {
         this.currentPlusArchivedDatas = [this.data, ...archivedDatas];
       });
 
@@ -42,7 +42,7 @@ export class ArchivedDatasComponent implements OnInit {
       if (this.id) {
         this.http.get('/api/data/' + this.id)
           .map(response => response.json())
-          .subscribe((data: Data) => {
+          .subscribe((data: Patient) => {
             this.data = data;
           });
       }
