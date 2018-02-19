@@ -19,9 +19,9 @@ CREATE TABLE _user (
 CREATE TABLE ansvarig (
     id integer NOT NULL,
     mottagningid integer,
-    namn character varying(255)
+    namn character varying(255),
+    username character varying(255)
 );
-
 
 --
 -- TOC entry 185 (class 1259 OID 48240)
@@ -869,7 +869,7 @@ ALTER SEQUENCE ticket_id_seq OWNED BY ticket.id;
 --
 
 CREATE TABLE users (
-    id integer NOT NULL,
+    /*id integer NOT NULL,*/
     name character varying(255),
     password character varying(255) NOT NULL,
     typ character varying(255),
@@ -1107,15 +1107,6 @@ ALTER TABLE ONLY sysdiagrams ALTER COLUMN diagram_id SET DEFAULT nextval('sysdia
 --
 
 ALTER TABLE ONLY ticket ALTER COLUMN id SET DEFAULT nextval('ticket_id_seq'::regclass);
-
-
---
--- TOC entry 2174 (class 2604 OID 48453)
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
-
 
 --
 -- TOC entry 2175 (class 2604 OID 48464)
@@ -1374,7 +1365,7 @@ ALTER TABLE ONLY ticket
 --
 
 ALTER TABLE ONLY users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT users_pkey PRIMARY KEY (userName);
 
 
 --

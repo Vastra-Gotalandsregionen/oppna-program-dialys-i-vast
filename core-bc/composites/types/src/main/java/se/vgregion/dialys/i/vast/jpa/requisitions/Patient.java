@@ -291,5 +291,5 @@ public class Patient implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Patient[ id=" + id + " ]";
     }
-    
+
 }

@@ -24,6 +24,7 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.dropAllTablesInTargetDatabase();
         dc.createTablesInTarget();
         dc.addAllTuplesFromLegacyIntoTarget();
+        dc.connectUsersWithAnsvarig();
     }
 
 }

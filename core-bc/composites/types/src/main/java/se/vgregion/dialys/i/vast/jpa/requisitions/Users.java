@@ -5,42 +5,36 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "Users")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-    , @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id")
-    , @NamedQuery(name = "Users.findByUserName", query = "SELECT u FROM Users u WHERE u.userName = :userName")
-    , @NamedQuery(name = "Users.findByPassWord", query = "SELECT u FROM Users u WHERE u.passWord = :passWord")
-    , @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name")
-    , @NamedQuery(name = "Users.findByTyp", query = "SELECT u FROM Users u WHERE u.typ = :typ")})
+        @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
+        , @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.userName = :userName")
+        , @NamedQuery(name = "Users.findByUserName", query = "SELECT u FROM Users u WHERE u.userName = :userName")
+        , @NamedQuery(name = "Users.findByPassWord", query = "SELECT u FROM Users u WHERE u.passWord = :passWord")
+        , @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name")
+        , @NamedQuery(name = "Users.findByTyp", query = "SELECT u FROM Users u WHERE u.typ = :typ")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
+/*    @userName
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "userName")
+    private Integer userName;*/
+
+    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -58,25 +52,20 @@ public class Users implements Serializable {
     @Column(name = "Typ")
     private String typ;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Ansvarig> ansvariga;
+
+
     public Users() {
     }
 
-    public Users(Integer id) {
-        this.id = id;
+    public Users(String userName) {
+        this.userName = userName;
     }
 
-    public Users(Integer id, String userName, String passWord) {
-        this.id = id;
+    public Users(String userName, String passWord) {
         this.userName = userName;
         this.passWord = passWord;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getUserName() {
@@ -114,18 +103,18 @@ public class Users implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (userName != null ? userName.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // TODO: Warning - this method won't work in the case the userName fields are not set
         if (!(object instanceof Users)) {
             return false;
         }
         Users other = (Users) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.userName == null && other.userName != null) || (this.userName != null && !this.userName.equals(other.userName))) {
             return false;
         }
         return true;
@@ -133,7 +122,14 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "se.vgregion.dialys.i.vast.jpa.requisitions.Users[ id=" + id + " ]";
+        return "se.vgregion.dialys.i.vast.jpa.requisitions.Users[ userName=" + userName + " ]";
     }
-    
+
+    public List<Ansvarig> getAnsvariga() {
+        return ansvariga;
+    }
+
+    public void setAnsvariga(List<Ansvarig> ansvariga) {
+        this.ansvariga = ansvariga;
+    }
 }

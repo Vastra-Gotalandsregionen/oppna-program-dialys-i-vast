@@ -10,9 +10,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -54,7 +52,17 @@ public abstract class AbstractDatabaseCopy {
                         && !first.keySet().stream().map(k -> k.toLowerCase()).collect(Collectors.toSet()).contains("id")) {
                     insertWithBrandNewPrimaryKeys(table.getTableName(), items);
                 } else {
-                    insert(table.getTableName(), items);
+                    if ("users".equals(table.getTableName().toLowerCase())) {
+                        Map<String, Map<String, Object>> userName2user = new HashMap<>();
+                        for (Map<String, Object> item : items) {
+                            item.remove("ID");
+                            userName2user.put(item.get("UserName").toString(), item);
+                        }
+                        insert(table.getTableName(), new ArrayList<>(userName2user.values()));
+                    } else {
+                        insert(table.getTableName(), items);
+                    }
+
                 }
                 target.commit();
             }
@@ -207,6 +215,44 @@ public abstract class AbstractDatabaseCopy {
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void connectUsersWithAnsvarig() {
+        List<Map<String, Object>> users = target.query("select * from users", 0, 100_000);
+        List<Map<String, Object>> ansvariga = target.query("select * from ansvarig", 0, 100_000);
+        Map<String, Map<String, Object>> namedUsers = new HashMap<>();
+        for (Map<String, Object> user : users) {
+            namedUsers.put((String) user.get("name"), user);
+        }
+        for (Map<String, Object> ansvarig : ansvariga) {
+            Map<String, Object> user = namedUsers.get(ansvarig.get("namn"));
+            if (user != null) {
+                System.out.println("Sets user responsibility:s user-name for " + user.get("name"));
+                target.update("update ansvarig set username = ? where namn = ?", user.get("username"), user.get("name"));
+            }
+        }
+        target.commit();
+    }
+
+    public static void main(String[] args) throws IOException {
+        ConnectionExt source = getSourceConnection();
+        List<Map<String, Object>> items = source.query(
+                "select * from (select username, count(*) as c from users group by username) t where t.c > 1",
+                0,
+                100
+        );
+        for (Map<String, Object> item : items) {
+            System.out.println(item);
+            List<Map<String, Object>> doublets = source.query(
+                    "select * from users where username = ?",
+                    0,
+                    100,
+                    item.get("username")
+            );
+            for (Map<String, Object> doublet : doublets) {
+                System.out.println(" " + doublet);
+            }
         }
     }
 

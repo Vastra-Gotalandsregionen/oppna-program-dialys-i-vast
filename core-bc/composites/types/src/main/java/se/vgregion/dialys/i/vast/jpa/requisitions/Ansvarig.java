@@ -5,44 +5,45 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "Ansvarig")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ansvarig.findAll", query = "SELECT a FROM Ansvarig a")
-    , @NamedQuery(name = "Ansvarig.findById", query = "SELECT a FROM Ansvarig a WHERE a.id = :id")
-    , @NamedQuery(name = "Ansvarig.findByNamn", query = "SELECT a FROM Ansvarig a WHERE a.namn = :namn")
-    , @NamedQuery(name = "Ansvarig.findByMottagningID", query = "SELECT a FROM Ansvarig a WHERE a.mottagningID = :mottagningID")})
+        @NamedQuery(name = "Ansvarig.findAll", query = "SELECT a FROM Ansvarig a")
+        , @NamedQuery(name = "Ansvarig.findById", query = "SELECT a FROM Ansvarig a WHERE a.id = :id")
+        , @NamedQuery(name = "Ansvarig.findByNamn", query = "SELECT a FROM Ansvarig a WHERE a.namn = :namn")
+        , @NamedQuery(name = "Ansvarig.findByMottagningID", query = "SELECT a FROM Ansvarig a WHERE a.mottagningID = :mottagningID")})
 public class Ansvarig implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+
     @Size(max = 50)
     @Column(name = "Namn")
     private String namn;
+
     @Column(name = "MottagningID")
     private Integer mottagningID;
+
+    // @Column(name = "userName", insert="false", update="false") private String userName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userName", referencedColumnName = "userName", foreignKey = @ForeignKey(name = "fk_ansvarig_users"))
+    private Users user;
+
 
     public Ansvarig() {
     }
@@ -99,5 +100,20 @@ public class Ansvarig implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Ansvarig[ id=" + id + " ]";
     }
-    
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    /*public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }*/
 }
