@@ -16,13 +16,16 @@ export class UserFormComponent implements OnInit {
 
   saveMessage: string;
 
-  @Input('userId') userId;
+  @Input('userName') userName;
 
-  @Input('firstName') firstName;
+  @Input('name') name;
 
-  @Input('lastName') lastName;
+  /*@Input('passWord') passWord;
 
-  @Input('mail') mail;
+  @Input('typ') typ;*/
+
+  /*@Input('lastName') lastName;
+  @Input('mail') mail;*/
 
   userForm: FormGroup;
 
@@ -36,11 +39,11 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('userId: ' + this.userId);
+    console.log('userName: ' + this.userName);
 
-    if (this.userId) {
-      console.log('found: ' + this.userId);
-      const user$ = this.http.get('/api/user/' + this.userId)
+    if (this.userName) {
+      console.log('found: ' + this.userName);
+      const user$ = this.http.get('/api/user/' + this.userName)
         .map<Response, User>(response => response.json());
 
       Observable.forkJoin([user$])
@@ -50,9 +53,10 @@ export class UserFormComponent implements OnInit {
           this.buildForm();
         });
     } else {
-      console.log('did not find: ' + this.userId);
+      console.log('did not find: ' + this.userName);
       this.user = new User();
-      this.user.role = 'USER';
+      //this.user.role = 'USER';
+      this.user.typ = 'PD';
       this.buildForm();
     }
   }
@@ -60,16 +64,21 @@ export class UserFormComponent implements OnInit {
   private buildForm() {
 
     this.userForm = this.formBuilder.group({
-      'userId': [{value: this.user.id, disabled: false}, [Validators.required]],
-      'firstName': [{value: this.user.firstName, disabled: false}, []],
-      'lastName': [{value: this.user.lastName, disabled: false}, []],
-      'mail': [{value: this.user.mail, disabled: false}, []],
-      'roleGroup': this.formBuilder.group({
+      'userName': [{value: this.user.userName, disabled: false}, [Validators.required]],
+      'name': [{value: this.user.name, disabled: false}, []],
+      'passWord': [{value: this.user.passWord, disabled: false}, [Validators.required]],
+      'typ': [{value: this.user.typ, disabled: false}, []],
+      /*'lastName': [{value: this.user.lastName, disabled: false}, []],
+      'mail': [{value: this.user.mail, disabled: false}, []],*/
+      /*'roleGroup': this.formBuilder.group({
         'role': [{value: this.user.role, disabled: false}, [Validators.required]]
+      }),*/
+      'typGroup': this.formBuilder.group({
+        'typ': [{value: this.user.typ, disabled: false}, [Validators.required]]
       })
     });
 
-    let userIdField = this.userForm.get('userId');
+    let userIdField = this.userForm.get('userName');
 
     userIdField.valueChanges
       .subscribe(value => {
@@ -90,13 +99,15 @@ export class UserFormComponent implements OnInit {
       return;
     }
 
-    this.user.id = this.userForm.get('userId').value;
-    this.user.firstName = this.userForm.get('firstName').value;
-    this.user.lastName = this.userForm.get('lastName').value;
-    this.user.mail = this.userForm.get('mail').value;
+    this.user.userName = this.userForm.get('userName').value;
+    this.user.name = this.userForm.get('name').value;
+    this.user.passWord = this.userForm.get('passWord').value;
+    console.log("passWord", this.user.passWord);
 
-    this.user.role = this.userForm.get('roleGroup').get('role').value;
-    this.user.inactivated = this.user.inactivated;
+    this.user.typ = this.userForm.get('typGroup').get('typ').value;
+
+    /*this.user.role = this.userForm.get('roleGroup').get('role').value;
+    this.user.inactivated = this.user.inactivated;*/
 
     this.http.put('/api/user', this.user)
       .subscribe(result => {
@@ -111,7 +122,7 @@ export class UserFormComponent implements OnInit {
 
   validateUserId(control: AbstractControl): Observable<{ [key: string]: any }> {
     let value = control.value;
-    const newUser = this.user.id !== value;
+    const newUser = this.user.userName !== value;
 
     if (value && newUser) {
       return this.http.get('/api/user/' + value)

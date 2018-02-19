@@ -37,7 +37,7 @@
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.RolesPages</class>
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Sysdiagrams</class>
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Ticket</class>
-		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Users</class>
+		<class>se.vgregion.dialys.i.vast.jpa.requisitions.User</class>
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.UsersRoles</class>
 	</persistence-unit>
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
+import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.repository.PatientRepository;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
@@ -19,9 +20,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/patient")
@@ -113,7 +112,23 @@ public class PatientController {
             System.out.println(pd.getName() + ": " + pd.getPropertyType().getSimpleName().toLowerCase() + ";");
         }*/
         //makeForumBuilderPropertyMapping(Patient.class, "data");
-        makeCopyDataCode(Patient.class, "formModel", "data");
+        //makeCopyDataCode(Patient.class, "formModel", "data");
+        makeTypeScriptVersion(User.class);
+    }
+
+    public static void makeTypeScriptVersion(Class ofThat) throws IntrospectionException {
+        BeanInfo bi = Introspector.getBeanInfo(ofThat);
+        PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+        for (PropertyDescriptor pd : pds) {
+            if (pd.getName().equals("class")) continue;
+            System.out.println(pd.getName() + ": "
+                    +  (isClassCollection(pd.getPropertyType()) ? "Array" :
+                    pd.getPropertyType().getSimpleName().toLowerCase()) + ";");
+        }
+    }
+
+    public static boolean isClassCollection(Class c) {
+        return Collection.class.isAssignableFrom(c) /*|| Map.class.isAssignableFrom(c)*/;
     }
 
     public static void makeForumBuilderPropertyMapping(Class<?> forThatType, String withBeanName) throws IntrospectionException {
@@ -121,6 +136,7 @@ public class PatientController {
         PropertyDescriptor[] pds = bi.getPropertyDescriptors();
         // 'agarform': [this.data.agarform]
         for (PropertyDescriptor pd : pds) {
+            if (pd.getName().equals("class")) continue;
             System.out.println("'"+pd.getName() + "': [this." + withBeanName + "." + pd.getName() + "],");
         }
     }
@@ -130,6 +146,7 @@ public class PatientController {
         PropertyDescriptor[] pds = bi.getPropertyDescriptors();
         // 'agarform': [this.data.agarform]
         for (PropertyDescriptor pd : pds) {
+            if (pd.getName().equals("class")) continue;
             System.out.println(toVarName + "." + pd.getName() + " = " + fromVarName + "." + pd.getName() + ";");
         }
     }

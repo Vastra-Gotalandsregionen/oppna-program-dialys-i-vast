@@ -46,7 +46,7 @@ public class Ansvarig implements Serializable {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userName", referencedColumnName = "userName", foreignKey = @ForeignKey(name = "fk_ansvarig_users"))
-    private Users user;
+    private User user;
 
     @JsonIgnore
     @OneToMany(mappedBy = "ansvarig", fetch = FetchType.LAZY)
@@ -109,11 +109,11 @@ public class Ansvarig implements Serializable {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Ansvarig[ id=" + id + " ]";
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -49,7 +49,7 @@ export class UsersListComponent implements OnInit {
 */
   confirmInactivateTODO(user: User) {
     user.inactivated = true;
-    this.http.delete('/api/user/' + user.id)
+    this.http.delete('/api/user/' + user.userName)
       .subscribe(response => {
         this.updateUsers();
       });
@@ -77,7 +77,7 @@ export class UsersListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'confirm') {
-        this.http.delete('/api/user/' + user.id)
+        this.http.delete('/api/user/' + user.userName)
           .subscribe(response => {
             console.log(response);
             this.updateUsers();

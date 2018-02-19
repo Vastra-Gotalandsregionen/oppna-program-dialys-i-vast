@@ -9,14 +9,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class UserEditComponent implements OnInit {
 
-  userId: string;
+  userName: string;
 
   constructor(protected route: ActivatedRoute,
               protected http: Http) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.userId = params.userId;
+      this.userName = params.userName;
     });
   }
 

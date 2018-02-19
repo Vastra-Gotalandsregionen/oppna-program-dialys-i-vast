@@ -5,28 +5,42 @@
       <mat-card-content>
 
         <mat-input-container>
-          <input id="userId" placeholder="VGR-ID" type="text" matInput formControlName="userId">
-          <mat-error *ngIf="getErrors('userId')?.alreadyExists">
-            VGR-ID:t är upptaget
+          <input id="userName" placeholder="Användarnamn" type="text" matInput formControlName="userName">
+          <mat-error *ngIf="getErrors('userName')?.alreadyExists">
+            Användarnamnet är upptaget
           </mat-error>
         </mat-input-container>
         <mat-input-container>
-          <input id="firstName" placeholder="Fornamn" type="text" matInput formControlName="firstName">
+          <input id="name" placeholder="Namn" type="text" matInput formControlName="name">
         </mat-input-container>
         <mat-input-container>
+          <input id="passWord" placeholder="Lösenord" type="text" matInput formControlName="passWord">
+        </mat-input-container>
+        <!--<mat-input-container>
           <input id="lastName" placeholder="Efternamn" type="text" matInput formControlName="lastName">
-        </mat-input-container>
-        <mat-input-container>
+        </mat-input-container>-->
+        <!--<mat-input-container>
           <input id="mail" placeholder="E-Post" type="text" matInput formControlName="mail">
-        </mat-input-container>
+        </mat-input-container>-->
 
-        <div formGroupName="roleGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+        <!--<div formGroupName="roleGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
           <label class="field-label">Behörighet</label>
           <mat-radio-group formControlName="role">
             <mat-radio-button value="ADMIN">ADMIN</mat-radio-button>
             <mat-radio-button value="USER">USER</mat-radio-button>
           </mat-radio-group>
+        </div>-->
+
+        <div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+          <label class="field-label">Typ</label>
+          <mat-radio-group formControlName="typ">
+            <mat-radio-button value="PD">PD</mat-radio-button>
+            <mat-radio-button value="La">La</mat-radio-button>
+            <mat-radio-button value="HD">HD</mat-radio-button>
+            <mat-radio-button value="LA">LA</mat-radio-button>
+          </mat-radio-group>
         </div>
+
 
         <div class="btn-container button-row">
           <button mat-raised-button type="submit">Spara</button>

@@ -19,20 +19,15 @@ import java.util.List;
 @Table(name = "Users")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-        , @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.userName = :userName")
-        , @NamedQuery(name = "Users.findByUserName", query = "SELECT u FROM Users u WHERE u.userName = :userName")
-        , @NamedQuery(name = "Users.findByPassWord", query = "SELECT u FROM Users u WHERE u.passWord = :passWord")
-        , @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name")
-        , @NamedQuery(name = "Users.findByTyp", query = "SELECT u FROM Users u WHERE u.typ = :typ")})
-public class Users implements Serializable {
+        @NamedQuery(name = "Users.findAll", query = "SELECT u FROM User u")
+        , @NamedQuery(name = "Users.findById", query = "SELECT u FROM User u WHERE u.userName = :userName")
+        , @NamedQuery(name = "Users.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName")
+        , @NamedQuery(name = "Users.findByPassWord", query = "SELECT u FROM User u WHERE u.passWord = :passWord")
+        , @NamedQuery(name = "Users.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
+        , @NamedQuery(name = "Users.findByTyp", query = "SELECT u FROM User u WHERE u.typ = :typ")})
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-/*    @userName
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Basic(optional = false)
-    @Column(name = "userName")
-    private Integer userName;*/
 
     @Id
     @Basic(optional = false)
@@ -40,14 +35,17 @@ public class Users implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "UserName")
     private String userName;
+
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 200)
     @Column(name = "PassWord")
     private String passWord;
+
     @Size(max = 50)
     @Column(name = "Name")
     private String name;
+
     @Size(max = 2)
     @Column(name = "Typ")
     private String typ;
@@ -56,14 +54,14 @@ public class Users implements Serializable {
     private List<Ansvarig> ansvariga;
 
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String userName) {
+    public User(String userName) {
         this.userName = userName;
     }
 
-    public Users(String userName, String passWord) {
+    public User(String userName, String passWord) {
         this.userName = userName;
         this.passWord = passWord;
     }
@@ -110,10 +108,10 @@ public class Users implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the userName fields are not set
-        if (!(object instanceof Users)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Users other = (Users) object;
+        User other = (User) object;
         if ((this.userName == null && other.userName != null) || (this.userName != null && !this.userName.equals(other.userName))) {
             return false;
         }
@@ -122,7 +120,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "se.vgregion.dialys.i.vast.jpa.requisitions.Users[ userName=" + userName + " ]";
+        return "se.vgregion.dialys.i.vast.jpa.requisitions.User[ userName=" + userName + " ]";
     }
 
     public List<Ansvarig> getAnsvariga() {

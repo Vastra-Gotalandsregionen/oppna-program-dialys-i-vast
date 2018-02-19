@@ -14,10 +14,10 @@
     <table class="apk-table users-table">
       <thead>
       <tr>
-        <th class="row-id">VGR-ID</th>
-        <th class="row-first-name">Förnamn</th>
-        <th class="row-last-name">Efternamn</th>
-        <th class="row-email">E-post</th>
+        <th class="row-id">Andvändarnamn</th>
+        <th class="row-first-name">Namn</th>
+<!--        <th class="row-last-name">Efternamn</th>
+        <th class="row-email">E-post</th>-->
         <th class="row-permissions">Behörighet</th>
         <th class="row-menu"></th>
       </tr>
@@ -25,18 +25,18 @@
 
       <tbody>
       <tr *ngFor="let user of users">
-        <td>{{user.id}}</td>
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.mail}}</td>
-        <td>{{user.role}}</td>
+        <td>{{user.userName}}</td>
+        <td>{{user.name}}</td>
+        <!--<td>{{user.lastName}}</td>
+        <td>{{user.mail}}</td>-->
+        <td>Behörigheter</td>
 
         <td>
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="{{user.id}}/edit">
+            <button mat-menu-item routerLink="{{user.userName}}/edit">
               <mat-icon>edit</mat-icon>
               <span>Redigera</span>
             </button>

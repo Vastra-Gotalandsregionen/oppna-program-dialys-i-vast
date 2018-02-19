@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import se.vgregion.dialys.i.vast.jpa.Role;
-import se.vgregion.dialys.i.vast.jpa.User;
+import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.json.LoginRequest;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
 import se.vgregion.dialys.i.vast.service.JwtUtil;
@@ -52,14 +52,14 @@ public class LoginController {
                 user = ldapLoginService.loginOffline(request.getHeader("iv-user"));
             } else {
                 user = ldapLoginService.login(loginRequest.getUsername(), loginRequest.getPassword());
-                if (user.getInactivated() != null && user.getInactivated()) {
+                /*if (user.getInactivated() != null && user.getInactivated()) {
                     return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-                }
+                }*/
             }
 
             String[] roles = getRoles(user);
 
-            String token = JwtUtil.createToken(user.getId(), user.getDisplayName(), roles);
+            String token = JwtUtil.createToken(user.getUserName(), user.getName(), roles);
 
             return ResponseEntity.ok(token);
         } catch (FailedLoginException e) {
@@ -78,7 +78,7 @@ public class LoginController {
 
             String[] roles = getRoles(user);
 
-            String token = JwtUtil.createToken(user.getId(), user.getDisplayName(), roles);
+            String token = JwtUtil.createToken(user.getUserName(), user.getName(), roles);
 
             return ResponseEntity.ok(token);
         } catch (JWTVerificationException e) {
@@ -88,7 +88,10 @@ public class LoginController {
     }
 
     String[] getRoles(User user) {
-        String roleName = user.getRole().name();
+        return new String[]{
+                "ADMIN"
+        };
+        /*String roleName = user.getRole().name();
 
         String[] roles;
         if (Role.ADMIN.name().equals(roleName) && impersonateEnabled) {
@@ -96,7 +99,7 @@ public class LoginController {
         } else {
             roles = new String[]{roleName};
         }
-        return roles;
+        return roles;*/
     }
 
     @RequestMapping(value = "/impersonate", method = RequestMethod.POST)
@@ -116,11 +119,11 @@ public class LoginController {
             List<String> roles = jwt.getClaim("roles").asList(String.class);
 
             if (roles.contains(Role.IMPERSONATE.name())) {
-                User impersonated = ldapLoginService.loginWithoutPassword(userToImpersonate.getId());
+                User impersonated = ldapLoginService.loginWithoutPassword(userToImpersonate.getUserName());
 
                 String[] impersonatedRoles = getRoles(impersonated);
 
-                String token = JwtUtil.createToken(impersonated.getId(), impersonated.getDisplayName(),
+                String token = JwtUtil.createToken(impersonated.getUserName(), impersonated.getName(),
                         impersonatedRoles);
 
                 return ResponseEntity.ok(token);

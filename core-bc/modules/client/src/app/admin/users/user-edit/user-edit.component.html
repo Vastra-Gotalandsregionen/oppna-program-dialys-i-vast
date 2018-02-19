@@ -7,6 +7,6 @@
   <app-sidenav-toggle-button class="action-toolbar-item"></app-sidenav-toggle-button>
 </mat-toolbar>
 
-<app-user-form [userId]="userId" *ngIf="userId; else loading"></app-user-form>
+<app-user-form [userName]="userName" *ngIf="userName; else loading"></app-user-form>
 
 <ng-template #loading>Läser in...</ng-template>

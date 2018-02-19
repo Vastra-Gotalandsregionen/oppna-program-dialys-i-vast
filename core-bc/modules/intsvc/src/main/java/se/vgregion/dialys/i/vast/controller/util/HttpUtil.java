@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 public class HttpUtil {
 
     public static String getUserIdFromRequest(HttpServletRequest request) {
-        String userId;
+        String userName;
 
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            userId = null;
+            userName = null;
         } else {
 
             String jwtToken = authorizationHeader.substring("Bearer".length()).trim();
@@ -23,8 +23,8 @@ public class HttpUtil {
             DecodedJWT jwt;
             jwt = JwtUtil.verify(jwtToken);
 
-            userId = jwt.getSubject();
+            userName = jwt.getSubject();
         }
-        return userId;
+        return userName;
     }
 }

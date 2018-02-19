@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import se.vgregion.dialys.i.vast.jpa.User;
+import org.springframework.web.bind.annotation.*;
+import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
 
 import java.util.List;
@@ -24,7 +20,7 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUsers() {
-        return userRepository.findAllByOrderById();
+        return userRepository.findAllByOrderByUserName();
     }
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
@@ -34,24 +30,24 @@ public class UserController {
     }
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
-    @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteUser(@PathVariable("userId") String userId) {
-        userRepository.delete(userId);
+    @RequestMapping(value = "/{userName}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteUser(@PathVariable("userName") String userName) {
+        userRepository.delete(userName);
 
         return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public ResponseEntity<User> getUser(@PathVariable("userId") String userId) {
-        User user = userRepository.findOne(userId);
+    @RequestMapping(value = "/{userName}", method = RequestMethod.GET)
+    public ResponseEntity<User> getUser(@PathVariable("userName") String userName) {
+        User user = userRepository.findOne(userName);
 
         return ResponseEntity.ok(user);
     }
 
-    @RequestMapping(value = "/{userId}/thumbnailPhoto", method = RequestMethod.GET, produces = "image/jpg")
-    public ResponseEntity<byte[]> getUserThumbnailPhoto(@PathVariable("userId") String userId) {
-        User user = userRepository.findOne(userId);
+    /*@RequestMapping(value = "/{userName}/thumbnailPhoto", method = RequestMethod.GET, produces = "image/jpg")
+    public ResponseEntity<byte[]> getUserThumbnailPhoto(@PathVariable("userName") String userName) {
+        User user = userRepository.findOne(userName);
 
         return ResponseEntity.ok(user.getThumbnailPhoto());
-    }
+    }*/
 }

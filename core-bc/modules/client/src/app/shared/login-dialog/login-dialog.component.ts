@@ -17,7 +17,7 @@ export class LoginDialogComponent implements OnInit {
 
   @ViewChild(NgForm) form: NgForm;
 
-  userId: string;
+  userName: string;
   password: string;
 
   loginMessage: string;
@@ -36,7 +36,7 @@ export class LoginDialogComponent implements OnInit {
 
     if (this.form.valid) {
       this.stateService.startShowProgress();
-      this.http.post('/api/login', {username: this.userId, password: this.password})
+      this.http.post('/api/login', {username: this.userName, password: this.password})
         .timeout(10000)
         .finally(() => this.stateService.stopShowProgress())
         .subscribe(response => {

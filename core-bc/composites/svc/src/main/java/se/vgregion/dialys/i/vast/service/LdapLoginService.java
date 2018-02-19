@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import se.vgregion.dialys.i.vast.jpa.Role;
-import se.vgregion.dialys.i.vast.jpa.User;
+import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
 import se.vgregion.dialys.i.vast.util.PasswordEncoder;
 
@@ -14,7 +13,10 @@ import javax.naming.CommunicationException;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.*;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
 import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.FailedLoginException;
 import java.util.Properties;
@@ -71,12 +73,14 @@ public class LdapLoginService {
                 && PasswordEncoder.getInstance().matches(password, defaultAdminEncodedPassword)) {
 
             User user = new User();
-            user.setId(defaultAdminUsername);
-            user.setFirstName("Admin");
-            user.setDisplayName("Admin");
-            user.setRole(Role.ADMIN);
+            user.setUserName(defaultAdminUsername);
+            user.setName("Admin");
+            user.setPassWord(password);
+            //user.setDisplayName("Admin");
+            //user.setRole(Role.ADMIN);
+            //TODO: fix roles...
 
-            if (userRepository.findOne(user.getId()) == null) {
+            if (userRepository.findOne(user.getUserName()) == null) {
                 userRepository.save(user);
             }
 
@@ -105,16 +109,17 @@ public class LdapLoginService {
                 }
 
                 User user = new User();
-                user.setId(username);
-                user.setFirstName((String) (result).getAttributes().get("givenName").get());
-                user.setLastName((String) (result).getAttributes().get("sn").get());
-                user.setMail((String) (result).getAttributes().get("mail").get());
-                user.setDisplayName((String) (result).getAttributes().get("displayName").get());
+                user.setUserName(username);
+                String firstName = ((String) (result).getAttributes().get("givenName").get());
+                String lastName = ((String) (result).getAttributes().get("sn").get());
+                user.setName(firstName + " " + lastName);
+                String mail = ((String) (result).getAttributes().get("mail").get());
+                String displayName = ((String) (result).getAttributes().get("displayName").get());
 
-                Attribute thumbnailPhoto = result.getAttributes().get("thumbnailPhoto");
+                /*Attribute thumbnailPhoto = result.getAttributes().get("thumbnailPhoto");
                 if (thumbnailPhoto != null) {
                     user.setThumbnailPhoto((byte[]) thumbnailPhoto.get());
-                }
+                }*/
 
                 user = syncUser(user);
 
@@ -179,12 +184,12 @@ public class LdapLoginService {
 
     private User syncUser(User user) throws NamingException {
 
-        User foundUser = userRepository.findOne(user.getId());
+        User foundUser = userRepository.findOne(user.getName());
 
         if (foundUser != null) {
             // Keep these...
-            user.setRole(foundUser.getRole());
-            user.setInactivated(foundUser.getInactivated());
+            /*user.setRole(foundUser.getRole());
+            user.setInactivated(foundUser.getInactivated());*/
 
             return userRepository.save(user);
         } else {
