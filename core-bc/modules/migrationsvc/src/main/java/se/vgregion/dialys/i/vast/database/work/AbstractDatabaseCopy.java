@@ -254,6 +254,14 @@ public abstract class AbstractDatabaseCopy {
                 System.out.println(" " + doublet);
             }
         }
+
+        ConnectionExt target = getTargetConnection();
+        for (Schema schema : target.getSchemas("public")) {
+            for (Table table : schema.getTables()) {
+                System.out.println(table.getTableName());
+            }
+        }
+
     }
 
 }

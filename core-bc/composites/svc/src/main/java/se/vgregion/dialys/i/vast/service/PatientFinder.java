@@ -46,7 +46,7 @@ public class PatientFinder {
                 }
                 cs = cs.toLowerCase();
                 words.add(cs);
-                conditions.add("p." + k + " like ?" + i);
+                conditions.add("lower(p." + k + ") like ?" + i);
                 i++;
             }
         }
@@ -57,18 +57,24 @@ public class PatientFinder {
             sb.append(jpql);
         }
 
+        String countJpql = "select count(*) from "
+                + Patient.class.getSimpleName()
+                // + " p left join fetch p.ansvarig a "
+                + " p "
+                + sb.toString();
+
+        System.out.println("Jpql: " + countJpql);
+        System.out.println(words);
+
         return query(
                 Patient.class,
                 "select p from "
                         + Patient.class.getSimpleName()
-                        + " p "
+                        + " p left join fetch p.ansvarig a "
                         + sb.toString()
                         + " "
                         + makeOrderByPart("p", pageable),
-                "select count(*) from "
-                        + Patient.class.getSimpleName()
-                        + " p "
-                        + sb.toString(),
+                countJpql,
                 pageable, words
         );
 

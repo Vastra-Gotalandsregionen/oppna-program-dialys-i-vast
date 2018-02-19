@@ -5,10 +5,13 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author clalu4
@@ -40,12 +43,17 @@ public class Ansvarig implements Serializable {
 
     // @Column(name = "userName", insert="false", update="false") private String userName;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userName", referencedColumnName = "userName", foreignKey = @ForeignKey(name = "fk_ansvarig_users"))
     private Users user;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "ansvarig", fetch = FetchType.LAZY)
+    private List<Patient> patients;
 
     public Ansvarig() {
+
     }
 
     public Ansvarig(Integer id) {
@@ -107,6 +115,14 @@ public class Ansvarig implements Serializable {
 
     public void setUser(Users user) {
         this.user = user;
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
 
     /*public String getUserName() {

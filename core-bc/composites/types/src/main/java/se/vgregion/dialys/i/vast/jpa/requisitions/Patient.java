@@ -6,15 +6,7 @@
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -112,6 +104,10 @@ public class Patient implements Serializable {
     private Boolean samtycke;
     @Column(name = "IsDeleted")
     private Boolean isDeleted;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pas", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_patient_ansvarig"))
+    private Ansvarig ansvarig;
 
     public Patient() {
     }
@@ -292,4 +288,11 @@ public class Patient implements Serializable {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Patient[ id=" + id + " ]";
     }
 
+    public Ansvarig getAnsvarig() {
+        return ansvarig;
+    }
+
+    public void setAnsvarig(Ansvarig ansvarig) {
+        this.ansvarig = ansvarig;
+    }
 }

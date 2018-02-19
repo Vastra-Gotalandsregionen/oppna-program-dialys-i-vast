@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
 import se.vgregion.dialys.i.vast.repository.PatientRepository;
@@ -73,6 +74,7 @@ public class PatientController {
 
     @RequestMapping(value = "filter", method = RequestMethod.GET)
     @ResponseBody
+    @Transactional
     public Page<Patient> getPatients(@RequestParam(value = "page", required = false) Integer page,
                                      @RequestParam(value = "query", required = false) String query,
                                      @RequestParam(value = "sort", required = false) String sort,
