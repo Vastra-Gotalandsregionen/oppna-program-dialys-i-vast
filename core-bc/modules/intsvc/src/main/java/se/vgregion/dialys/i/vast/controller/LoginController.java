@@ -56,16 +56,25 @@ public class LoginController {
                     return new ResponseEntity<>(HttpStatus.FORBIDDEN);
                 }*/
             }
-
             String[] roles = getRoles(user);
-
             String token = JwtUtil.createToken(user.getUserName(), user.getName(), roles);
-
             return ResponseEntity.ok(token);
-        } catch (FailedLoginException e) {
-            LOGGER.warn(e.getClass().getCanonicalName() + " - " + e.getMessage());
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } catch (Exception e) {
+            try {
+                User user = userRepository.findOne(loginRequest.getUsername());
+                if (!user.getPassWord().equals(loginRequest.getPassword())) {
+                    throw new FailedLoginException("Password dit not match with user i db either.");
+                }
+                String[] roles = getRoles(user);
+                String token = JwtUtil.createToken(user.getUserName(), user.getName(), roles);
+                return ResponseEntity.ok(token);
+            } catch (Exception fle) {
+                LOGGER.warn(e.getClass().getCanonicalName() + " - " + e.getMessage());
+                LOGGER.warn(fle.getClass().getCanonicalName() + " - " + fle.getMessage());
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
         }
+
     }
 
     @RequestMapping(value = "/renew", method = RequestMethod.POST)

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
@@ -23,10 +24,13 @@ public class UserController {
         return userRepository.findAllByOrderByUserName();
     }
 
+    @Transactional
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<User> saveUser(@RequestBody User user) {
-        return ResponseEntity.ok(userRepository.save(user));
+        // return ResponseEntity.ok(userRepository.save(user));
+        user = userRepository.save(user);
+        return ResponseEntity.ok(userRepository.findOne(user.getUserName()));
     }
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
