@@ -69,6 +69,22 @@ public abstract class AbstractDatabaseCopy {
         }
     }
 
+    public void addUserNameToUserRoles() {
+        List<Map<String, Object>> sourceUsers = source.query("select * from users", 0, 100_000);
+        Map<Number, String> idToUserNameMap = new HashMap<>();
+        for (Map<String, Object> item : sourceUsers) {
+            idToUserNameMap.put((Integer) item.get("ID"), (String) item.get("UserName"));
+        }
+
+        for (Number oldId : idToUserNameMap.keySet()) {
+            String userName = idToUserNameMap.get(oldId);
+            target.update("update usersroles set username = ? where usersid = ?", userName, oldId);
+        }
+        target.commit();
+        target.update("delete from usersroles where username is null");
+        target.commit();
+    }
+
     private void insertWithBrandNewPrimaryKeys(String table, List<Map<String, Object>> items) {
         int c = 0;
         for (Map<String, Object> item : items) {
@@ -237,6 +253,12 @@ public abstract class AbstractDatabaseCopy {
 
     public static void main(String[] args) throws IOException {
         ConnectionExt source = getSourceConnection();
+
+        System.out.println(source.query("select * from usersroles where usersid = 50", 0 , 100));
+
+
+        System.out.println(source.query("select * from users where id = 50", 0 , 100));
+
         List<Map<String, Object>> items = source.query(
                 "select * from (select username, count(*) as c from users group by username) t where t.c > 1",
                 0,

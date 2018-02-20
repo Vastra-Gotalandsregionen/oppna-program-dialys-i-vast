@@ -907,9 +907,9 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 CREATE TABLE usersroles (
     id integer NOT NULL,
     rolesid integer NOT NULL,
-    usersid integer NOT NULL
+    usersid integer NOT NULL,
+    username character varying(255)
 );
-
 
 --
 -- TOC entry 232 (class 1259 OID 48459)

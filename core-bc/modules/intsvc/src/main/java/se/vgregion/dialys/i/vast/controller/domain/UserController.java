@@ -21,7 +21,7 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUsers() {
-        return userRepository.findAllByOrderByUserName();
+        return userRepository.findAllByOrderByUserName().subList(0, 20);
     }
 
     @Transactional

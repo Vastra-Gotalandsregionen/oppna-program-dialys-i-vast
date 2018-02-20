@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author clalu4
@@ -51,8 +52,10 @@ public class User implements Serializable {
     private String typ;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Ansvarig> ansvariga;
+    private Set<Ansvarig> ansvariga;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<UsersRoles> usersRoles;
 
     public User() {
     }
@@ -123,11 +126,19 @@ public class User implements Serializable {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.User[ userName=" + userName + " ]";
     }
 
-    public List<Ansvarig> getAnsvariga() {
+    public Set<Ansvarig> getAnsvariga() {
         return ansvariga;
     }
 
-    public void setAnsvariga(List<Ansvarig> ansvariga) {
+    public void setAnsvariga(Set<Ansvarig> ansvariga) {
         this.ansvariga = ansvariga;
+    }
+
+    public Set<UsersRoles> getUsersRoles() {
+        return usersRoles;
+    }
+
+    public void setUsersRoles(Set<UsersRoles> usersRoles) {
+        this.usersRoles = usersRoles;
     }
 }

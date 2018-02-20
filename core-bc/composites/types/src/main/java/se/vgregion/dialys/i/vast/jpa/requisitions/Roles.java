@@ -5,30 +5,22 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "Roles")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")
-    , @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id")
-    , @NamedQuery(name = "Roles.findByRoleName", query = "SELECT r FROM Roles r WHERE r.roleName = :roleName")})
+        @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")
+        , @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id")
+        , @NamedQuery(name = "Roles.findByRoleName", query = "SELECT r FROM Roles r WHERE r.roleName = :roleName")})
 public class Roles implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +32,9 @@ public class Roles implements Serializable {
     @Size(max = 50)
     @Column(name = "RoleName")
     private String roleName;
+
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    private List<UsersRoles> usersRoles;
 
     public Roles() {
     }
@@ -88,5 +83,12 @@ public class Roles implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Roles[ id=" + id + " ]";
     }
-    
+
+    public List<UsersRoles> getUsersRoles() {
+        return usersRoles;
+    }
+
+    public void setUsersRoles(List<UsersRoles> usersRoles) {
+        this.usersRoles = usersRoles;
+    }
 }

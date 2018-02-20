@@ -25,6 +25,8 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.createTablesInTarget();
         dc.addAllTuplesFromLegacyIntoTarget();
         dc.connectUsersWithAnsvarig();
+        //Todo: kolla de som inte fixas av addUserNameToUserRoles
+        dc.addUserNameToUserRoles();
     }
 
 }
