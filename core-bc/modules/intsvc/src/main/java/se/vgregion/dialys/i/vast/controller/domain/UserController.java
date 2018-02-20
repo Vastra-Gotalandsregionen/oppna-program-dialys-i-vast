@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -21,7 +23,8 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUsers() {
-        return userRepository.findAllByOrderByUserName().subList(0, 20);
+        System.out.println("getUsers");
+        return userRepository.findAllByOrderByUserName();
     }
 
     @Transactional

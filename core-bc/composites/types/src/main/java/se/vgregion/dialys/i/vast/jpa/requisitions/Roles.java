@@ -5,6 +5,8 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,6 +35,7 @@ public class Roles implements Serializable {
     @Column(name = "RoleName")
     private String roleName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<UsersRoles> usersRoles;
 
