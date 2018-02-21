@@ -75,6 +75,9 @@ export class UserFormComponent implements OnInit {
       }),*/
       'typGroup': this.formBuilder.group({
         'typ': [{value: this.user.typ, disabled: false}, [Validators.required]]
+      }),
+      'usersRole': this.formBuilder.group({
+        'typ': [{value: this.user.typ, disabled: false}, [Validators.required]]
       })
     });
 

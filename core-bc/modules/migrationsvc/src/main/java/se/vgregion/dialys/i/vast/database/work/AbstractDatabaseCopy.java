@@ -10,6 +10,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -251,13 +254,66 @@ public abstract class AbstractDatabaseCopy {
         target.commit();
     }
 
-    public static void main(String[] args) throws IOException {
-        ConnectionExt source = getSourceConnection();
+    public void obfuscatePatients() throws IOException, ParseException {
+        String string = "1700-01-01";
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
+        DateFormat tighter = new SimpleDateFormat("yyyyMMdd", Locale.GERMAN);
+        Date date = format.parse(string);
+        System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
 
-        System.out.println(source.query("select * from usersroles where usersid = 50", 0 , 100));
+        List<Map<String, Object>> patients = target.query(
+                "select * from patient",
+                0,
+                100_000
+        );
+
+        Table table = target.getSchemas("public").get(0).getTable("patient");
+
+        // [fornamn, pas, epost, utdeltext, samtycke, efternamn, utdelvecka, adress, isdeleted,
+        // mobil, postnr, pnr, telefon, id, utdeldag, portkod, postort]
+
+        List<String> firstNames = new ArrayList<>();
+        List<String> lastNames = new ArrayList<>();
+
+        for (Map<String, Object> patient : patients) {
+            firstNames.add((String) patient.get("fornamn"));
+            lastNames.add((String) patient.get("efternamn"));
+        }
+
+        Collections.sort(firstNames);
+        Collections.sort(lastNames);
+
+        System.out.print("Obfuscating the patients (fields pnr, fornamn and efternamn) (" + patients.size() + "): ");
+        int i = 0;
+        for (Map<String, Object> patient : patients) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            c.add(Calendar.YEAR, 1);
+            c.add(Calendar.DAY_OF_MONTH, 10);
+            date = c.getTime();
+
+            String fooishPnr = (tighter.format(date) + "-" + String.format("%04d", i));
+            Map<String, Object> where = new HashMap<>(), set = new HashMap<>();
+            set.put("pnr", fooishPnr);
+            set.put("fornamn", firstNames.get(i));
+            set.put("efternamn", lastNames.get(i));
+            where.put("id", patient.get("id"));
+            target.update(table, set, where);
+            i++;
+            if (i % 10 == 0) {
+                System.out.print(" " + i);
+            }
+            if (i % 100 == 0) {
+                System.out.println();
+            }
+        }
+
+        target.commit();
+
+        // System.out.println(source.query("select * from usersroles where usersid = 50", 0 , 100));
 
 
-        System.out.println(source.query("select * from users where id = 50", 0 , 100));
+        /*System.out.println(source.query("select * from users where id = 50", 0 , 100));
 
         List<Map<String, Object>> items = source.query(
                 "select * from (select username, count(*) as c from users group by username) t where t.c > 1",
@@ -282,7 +338,7 @@ public abstract class AbstractDatabaseCopy {
             for (Table table : schema.getTables()) {
                 System.out.println(table.getTableName());
             }
-        }
+        }*/
 
     }
 

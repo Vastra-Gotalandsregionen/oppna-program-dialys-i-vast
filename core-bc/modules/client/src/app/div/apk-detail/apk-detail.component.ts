@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Patient} from '../../model/patient';
+import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
 import {ApkBase} from "../apk-base/apk-base";
 import {Observable} from 'rxjs/Observable';

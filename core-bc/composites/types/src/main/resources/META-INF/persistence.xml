@@ -33,7 +33,7 @@
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Pd</class>
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel</class>
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Placering</class>
-		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Roles</class>
+		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Role</class>
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.RolesPages</class>
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Sysdiagrams</class>
 		<class>se.vgregion.dialys.i.vast.jpa.requisitions.Ticket</class>

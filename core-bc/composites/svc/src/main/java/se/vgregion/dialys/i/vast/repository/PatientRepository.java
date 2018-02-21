@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Patrik Björk
  */
-public interface PatientRepository extends JpaRepository<Patient, String> {
+public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
     //List<Patient> search(String constraints, Pageable pageable);
 

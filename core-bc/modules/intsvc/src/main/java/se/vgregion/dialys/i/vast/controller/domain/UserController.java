@@ -23,7 +23,6 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUsers() {
-        System.out.println("getUsers");
         return userRepository.findAllByOrderByUserName();
     }
 
@@ -51,10 +50,4 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    /*@RequestMapping(value = "/{userName}/thumbnailPhoto", method = RequestMethod.GET, produces = "image/jpg")
-    public ResponseEntity<byte[]> getUserThumbnailPhoto(@PathVariable("userName") String userName) {
-        User user = userRepository.findOne(userName);
-
-        return ResponseEntity.ok(user.getThumbnailPhoto());
-    }*/
 }

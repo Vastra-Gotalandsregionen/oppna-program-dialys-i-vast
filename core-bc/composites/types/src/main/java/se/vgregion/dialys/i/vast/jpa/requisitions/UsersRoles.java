@@ -50,7 +50,7 @@ public class UsersRoles implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rolesID", foreignKey = @ForeignKey(name = "fk_usersroles_role"))
-    private Roles role;
+    private Role role;
 
     public UsersRoles() {
     }
@@ -121,5 +121,13 @@ public class UsersRoles implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

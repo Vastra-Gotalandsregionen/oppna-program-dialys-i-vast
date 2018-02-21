@@ -1,5 +1,5 @@
 import {Util} from "../../core/util/util";
-import {Patient} from '../../model/patient';
+import {Patient} from '../../model/Patient';
 
 export class ApkBase {
 

@@ -10,8 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
-import se.vgregion.dialys.i.vast.jpa.requisitions.User;
+import se.vgregion.dialys.i.vast.jpa.requisitions.*;
 import se.vgregion.dialys.i.vast.repository.PatientRepository;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
@@ -91,14 +90,14 @@ public class PatientController {
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable("id") String patientId) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer patientId) {
         patientRepository.delete(patientId);
 
         return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Patient> getPatient(@PathVariable("id") String id) {
+    public ResponseEntity<Patient> getPatient(@PathVariable("id") Integer id) {
         Patient user = patientRepository.findOne(id);
 
         return ResponseEntity.ok(user);
@@ -113,7 +112,7 @@ public class PatientController {
         }*/
         //makeForumBuilderPropertyMapping(Patient.class, "data");
         //makeCopyDataCode(Patient.class, "formModel", "data");
-        makeTypeScriptVersion(User.class);
+        makeTypeScriptVersion(Ansvarig.class);
     }
 
     public static void makeTypeScriptVersion(Class ofThat) throws IntrospectionException {

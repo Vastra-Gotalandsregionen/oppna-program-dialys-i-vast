@@ -1,5 +1,8 @@
 package se.vgregion.dialys.i.vast.database.work;
 
+import java.io.IOException;
+import java.text.ParseException;
+
 /**
  * Usage: Install a dump of the old db somewhere and notes its login. Likewise do the same with a another, new database.
  * Go to your home directory and create the file structure home/.app/dialys-i-vast/.
@@ -16,7 +19,7 @@ package se.vgregion.dialys.i.vast.database.work;
  */
 public class DatabaseCopy extends AbstractDatabaseCopy {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ParseException {
         getApplicationInfo(); // You don't need this. Just to check if another property file is present.
 
         AbstractDatabaseCopy dc = new DatabaseCopy();
@@ -27,6 +30,7 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.connectUsersWithAnsvarig();
         //Todo: kolla de som inte fixas av addUserNameToUserRoles
         dc.addUserNameToUserRoles();
+        dc.obfuscatePatients();
     }
 
 }

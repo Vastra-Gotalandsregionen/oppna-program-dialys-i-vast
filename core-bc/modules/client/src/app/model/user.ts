@@ -1,4 +1,6 @@
-import {Prodn1} from './prodn1';
+import {UsersRoles} from "./UsersRoles";
+import {Ansvarig} from "./Ansvarig";
+
 export class User {
   userName: string;
 
@@ -10,7 +12,9 @@ export class User {
   inactivated: boolean;
   // Obsolete end
 
-  ansvariga: Array<object>;
+  ansvariga: Array<Ansvarig>;
+  usersRoles: Array<UsersRoles>;
+
   name: string;
   passWord: string;
   typ: string;

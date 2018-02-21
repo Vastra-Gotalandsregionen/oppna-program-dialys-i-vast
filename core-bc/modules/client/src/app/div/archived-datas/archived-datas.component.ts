@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {Patient} from "../../model/patient";
+import {Patient} from "../../model/Patient";
 import {ActivatedRoute} from '@angular/router';
 import {JwtHttp} from "../../core/jwt-http";
 

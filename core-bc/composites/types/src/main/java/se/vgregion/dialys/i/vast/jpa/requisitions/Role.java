@@ -20,10 +20,10 @@ import java.util.List;
 @Table(name = "Roles")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")
-        , @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id")
-        , @NamedQuery(name = "Roles.findByRoleName", query = "SELECT r FROM Roles r WHERE r.roleName = :roleName")})
-public class Roles implements Serializable {
+        @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Role r")
+        , @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Role r WHERE r.id = :id")
+        , @NamedQuery(name = "Roles.findByRoleName", query = "SELECT r FROM Role r WHERE r.roleName = :roleName")})
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,10 +39,10 @@ public class Roles implements Serializable {
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<UsersRoles> usersRoles;
 
-    public Roles() {
+    public Role() {
     }
 
-    public Roles(Integer id) {
+    public Role(Integer id) {
         this.id = id;
     }
 
@@ -72,10 +72,10 @@ public class Roles implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roles)) {
+        if (!(object instanceof Role)) {
             return false;
         }
-        Roles other = (Roles) object;
+        Role other = (Role) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -84,7 +84,7 @@ public class Roles implements Serializable {
 
     @Override
     public String toString() {
-        return "se.vgregion.dialys.i.vast.jpa.requisitions.Roles[ id=" + id + " ]";
+        return "se.vgregion.dialys.i.vast.jpa.requisitions.Role[ id=" + id + " ]";
     }
 
     public List<UsersRoles> getUsersRoles() {

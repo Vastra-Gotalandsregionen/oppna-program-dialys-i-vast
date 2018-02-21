@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import se.vgregion.dialys.i.vast.jpa.Role;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.json.LoginRequest;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
@@ -127,7 +126,7 @@ public class LoginController {
 
             List<String> roles = jwt.getClaim("roles").asList(String.class);
 
-            if (roles.contains(Role.IMPERSONATE.name())) {
+            if (roles.contains("IMPERSONATE")) {
                 User impersonated = ldapLoginService.loginWithoutPassword(userToImpersonate.getUserName());
 
                 String[] impersonatedRoles = getRoles(impersonated);

@@ -2,7 +2,7 @@ import {FormControl} from '@angular/forms';
 import {Location} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {RequestOptions, URLSearchParams, Headers, Response} from '@angular/http';
-import {Patient} from '../../model/patient';
+import {Patient} from '../../model/Patient';
 import {RestResponse} from '../../model/rest-response';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
