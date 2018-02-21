@@ -85,6 +85,12 @@
 
   .header-menu-bar {
     background: $vgr-blue-dark;
+
+    .mat-list {
+      .mat-list-item {
+        height: auto;
+      }
+    }
   }
 
 
