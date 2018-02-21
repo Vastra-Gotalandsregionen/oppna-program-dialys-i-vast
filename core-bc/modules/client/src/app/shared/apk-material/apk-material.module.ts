@@ -12,6 +12,7 @@ import {
   MatToolbarModule, MatTooltipModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatTabsModule,
   DateAdapter, MAT_DATE_LOCALE
 } from '@angular/material';
 
@@ -37,6 +38,7 @@ import {
     MatProgressBarModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatTabsModule,
     MatNativeDateModule
   ],
   declarations: [],
@@ -61,6 +63,7 @@ import {
     MatProgressBarModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatTabsModule,
     MatNativeDateModule
   ],
     providers: [
