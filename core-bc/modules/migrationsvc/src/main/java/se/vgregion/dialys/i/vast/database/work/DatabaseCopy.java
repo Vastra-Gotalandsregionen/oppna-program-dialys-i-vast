@@ -23,13 +23,16 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         getApplicationInfo(); // You don't need this. Just to check if another property file is present.
 
         AbstractDatabaseCopy dc = new DatabaseCopy();
+
         dc.init();
+
         dc.dropAllTablesInTargetDatabase();
         dc.createTablesInTarget();
         dc.addAllTuplesFromLegacyIntoTarget();
         dc.connectUsersWithAnsvarig();
         //Todo: kolla de som inte fixas av addUserNameToUserRoles
         dc.addUserNameToUserRoles();
+        dc.obfuscateUserPasswords();
         dc.obfuscatePatients();
     }
 

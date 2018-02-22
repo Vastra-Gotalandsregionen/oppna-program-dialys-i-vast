@@ -873,7 +873,8 @@ CREATE TABLE users (
     name character varying(255),
     password character varying(255) NOT NULL,
     typ character varying(255),
-    username character varying(255) NOT NULL
+    username character varying(255) NOT NULL,
+    password_encrypted_flag boolean default false
 );
 
 

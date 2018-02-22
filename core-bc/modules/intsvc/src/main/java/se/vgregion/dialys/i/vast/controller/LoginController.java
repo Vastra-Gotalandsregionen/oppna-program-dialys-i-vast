@@ -17,6 +17,7 @@ import se.vgregion.dialys.i.vast.json.LoginRequest;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
 import se.vgregion.dialys.i.vast.service.JwtUtil;
 import se.vgregion.dialys.i.vast.service.LdapLoginService;
+import se.vgregion.dialys.i.vast.util.PasswordEncoder;
 
 import javax.security.auth.login.FailedLoginException;
 import javax.servlet.http.HttpServletRequest;
@@ -61,8 +62,18 @@ public class LoginController {
         } catch (Exception e) {
             try {
                 User user = userRepository.findOne(loginRequest.getUsername());
-                if (!user.getPassWord().equals(loginRequest.getPassword())) {
-                    throw new FailedLoginException("Password dit not match with user i db either.");
+                if (user.getPasswordEncryptionFlag()) {
+                    if (!PasswordEncoder.getInstance().matches(loginRequest.getPassword(), user.getPassWord())) {
+                        throw new FailedLoginException("Password dit not match with user i db either.");
+                    }
+                } else{
+                    if (!user.getPassWord().equals(loginRequest.getPassword())) {
+                        throw new FailedLoginException("Password dit not match with user i db either.");
+                    } else {
+                        user.setPassWord(PasswordEncoder.getInstance().encodePassword(user.getPassWord()));
+                        user.setPasswordEncryptionFlag(true);
+                        userRepository.save(user);
+                    }
                 }
                 String[] roles = getRoles(user);
                 String token = JwtUtil.createToken(user.getUserName(), user.getName(), roles);

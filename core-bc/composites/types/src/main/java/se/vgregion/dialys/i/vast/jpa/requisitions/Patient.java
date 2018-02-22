@@ -5,6 +5,8 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,71 +39,89 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Patient.findByPas", query = "SELECT p FROM Patient p WHERE p.pas = :pas")
     , @NamedQuery(name = "Patient.findBySamtycke", query = "SELECT p FROM Patient p WHERE p.samtycke = :samtycke")
     , @NamedQuery(name = "Patient.findByIsDeleted", query = "SELECT p FROM Patient p WHERE p.isDeleted = :isDeleted")})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Patient implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 12)
     @Column(name = "Pnr")
     private String pnr;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "Efternamn")
     private String efternamn;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "Fornamn")
     private String fornamn;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "Adress")
     private String adress;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 6)
     @Column(name = "PostNr")
     private String postNr;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "PostOrt")
     private String postOrt;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "Telefon")
     private String telefon;
+
     @Size(max = 20)
     @Column(name = "Mobil")
     private String mobil;
+
     @Size(max = 50)
     @Column(name = "Epost")
     private String epost;
+
     @Size(max = 10)
     @Column(name = "Portkod")
     private String portkod;
+
     @Size(max = 10)
     @Column(name = "UtdelDag")
     private String utdelDag;
+
     @Size(max = 10)
     @Column(name = "UtdelVecka")
     private String utdelVecka;
+
     @Size(max = 200)
     @Column(name = "UtdelText")
     private String utdelText;
+
     @Column(name = "PAS")
     private Integer pas;
+
     @Column(name = "Samtycke")
     private Boolean samtycke;
+
     @Column(name = "IsDeleted")
     private Boolean isDeleted;
 

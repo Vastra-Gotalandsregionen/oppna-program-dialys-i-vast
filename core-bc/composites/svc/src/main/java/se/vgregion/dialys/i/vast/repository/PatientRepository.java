@@ -2,7 +2,9 @@ package se.vgregion.dialys.i.vast.repository;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
  */
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
-    //List<Patient> search(String constraints, Pageable pageable);
+    @Override
+    @Query("select p from Patient p left join fetch p.ansvarig a where :id = p.id ")
+    Patient findOne(@Param("id") Integer id);
 
 }

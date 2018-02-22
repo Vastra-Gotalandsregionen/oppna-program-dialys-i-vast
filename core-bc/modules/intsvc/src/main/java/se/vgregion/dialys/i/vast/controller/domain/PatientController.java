@@ -21,7 +21,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.*;
 
-@Controller
+@RestController
 @RequestMapping("/patient")
 public class PatientController {
 
@@ -30,13 +30,8 @@ public class PatientController {
     @Autowired
     private PatientRepository patientRepository;
 
-    /*@Autowired
-    private CustomPatientRepository customPatientRepository;*/
-
     @RequestMapping(value = "", method = RequestMethod.GET)
-    @ResponseBody
     public List<Patient> getPatients() {
-        List<String> sort = Arrays.asList("pnr");
         List<Patient> result = new ArrayList<>();
         patientRepository.findAll().forEach(i -> result.add(i));
         return result;
@@ -96,11 +91,14 @@ public class PatientController {
         return ResponseEntity.ok().build();
     }
 
+    @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Patient> getPatient(@PathVariable("id") Integer id) {
+    public Patient getPatient(@PathVariable("id") Integer id) {
+        System.out.println("getPatient " + id);
         Patient user = patientRepository.findOne(id);
 
-        return ResponseEntity.ok(user);
+        //return ResponseEntity.ok(user);
+        return user;
     }
 
     public static void main(String[] args) throws IntrospectionException {

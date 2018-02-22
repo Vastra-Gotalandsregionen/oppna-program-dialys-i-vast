@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -51,10 +50,13 @@ public class User implements Serializable {
     @Column(name = "Typ")
     private String typ;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @Column(name = "password_encrypted_flag")
+    private Boolean passwordEncryptionFlag = false;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Ansvarig> ansvariga;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<UsersRoles> usersRoles;
 
     public User() {
@@ -140,5 +142,13 @@ public class User implements Serializable {
 
     public void setUsersRoles(Set<UsersRoles> usersRoles) {
         this.usersRoles = usersRoles;
+    }
+
+    public Boolean getPasswordEncryptionFlag() {
+        return passwordEncryptionFlag;
+    }
+
+    public void setPasswordEncryptionFlag(Boolean passwordIsEncrpted) {
+        this.passwordEncryptionFlag = passwordIsEncrpted;
     }
 }

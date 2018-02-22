@@ -3,6 +3,7 @@ package se.vgregion.dialys.i.vast.database.work;
 import se.vgregion.arbetsplatskoder.db.migration.sql.ConnectionExt;
 import se.vgregion.arbetsplatskoder.db.migration.sql.meta.Schema;
 import se.vgregion.arbetsplatskoder.db.migration.sql.meta.Table;
+import se.vgregion.dialys.i.vast.util.PasswordEncoder;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -250,6 +251,41 @@ public abstract class AbstractDatabaseCopy {
                 System.out.println("Sets user responsibility:s user-name for " + user.get("name"));
                 target.update("update ansvarig set username = ? where namn = ?", user.get("username"), user.get("name"));
             }
+        }
+        target.commit();
+    }
+
+    public void obfuscateUserPasswords() {
+        List<Map<String, Object>> users = target.query(
+                "select * from users where password_encrypted_flag = ?",
+                0,
+                100_000,
+                false
+        );
+
+        System.out.println("Found " + users.size() + " with unencrypted passwords. Starts encryption: ");
+
+        Table table = target.getSchemas("public").get(0).getTable("users");
+
+        int i = 0;
+        for (Map<String, Object> user : users) {
+            String password = (String) user.get("password");
+            password = PasswordEncoder.getInstance().encodePassword(password);
+
+            Map<String, Object> where = new HashMap<>(), set = new HashMap<>();
+            set.put("password", password);
+            set.put("password_encrypted_flag", true);
+            where.put("username", user.get("username"));
+            target.update(table, set, where);
+
+            if (i % 10 == 0) {
+                System.out.print(" " + i);
+            }
+            if (i % 200 == 0) {
+                System.out.println();
+                System.out.print(" ");
+            }
+            i++;
         }
         target.commit();
     }

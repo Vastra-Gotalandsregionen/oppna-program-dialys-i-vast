@@ -6,6 +6,7 @@
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -24,6 +25,7 @@ import java.util.List;
         , @NamedQuery(name = "Ansvarig.findById", query = "SELECT a FROM Ansvarig a WHERE a.id = :id")
         , @NamedQuery(name = "Ansvarig.findByNamn", query = "SELECT a FROM Ansvarig a WHERE a.namn = :namn")
         , @NamedQuery(name = "Ansvarig.findByMottagningID", query = "SELECT a FROM Ansvarig a WHERE a.mottagningID = :mottagningID")})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ansvarig implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,16 +43,14 @@ public class Ansvarig implements Serializable {
     @Column(name = "MottagningID")
     private Integer mottagningID;
 
-    // @Column(name = "userName", insert="false", update="false") private String userName;
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userName", referencedColumnName = "userName", foreignKey = @ForeignKey(name = "fk_ansvarig_users"))
     private User user;
 
-    @JsonIgnore
+    /*@JsonIgnore
     @OneToMany(mappedBy = "ansvarig", fetch = FetchType.LAZY)
-    private List<Patient> patients;
+    private List<Patient> patients;*/
 
     public Ansvarig() {
 
@@ -117,14 +117,13 @@ public class Ansvarig implements Serializable {
         this.user = user;
     }
 
-    public List<Patient> getPatients() {
+/*    public List<Patient> getPatients() {
         return patients;
     }
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
-    }
-
+    }*/
     /*public String getUserName() {
         return userName;
     }
