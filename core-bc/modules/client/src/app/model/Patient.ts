@@ -1,5 +1,6 @@
 /*import {Prodn1} from "./prodn1";
 import {Prodn3} from "./prodn3";*/
+import {Pd} from "./Pd";
 export class Patient {
   adress: string;
   efternamn: string;
@@ -18,4 +19,5 @@ export class Patient {
   utdelDag: string;
   utdelText: string;
   utdelVecka: string;
+  pds:Array<Pd>
 }

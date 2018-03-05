@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {ApkComponent} from './patients/patients.component';
-import {ApkDetailComponent} from './apk-detail/apk-detail.component';
+import {PatientDetailComponent} from './patient-detail/patient-detail.component';
 import {ApkEditComponent} from './apk-edit/apk-edit.component';
 import {ApkCreateComponent} from './apk-create/apk-create.component';
 import {ApkFormComponent} from './apk-form/apk-form.component';
@@ -17,7 +17,7 @@ import {FormChangedGuard} from "./guard/form-changed.guard";
   ],
   declarations: [
     ApkComponent,
-    ApkDetailComponent,
+    PatientDetailComponent,
     ApkEditComponent,
     ApkCreateComponent,
     ApkFormComponent,

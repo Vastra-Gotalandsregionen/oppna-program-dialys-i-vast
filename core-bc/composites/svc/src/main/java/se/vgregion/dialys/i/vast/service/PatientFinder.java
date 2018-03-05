@@ -71,6 +71,7 @@ public class PatientFinder {
                 "select p from "
                         + Patient.class.getSimpleName()
                         + " p left join fetch p.ansvarig a "
+                        + "left join fetch p.pds pds "
                         + sb.toString()
                         + " "
                         + makeOrderByPart("p", pageable),

@@ -5,19 +5,11 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -44,7 +36,7 @@ public class Pd implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "PatientID")
+    @Column(name = "PatientID", updatable = false, insertable = false)
     private Integer patientID;
     @Column(name = "Datum")
     @Temporal(TemporalType.TIMESTAMP)
@@ -58,6 +50,19 @@ public class Pd implements Serializable {
     private Integer sskID;
     @Column(name = "LAS")
     private Integer las;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "PatientID", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_pd_patient"))
+    private Patient patient;
 
     public Pd() {
     }

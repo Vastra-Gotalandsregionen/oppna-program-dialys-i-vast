@@ -8,6 +8,7 @@ package se.vgregion.dialys.i.vast.jpa.requisitions;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -118,6 +119,17 @@ public class Patient implements Serializable {
 
     @Column(name = "PAS")
     private Integer pas;
+
+    public List<Pd> getPds() {
+        return pds;
+    }
+
+    public void setPds(List<Pd> pds) {
+        this.pds = pds;
+    }
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<Pd> pds;
 
     @Column(name = "Samtycke")
     private Boolean samtycke;

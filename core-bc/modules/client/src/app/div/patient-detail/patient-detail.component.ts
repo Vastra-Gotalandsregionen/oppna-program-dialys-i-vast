@@ -9,10 +9,10 @@ import {JwtHttp} from "../../core/jwt-http";
 
 @Component({
   selector: 'app-apk-detail',
-  templateUrl: './apk-detail.component.html',
-  styleUrls: ['./apk-detail.component.css']
+  templateUrl: './patient-detail.component.html',
+  styleUrls: ['./patient-detail.component.css']
 })
-export class ApkDetailComponent extends ApkBase implements OnInit {
+export class PatientDetailComponent extends ApkBase implements OnInit {
 
   @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
 
@@ -21,6 +21,7 @@ export class ApkDetailComponent extends ApkBase implements OnInit {
   $replacedBy: Observable<Patient>;
   $replaces: Observable<Patient>;
   archivedDatas: Patient[] = [];
+  rekvistion;
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,

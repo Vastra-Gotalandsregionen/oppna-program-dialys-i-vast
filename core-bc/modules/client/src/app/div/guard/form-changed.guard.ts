@@ -5,14 +5,14 @@ import {ApkEditComponent} from "../apk-edit/apk-edit.component";
 import {ConfirmDialogComponent} from "../../shared/confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material";
 import {Subject} from 'rxjs/Subject';
-import {ApkDetailComponent} from "../apk-detail/apk-detail.component";
+import {PatientDetailComponent} from "../patient-detail/patient-detail.component";
 
 @Injectable()
 export class FormChangedGuard implements CanDeactivate<ApkEditComponent> {
 
   constructor(private dialog: MatDialog) {}
 
-  canDeactivate(component: ApkDetailComponent,
+  canDeactivate(component: PatientDetailComponent,
                 currentRoute: ActivatedRouteSnapshot,
                 currentState: RouterStateSnapshot,
                 nextState?: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {

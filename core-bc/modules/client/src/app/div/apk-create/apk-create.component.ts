@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {ApkDetailComponent} from "../apk-detail/apk-detail.component";
+import {PatientDetailComponent} from "../patient-detail/patient-detail.component";
 import {AuthService} from "../../core/auth/auth.service";
 import {ActivatedRoute} from "@angular/router";
 import {JwtHttp} from "../../core/jwt-http";
@@ -10,7 +10,7 @@ import {JwtHttp} from "../../core/jwt-http";
   templateUrl: './apk-create.component.html',
   styleUrls: ['./apk-create.component.css'],
 })
-export class ApkCreateComponent extends ApkDetailComponent {
+export class ApkCreateComponent extends PatientDetailComponent{
 
   location: Location;
 

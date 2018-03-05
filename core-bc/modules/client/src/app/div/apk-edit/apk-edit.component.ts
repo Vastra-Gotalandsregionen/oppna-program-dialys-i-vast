@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ApkDetailComponent} from '../apk-detail/apk-detail.component';
+import {PatientDetailComponent} from '../patient-detail/patient-detail.component';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../core/auth/auth.service';
 import {JwtHttp} from "../../core/jwt-http";
@@ -9,7 +9,7 @@ import {JwtHttp} from "../../core/jwt-http";
   templateUrl: './apk-edit.component.html',
   styleUrls: ['./apk-edit.component.css']
 })
-export class ApkEditComponent extends ApkDetailComponent implements OnInit {
+export class ApkEditComponent extends PatientDetailComponent implements OnInit {
 
   constructor(route: ActivatedRoute,
               http: JwtHttp,

@@ -15,7 +15,7 @@ import java.util.List;
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
     @Override
-    @Query("select p from Patient p left join fetch p.ansvarig a where :id = p.id ")
+    @Query("select p from Patient p left join fetch p.ansvarig a left join fetch p.pds ps where :id = p.id ")
     Patient findOne(@Param("id") Integer id);
 
 }
