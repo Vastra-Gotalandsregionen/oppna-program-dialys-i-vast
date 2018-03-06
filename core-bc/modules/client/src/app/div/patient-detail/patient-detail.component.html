@@ -5,7 +5,6 @@
        Patient: {{data.pnr}}
        <mat-icon *ngIf="getStatus(data) === 'closed'" style="color: #ebb62f;" matTooltip="Giltighetsdatum passerat.">error</mat-icon>
        <mat-icon *ngIf="getStatus(data) === 'fullyClosed'" style="color: #d33;" matTooltip="Giltighetsdatum passerat för över ett år sedan.">error</mat-icon>
-
     </h1>
     <div class="action-toolbar-spacer"></div>
     <!--<app-back-button class="action-toolbar-item"></app-back-button>-->

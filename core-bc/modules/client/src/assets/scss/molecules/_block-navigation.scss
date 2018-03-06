@@ -12,7 +12,9 @@
     box-sizing: border-box;
     display: block;
     float: left;
+    height: auto;
     margin: 10px 0;
+    position: relative;
     width: 33%;
 
     .mat-list-item-content {
@@ -20,6 +22,10 @@
       height: auto;
       margin: 0 10px;
       padding: 0;
+
+      .mat-ripple {
+        position: relative;
+      }
 
     }
 
