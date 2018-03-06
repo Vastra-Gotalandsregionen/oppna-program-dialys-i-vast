@@ -5,7 +5,18 @@
        Ny rekvisition: {{data.pnr}}
     </h1>
     <div class="action-toolbar-spacer"></div>
+    <!--
     <a class="action-toolbar-item" mat-fab routerLink="id" matTooltip="Tillbaka"><mat-icon>arrow_back</mat-icon></a>
+    -->
+
+    <!--
+    <a  class="action-toolbar-item" mat-fab routerLink="{{data.id}}" routerLinkActive="active" matTooltip="Tillbaka">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    -->
+
+    <app-back-button class="action-toolbar-item"></app-back-button>
+
   </mat-toolbar>
 
     <mat-card class="example-card">

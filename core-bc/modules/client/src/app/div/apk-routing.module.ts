@@ -29,7 +29,7 @@ const routes: Routes = [
       {
         path: ':id/add-requisition',
         component: PatientAddRequisitionComponent
-        canDeactivate: [FormChangedGuard]
+        //canDeactivate: [FormChangedGuard]
       },
 
       {
