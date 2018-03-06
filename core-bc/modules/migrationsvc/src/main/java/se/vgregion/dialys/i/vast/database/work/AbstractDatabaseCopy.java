@@ -378,4 +378,8 @@ public abstract class AbstractDatabaseCopy {
 
     }
 
+    public void removePdThatHasNoPatient() {
+        target.update("delete from pd where patientid not in (select id from patient)");
+        target.commit();
+    }
 }

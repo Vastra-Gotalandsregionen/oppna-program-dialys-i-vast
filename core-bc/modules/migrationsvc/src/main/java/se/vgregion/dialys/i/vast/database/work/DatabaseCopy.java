@@ -32,8 +32,11 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.connectUsersWithAnsvarig();
         //Todo: kolla de som inte fixas av addUserNameToUserRoles
         dc.addUserNameToUserRoles();
+
+        // Todo: This should not be done when running job for production... comment away then.
         dc.obfuscateUserPasswords();
         dc.obfuscatePatients();
+        dc.removePdThatHasNoPatient();
     }
 
 }
