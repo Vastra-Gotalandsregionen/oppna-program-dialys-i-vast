@@ -106,11 +106,10 @@
         </mat-expansion-panel-header>
 
         <p>Put table with orders here</p>
-        (Currently I am {{panelOpenState ? 'open' : 'closed'}})
 
       </mat-expansion-panel>
 
-      <mat-expansion-panel *ngIf="showOldReqs" class="div-requisition-panel">
+      <mat-expansion-panel *ngIf="showOldRequisitions" class="div-requisition-panel">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>content_paste</mat-icon>
@@ -122,11 +121,10 @@
         </mat-expansion-panel-header>
 
         <p>Put table with orders here</p>
-        (Currently I am {{panelOpenState ? 'open' : 'closed'}})
 
       </mat-expansion-panel>
 
-      <mat-expansion-panel *ngIf="showOldReqs" class="div-requisition-panel">
+      <mat-expansion-panel *ngIf="showOldRequisitions" class="div-requisition-panel">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>content_paste</mat-icon>
@@ -148,28 +146,9 @@
     <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
     <br />
 
-    <mat-checkbox class="" [checked]="showOldReqs" (change)="showOldReqs = $event.checked">
+    <mat-checkbox class="" [checked]="showOldRequisitions" (change)="showOldRequisitions = $event.checked">
       Visa gamla rekvisitioner
     </mat-checkbox>
-
-    <!--
-    <mat-slide-toggle class="" [checked]="showOldReqs" (change)="showOldReqs = $event.checked">
-      Visa gamla rekvisitioner
-    </mat-slide-toggle>
-    -->
-
-    <!--
-    -->
-    <!--
-    <mat-button-toggle [(ngModel)]="showOldReqs" value="showOldReqs" name="foo">Toggle me!</mat-button-toggle>
-    -->
-    <!--
-    <mat-button-toggle (change)="showOldReqs = $event.checked" [checked]="showOldReqs" >
-      Toggle me!
-    </mat-button-toggle>
-    -->
-
-
 
   <!--
   <div class="panel panel-primary" style="background-color: #005c95">

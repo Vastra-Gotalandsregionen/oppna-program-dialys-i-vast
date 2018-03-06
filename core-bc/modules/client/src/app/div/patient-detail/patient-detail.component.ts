@@ -18,7 +18,7 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
 
   id: string;
   data: Patient;
-  showOldReqs: boolean;
+  showOldRequisitions: boolean;
   $replacedBy: Observable<Patient>;
   $replaces: Observable<Patient>;
   archivedDatas: Patient[] = [];
@@ -36,7 +36,7 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params.id;
 
-      this.showOldReqs = false;
+      this.showOldRequisitions = false;
 
       if (this.id) {
         const $data = this.http.get('/api/patient/' + this.id)
