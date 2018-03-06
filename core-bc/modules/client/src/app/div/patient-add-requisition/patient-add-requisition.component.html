@@ -1,0 +1,79 @@
+<div *ngIf="data">
+
+  <mat-toolbar class="action-toolbar">
+    <h1>
+       Ny rekvisition: {{data.pnr}}
+    </h1>
+    <div class="action-toolbar-spacer"></div>
+    <a class="action-toolbar-item" mat-fab routerLink="id" matTooltip="Tillbaka"><mat-icon>arrow_back</mat-icon></a>
+  </mat-toolbar>
+
+    <mat-card class="example-card">
+
+      <mat-card-content>
+
+        <div class="row">
+        	<div class="col c6">
+        		<div class="col-inner">
+
+              <div class="div-details">
+
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Personnr:</div>
+                  <div class="div-details-item-data">
+                    {{data.pnr}}
+                  </div>
+                </div>
+
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Rekvisitionsdatum:</div>
+                  <div class="div-details-item-data">
+                    2016-01-01
+                  </div>
+                </div>
+
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Ersätter rekvisition:</div>
+                  <div class="div-details-item-data">
+                    -
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+        	</div>
+          <div class="col c6"></div>
+        </div>
+
+        <mat-tab-group>
+          <mat-tab label="Baxter">
+            Baxter är vald.
+          </mat-tab>
+
+          <mat-tab label="Fresenius">
+            Fresenius är vald.
+          </mat-tab>
+
+          <mat-tab label="Övriga varor">
+            Övriga varor är vald.
+          </mat-tab>
+
+          <mat-tab label="Hjälpmedel">
+            Hjälpmedel är vald.
+          </mat-tab>
+
+          <mat-tab label="Barn">
+            Barn är vald.
+          </mat-tab>
+
+
+        </mat-tab-group>
+
+      </mat-card-content>
+    </mat-card>
+
+
+
+
+</div>

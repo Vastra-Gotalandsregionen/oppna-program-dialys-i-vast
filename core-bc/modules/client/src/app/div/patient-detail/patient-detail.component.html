@@ -12,6 +12,12 @@
     <a class="action-toolbar-item" mat-fab routerLink="edit" matTooltip="Redigera arbetsplatskod" *ngIf="userHasEditPermission(data) && getStatus(data) !== 'closed' && getStatus(data) !== 'fullyClosed'">
       <mat-icon>edit</mat-icon>
     </a>
+
+    <a class="action-toolbar-item" mat-fab routerLink="add-requisition" matTooltip="Ny rekvisition" *ngIf="userHasEditPermission(data)">
+      <mat-icon>content_paste</mat-icon>
+    </a>
+
+
     <a class="action-toolbar-item" mat-fab routerLink="id" matTooltip="Tillbaka"><mat-icon>arrow_back</mat-icon></a>
   </mat-toolbar>
 

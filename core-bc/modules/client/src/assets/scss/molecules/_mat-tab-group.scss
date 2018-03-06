@@ -1,0 +1,38 @@
+.mat-tab-group {
+
+  .mat-tab-header {
+    background: #D8D8D8;
+    border-bottom: none;
+    padding: 0 1px 0 1px;
+
+    .mat-ink-bar {
+      background-color: $vgr-orange;
+      height: 5px;
+      top: 0;
+    }
+
+    .mat-tab-label {
+
+      opacity: 1.0;
+
+      &.mat-tab-label-active {
+        background: #fff;
+        color: $vgr-blue-dark;
+        opacity: 1.0;
+      }
+
+    }
+
+  }
+
+  .mat-tab-body {
+
+    .mat-tab-body-content {
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+
+  }
+
+
+}
