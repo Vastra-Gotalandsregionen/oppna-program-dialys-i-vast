@@ -89,11 +89,98 @@
 
       </mat-card-content>
     </mat-card>
+
+
+
+    <mat-accordion>
+
+      <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>content_paste</mat-icon>
+            Rekvisition 1234
+          </mat-panel-title>
+          <mat-panel-description>
+            2016-01-01
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>Put table with orders here</p>
+        (Currently I am {{panelOpenState ? 'open' : 'closed'}})
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="showOldReqs" class="div-requisition-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>content_paste</mat-icon>
+            Rekvisition 1177
+          </mat-panel-title>
+          <mat-panel-description>
+            2015-10-01
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>Put table with orders here</p>
+        (Currently I am {{panelOpenState ? 'open' : 'closed'}})
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="showOldReqs" class="div-requisition-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>content_paste</mat-icon>
+            Rekvisition 1162
+          </mat-panel-title>
+          <mat-panel-description>
+            2015-06-01
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>Put table with orders here</p>
+
+      </mat-expansion-panel>
+
+
+
+    </mat-accordion>
+
+    <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
+    <br />
+
+    <mat-checkbox class="" [checked]="showOldReqs" (change)="showOldReqs = $event.checked">
+      Visa gamla rekvisitioner
+    </mat-checkbox>
+
+    <!--
+    <mat-slide-toggle class="" [checked]="showOldReqs" (change)="showOldReqs = $event.checked">
+      Visa gamla rekvisitioner
+    </mat-slide-toggle>
+    -->
+
+    <!--
+    -->
+    <!--
+    <mat-button-toggle [(ngModel)]="showOldReqs" value="showOldReqs" name="foo">Toggle me!</mat-button-toggle>
+    -->
+    <!--
+    <mat-button-toggle (change)="showOldReqs = $event.checked" [checked]="showOldReqs" >
+      Toggle me!
+    </mat-button-toggle>
+    -->
+
+
+
+  <!--
   <div class="panel panel-primary" style="background-color: #005c95">
     <div class="panel-heading" style="height: 50px; padding-left: 50px; padding-top: 20px; font-size:18px; font-weight: bold;">
         Rekvisition
     </div>
   </div>
+  -->
+
+    <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
+    <br /><br /><br />
 
     <mat-toolbar class="meta-toolbar">
 

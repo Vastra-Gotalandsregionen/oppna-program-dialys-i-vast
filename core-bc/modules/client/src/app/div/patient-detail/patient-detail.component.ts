@@ -18,6 +18,7 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
 
   id: string;
   data: Patient;
+  showOldReqs: boolean;
   $replacedBy: Observable<Patient>;
   $replaces: Observable<Patient>;
   archivedDatas: Patient[] = [];
@@ -30,8 +31,12 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
   }
 
   ngOnInit() {
+
+
     this.route.params.subscribe(params => {
       this.id = params.id;
+
+      this.showOldReqs = false;
 
       if (this.id) {
         const $data = this.http.get('/api/patient/' + this.id)
