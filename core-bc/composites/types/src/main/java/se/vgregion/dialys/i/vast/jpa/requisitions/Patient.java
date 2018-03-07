@@ -117,6 +117,10 @@ public class Patient implements Serializable {
     @Column(name = "UtdelText")
     private String utdelText;
 
+    @Size(max = 1200)
+    @Column(name = "ovrigt")
+    private String ovrigt;
+
     @Column(name = "PAS")
     private Integer pas;
 
@@ -337,5 +341,13 @@ public class Patient implements Serializable {
 
     public void setLasText(String lasText) {
         this.lasText = lasText;
+    }
+
+    public String getOvrigt() {
+        return ovrigt;
+    }
+
+    public void setOvrigt(String ovrigt) {
+        this.ovrigt = ovrigt;
     }
 }

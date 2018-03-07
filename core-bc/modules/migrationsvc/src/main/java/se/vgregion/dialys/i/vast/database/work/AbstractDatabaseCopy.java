@@ -378,8 +378,13 @@ public abstract class AbstractDatabaseCopy {
 
     }
 
-    public void removePdThatHasNoPatient() {
-        target.update("delete from pd where patientid not in (select id from patient)");
+    public void removeOrphanPdAndBestInfoAndBestPDRad() {
+        int r = target.update("delete from pd where patientid not in (select id from patient)");
+        System.out.println("Deleted orphan pd, " + r + " items.");
+        r = target.update("delete from bestinfo bi where bi.pdid not in (select id from pd)");
+        System.out.println("Deleted orphan bestinfo, " + r + " items.");
+        r = target.update("delete from bestpdrad brad where brad.bestid not in (select id from bestinfo)");
+        System.out.println("Deleted orphan bestpdrad, " + r + " items.");
         target.commit();
     }
 }

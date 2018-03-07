@@ -1,25 +1,34 @@
 package se.vgregion.dialys.i.vast.controller.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import se.vgregion.dialys.i.vast.jpa.requisitions.*;
+import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
+import se.vgregion.dialys.i.vast.jpa.requisitions.BestPDRad;
+import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
+import se.vgregion.dialys.i.vast.jpa.requisitions.Pd;
 import se.vgregion.dialys.i.vast.repository.PatientRepository;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.OneToMany;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/patient")
@@ -29,6 +38,13 @@ public class PatientController {
 
     @Autowired
     private PatientRepository patientRepository;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    @PostConstruct
+    void init() {
+        objectMapper.addMixIn(Pd.class, PdMixin.class);
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Patient> getPatients() {
@@ -66,21 +82,15 @@ public class PatientController {
     PatientFinder patientFinder;
 
     @RequestMapping(value = "filter", method = RequestMethod.GET)
-    @ResponseBody
     @Transactional
-    public Page<Patient> getPatients(@RequestParam(value = "page", required = false) Integer page,
-                                     @RequestParam(value = "query", required = false) String query,
-                                     @RequestParam(value = "sort", required = false) String sort,
-                                     @RequestParam(value = "asc", required = false) boolean asc) {
+    public String getPatients(@RequestParam(value = "page", required = false) Integer page,
+                              @RequestParam(value = "query", required = false) String query,
+                              @RequestParam(value = "sort", required = false) String sort,
+                              @RequestParam(value = "asc", required = false) boolean asc) throws JsonProcessingException {
 
         Pageable pageable = makePageable(page, sort, asc);
 
-        /*Iterable<Patient> examples = new ArrayList<>();
-        patientRepository.findAll(examples, makePageable(page, sort, asc));
-        Example<? extends Patient> example = new Example<>();
-        patientRepository.count(example);*/
-
-        return patientFinder.search(query, pageable);
+        return objectMapper.writeValueAsString(patientFinder.search(query, pageable));
     }
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
@@ -116,7 +126,7 @@ public class PatientController {
         for (PropertyDescriptor pd : pds) {
             if (pd.getName().equals("class")) continue;
             System.out.println(pd.getName() + ": "
-                    +  (isClassCollection(pd.getPropertyType()) ? "Array" :
+                    + (isClassCollection(pd.getPropertyType()) ? "Array" :
                     pd.getPropertyType().getSimpleName().toLowerCase()) + ";");
         }
     }
@@ -131,7 +141,7 @@ public class PatientController {
         // 'agarform': [this.data.agarform]
         for (PropertyDescriptor pd : pds) {
             if (pd.getName().equals("class")) continue;
-            System.out.println("'"+pd.getName() + "': [this." + withBeanName + "." + pd.getName() + "],");
+            System.out.println("'" + pd.getName() + "': [this." + withBeanName + "." + pd.getName() + "],");
         }
     }
 
@@ -143,6 +153,13 @@ public class PatientController {
             if (pd.getName().equals("class")) continue;
             System.out.println(toVarName + "." + pd.getName() + " = " + fromVarName + "." + pd.getName() + ";");
         }
+    }
+
+    private static class PdMixin {
+
+        @JsonIgnore
+        private Set<BestInfo> bestInfos;
+
     }
 
 }

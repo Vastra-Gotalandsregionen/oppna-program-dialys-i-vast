@@ -36,7 +36,7 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         // Todo: This should not be done when running job for production... comment away then.
         dc.obfuscateUserPasswords();
         dc.obfuscatePatients();
-        dc.removePdThatHasNoPatient();
+        dc.removeOrphanPdAndBestInfoAndBestPDRad();
     }
 
 }

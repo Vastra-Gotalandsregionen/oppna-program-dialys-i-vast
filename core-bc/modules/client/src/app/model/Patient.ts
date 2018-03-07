@@ -21,5 +21,6 @@ export class Patient {
   utdelText: string;
   utdelVecka: string;
   lasText: string;
+  ovrigt: string;
   pds: Array<Pd>
 }
