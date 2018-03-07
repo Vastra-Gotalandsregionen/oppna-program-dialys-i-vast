@@ -1,22 +1,21 @@
 <mat-card class="example-card">
   <mat-card-content>
-    patient-edit works!
     <mat-grid-list cols="3" rowHeight="4:1">
-      <mat-grid-tile>1</mat-grid-tile>
+      <mat-grid-tile>Ange personuppgifter</mat-grid-tile>
       <mat-grid-tile>
         <mat-input-container>
           <input id="name" [(ngModel)]="patient.pnr" placeholder="Personnummer" type="text" matInput>
         </mat-input-container>
       </mat-grid-tile>
-      <mat-grid-tile>3</mat-grid-tile>
-      <mat-grid-tile>4</mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
       <mat-grid-tile>
         <mat-input-container>
           <input id="fornamn" [(ngModel)]="patient.fornamn" placeholder="Förnamn" type="text" matInput>
         </mat-input-container>
       </mat-grid-tile>
-      <mat-grid-tile>3</mat-grid-tile>
-      <mat-grid-tile>4</mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
       <mat-grid-tile>
         <mat-input-container>
           <input id="efternamn" [(ngModel)]="patient.efternamn" placeholder="Efternamn" type="text" matInput>
@@ -25,42 +24,44 @@
     </mat-grid-list>
 
     <mat-grid-list cols="3" rowHeight="4:1">
-      <mat-grid-tile>1</mat-grid-tile>
+      <mat-grid-tile>Ange patient- och mottagningsuppgifter</mat-grid-tile>
       <mat-grid-tile>
-        <h3>Välj typ (verkar inte finnsa i databasen)</h3>
+        Välj typ:
         <mat-radio-group>
           <mat-radio-button value="PD">Pd</mat-radio-button>
           <mat-radio-button value="GD">GD</mat-radio-button>
         </mat-radio-group>
       </mat-grid-tile>
-      <mat-grid-tile>3</mat-grid-tile>
-      <mat-grid-tile>4</mat-grid-tile>
-      <mat-grid-tile>
-        <!--<mat-radio-group [(ngModel)]="patient.ansvarig">
-          <mat-radio-button *ngFor="let ansvarig of ansvarigs" value="ansvarig">{{ansvarig.namn}} {{ansvarig.mottagningID}}</mat-radio-button>
-        </mat-radio-group>-->
+      <mat-grid-tile></mat-grid-tile>
 
-        <mat-select [(ngModel)]="selectedMottagning">
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile>
+        <mat-select [(ngModel)]="selectedMottagning" placeholder="Mottagning">
           <mat-option *ngFor="let mottagning of mottagnins" [value]="mottagning" (onSelectionChange)="onMottagningSelect()">
             {{mottagning.namn}}
           </mat-option>
         </mat-select>
-        <br/>
+      </mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
 
-        <mat-select [(ngModel)]="patient.ansvarig">
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile>
+        <mat-select placeholder="PAS - patientasvarig sjuksköterska" [(ngModel)]="patient.ansvarig" onchange="onAnsvarigChange()" (onSelectionChange)="onAnsvarigChange()">
           <mat-option *ngFor="let ansvarig of ansvarigsDomain" [value]="ansvarig">
             {{ansvarig.namn}}
           </mat-option>
         </mat-select>
-
       </mat-grid-tile>
-      <mat-grid-tile>3</mat-grid-tile>
-      <mat-grid-tile>4</mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+
+      <mat-grid-tile></mat-grid-tile>
       <mat-grid-tile>
         <mat-input-container>
-          <input id="pas" [(ngModel)]="patient.pas" placeholder="Patientasvarig sköterska" type="text" matInput>
+          <input id="lasText" [(ngModel)]="patient.lasText" placeholder="LAS - patientasvarig läkare" type="text" matInput>
         </mat-input-container>
       </mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+
     </mat-grid-list>
 
   </mat-card-content>

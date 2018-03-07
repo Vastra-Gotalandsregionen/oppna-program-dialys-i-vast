@@ -26,6 +26,7 @@ export class PatientEditComponent implements OnInit {
   @Input() mottagnins: Array<Mottagning> = [];
 
   @Input() selectedMottagning: Mottagning;
+  @Input() selectedAnsvarig: Ansvarig;
 
   @Input() mottagningById: Map<number, Mottagning> = new Map<number, Mottagning>();
 
@@ -68,20 +69,27 @@ export class PatientEditComponent implements OnInit {
             if (this.patient.ansvarig) {
               this.ansvarigsDomain = this.mottagningById.get(this.patient.ansvarig.mottagningID).ansvarigs;
             }
+            this.selectedAnsvarig = this.patient.ansvarig;
+            this.selectedMottagning = this.mottagningById.get(this.selectedAnsvarig.mottagningID);
           });
 
       });
-
-
   }
 
   onMottagningSelect() {
     if (this.selectedMottagning) {
       console.log("Selected ", this.selectedMottagning);
       if(this.selectedMottagning.ansvarigs) {
-        this.patient.ansvarig = this.selectedMottagning.ansvarigs[0];
+        //this.patient.ansvarig = this.selectedMottagning.ansvarigs[0];
         this.ansvarigsDomain = this.selectedMottagning.ansvarigs;
+        this.selectedAnsvarig = this.selectedMottagning.ansvarigs[0];
+        this.onAnsvarigChange();
       }
     }
+  }
+
+  onAnsvarigChange() {
+    console.log("Ansvarig in patient");
+    this.patient.ansvarig = this.selectedAnsvarig;
   }
 }

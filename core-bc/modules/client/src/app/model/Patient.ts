@@ -20,5 +20,6 @@ export class Patient {
   utdelDag: string;
   utdelText: string;
   utdelVecka: string;
+  lasText: string;
   pds: Array<Pd>
 }
