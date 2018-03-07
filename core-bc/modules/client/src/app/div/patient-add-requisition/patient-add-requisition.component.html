@@ -57,25 +57,41 @@
           <div class="col c6"></div>
         </div>
 
-        <mat-tab-group>
+        <mat-tab-group dynamicHeight="true" [@.disabled]="true" >
           <mat-tab label="Baxter">
-            Baxter är vald.
+            <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true" >
+              <mat-tab label="APD">APD</mat-tab>
+              <mat-tab label="CAPD">CAPD</mat-tab>
+              <mat-tab label="Förbrukningsvaror">Förbrukningsvaror</mat-tab>
+            </mat-tab-group>
           </mat-tab>
 
           <mat-tab label="Fresenius">
-            Fresenius är vald.
+            <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true" >
+              <mat-tab label="Fresenius tabb 1">Fresenius tabb 1</mat-tab>
+              <mat-tab label="Fresenius tabb 2">Fresenius tabb 2</mat-tab>
+            </mat-tab-group>
           </mat-tab>
 
           <mat-tab label="Övriga varor">
-            Övriga varor är vald.
+            <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true" >
+              <mat-tab label="Övriga tabb 1">Övriga tabb 1</mat-tab>
+              <mat-tab label="Övriga tabb 2">Övriga tabb 2</mat-tab>
+            </mat-tab-group>
           </mat-tab>
 
           <mat-tab label="Hjälpmedel">
-            Hjälpmedel är vald.
+            <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true" >
+              <mat-tab label="Hjälpmedel tabb 1">Hjälpmedel tabb 1</mat-tab>
+              <mat-tab label="Hjälpmedel tabb 2">Hjälpmedel tabb 2</mat-tab>
+            </mat-tab-group>
           </mat-tab>
 
           <mat-tab label="Barn">
-            Barn är vald.
+            <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true" >
+              <mat-tab label="Barn tabb 1">Barn tabb 1</mat-tab>
+              <mat-tab label="Barn tabb 2">Barn tabb 2</mat-tab>
+            </mat-tab-group>
           </mat-tab>
 
 

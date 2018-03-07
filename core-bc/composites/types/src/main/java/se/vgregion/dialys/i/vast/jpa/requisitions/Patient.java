@@ -141,6 +141,9 @@ public class Patient implements Serializable {
     @JoinColumn(name = "pas", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_patient_ansvarig"))
     private Ansvarig ansvarig;
 
+    @Column(name = "lasText")
+    private String lasText;
+
     public Patient() {
     }
 
@@ -326,5 +329,13 @@ public class Patient implements Serializable {
 
     public void setAnsvarig(Ansvarig ansvarig) {
         this.ansvarig = ansvarig;
+    }
+
+    public String getLasText() {
+        return lasText;
+    }
+
+    public void setLasText(String lasText) {
+        this.lasText = lasText;
     }
 }

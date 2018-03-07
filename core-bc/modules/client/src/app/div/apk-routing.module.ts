@@ -7,6 +7,7 @@ import {ApkEditComponent} from './apk-edit/apk-edit.component';
 import {ApkCreateComponent} from './apk-create/apk-create.component';
 import {ArchivedDatasComponent} from './archived-datas/archived-datas.component';
 import {FormChangedGuard} from "./guard/form-changed.guard";
+import {PatientEditComponent} from "./patient-edit/patient-edit.component";
 
 const routes: Routes = [
   {
@@ -34,8 +35,9 @@ const routes: Routes = [
 
       {
         path: ':id/edit',
-        component: ApkEditComponent,
-        canDeactivate: [FormChangedGuard]
+        component: PatientEditComponent
+        //component: ApkEditComponent
+        //,        canDeactivate: [FormChangedGuard]
       },
       {
         path: ':id/archivedDatas',

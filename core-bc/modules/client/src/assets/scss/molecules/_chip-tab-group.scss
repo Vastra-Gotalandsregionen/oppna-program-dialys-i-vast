@@ -1,0 +1,43 @@
+.chip-tab-group.mat-tab-group {
+
+  .mat-tab-header {
+    background: transparent;
+    border-bottom: 1px solid #D8D8D8;
+    padding: 20px 0;
+
+    .mat-ink-bar {
+      display: none;
+    }
+
+    .mat-tab-label {
+
+      background: #fff;
+      border: 1px solid #D8D8D8;
+      border-radius: 20px;
+      height: 40px;
+      margin-right: 10px;
+      opacity: 1.0;
+      padding: 0 20px;
+
+      &.mat-tab-label-active {
+        background-color: $vgr-orange;
+        border-color: $vgr-orange;
+        color: white;
+        opacity: 1.0;
+      }
+
+    }
+
+  }
+
+  .mat-tab-body {
+
+    .mat-tab-body-content {
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+
+  }
+
+
+}
