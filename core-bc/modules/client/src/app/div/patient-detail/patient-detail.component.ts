@@ -6,6 +6,7 @@ import {ApkBase} from "../apk-base/apk-base";
 import {Observable} from 'rxjs/Observable';
 import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
+import {Rekvistion} from "./Rekvistion";
 
 @Component({
   selector: 'app-apk-detail',
@@ -22,7 +23,7 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
   $replacedBy: Observable<Patient>;
   $replaces: Observable<Patient>;
   archivedDatas: Patient[] = [];
-  rekvistion;
+  rekvisition: Rekvistion = new Rekvistion();
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
@@ -45,6 +46,9 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
 
         $data.subscribe((data: Patient) => {
           this.data = data;
+          this.rekvisition.datum = new Date(data.pds[0].datum);
+          this.rekvisition.id = +data.pds[0].id;
+
         });
 
 /*        this.$replacedBy = $data

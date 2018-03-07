@@ -20,7 +20,7 @@ import {
 @NgModule({
   imports: [
     MatAutocompleteModule,
-    MatExpansionModule
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatSidenavModule,
@@ -46,7 +46,7 @@ import {
   declarations: [],
   exports: [
     MatAutocompleteModule,
-    MatExpansionModule
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatSidenavModule,

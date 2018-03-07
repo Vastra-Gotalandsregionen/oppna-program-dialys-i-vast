@@ -1,5 +1,7 @@
 import {Patient} from "./Patient";
-export class Pd{
+import {BestInfo} from "./BestInfo";
+
+export class Pd {
   datum: Date;
   ersatter: number;
   giltighet: Date;
@@ -8,4 +10,5 @@ export class Pd{
   patient: Patient;
   patientID: number;
   sskID: number;
+  bestInfos: Array<BestInfo>;
 }

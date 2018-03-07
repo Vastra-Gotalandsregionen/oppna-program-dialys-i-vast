@@ -5,37 +5,29 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "BestInfo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "BestInfo.findAll", query = "SELECT b FROM BestInfo b")
-    , @NamedQuery(name = "BestInfo.findById", query = "SELECT b FROM BestInfo b WHERE b.id = :id")
-    , @NamedQuery(name = "BestInfo.findByPdid", query = "SELECT b FROM BestInfo b WHERE b.pdid = :pdid")
-    , @NamedQuery(name = "BestInfo.findByDatum", query = "SELECT b FROM BestInfo b WHERE b.datum = :datum")
-    , @NamedQuery(name = "BestInfo.findByUtskrivare", query = "SELECT b FROM BestInfo b WHERE b.utskrivare = :utskrivare")
-    , @NamedQuery(name = "BestInfo.findByLevDatum", query = "SELECT b FROM BestInfo b WHERE b.levDatum = :levDatum")
-    , @NamedQuery(name = "BestInfo.findByFritext", query = "SELECT b FROM BestInfo b WHERE b.fritext = :fritext")})
+        @NamedQuery(name = "BestInfo.findAll", query = "SELECT b FROM BestInfo b")
+        , @NamedQuery(name = "BestInfo.findById", query = "SELECT b FROM BestInfo b WHERE b.id = :id")
+        , @NamedQuery(name = "BestInfo.findByPdid", query = "SELECT b FROM BestInfo b WHERE b.pdid = :pdid")
+        , @NamedQuery(name = "BestInfo.findByDatum", query = "SELECT b FROM BestInfo b WHERE b.datum = :datum")
+        , @NamedQuery(name = "BestInfo.findByUtskrivare", query = "SELECT b FROM BestInfo b WHERE b.utskrivare = :utskrivare")
+        , @NamedQuery(name = "BestInfo.findByLevDatum", query = "SELECT b FROM BestInfo b WHERE b.levDatum = :levDatum")
+        , @NamedQuery(name = "BestInfo.findByFritext", query = "SELECT b FROM BestInfo b WHERE b.fritext = :fritext")})
 public class BestInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,20 +36,32 @@ public class BestInfo implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "PDID")
+
+    @Column(name = "PDID", updatable = false, insertable = false)
     private Integer pdid;
+
     @Column(name = "Datum")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datum;
     @Size(max = 50)
     @Column(name = "Utskrivare")
     private String utskrivare;
+
     @Column(name = "LevDatum")
     @Temporal(TemporalType.TIMESTAMP)
     private Date levDatum;
+
     @Size(max = 200)
     @Column(name = "Fritext")
     private String fritext;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pdid", foreignKey = @ForeignKey(name = "fk_bestInfo_pd"))
+    private Pd pd;
+
+    @OneToMany(mappedBy = "bestInfo")
+    private Set<BestPDRad> bestPDRads;
 
     public BestInfo() {
     }
@@ -138,5 +142,20 @@ public class BestInfo implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo[ id=" + id + " ]";
     }
-    
+
+    public Pd getPd() {
+        return pd;
+    }
+
+    public void setPd(Pd pd) {
+        this.pd = pd;
+    }
+
+    public Set<BestPDRad> getBestPDRads() {
+        return bestPDRads;
+    }
+
+    public void setBestPDRads(Set<BestPDRad> bestPDRads) {
+        this.bestPDRads = bestPDRads;
+    }
 }

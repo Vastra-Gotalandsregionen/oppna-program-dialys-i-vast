@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -50,6 +51,9 @@ public class Pd implements Serializable {
     private Integer sskID;
     @Column(name = "LAS")
     private Integer las;
+
+    @OneToMany(mappedBy = "pd")
+    private Set<BestInfo> bestInfos;
 
     public Patient getPatient() {
         return patient;
@@ -151,5 +155,12 @@ public class Pd implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Pd[ id=" + id + " ]";
     }
-    
+
+    public Set<BestInfo> getBestInfos() {
+        return bestInfos;
+    }
+
+    public void setBestInfos(Set<BestInfo> bestInfos) {
+        this.bestInfos = bestInfos;
+    }
 }

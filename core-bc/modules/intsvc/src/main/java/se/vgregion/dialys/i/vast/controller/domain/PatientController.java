@@ -94,10 +94,7 @@ public class PatientController {
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Patient getPatient(@PathVariable("id") Integer id) {
-        System.out.println("getPatient " + id);
         Patient user = patientRepository.findOne(id);
-
-        //return ResponseEntity.ok(user);
         return user;
     }
 
@@ -110,7 +107,7 @@ public class PatientController {
         }*/
         //makeForumBuilderPropertyMapping(Patient.class, "data");
         //makeCopyDataCode(Patient.class, "formModel", "data");
-        makeTypeScriptVersion(Ansvarig.class);
+        makeTypeScriptVersion(BestPDRad.class);
     }
 
     public static void makeTypeScriptVersion(Class ofThat) throws IntrospectionException {
