@@ -5,7 +5,6 @@
        Patient: {{data.pnr}}
        <mat-icon *ngIf="getStatus(data) === 'closed'" style="color: #ebb62f;" matTooltip="Giltighetsdatum passerat.">error</mat-icon>
        <mat-icon *ngIf="getStatus(data) === 'fullyClosed'" style="color: #d33;" matTooltip="Giltighetsdatum passerat för över ett år sedan.">error</mat-icon>
-
     </h1>
     <div class="action-toolbar-spacer"></div>
     <!--<app-back-button class="action-toolbar-item"></app-back-button>-->
@@ -13,6 +12,12 @@
     <a class="action-toolbar-item" mat-fab routerLink="edit" matTooltip="Redigera arbetsplatskod" *ngIf="userHasEditPermission(data) && getStatus(data) !== 'closed' && getStatus(data) !== 'fullyClosed'">
       <mat-icon>edit</mat-icon>
     </a>
+
+    <a class="action-toolbar-item" mat-fab routerLink="add-requisition" matTooltip="Ny rekvisition" *ngIf="userHasEditPermission(data)">
+      <mat-icon>content_paste</mat-icon>
+    </a>
+
+
     <a class="action-toolbar-item" mat-fab routerLink="id" matTooltip="Tillbaka"><mat-icon>arrow_back</mat-icon></a>
   </mat-toolbar>
 
@@ -23,25 +28,25 @@
         <div class="row">
         	<div class="col c6">
         		<div class="col-inner">
-              <div class="apk-details">
+              <div class="div-details">
 
-                <div class="apk-details-item">
-                  <div class="apk-details-item-label">Personnr:</div>
-                  <div class="apk-details-item-data">
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Personnr:</div>
+                  <div class="div-details-item-data">
                     {{data.pnr}}
                   </div>
                 </div>
 
-                <div class="apk-details-item">
-                  <div class="apk-details-item-label">Namn:</div>
-                  <div class="apk-details-item-data">
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Namn:</div>
+                  <div class="div-details-item-data">
                     {{data.fornamn}}
                   </div>
                 </div>
 
-                <div class="apk-details-item">
-                  <div class="apk-details-item-label">Label:</div>
-                  <div class="apk-details-item-data">
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Label:</div>
+                  <div class="div-details-item-data">
                     {{data.id}}
                   </div>
                 </div>
@@ -51,33 +56,33 @@
         	</div>
           <div class="col c6">
             <div class="col-inner">
-              <div class="apk-details">
+              <div class="div-details">
 
-                <div class="apk-details-item">
-                  <div class="apk-details-item-label">Gatuadress:</div>
-                  <div class="apk-details-item-data">
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Gatuadress:</div>
+                  <div class="div-details-item-data">
                     {{data.adress}}
                   </div>
                 </div>
 
-                <div class="apk-details-item">
-                  <div class="apk-details-item-label">Postadress:</div>
-                  <div class="apk-details-item-data">
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Postadress:</div>
+                  <div class="div-details-item-data">
                     {{data.postOrt}}
                   </div>
                 </div>
 
 
-                <div class="apk-details-item">
-                  <div class="apk-details-item-label">Telefon:</div>
-                  <div class="apk-details-item-data">
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Telefon:</div>
+                  <div class="div-details-item-data">
                     {{data.telefon}}
                   </div>
                 </div>
 
-                <div class="apk-details-item">
-                  <div class="apk-details-item-label">Epost:</div>
-                  <div class="apk-details-item-data">
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Epost:</div>
+                  <div class="div-details-item-data">
                     {{data.epost}}
                   </div>
                 </div>
@@ -90,11 +95,77 @@
 
       </mat-card-content>
     </mat-card>
+
+
+
+    <mat-accordion>
+
+      <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>content_paste</mat-icon>
+            Rekvisition 1234
+          </mat-panel-title>
+          <mat-panel-description>
+            2016-01-01
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>Put table with orders here</p>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="showOldRequisitions" class="div-requisition-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>content_paste</mat-icon>
+            Rekvisition 1177
+          </mat-panel-title>
+          <mat-panel-description>
+            2015-10-01
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>Put table with orders here</p>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="showOldRequisitions" class="div-requisition-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>content_paste</mat-icon>
+            Rekvisition 1162
+          </mat-panel-title>
+          <mat-panel-description>
+            2015-06-01
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>Put table with orders here</p>
+
+      </mat-expansion-panel>
+
+
+
+    </mat-accordion>
+
+    <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
+    <br />
+
+    <mat-checkbox class="" [checked]="showOldRequisitions" (change)="showOldRequisitions = $event.checked">
+      Visa gamla rekvisitioner
+    </mat-checkbox>
+
+  <!--
   <div class="panel panel-primary" style="background-color: #005c95">
     <div class="panel-heading" style="height: 50px; padding-left: 50px; padding-top: 20px; font-size:18px; font-weight: bold;">
         Rekvisition
     </div>
   </div>
+  -->
+
+    <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
+    <br /><br /><br />
 
     <mat-toolbar class="meta-toolbar">
 

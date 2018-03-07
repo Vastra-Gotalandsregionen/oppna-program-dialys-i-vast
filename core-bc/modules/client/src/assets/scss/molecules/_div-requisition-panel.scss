@@ -1,0 +1,42 @@
+.div-requisition-panel {
+
+  .mat-expansion-panel-header {
+      line-height: 24px;
+      padding-bottom: 5px;
+      padding-top: 5px;
+
+
+      .mat-expansion-panel-header-title {
+        font-size: 1.3em;
+        font-weight: normal;
+
+        .mat-icon {
+          margin-right: 10px;
+        }
+
+      }
+  }
+
+
+
+  // &.div-requisition-panel-main {
+  //
+  //   .mat-expansion-panel-header {
+  //     background: $vgr-blue;
+  //     color: white;
+  //
+  //     .mat-expansion-panel-header-title,
+  //     .mat-expansion-panel-header-description,
+  //     .mat-expansion-indicator::after {
+  //       color: white;
+  //     }
+  //
+  //   }
+  //
+  // }
+
+
+}
+
+
+//.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']).cdk-keyboard-focused, .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']).cdk-program-focused, .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover

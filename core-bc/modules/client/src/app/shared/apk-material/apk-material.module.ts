@@ -3,6 +3,7 @@ import {MyDateAdapter} from "./my-date-adapter";
 import {
   MatAutocompleteModule, MatButtonModule, MatButtonToggleModule,
   MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule, MatGridListModule, MatIconModule,
+  MatExpansionModule,
   MatInputModule,
   MatMenuModule,
   MatListModule, MatProgressBarModule,
@@ -19,6 +20,7 @@ import {
 @NgModule({
   imports: [
     MatAutocompleteModule,
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatSidenavModule,
@@ -45,6 +47,7 @@ import {
   declarations: [],
   exports: [
     MatAutocompleteModule,
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatSidenavModule,

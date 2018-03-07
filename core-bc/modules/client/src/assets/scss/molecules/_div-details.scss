@@ -1,11 +1,11 @@
-.apk-details {
+.div-details {
 
   padding: 10px;
 
-  &.apk-details-highlight {
+  &.div-details-highlight {
     background: #eee;
 
-    .apk-details-item {
+    .div-details-item {
       border-bottom: none;
     }
   }
@@ -23,16 +23,16 @@
   &.c5,
   &.c4 {
 
-    .apk-details {
+    .div-details {
 
-      .apk-details-item {
+      .div-details-item {
 
-        .apk-details-item-label {
+        .div-details-item-label {
           margin-right: 1%;
           width: 49%;
         }
 
-        .apk-details-item-data {
+        .div-details-item-data {
           width: 49.5%;
         }
 

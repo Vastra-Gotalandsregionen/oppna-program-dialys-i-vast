@@ -9,20 +9,15 @@ import {JwtHttp} from "../../core/jwt-http";
 
 @Component({
   selector: 'app-apk-detail',
-  templateUrl: './patient-detail.component.html',
-  styleUrls: ['./patient-detail.component.css']
+  templateUrl: './patient-add-requisition.component.html',
+  styleUrls: ['./patient-add-requisition.component.css']
 })
-export class PatientDetailComponent extends ApkBase implements OnInit {
+export class PatientAddRequisitionComponent extends ApkBase implements OnInit {
 
   @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
 
   id: string;
   data: Patient;
-  showOldRequisitions: boolean;
-  $replacedBy: Observable<Patient>;
-  $replaces: Observable<Patient>;
-  archivedDatas: Patient[] = [];
-  rekvistion;
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
@@ -36,8 +31,6 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params.id;
 
-      this.showOldRequisitions = false;
-
       if (this.id) {
         const $data = this.http.get('/api/patient/' + this.id)
           .map(response => response.json())
@@ -47,22 +40,6 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
           this.data = data;
         });
 
-/*        this.$replacedBy = $data
-          .filter((data: Patient) => !!data.ersattav)
-          .mergeMap((data: Patient) => this.http.get('/api/data/arbetsplatskodlan/' + data.ersattav))
-          .map(response => response.json());
-
-        this.$replaces = $data
-          .mergeMap((data: Patient) => this.http.get('/api/data/ersattav/' + data.arbetsplatskodlan))
-          .map(response => response.json());*/
-
-/*
-        this.http.getPage('/api/archivedData/' + this.id)
-          .map(response => response.json())
-          .subscribe((archivedDatas: Patient[]) => {
-            this.archivedDatas = archivedDatas;
-          });
-*/
 
       }
     });
