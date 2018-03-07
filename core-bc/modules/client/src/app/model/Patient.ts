@@ -1,8 +1,9 @@
-/*import {Prodn1} from "./prodn1";
-import {Prodn3} from "./prodn3";*/
 import {Pd} from "./Pd";
+import {Ansvarig} from "./Ansvarig";
+
 export class Patient {
   adress: string;
+  ansvarig: Ansvarig;
   efternamn: string;
   epost: string;
   fornamn: string;
@@ -19,5 +20,5 @@ export class Patient {
   utdelDag: string;
   utdelText: string;
   utdelVecka: string;
-  pds:Array<Pd>
+  pds: Array<Pd>
 }

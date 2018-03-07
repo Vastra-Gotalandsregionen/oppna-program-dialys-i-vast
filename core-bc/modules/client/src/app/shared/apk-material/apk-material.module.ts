@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {MyDateAdapter} from "./my-date-adapter";
 import {
   MatAutocompleteModule, MatButtonModule, MatButtonToggleModule,
-  MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule, MatIconModule,
+  MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule, MatGridListModule, MatIconModule,
   MatInputModule,
   MatMenuModule,
   MatListModule, MatProgressBarModule,
@@ -27,6 +27,7 @@ import {
     MatMenuModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatGridListModule,
     MatCardModule,
     MatRadioModule,
     MatTooltipModule,
@@ -54,6 +55,7 @@ import {
     MatButtonToggleModule,
     MatCardModule,
     MatRadioModule,
+    MatGridListModule,
     MatTooltipModule,
     MatCheckboxModule,
     MatSelectModule,
