@@ -7,6 +7,10 @@ import {Observable} from 'rxjs/Observable';
 import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
 import {Rekvistion} from "./Rekvistion";
+import {BestInfo} from "../../model/BestInfo";
+import {DataSource} from '@angular/cdk/collections'
+
+
 
 @Component({
   selector: 'app-apk-detail',
@@ -24,6 +28,8 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
   $replaces: Observable<Patient>;
   archivedDatas: Patient[] = [];
   rekvisition: Rekvistion = new Rekvistion();
+  dataSource: BestInfo[] = [];
+  displayedColumns = ['id', 'datum', 'utskrivare'];
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
@@ -48,6 +54,7 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
           this.data = data;
           this.rekvisition.datum = new Date(data.pds[0].datum);
           this.rekvisition.id = +data.pds[0].id;
+          this.dataSource = data.pds[0].bestInfos;
 
         });
 

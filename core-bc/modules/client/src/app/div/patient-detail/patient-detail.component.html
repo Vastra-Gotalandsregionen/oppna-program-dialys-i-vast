@@ -97,21 +97,45 @@
     </mat-card>
 
 
-
+    <h4>PD Rekvisitioner: </h4>
     <mat-accordion>
 
       <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>content_paste</mat-icon>
-            Rekvisition 1234
+            Rekvisition {{rekvisition.id}}
           </mat-panel-title>
-          <mat-panel-description>
-            {{rekvisition.id}} {{rekvisition.datum}}
+          <mat-panel-description style="font-size: 21px">
+            {{rekvisition.datum | date: 'yyyy-MM-dd'}}
           </mat-panel-description>
         </mat-expansion-panel-header>
+        <h4 style="color:blue; font-size: 18px; ;">Beställningar: </h4>
+        <div>
+          <mat-table #table dense [dataSource]="dataSource">
 
-        <p>Put table with orders here</p>
+
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef> <span style="color:blue; font-size: 18px;">ID</span> </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="datum">
+              <mat-header-cell *matHeaderCellDef> <span style="color:blue; font-size: 18px;">Datum</span> </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="utskrivare">
+              <mat-header-cell *matHeaderCellDef> <span style="color:blue; font-size: 18px;">Utskrivare</span> </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+          </mat-table>
+
+        </div>
 
       </mat-expansion-panel>
 
