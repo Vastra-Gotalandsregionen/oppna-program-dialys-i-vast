@@ -2,132 +2,185 @@
 
   <mat-toolbar class="action-toolbar">
     <h1>
-       Patient: {{data.pnr}}
-       <mat-icon *ngIf="getStatus(data) === 'closed'" style="color: #ebb62f;" matTooltip="Giltighetsdatum passerat.">error</mat-icon>
-       <mat-icon *ngIf="getStatus(data) === 'fullyClosed'" style="color: #d33;" matTooltip="Giltighetsdatum passerat för över ett år sedan.">error</mat-icon>
+      Patient: {{data.pnr}}
+      <mat-icon *ngIf="getStatus(data) === 'closed'" style="color: #ebb62f;" matTooltip="Giltighetsdatum passerat.">
+        error
+      </mat-icon>
+      <mat-icon *ngIf="getStatus(data) === 'fullyClosed'" style="color: #d33;"
+                matTooltip="Giltighetsdatum passerat för över ett år sedan.">error
+      </mat-icon>
     </h1>
     <div class="action-toolbar-spacer"></div>
     <!--<app-back-button class="action-toolbar-item"></app-back-button>-->
-    <a class="action-toolbar-item" mat-fab routerLink="id" matTooltip="Tillbaka"><mat-icon>home</mat-icon></a>
-    <a class="action-toolbar-item" mat-fab routerLink="edit" matTooltip="Redigera arbetsplatskod" *ngIf="userHasEditPermission(data) && getStatus(data) !== 'closed' && getStatus(data) !== 'fullyClosed'">
+    <a class="action-toolbar-item" mat-fab routerLink="id" matTooltip="Tillbaka">
+      <mat-icon>home</mat-icon>
+    </a>
+    <a class="action-toolbar-item" mat-fab routerLink="edit" matTooltip="Redigera arbetsplatskod"
+       *ngIf="userHasEditPermission(data) && getStatus(data) !== 'closed' && getStatus(data) !== 'fullyClosed'">
       <mat-icon>edit</mat-icon>
     </a>
 
-    <a class="action-toolbar-item" mat-fab routerLink="add-requisition" matTooltip="Ny rekvisition" *ngIf="userHasEditPermission(data)">
+    <a class="action-toolbar-item" mat-fab routerLink="add-requisition" matTooltip="Ny rekvisition"
+       *ngIf="userHasEditPermission(data)">
       <mat-icon>content_paste</mat-icon>
     </a>
 
 
-    <a class="action-toolbar-item" mat-fab routerLink="id" matTooltip="Tillbaka"><mat-icon>arrow_back</mat-icon></a>
+    <a class="action-toolbar-item" mat-fab routerLink="id" matTooltip="Tillbaka">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
   </mat-toolbar>
 
-    <mat-card class="example-card">
+  <mat-card class="example-card">
 
-      <mat-card-content>
+    <mat-card-content>
 
-        <div class="row">
-        	<div class="col c6">
-        		<div class="col-inner">
-              <div class="div-details">
+      <div class="row">
+        <div class="col c6">
+          <div class="col-inner">
+            <div class="div-details">
 
-                <div class="div-details-item">
-                  <div class="div-details-item-label">Personnr:</div>
-                  <div class="div-details-item-data">
-                    {{data.pnr}}
-                  </div>
+              <div class="div-details-item">
+                <div class="div-details-item-label">Personnr:</div>
+                <div class="div-details-item-data">
+                  {{data.pnr}}
                 </div>
-
-                <div class="div-details-item">
-                  <div class="div-details-item-label">Namn:</div>
-                  <div class="div-details-item-data">
-                    {{data.fornamn}}
-                  </div>
-                </div>
-
-                <div class="div-details-item">
-                  <div class="div-details-item-label">Label:</div>
-                  <div class="div-details-item-data">
-                    {{data.id}}
-                  </div>
-                </div>
-
               </div>
-            </div>
-        	</div>
-          <div class="col c6">
-            <div class="col-inner">
-              <div class="div-details">
 
-                <div class="div-details-item">
-                  <div class="div-details-item-label">Gatuadress:</div>
-                  <div class="div-details-item-data">
-                    {{data.adress}}
-                  </div>
+              <div class="div-details-item">
+                <div class="div-details-item-label">Namn:</div>
+                <div class="div-details-item-data">
+                  {{data.fornamn}}
                 </div>
-
-                <div class="div-details-item">
-                  <div class="div-details-item-label">Postadress:</div>
-                  <div class="div-details-item-data">
-                    {{data.postOrt}}
-                  </div>
-                </div>
-
-
-                <div class="div-details-item">
-                  <div class="div-details-item-label">Telefon:</div>
-                  <div class="div-details-item-data">
-                    {{data.telefon}}
-                  </div>
-                </div>
-
-                <div class="div-details-item">
-                  <div class="div-details-item-label">Epost:</div>
-                  <div class="div-details-item-data">
-                    {{data.epost}}
-                  </div>
-                </div>
-
-
               </div>
+
+              <div class="div-details-item">
+                <div class="div-details-item-label">Label:</div>
+                <div class="div-details-item-data">
+                  {{data.id}}
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
+        <div class="col c6">
+          <div class="col-inner">
+            <div class="div-details">
 
-      </mat-card-content>
-    </mat-card>
+              <div class="div-details-item">
+                <div class="div-details-item-label">Gatuadress:</div>
+                <div class="div-details-item-data">
+                  {{data.adress}}
+                </div>
+              </div>
+
+              <div class="div-details-item">
+                <div class="div-details-item-label">Postadress:</div>
+                <div class="div-details-item-data">
+                  {{data.postOrt}}
+                </div>
+              </div>
 
 
-    <h4>PD Rekvisitioner: </h4>
-    <mat-accordion>
+              <div class="div-details-item">
+                <div class="div-details-item-label">Telefon:</div>
+                <div class="div-details-item-data">
+                  {{data.telefon}}
+                </div>
+              </div>
 
-      <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main">
+              <div class="div-details-item">
+                <div class="div-details-item-label">Epost:</div>
+                <div class="div-details-item-data">
+                  {{data.epost}}
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+
+  <h4>PD Rekvisitioner: </h4>
+  <mat-accordion>
+
+    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>content_paste</mat-icon>
+          Rekvisition {{data.pds[0].id}}
+        </mat-panel-title>
+        <mat-panel-description style="font-size: 21px">
+          {{data.pds[0].datum | date: 'yyyy-MM-dd'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h4 style="color:blue; font-size: 18px; ;">Beställningar: </h4>
+      <div>
+        <mat-table #table dense [dataSource]="data.pds[0].bestInfos">
+
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">ID</span></mat-header-cell>
+            <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="datum">
+            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Datum</span></mat-header-cell>
+            <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="utskrivare">
+            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Utskrivare</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+
+      </div>
+
+    </mat-expansion-panel>
+    <div *ngIf="showOldRequisitions">
+
+
+      <mat-expansion-panel *ngFor="let dat of data.pds" class="div-requisition-panel">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>content_paste</mat-icon>
-            Rekvisition {{rekvisition.id}}
+            Rekvisition {{dat.id}}
           </mat-panel-title>
           <mat-panel-description style="font-size: 21px">
-            {{rekvisition.datum | date: 'yyyy-MM-dd'}}
+            {{dat.datum | date: 'yyyy-MM-dd'}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <h4 style="color:blue; font-size: 18px; ;">Beställningar: </h4>
         <div>
-          <mat-table #table dense [dataSource]="dataSource">
-
+          <mat-table #table dense [dataSource]="dat.bestInfos">
 
             <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef> <span style="color:blue; font-size: 18px;">ID</span> </mat-header-cell>
-              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}} </mat-cell>
+              <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">ID</span></mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="datum">
-              <mat-header-cell *matHeaderCellDef> <span style="color:blue; font-size: 18px;">Datum</span> </mat-header-cell>
-              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}} </mat-cell>
+              <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Datum</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="utskrivare">
-              <mat-header-cell *matHeaderCellDef> <span style="color:blue; font-size: 18px;">Utskrivare</span> </mat-header-cell>
-              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}} </mat-cell>
+              <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Utskrivare</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -137,80 +190,42 @@
 
         </div>
 
-      </mat-expansion-panel>
-
-      <mat-expansion-panel *ngIf="showOldRequisitions" class="div-requisition-panel">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>content_paste</mat-icon>
-            Rekvisition 1177
-          </mat-panel-title>
-          <mat-panel-description>
-            2015-10-01
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <p>Put table with orders here</p>
 
       </mat-expansion-panel>
-
-      <mat-expansion-panel *ngIf="showOldRequisitions" class="div-requisition-panel">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>content_paste</mat-icon>
-            Rekvisition 1162
-          </mat-panel-title>
-          <mat-panel-description>
-            2015-06-01
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <p>Put table with orders here</p>
-
-      </mat-expansion-panel>
-
-
-
-    </mat-accordion>
-
-    <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
-    <br />
-
-    <mat-checkbox class="" [checked]="showOldRequisitions" (change)="showOldRequisitions = $event.checked">
-      Visa gamla rekvisitioner
-    </mat-checkbox>
-
-  <!--
-  <div class="panel panel-primary" style="background-color: #005c95">
-    <div class="panel-heading" style="height: 50px; padding-left: 50px; padding-top: 20px; font-size:18px; font-weight: bold;">
-        Rekvisition
     </div>
-  </div>
-  -->
 
-    <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
-    <br /><br /><br />
+  </mat-accordion>
 
-    <mat-toolbar class="meta-toolbar">
+  <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
+  <br/>
 
-      <div class="meta-toolbar-item">
-        <span>Skapad:</span> <span>{{data.regDatum | dateX: 'YYYY-MM-DD HH:mm'}}</span>
-      </div>
+  <mat-checkbox class="" [checked]="showOldRequisitions" (change)="showOldRequisitions = $event.checked">
+    Visa gamla rekvisitioner
+  </mat-checkbox>
 
-      <div class="meta-toolbar-item">
-        <span>Ändrad:</span> <span>{{data.andringsdatum}}</span>
-      </div>
+  <!-- Temp break tags. Should be replaced with styling if they are needed in final production version -->
+  <br/><br/><br/>
 
-      <div class="meta-toolbar-item">
-        <span>Senast ändrad av:</span> <span>{{data.userIdNew || data.userName}}</span>
-      </div>
+  <mat-toolbar class="meta-toolbar">
 
-      <div class="meta-toolbar-spacer"></div>
+    <div class="meta-toolbar-item">
+      <span>Skapad:</span> <span>{{data.regDatum | dateX: 'YYYY-MM-DD HH:mm'}}</span>
+    </div>
 
-      <div class="meta-toolbar-item">
-        <span>ID:</span> <span>{{data.id}}</span>
-      </div>
+    <div class="meta-toolbar-item">
+      <span>Ändrad:</span> <span>{{data.andringsdatum}}</span>
+    </div>
 
-    </mat-toolbar>
+    <div class="meta-toolbar-item">
+      <span>Senast ändrad av:</span> <span>{{data.userIdNew || data.userName}}</span>
+    </div>
+
+    <div class="meta-toolbar-spacer"></div>
+
+    <div class="meta-toolbar-item">
+      <span>ID:</span> <span>{{data.id}}</span>
+    </div>
+
+  </mat-toolbar>
 
 </div>
