@@ -12,7 +12,7 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: 'apk',
+        path: 'patienter',
         loadChildren: './div/apk.module#ApkModule',
         canActivate: [UserLoggedInGuard],
       },

@@ -43,6 +43,7 @@ const routes: Routes = [
         path: ':id/archivedDatas',
         component: ArchivedDatasComponent
       }
+
     ]
   }
 
