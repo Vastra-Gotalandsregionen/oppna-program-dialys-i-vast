@@ -14,17 +14,17 @@ const routes: Routes = [
       {
         path: 'patienter',
         loadChildren: './div/apk.module#ApkModule',
-        canActivate: [UserLoggedInGuard],
+        canActivate: [UserLoggedInGuard]
       },
       {
         path: 'admin',
         loadChildren: './admin/admin.module#AdminModule',
-        canActivate: [UserLoggedInGuard],
+        canActivate: [UserLoggedInGuard]
       },
       {
         path: 'report',
         loadChildren: './report/report.module#ReportModule',
-        canActivate: [UserLoggedInGuard],
+        canActivate: [UserLoggedInGuard]
       },
       {
         path: '**',
