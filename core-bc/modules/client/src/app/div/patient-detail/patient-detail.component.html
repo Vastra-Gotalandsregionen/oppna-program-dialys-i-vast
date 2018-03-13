@@ -101,21 +101,22 @@
   <h4>PD Rekvisitioner: </h4>
   <mat-accordion>
 
-    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main">
+    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main" hideToggle="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-icon>content_paste</mat-icon>
-          Rekvisition {{data.pds[0].id}}
+          <span class="title-name">Rekvisition {{data.pds[0].id}}</span>
+          <span class="title-date">{{data.pds[0].datum | date: 'yyyy-MM-dd'}}</span>
         </mat-panel-title>
-        <mat-panel-description style="font-size: 21px">
-          {{data.pds[0].datum | date: 'yyyy-MM-dd'}}
+        <mat-panel-description>
+          <mat-icon>add_shopping_cart</mat-icon>
+          <span>
+            {{panelOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+          </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <h4 style="color:blue; font-size: 18px; ;">Beställningar: </h4>
       <div>
         <mat-table #table dense [dataSource]="data.pds[0].bestInfos">
-
-
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">ID</span></mat-header-cell>
             <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}}</mat-cell>
@@ -142,18 +143,20 @@
     </mat-expansion-panel>
     <div *ngIf="showOldRequisitions">
 
-
-      <mat-expansion-panel *ngFor="let dat of data.pds" class="div-requisition-panel">
+      <mat-expansion-panel *ngFor="let dat of data.pds" class="div-requisition-panel " hideToggle="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>content_paste</mat-icon>
-            Rekvisition {{dat.id}}
+            <span class="title-name">Rekvisition {{dat.id}}</span>
+            <span class="title-date">{{dat.datum | date: 'yyyy-MM-dd'}}</span>
           </mat-panel-title>
-          <mat-panel-description style="font-size: 21px">
-            {{dat.datum | date: 'yyyy-MM-dd'}}
+          <mat-panel-description>
+            <mat-icon>add_shopping_cart</mat-icon>
+            <span>
+              {{panelOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+            </span>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <h4 style="color:blue; font-size: 18px; ;">Beställningar: </h4>
         <div>
           <mat-table #table dense [dataSource]="dat.bestInfos">
 
