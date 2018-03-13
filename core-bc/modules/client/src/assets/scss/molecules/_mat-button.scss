@@ -1,4 +1,15 @@
 .mat-button,
 .mat-raised-button {
   text-transform: uppercase;
+
+  &.btn {
+    background: $vgr-blue;
+    color: #fff;
+  }
+
+  &.btn-secondary {
+    background: #dfdfdf;
+    color: #333;
+  }
+
 }
