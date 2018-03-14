@@ -18,7 +18,10 @@
 
       <mat-checkbox class="action-toolbar-item" [formControl]="onlyMyDatasCtrl" [(ngModel)]="onlyMyDatas" *ngIf="loggedIn">Bara <span class="tooltip-text" matTooltip="{{usersProdn1sString$ | async}}">mina patienter</span></mat-checkbox>
 
+      <!-- This feature is not needed. -->
+      <!--
       <mat-checkbox class="action-toolbar-item" [formControl]="onlyActiveDatasCtrl" [(ngModel)]="onlyActiveDatas">Med PD-rekvisition som snart går ut</mat-checkbox>
+      -->
 
       <div class="action-toolbar-spacer"></div>
 
@@ -82,11 +85,22 @@
             <mat-menu #menu="matMenu">
               <button mat-menu-item routerLink="{{data.id}}">
                 <mat-icon>folder_open</mat-icon>
-                <span>Visa detaljer</span>
+                <span>Visa patientinfo</span>
               </button>
+
+              <button mat-menu-item routerLink="{{data.id}}/add-order" *ngIf="userHasEditPermission(data)">
+                <mat-icon>add_shopping_cart</mat-icon>
+                <span>Ny beställning</span>
+              </button>
+
+              <button mat-menu-item routerLink="{{data.id}}/add-requisition" *ngIf="userHasEditPermission(data)">
+                <mat-icon>content_paste</mat-icon>
+                <span>Ny rekvisition</span>
+              </button>
+
               <button mat-menu-item routerLink="{{data.id}}/edit" *ngIf="userHasEditPermission(data)">
                 <mat-icon>edit</mat-icon>
-                <span>Redigera</span>
+                <span>Redigera patient</span>
               </button>
             </mat-menu>
           </td>
