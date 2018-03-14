@@ -1,16 +1,18 @@
-import {Component} from '@angular/core';
-
+import {Component, ViewChild} from '@angular/core';
+import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {PatientDetailComponent} from "../patient-detail/patient-detail.component";
 import {AuthService} from "../../core/auth/auth.service";
 import {ActivatedRoute} from "@angular/router";
 import {JwtHttp} from "../../core/jwt-http";
 
 @Component({
-  selector: 'app-apk-create',
-  templateUrl: './apk-create.component.html',
-  styleUrls: ['./apk-create.component.css'],
+  selector: 'app-patient-add',
+  templateUrl: './patient-add.component.html',
+  styleUrls: ['./patient-add.component.css'],
 })
-export class ApkCreateComponent extends PatientDetailComponent{
+export class PatientAddComponent extends PatientDetailComponent{
+
+  @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
 
   location: Location;
 
