@@ -75,13 +75,6 @@
           <td>
             Senaste best
           </td>
-<!--
-          <td>
-            <mat-icon *ngIf="getStatus(data) === 'closed'" style="color: #ebb62f;" matTooltip="Giltighetsdatum passerat.">error</mat-icon>
-            <mat-icon *ngIf="getStatus(data) === 'fullyClosed'" style="color: #d33;" matTooltip="Giltighetsdatum passerat för över ett år sedan.">error</mat-icon>
-            <mat-icon *ngIf="data.hsaidMissingInKiv" style="color: #dd7900;" matTooltip="HSA-ID saknas i KIV">warning</mat-icon>
-          </td>
--->
           <td>
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
@@ -91,15 +84,9 @@
                 <mat-icon>folder_open</mat-icon>
                 <span>Visa detaljer</span>
               </button>
-              <button mat-menu-item routerLink="{{data.id}}/edit" *ngIf="userHasEditPermission(data)" [disabled]="getStatus(data) === 'closed' || getStatus(data) === 'fullyClosed'">
+              <button mat-menu-item routerLink="{{data.id}}/edit" *ngIf="userHasEditPermission(data)">
                 <mat-icon>edit</mat-icon>
                 <span>Redigera</span>
-                <mat-icon *ngIf="getStatus(data) === 'closed' || getStatus(data) === 'fullyClosed'" matTooltip="Redigera ej möjligt när giltighetsdatum passerat">info</mat-icon>
-              </button>
-              <button mat-menu-item *ngIf="userHasEditPermission(data)" [disabled]="!data.deletable" (click)="confirmDelete(data)">
-                <mat-icon>delete</mat-icon>
-                <span>Radera</span>&nbsp;
-                <mat-icon *ngIf="!data.deletable" matTooltip="Radera ej möjligt efter post skickats till EHM">info</mat-icon>
               </button>
             </mat-menu>
           </td>

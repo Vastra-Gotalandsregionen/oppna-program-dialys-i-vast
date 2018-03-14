@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
-import {ApkBase} from "../apk-base/apk-base";
 import {Observable} from 'rxjs/Observable';
 import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
@@ -17,7 +16,7 @@ import {DataSource} from '@angular/cdk/collections'
   templateUrl: './patient-detail.component.html',
   styleUrls: ['./patient-detail.component.css']
 })
-export class PatientDetailComponent extends ApkBase implements OnInit {
+export class PatientDetailComponent implements OnInit {
 
   @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
 
@@ -34,7 +33,6 @@ export class PatientDetailComponent extends ApkBase implements OnInit {
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
               protected authService: AuthService) {
-    super();
   }
 
   ngOnInit() {

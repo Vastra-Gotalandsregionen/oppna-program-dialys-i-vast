@@ -15,7 +15,6 @@ import {Prodn2} from '../../model/prodn2';
 import {Prodn3} from '../../model/prodn3';
 import {JwtHttp} from '../../core/jwt-http';
 import {RestResponse} from '../../model/rest-response';
-import {ApkBase} from "../apk-base/apk-base";
 import {Util} from "../../core/util/util";
 import {UnitSearchResult} from "../../model/UnitSearchResult";
 
@@ -32,7 +31,7 @@ import {UnitSearchResult} from "../../model/UnitSearchResult";
     ])
   ]
 })
-export class ApkFormComponent extends ApkBase implements OnInit {
+export class ApkFormComponent implements OnInit {
 
   @Input('dataId') dataId: string;
 
@@ -77,7 +76,6 @@ export class ApkFormComponent extends ApkBase implements OnInit {
               stateService: StateService,
               private errorHandler: ErrorHandler) {
 
-    super();
     this.stateService = stateService;
   }
 

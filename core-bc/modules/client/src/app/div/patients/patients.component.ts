@@ -11,7 +11,6 @@ import {JwtHttp} from '../../core/jwt-http';
 import {Prodn1} from '../../model/prodn1';
 import {MatDialog, MatSnackBar} from "@angular/material";
 import {ConfirmDialogComponent} from "../../shared/confirm-dialog/confirm-dialog.component";
-import {ApkBase} from "../apk-base/apk-base";
 import {HostListener} from "@angular/core";
 
 @Component({
@@ -19,7 +18,7 @@ import {HostListener} from "@angular/core";
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.css']
 })
-export class ApkComponent extends ApkBase implements OnInit {
+export class ApkComponent implements OnInit {
 
   stateCtrl: FormControl;
   onlyActiveDatasCtrl: FormControl;
@@ -43,7 +42,7 @@ export class ApkComponent extends ApkBase implements OnInit {
               private authService: AuthService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog) {
-    super();
+
     this.location = location;
     this.stateCtrl = new FormControl();
     this.onlyActiveDatasCtrl = new FormControl();
@@ -244,25 +243,6 @@ export class ApkComponent extends ApkBase implements OnInit {
   get admin() {
     return this.authService.isAdmin();
   }
-
-  // getStatus(data: Patient) {
-  //
-  //   const tillDatum = data.tillDatum;
-  //
-  //   if (!tillDatum) {
-  //     // No value means "until further notice".
-  //     return 'valid';
-  //   }
-  //
-  //   if (Util.isOlderThanXYears(tillDatum, 1)) {
-  //     return 'fullyClosed';
-  //   } else if (Util.isOlderThanXYears(tillDatum, 0)) {
-  //     return 'closed'
-  //   } else {
-  //     return 'valid';
-  //   }
-  //
-  // }
 
   confirmDelete(data: Patient) {
     let dialogRef = this.dialog.open(ConfirmDialogComponent, {
