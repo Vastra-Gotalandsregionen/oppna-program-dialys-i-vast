@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card class="div-card">
   <mat-card-content>
 
     <div class="row">
@@ -62,21 +62,25 @@
           </div>
 
           <div class="div-form-field">
-            <mat-select [(ngModel)]="selectedMottagning" placeholder="Mottagning">
-              <mat-option *ngFor="let mottagning of mottagnins" [value]="mottagning"
-                          (onSelectionChange)="onMottagningSelect()">
-                {{mottagning.namn}}
-              </mat-option>
-            </mat-select>
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedMottagning" placeholder="Mottagning">
+                <mat-option *ngFor="let mottagning of mottagnins" [value]="mottagning"
+                            (onSelectionChange)="onMottagningSelect()">
+                  {{mottagning.namn}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
           <div class="div-form-field">
-            <mat-select placeholder="PAS - patientasvarig sjuksköterska" [(ngModel)]="patient.ansvarig"
-                        onchange="onAnsvarigChange()" (onSelectionChange)="onAnsvarigChange()">
-              <mat-option *ngFor="let ansvarig of ansvarigsDomain" [value]="ansvarig">
-                {{ansvarig.namn}}
-              </mat-option>
-            </mat-select>
+            <mat-form-field>
+              <mat-select placeholder="PAS - patientasvarig sjuksköterska" [(ngModel)]="patient.ansvarig"
+                          onchange="onAnsvarigChange()" (onSelectionChange)="onAnsvarigChange()">
+                <mat-option *ngFor="let ansvarig of ansvarigsDomain" [value]="ansvarig">
+                  {{ansvarig.namn}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
           <div class="div-form-field">
