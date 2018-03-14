@@ -28,8 +28,7 @@ export class PatientDetailComponent implements OnInit {
   archivedDatas: Patient[] = [];
   rekvisition: Rekvistion = new Rekvistion();
   dataSource: BestInfo[] = [];
-  displayedColumns = ['id', 'datum', 'utskrivare'];
-  panelOpenState: Number[] = [];
+  displayedColumns = ['id', 'datum', 'utskrivare', 'levdatum'];
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,

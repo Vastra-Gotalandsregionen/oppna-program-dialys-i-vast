@@ -8,6 +8,7 @@ import {ApkCreateComponent} from './apk-create/apk-create.component';
 import {ArchivedDatasComponent} from './archived-datas/archived-datas.component';
 import {FormChangedGuard} from "./guard/form-changed.guard";
 import {PatientEditComponent} from "./patient-edit/patient-edit.component";
+import {PrescriptionDetailComponent} from "./prescription-detail/prescription-detail.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
       {
         path: ':id',
         component: PatientDetailComponent
+      },
+
+      {
+        path: ':id/prescription/:id',
+        component: PrescriptionDetailComponent
       },
 
       {

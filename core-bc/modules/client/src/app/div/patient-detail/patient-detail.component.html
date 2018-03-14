@@ -101,7 +101,7 @@
   <h4>PD Rekvisitioner: </h4>
   <mat-accordion>
 
-    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
+    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main" hideToggle="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-icon>content_paste</mat-icon>
@@ -111,26 +111,32 @@
         <mat-panel-description>
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
-            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+            {{panelOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
           </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div>
         <mat-table #table dense [dataSource]="data.pds[0].bestInfos">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">ID</span></mat-header-cell>
-            <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}}</mat-cell>
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
+            <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}">{{bestInfo.id}}</a></mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="datum">
-            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Datum</span></mat-header-cell>
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningdatum</span></mat-header-cell>
             <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="utskrivare">
-            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Utskrivare</span>
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Utskrivare</span>
             </mat-header-cell>
             <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="levdatum">
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Leveransdatum</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let bestInfo"> {{bestInfo.levDatum | date:'yyyy-MM-dd'}}</mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -143,51 +149,55 @@
     </mat-expansion-panel>
     <div *ngIf="showOldRequisitions">
 
-      <div *ngFor="let dat of data.pds; let i = index;" >
-        <mat-expansion-panel class="div-requisition-panel " hideToggle="true" (opened)="panelOpenState[i] = true" (closed)="panelOpenState[i] = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>content_paste</mat-icon>
-              <span class="title-name">Rekvisition {{dat.id}}</span>
-              <span class="title-date">{{dat.datum | date: 'yyyy-MM-dd'}}</span>
-            </mat-panel-title>
-            <mat-panel-description>
-              <mat-icon>add_shopping_cart</mat-icon>
-              <span>
-                {{panelOpenState[i] ? 'Dölj beställningar' : 'Visa beställningar'}}
-              </span>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div>
-            <mat-table #table dense [dataSource]="dat.bestInfos">
+      <mat-expansion-panel *ngFor="let dat of data.pds" class="div-requisition-panel " hideToggle="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>content_paste</mat-icon>
+            <span class="title-name">Rekvisition {{dat.id}}</span>
+            <span class="title-date">{{dat.datum | date: 'yyyy-MM-dd'}}</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon>add_shopping_cart</mat-icon>
+            <span>
+              {{panelOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+            </span>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <mat-table #table dense [dataSource]="dat.bestInfos">
 
-              <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">ID</span></mat-header-cell>
-                <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}}</mat-cell>
-              </ng-container>
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}">{{bestInfo.id}}</a></mat-cell>
+            </ng-container>
 
-              <ng-container matColumnDef="datum">
-                <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Datum</span>
-                </mat-header-cell>
-                <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
-              </ng-container>
+            <ng-container matColumnDef="datum">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningsdatum</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
+            </ng-container>
 
-              <ng-container matColumnDef="utskrivare">
-                <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Utskrivare</span>
-                </mat-header-cell>
-                <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
-              </ng-container>
+            <ng-container matColumnDef="utskrivare">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Utskrivare</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
+            </ng-container>
 
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <ng-container matColumnDef="levdatum">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Leveransdatum</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.levDatum | date:'yyyy-MM-dd'}}</mat-cell>
+            </ng-container>
 
-            </mat-table>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-          </div>
+          </mat-table>
+
+        </div>
 
 
-        </mat-expansion-panel>
-      </div>
+      </mat-expansion-panel>
     </div>
 
   </mat-accordion>

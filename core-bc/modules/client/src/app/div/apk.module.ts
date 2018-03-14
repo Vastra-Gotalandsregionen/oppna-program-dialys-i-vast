@@ -11,6 +11,7 @@ import {UserHasDataPermissionGuard} from './guard/user-has-data-permission.guard
 import { ArchivedDatasComponent } from './archived-datas/archived-datas.component';
 import {FormChangedGuard} from "./guard/form-changed.guard";
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
+import { PrescriptionDetailComponent } from './prescription-detail/prescription-detail.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { PatientEditComponent } from './patient-edit/patient-edit.component';
     ApkCreateComponent,
     ApkFormComponent,
     ArchivedDatasComponent,
-    PatientEditComponent
+    PatientEditComponent,
+    PrescriptionDetailComponent
   ],
   providers: [
     UserHasDataPermissionGuard,
