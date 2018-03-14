@@ -1,14 +1,26 @@
 .mat-radio-group {
 
-  &.col-2 {
+  .mat-radio-button {
+    margin-left: 10px;
+    margin-right: 10px;
 
-    .mat-radio-button {
-      box-sizing: border-box;
-      margin: 10px 0;
-      width: 49%;
+    &:first-child {
+      margin-left: 0;
     }
 
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
+
+
+}
+
+.field-label + .mat-radio-group {
+
+  .mat-radio-button:first-child {
+    margin-left: 10px;
+  }
 
 }
