@@ -118,19 +118,25 @@
       <div>
         <mat-table #table dense [dataSource]="data.pds[0].bestInfos">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">ID</span></mat-header-cell>
-            <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}}</mat-cell>
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
+            <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}">{{bestInfo.id}}</a></mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="datum">
-            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Datum</span></mat-header-cell>
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningdatum</span></mat-header-cell>
             <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="utskrivare">
-            <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Utskrivare</span>
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Utskrivare</span>
             </mat-header-cell>
             <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="levdatum">
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Leveransdatum</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let bestInfo"> {{bestInfo.levDatum | date:'yyyy-MM-dd'}}</mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -161,20 +167,26 @@
           <mat-table #table dense [dataSource]="dat.bestInfos">
 
             <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">ID</span></mat-header-cell>
-              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.id}}</mat-cell>
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}">{{bestInfo.id}}</a></mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="datum">
-              <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Datum</span>
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningsdatum</span>
               </mat-header-cell>
               <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="utskrivare">
-              <mat-header-cell *matHeaderCellDef><span style="color:blue; font-size: 18px;">Utskrivare</span>
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Utskrivare</span>
               </mat-header-cell>
               <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="levdatum">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Leveransdatum</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.levDatum | date:'yyyy-MM-dd'}}</mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
