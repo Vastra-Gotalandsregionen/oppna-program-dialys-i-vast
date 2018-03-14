@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {ApkComponent} from './patients/patients.component';
 import {PatientDetailComponent} from './patient-detail/patient-detail.component';
+import {PatientAddOrderComponent} from './patient-add-order/patient-add-order.component';
 import {PatientAddRequisitionComponent} from './patient-add-requisition/patient-add-requisition.component';
 import {ApkEditComponent} from './apk-edit/apk-edit.component';
 import {ApkCreateComponent} from './apk-create/apk-create.component';
@@ -21,6 +22,7 @@ import { PrescriptionDetailComponent } from './prescription-detail/prescription-
   declarations: [
     ApkComponent,
     PatientDetailComponent,
+    PatientAddOrderComponent,
     PatientAddRequisitionComponent,
     ApkEditComponent,
     ApkCreateComponent,

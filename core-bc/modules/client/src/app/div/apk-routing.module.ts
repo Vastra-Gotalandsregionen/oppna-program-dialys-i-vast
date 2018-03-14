@@ -2,6 +2,7 @@ import {ApkComponent} from './patients/patients.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PatientDetailComponent} from './patient-detail/patient-detail.component';
+import {PatientAddOrderComponent} from './patient-add-order/patient-add-order.component';
 import {PatientAddRequisitionComponent} from './patient-add-requisition/patient-add-requisition.component';
 import {ApkEditComponent} from './apk-edit/apk-edit.component';
 import {ApkCreateComponent} from './apk-create/apk-create.component';
@@ -38,6 +39,13 @@ const routes: Routes = [
         component: PatientAddRequisitionComponent
         //canDeactivate: [FormChangedGuard]
       },
+
+      {
+        path: ':id/add-order',
+        component: PatientAddOrderComponent
+        //canDeactivate: [FormChangedGuard]
+      },
+
 
       {
         path: ':id/edit',

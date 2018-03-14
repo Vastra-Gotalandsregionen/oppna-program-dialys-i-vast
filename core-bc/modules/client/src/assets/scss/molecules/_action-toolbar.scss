@@ -33,6 +33,12 @@
   .mat-fab:visited {
     background-color: $vgr-blue;
     color: #fff;
+
+    &.secondary {
+      background: #dfdfdf;
+      color: #333;
+    }
+    
   }
 
 

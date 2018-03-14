@@ -1,0 +1,69 @@
+<div *ngIf="data">
+
+  <mat-toolbar class="action-toolbar">
+    <h1>
+       Ny beställning: {{data.pnr}}
+    </h1>
+    <div class="action-toolbar-spacer"></div>
+    <app-back-button class="action-toolbar-item"></app-back-button>
+  </mat-toolbar>
+
+    <mat-card class="div-card">
+
+      <mat-card-content>
+
+        <div class="row">
+        	<div class="col c6">
+        		<div class="col-inner">
+
+              <div class="div-details">
+
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Personnr:</div>
+                  <div class="div-details-item-data">
+                    {{data.pnr}}
+                  </div>
+                </div>
+
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Rekvisitionsnr:</div>
+                  <div class="div-details-item-data">
+                    -
+                  </div>
+                </div>
+
+                <div class="div-details-item">
+                  <div class="div-details-item-label">Rekvisitionsdatum:</div>
+                  <div class="div-details-item-data">
+                    2016-01-01
+                  </div>
+                </div>
+
+
+              </div>
+
+            </div>
+        	</div>
+          <div class="col c6">
+          </div>
+        </div>
+
+        Beställningsformulär etc här.
+
+
+        <div class="btn-container">
+
+          <button type="submit"mat-raised-button class="btn">Spara beställning</button> &nbsp;
+          <button type="submit"mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
+          <button type="submit"mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
+
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+
+
+
+</div>
