@@ -1,0 +1,27 @@
+.div-guide-label {
+
+  .div-guide-label-number {
+
+    border: 1px solid $vgr-blue;
+
+    color: $vgr-blue;
+    display: inline-block;
+    font-size: 32px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+
+    display: block;
+    float: left;
+  }
+
+  .div-guide-label-text {
+    display: block;
+    font-weight: bold;
+    margin-left: 60px;
+    margin-top: 0px;
+  }
+
+}

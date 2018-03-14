@@ -6,12 +6,8 @@
       	<div class="col-inner">
 
           <span class="div-guide-label">
-            <span class="div-guide-label-number">
-              
-            </span>
-            <span class="div-guide-label-text">
-              Ange personuppgifter
-            </span>
+            <span class="div-guide-label-number">1</span>
+            <span class="div-guide-label-text">Ange personuppgifter</span>
           </span>
 
       	</div>
@@ -19,17 +15,23 @@
       <div class="col c6">
       	<div class="col-inner">
 
-          <mat-input-container>
-            <input id="name" [(ngModel)]="patient.pnr" placeholder="Personnummer" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="name" [(ngModel)]="patient.pnr" placeholder="Personnummer" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="fornamn" [(ngModel)]="patient.fornamn" placeholder="Förnamn" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="fornamn" [(ngModel)]="patient.fornamn" placeholder="Förnamn" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="efternamn" [(ngModel)]="patient.efternamn" placeholder="Efternamn" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="efternamn" [(ngModel)]="patient.efternamn" placeholder="Efternamn" type="text" matInput>
+            </mat-input-container>
+          </div>
 
       	</div>
       </div>
@@ -42,25 +44,16 @@
     <div class="row">
       <div class="col c3">
       	<div class="col-inner">
-          Ange patient- och mottagningsuppgifter
+          <span class="div-guide-label">
+            <span class="div-guide-label-number">2</span>
+            <span class="div-guide-label-text">Ange patient- och mottagningsuppgifter</span>
+          </span>
       	</div>
       </div>
       <div class="col c6">
       	<div class="col-inner">
 
-          <mat-input-container>
-            <input id="name" [(ngModel)]="patient.pnr" placeholder="Personnummer" type="text" matInput>
-          </mat-input-container>
-
-          <mat-input-container>
-            <input id="fornamn" [(ngModel)]="patient.fornamn" placeholder="Förnamn" type="text" matInput>
-          </mat-input-container>
-
-          <mat-input-container>
-            <input id="efternamn" [(ngModel)]="patient.efternamn" placeholder="Efternamn" type="text" matInput>
-          </mat-input-container>
-
-          <div>
+          <div class="div-form-field">
             <div class="">Välj typ:</div>
             <mat-radio-group>
               <mat-radio-button value="PD">Pd</mat-radio-button>
@@ -68,24 +61,30 @@
             </mat-radio-group>
           </div>
 
-          <mat-select [(ngModel)]="selectedMottagning" placeholder="Mottagning">
-            <mat-option *ngFor="let mottagning of mottagnins" [value]="mottagning"
-                        (onSelectionChange)="onMottagningSelect()">
-              {{mottagning.namn}}
-            </mat-option>
-          </mat-select>
+          <div class="div-form-field">
+            <mat-select [(ngModel)]="selectedMottagning" placeholder="Mottagning">
+              <mat-option *ngFor="let mottagning of mottagnins" [value]="mottagning"
+                          (onSelectionChange)="onMottagningSelect()">
+                {{mottagning.namn}}
+              </mat-option>
+            </mat-select>
+          </div>
 
-          <mat-select placeholder="PAS - patientasvarig sjuksköterska" [(ngModel)]="patient.ansvarig"
-                      onchange="onAnsvarigChange()" (onSelectionChange)="onAnsvarigChange()">
-            <mat-option *ngFor="let ansvarig of ansvarigsDomain" [value]="ansvarig">
-              {{ansvarig.namn}}
-            </mat-option>
-          </mat-select>
+          <div class="div-form-field">
+            <mat-select placeholder="PAS - patientasvarig sjuksköterska" [(ngModel)]="patient.ansvarig"
+                        onchange="onAnsvarigChange()" (onSelectionChange)="onAnsvarigChange()">
+              <mat-option *ngFor="let ansvarig of ansvarigsDomain" [value]="ansvarig">
+                {{ansvarig.namn}}
+              </mat-option>
+            </mat-select>
+          </div>
 
-          <mat-input-container>
-            <input id="lasText" [(ngModel)]="patient.lasText" placeholder="LAS - patientasvarig läkare" type="text"
-                   matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="lasText" [(ngModel)]="patient.lasText" placeholder="LAS - patientasvarig läkare" type="text"
+                     matInput>
+            </mat-input-container>
+          </div>
 
       	</div>
       </div>
@@ -98,29 +97,40 @@
     <div class="row">
       <div class="col c3">
       	<div class="col-inner">
-          Ange adressuppgifter
+          <span class="div-guide-label">
+            <span class="div-guide-label-number">3</span>
+            <span class="div-guide-label-text">Ange adressuppgifter</span>
+          </span>
       	</div>
       </div>
       <div class="col c6">
       	<div class="col-inner">
 
-          <mat-input-container>
-            <input id="gatuAdress" [(ngModel)]="patient.adress" placeholder="Gatuadress" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="gatuAdress" [(ngModel)]="patient.adress" placeholder="Gatuadress" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="postNr" [(ngModel)]="patient.postNr" placeholder="Postnummer" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="postNr" [(ngModel)]="patient.postNr" placeholder="Postnummer" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="postOrt" [(ngModel)]="patient.postOrt" placeholder="Postort" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="postOrt" [(ngModel)]="patient.postOrt" placeholder="Postort" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="portkod" [(ngModel)]="patient.portkod" placeholder="Portkod" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="portkod" [(ngModel)]="patient.portkod" placeholder="Portkod" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <div>
+          <div class="div-form-field">
             <mat-checkbox>Använd tillfällig leveransadress</mat-checkbox>
           </div>
 
@@ -135,23 +145,32 @@
     <div class="row">
       <div class="col c3">
       	<div class="col-inner">
-          Ange kontaktuppgifter
+          <span class="div-guide-label">
+            <span class="div-guide-label-number">4</span>
+            <span class="div-guide-label-text">Ange kontaktuppgifter</span>
+          </span>
       	</div>
       </div>
       <div class="col c6">
       	<div class="col-inner">
 
-          <mat-input-container>
-            <input id="telefon" [(ngModel)]="patient.telefon" placeholder="Telefonnummer" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="telefon" [(ngModel)]="patient.telefon" placeholder="Telefonnummer" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="mobil" [(ngModel)]="patient.mobil" placeholder="Mobilnummer" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="mobil" [(ngModel)]="patient.mobil" placeholder="Mobilnummer" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="epost" [(ngModel)]="patient.epost" placeholder="Epost" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="epost" [(ngModel)]="patient.epost" placeholder="Epost" type="text" matInput>
+            </mat-input-container>
+          </div>
 
 
       	</div>
@@ -165,25 +184,34 @@
     <div class="row">
       <div class="col c3">
       	<div class="col-inner">
-          Ange Leveransdetaljer
+          <span class="div-guide-label">
+            <span class="div-guide-label-number">5</span>
+            <span class="div-guide-label-text">Ange Leveransdetaljer</span>
+          </span>
       	</div>
       </div>
       <div class="col c6">
       	<div class="col-inner">
 
-          <mat-input-container>
-            <input id="utdelDag" [(ngModel)]="patient.utdelDag" placeholder="Utdelningsdag" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="utdelDag" [(ngModel)]="patient.utdelDag" placeholder="Utdelningsdag" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="utdelText" [(ngModel)]="patient.utdelText" placeholder="Utdelningstid" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="utdelText" [(ngModel)]="patient.utdelText" placeholder="Utdelningstid" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input id="utdelVecka" [(ngModel)]="patient.utdelVecka" placeholder="Utdelningsvecka" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input id="utdelVecka" [(ngModel)]="patient.utdelVecka" placeholder="Utdelningsvecka" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <div>
+          <div class="div-form-field">
             <mat-checkbox>Påminnelse för patient</mat-checkbox>
           </div>
 
@@ -198,19 +226,26 @@
     <div class="row">
       <div class="col c3">
       	<div class="col-inner">
-          Ange ombud
+          <span class="div-guide-label">
+            <span class="div-guide-label-number">6</span>
+            <span class="div-guide-label-text">Ange ombud</span>
+          </span>
       	</div>
       </div>
       <div class="col c6">
       	<div class="col-inner">
 
-          <mat-input-container>
-            <input placeholder="Ombud för avrop (ej färdigt)" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input placeholder="Ombud för avrop (ej färdigt)" type="text" matInput>
+            </mat-input-container>
+          </div>
 
-          <mat-input-container>
-            <input placeholder="Ombud för leveransmottagning (ej färdigt)" type="text" matInput>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <input placeholder="Ombud för leveransmottagning (ej färdigt)" type="text" matInput>
+            </mat-input-container>
+          </div>
 
       	</div>
       </div>
@@ -223,15 +258,20 @@
     <div class="row">
       <div class="col c3">
       	<div class="col-inner">
-          Ange övrig information
+          <span class="div-guide-label">
+            <span class="div-guide-label-number">7</span>
+            <span class="div-guide-label-text">Ange övrig information</span>
+          </span>
       	</div>
       </div>
       <div class="col c6">
       	<div class="col-inner">
 
-          <mat-input-container>
-            <textarea placeholder="Kommentar / fritext" type="text" matInput [(ngModel)]="patient.ovrigt" ></textarea>
-          </mat-input-container>
+          <div class="div-form-field">
+            <mat-input-container>
+              <textarea placeholder="Kommentar / fritext" type="text" matInput [(ngModel)]="patient.ovrigt" ></textarea>
+            </mat-input-container>
+          </div>
 
       	</div>
       </div>
