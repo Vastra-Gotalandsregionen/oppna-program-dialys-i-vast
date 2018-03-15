@@ -78,9 +78,8 @@
           <div class="div-form-field-ctn">
             <div class="div-form-field">
               <mat-form-field>
-                <mat-select [(ngModel)]="selectedMottagning" placeholder="Mottagning">
-                  <mat-option *ngFor="let mottagning of mottagnins" [value]="mottagning"
-                              (onSelectionChange)="onMottagningSelect()">
+                <mat-select *ngIf="patient" [(ngModel)]="patient.ansvarig.mottagningID" placeholder="Mottagning">
+                  <mat-option *ngFor="let mottagning of mottagnings" [value]="mottagning.id">
                     {{mottagning.namn}}
                   </mat-option>
                 </mat-select>
@@ -91,10 +90,10 @@
           <div class="div-form-field-ctn">
             <div class="div-form-field">
               <mat-form-field>
-                <mat-select placeholder="PAS - patientasvarig sjuksköterska" [(ngModel)]="patient.ansvarig"
-                            onchange="onAnsvarigChange()" (onSelectionChange)="onAnsvarigChange()">
-                  <mat-option *ngFor="let ansvarig of ansvarigsDomain" [value]="ansvarig">
-                    {{ansvarig.namn}}
+                <mat-select *ngIf="patient" placeholder="PAS - patientasvarig sjuksköterska" [(ngModel)]="patient.ansvarig" [compareWith]="compareAnsvarigs">
+                  <mat-option *ngFor="let ansvarig of (mottagningById.get(patient.ansvarig.mottagningID)) ? mottagningById.get(patient.ansvarig.mottagningID).ansvarigs : []"
+                              [value]="ansvarig">
+                    {{ansvarig.namn}} ({{ansvarig.userName}})
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -247,7 +246,7 @@
 
           <div class="div-form-field-ctn">
             <div class="div-form-field">
-              <mat-checkbox>Påminnelse för patient</mat-checkbox>
+              <mat-checkbox [(ngModel)]="patient.leveransPaminnelse">Påminnelse för patient</mat-checkbox>
             </div>
           </div>
 
@@ -270,7 +269,7 @@
           <div class="div-form-field-ctn">
             <div class="div-form-field">
               <mat-input-container>
-                <input placeholder="Ombud för avrop (ej färdigt)" type="text" matInput>
+                <input [(ngModel)]="patient.avropsOmbud" placeholder="Ombud för avrop" type="text" matInput>
               </mat-input-container>
             </div>
           </div>
@@ -278,7 +277,7 @@
           <div class="div-form-field-ctn">
             <div class="div-form-field">
               <mat-input-container>
-                <input placeholder="Ombud för leveransmottagning (ej färdigt)" type="text" matInput>
+                <input [(ngModel)]="patient.leveransMottagningsOmbud" placeholder="Ombud för leveransmottagning" type="text" matInput>
               </mat-input-container>
             </div>
           </div>
@@ -319,7 +318,7 @@
       <div class="col c9">
         <div class="col-inner">
           <div class="btn-container">
-            <button type="submit"mat-raised-button class="btn">Spara patient</button> &nbsp;
+            <button type="submit"mat-raised-button class="btn" (click)="saveToServerSide()">Spara patient</button> &nbsp;
             <button type="submit"mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
           </div>
         </div>

@@ -22,5 +22,11 @@ export class Patient {
   utdelVecka: string;
   lasText: string;
   ovrigt: string;
+
+  // About the delivery
+  leveransPaminnelse: boolean;
+  avropsOmbud: string;
+  leveransMottagningsOmbud: string;
+
   pds: Array<Pd>
 }
