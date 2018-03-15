@@ -5,9 +5,9 @@ import {PatientDetailComponent} from './patient-detail/patient-detail.component'
 import {PatientAddOrderComponent} from './patient-add-order/patient-add-order.component';
 import {PatientAddRequisitionComponent} from './patient-add-requisition/patient-add-requisition.component';
 import {ApkEditComponent} from './apk-edit/apk-edit.component';
-import {ApkCreateComponent} from './apk-create/apk-create.component';
 import {ArchivedDatasComponent} from './archived-datas/archived-datas.component';
 import {FormChangedGuard} from "./guard/form-changed.guard";
+import {PatientAddComponent} from './patient-add/patient-add.component';
 import {PatientEditComponent} from "./patient-edit/patient-edit.component";
 import {PrescriptionDetailComponent} from "./prescription-detail/prescription-detail.component";
 
@@ -21,8 +21,8 @@ const routes: Routes = [
       },
       {
         path: 'create',
-        component: ApkCreateComponent,
-        canDeactivate: [FormChangedGuard]
+        component: PatientAddComponent
+        //canDeactivate: [FormChangedGuard]
       },
       {
         path: ':id',

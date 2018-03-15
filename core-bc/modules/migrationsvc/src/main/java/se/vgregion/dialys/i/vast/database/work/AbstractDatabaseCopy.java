@@ -249,7 +249,11 @@ public abstract class AbstractDatabaseCopy {
             Map<String, Object> user = namedUsers.get(ansvarig.get("namn"));
             if (user != null) {
                 System.out.println("Sets user responsibility:s user-name for " + user.get("name"));
-                target.update("update ansvarig set username = ? where namn = ?", user.get("username"), user.get("name"));
+                target.update(
+                        "update ansvarig set username = ? where lower(namn) = ?",
+                        user.get("username"),
+                        (user.get("name") + "").toLowerCase().trim()
+                );
             }
         }
         target.commit();

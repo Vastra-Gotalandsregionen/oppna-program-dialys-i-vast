@@ -1,11 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Patient} from "../../model/Patient";
 import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs/Observable";
-import {Response} from "@angular/http";
-import {User} from "../../model/user";
-import {HttpClient} from "@angular/common/http";
-import {Link} from "../../model/link";
 import {JwtHttp} from "../../core/jwt-http";
 import {Ansvarig} from "../../model/Ansvarig";
 import {Mottagning} from "../../model/Mottagning";
@@ -23,13 +18,12 @@ export class PatientEditComponent implements OnInit {
 
   @Input() ansvarigsDomain: Array<Ansvarig> = [];
 
-  @Input() mottagnins: Array<Mottagning> = [];
+  @Input() mottagnings: Array<Mottagning> = [];
 
   @Input() selectedMottagning: Mottagning;
   @Input() selectedAnsvarig: Ansvarig;
 
   @Input() mottagningById: Map<number, Mottagning> = new Map<number, Mottagning>();
-
 
   constructor(private route: ActivatedRoute, private http: JwtHttp) {
 
@@ -37,6 +31,7 @@ export class PatientEditComponent implements OnInit {
 
   ngOnInit() {
     this.patient = new Patient();
+    this.patient.ansvarig = new Ansvarig();
     const id = this.route.snapshot.paramMap.get('id');
     console.log('id -> ' + id);
     this.fetchData(id);
@@ -47,49 +42,30 @@ export class PatientEditComponent implements OnInit {
       .map(response => response.json())
       .subscribe((incommingPatient: Patient) => {
         this.patient = incommingPatient;
-      });
-
-    this.http.get('/api/ansvarig')
-      .map(response => response.json())
-      .subscribe((incommingAnsvarigs: Array<Ansvarig>) => {
-        this.ansvarigs = incommingAnsvarigs;
+        console.log(this.patient);
 
         this.http.get('/api/mottagning')
           .map(response => response.json())
           .subscribe((incommingMottagnings: Array<Mottagning>) => {
-            this.mottagnins = incommingMottagnings;
-            for (let mottagning of this.mottagnins) {
-              this.mottagningById.set(mottagning.id, mottagning);
-            }
-            for (let ansvarig of this.ansvarigs) {
-              let item = this.mottagningById.get(ansvarig.mottagningID);
-              if (!item.ansvarigs) item.ansvarigs = [];
-              item.ansvarigs.push(ansvarig);
-            }
-            if (this.patient.ansvarig) {
-              this.ansvarigsDomain = this.mottagningById.get(this.patient.ansvarig.mottagningID).ansvarigs;
-            }
-            this.selectedAnsvarig = this.patient.ansvarig;
-            this.selectedMottagning = this.mottagningById.get(this.selectedAnsvarig.mottagningID);
+            this.mottagnings = incommingMottagnings;
+            console.log(incommingMottagnings);
+            this.mottagnings.forEach(
+              item => this.mottagningById.set(item.id, item)
+            );
           });
 
       });
   }
 
-  onMottagningSelect() {
-    if (this.selectedMottagning) {
-      console.log("Selected ", this.selectedMottagning);
-      if(this.selectedMottagning.ansvarigs) {
-        //this.patient.ansvarig = this.selectedMottagning.ansvarigs[0];
-        this.ansvarigsDomain = this.selectedMottagning.ansvarigs;
-        this.selectedAnsvarig = this.selectedMottagning.ansvarigs[0];
-        this.onAnsvarigChange();
-      }
-    }
+  compareAnsvarigs(a1: Ansvarig, a2: Ansvarig): boolean {
+    return a1.id === a2.id;
   }
 
-  onAnsvarigChange() {
-    console.log("Ansvarig in patient");
-    this.patient.ansvarig = this.selectedAnsvarig;
+  saveToServerSide() {
+    this.http.put('/api/patient', this.patient).map(response => response.json()).subscribe(
+      (updated: Patient) => {
+        console.log('Saved', updated);
+      }
+    );
   }
 }

@@ -7,39 +7,38 @@ package se.vgregion.dialys.i.vast.jpa.requisitions;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.io.Serializable;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "Patient")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p")
-    , @NamedQuery(name = "Patient.findById", query = "SELECT p FROM Patient p WHERE p.id = :id")
-    , @NamedQuery(name = "Patient.findByPnr", query = "SELECT p FROM Patient p WHERE p.pnr = :pnr")
-    , @NamedQuery(name = "Patient.findByEfternamn", query = "SELECT p FROM Patient p WHERE p.efternamn = :efternamn")
-    , @NamedQuery(name = "Patient.findByFornamn", query = "SELECT p FROM Patient p WHERE p.fornamn = :fornamn")
-    , @NamedQuery(name = "Patient.findByAdress", query = "SELECT p FROM Patient p WHERE p.adress = :adress")
-    , @NamedQuery(name = "Patient.findByPostNr", query = "SELECT p FROM Patient p WHERE p.postNr = :postNr")
-    , @NamedQuery(name = "Patient.findByPostOrt", query = "SELECT p FROM Patient p WHERE p.postOrt = :postOrt")
-    , @NamedQuery(name = "Patient.findByTelefon", query = "SELECT p FROM Patient p WHERE p.telefon = :telefon")
-    , @NamedQuery(name = "Patient.findByMobil", query = "SELECT p FROM Patient p WHERE p.mobil = :mobil")
-    , @NamedQuery(name = "Patient.findByEpost", query = "SELECT p FROM Patient p WHERE p.epost = :epost")
-    , @NamedQuery(name = "Patient.findByPortkod", query = "SELECT p FROM Patient p WHERE p.portkod = :portkod")
-    , @NamedQuery(name = "Patient.findByUtdelDag", query = "SELECT p FROM Patient p WHERE p.utdelDag = :utdelDag")
-    , @NamedQuery(name = "Patient.findByUtdelVecka", query = "SELECT p FROM Patient p WHERE p.utdelVecka = :utdelVecka")
-    , @NamedQuery(name = "Patient.findByUtdelText", query = "SELECT p FROM Patient p WHERE p.utdelText = :utdelText")
-    , @NamedQuery(name = "Patient.findByPas", query = "SELECT p FROM Patient p WHERE p.pas = :pas")
-    , @NamedQuery(name = "Patient.findBySamtycke", query = "SELECT p FROM Patient p WHERE p.samtycke = :samtycke")
-    , @NamedQuery(name = "Patient.findByIsDeleted", query = "SELECT p FROM Patient p WHERE p.isDeleted = :isDeleted")})
+        @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p")
+        , @NamedQuery(name = "Patient.findById", query = "SELECT p FROM Patient p WHERE p.id = :id")
+        , @NamedQuery(name = "Patient.findByPnr", query = "SELECT p FROM Patient p WHERE p.pnr = :pnr")
+        , @NamedQuery(name = "Patient.findByEfternamn", query = "SELECT p FROM Patient p WHERE p.efternamn = :efternamn")
+        , @NamedQuery(name = "Patient.findByFornamn", query = "SELECT p FROM Patient p WHERE p.fornamn = :fornamn")
+        , @NamedQuery(name = "Patient.findByAdress", query = "SELECT p FROM Patient p WHERE p.adress = :adress")
+        , @NamedQuery(name = "Patient.findByPostNr", query = "SELECT p FROM Patient p WHERE p.postNr = :postNr")
+        , @NamedQuery(name = "Patient.findByPostOrt", query = "SELECT p FROM Patient p WHERE p.postOrt = :postOrt")
+        , @NamedQuery(name = "Patient.findByTelefon", query = "SELECT p FROM Patient p WHERE p.telefon = :telefon")
+        , @NamedQuery(name = "Patient.findByMobil", query = "SELECT p FROM Patient p WHERE p.mobil = :mobil")
+        , @NamedQuery(name = "Patient.findByEpost", query = "SELECT p FROM Patient p WHERE p.epost = :epost")
+        , @NamedQuery(name = "Patient.findByPortkod", query = "SELECT p FROM Patient p WHERE p.portkod = :portkod")
+        , @NamedQuery(name = "Patient.findByUtdelDag", query = "SELECT p FROM Patient p WHERE p.utdelDag = :utdelDag")
+        , @NamedQuery(name = "Patient.findByUtdelVecka", query = "SELECT p FROM Patient p WHERE p.utdelVecka = :utdelVecka")
+        , @NamedQuery(name = "Patient.findByUtdelText", query = "SELECT p FROM Patient p WHERE p.utdelText = :utdelText")
+        , @NamedQuery(name = "Patient.findByPas", query = "SELECT p FROM Patient p WHERE p.pas = :pas")
+        , @NamedQuery(name = "Patient.findBySamtycke", query = "SELECT p FROM Patient p WHERE p.samtycke = :samtycke")
+        , @NamedQuery(name = "Patient.findByIsDeleted", query = "SELECT p FROM Patient p WHERE p.isDeleted = :isDeleted")})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Patient implements Serializable {
 
@@ -121,8 +120,18 @@ public class Patient implements Serializable {
     @Column(name = "ovrigt")
     private String ovrigt;
 
-    @Column(name = "PAS")
+    @Column(name = "PAS", updatable = false, insertable = false)
     private Integer pas;
+
+
+    @Column(name = "leveransPaminnelse")
+    private Boolean leveransPaminnelse = false;
+
+    @Column(name = "avropsOmbud")
+    private String avropsOmbud;
+
+    @Column(name = "leveransMottagningsOmbud")
+    private String leveransMottagningsOmbud;
 
     public List<Pd> getPds() {
         return pds;
@@ -349,5 +358,39 @@ public class Patient implements Serializable {
 
     public void setOvrigt(String ovrigt) {
         this.ovrigt = ovrigt;
+    }
+
+
+
+    public String getAvropsOmbud() {
+        return avropsOmbud;
+    }
+
+    public void setAvropsOmbud(String avropsOmbud) {
+        this.avropsOmbud = avropsOmbud;
+    }
+
+    public String getLeveransMottagningsOmbud() {
+        return leveransMottagningsOmbud;
+    }
+
+    public void setLeveransMottagningsOmbud(String leveransMottagningsOmbud) {
+        this.leveransMottagningsOmbud = leveransMottagningsOmbud;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Boolean getLeveransPaminnelse() {
+        return leveransPaminnelse;
+    }
+
+    public void setLeveransPaminnelse(Boolean leveransPaminnelse) {
+        this.leveransPaminnelse = leveransPaminnelse;
     }
 }

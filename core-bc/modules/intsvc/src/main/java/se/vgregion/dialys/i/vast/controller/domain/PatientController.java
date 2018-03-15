@@ -20,7 +20,6 @@ import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.OneToMany;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -51,6 +50,12 @@ public class PatientController {
         List<Patient> result = new ArrayList<>();
         patientRepository.findAll().forEach(i -> result.add(i));
         return result;
+    }
+
+    //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public ResponseEntity<Patient> saveUser(@RequestBody Patient patient) {
+        return ResponseEntity.ok(patientRepository.save(patient));
     }
 
     static Pageable makePageable(Integer requestedPage, String sort, Boolean asc) {

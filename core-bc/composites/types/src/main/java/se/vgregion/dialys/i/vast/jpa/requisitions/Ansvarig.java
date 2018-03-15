@@ -43,10 +43,19 @@ public class Ansvarig implements Serializable {
     @Column(name = "MottagningID")
     private Integer mottagningID;
 
+    @Column(name = "userName", updatable = false, insertable = false)
+    private String userName;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userName", referencedColumnName = "userName", foreignKey = @ForeignKey(name = "fk_ansvarig_users"))
     private User user;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "mottagningID", referencedColumnName = "id")
+    private Mottagning mottagning;
+
 
     /*@JsonIgnore
     @OneToMany(mappedBy = "ansvarig", fetch = FetchType.LAZY)
@@ -115,6 +124,22 @@ public class Ansvarig implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Mottagning getMottagning() {
+        return mottagning;
+    }
+
+    public void setMottagning(Mottagning mottagning) {
+        this.mottagning = mottagning;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 /*    public List<Patient> getPatients() {

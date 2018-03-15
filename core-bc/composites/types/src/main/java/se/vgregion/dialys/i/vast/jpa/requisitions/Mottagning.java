@@ -6,15 +6,8 @@
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.util.Set;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -33,16 +26,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Mottagning implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+
     @Size(max = 50)
     @Column(name = "Namn")
     private String namn;
+
     @Column(name = "ApotekID")
     private Integer apotekID;
+
+    @OneToMany(mappedBy = "mottagning")
+    private Set<Ansvarig> ansvarigs;
 
     public Mottagning() {
     }
@@ -99,5 +98,12 @@ public class Mottagning implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Mottagning[ id=" + id + " ]";
     }
-    
+
+    public Set<Ansvarig> getAnsvarigs() {
+        return ansvarigs;
+    }
+
+    public void setAnsvarigs(Set<Ansvarig> ansvarigs) {
+        this.ansvarigs = ansvarigs;
+    }
 }

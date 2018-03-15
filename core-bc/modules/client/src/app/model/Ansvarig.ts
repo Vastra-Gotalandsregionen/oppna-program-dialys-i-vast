@@ -7,5 +7,6 @@ export class Ansvarig {
   namn: string;
   patients: Array<object>;
   user: User;
+  userName: string;
 
 }
