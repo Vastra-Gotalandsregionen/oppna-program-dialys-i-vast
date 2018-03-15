@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author clalu4
@@ -123,6 +123,9 @@ public class Patient implements Serializable {
     @Column(name = "PAS", updatable = false, insertable = false)
     private Integer pas;
 
+    @Column(name = "typ")
+    @Enumerated(EnumType.STRING)
+    private Typ typ;
 
     @Column(name = "leveransPaminnelse")
     private Boolean leveransPaminnelse = false;
@@ -133,16 +136,23 @@ public class Patient implements Serializable {
     @Column(name = "leveransMottagningsOmbud")
     private String leveransMottagningsOmbud;
 
-    public List<Pd> getPds() {
+    public Set<Pd> getPds() {
         return pds;
     }
 
-    public void setPds(List<Pd> pds) {
+    private static int noNulls(Long l) {
+        if (l == null) {
+            return 0;
+        }
+        return Math.toIntExact(l);
+    }
+
+    public void setPds(Set<Pd> pds) {
         this.pds = pds;
     }
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    private List<Pd> pds;
+    private Set<Pd> pds;
 
     @Column(name = "Samtycke")
     private Boolean samtycke;
@@ -361,7 +371,6 @@ public class Patient implements Serializable {
     }
 
 
-
     public String getAvropsOmbud() {
         return avropsOmbud;
     }
@@ -393,4 +402,18 @@ public class Patient implements Serializable {
     public void setLeveransPaminnelse(Boolean leveransPaminnelse) {
         this.leveransPaminnelse = leveransPaminnelse;
     }
+
+    public Typ getTyp() {
+        return typ;
+    }
+
+    public void setTyp(Typ typ) {
+        this.typ = typ;
+    }
+
+    public enum Typ {
+        Pd,
+        Gd
+    }
+
 }

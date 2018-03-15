@@ -68,9 +68,9 @@
           <div class="div-form-field-ctn">
             <div class="div-form-field">
               <label class="field-label">Välj typ av patient:</label>
-              <mat-radio-group>
-                <mat-radio-button value="PD">Pd</mat-radio-button>
-                <mat-radio-button value="GD">GD</mat-radio-button>
+              <mat-radio-group [(ngModel)]="patient.ansvarig.typ">
+                <mat-radio-button value="Pd">Pd</mat-radio-button>
+                <mat-radio-button value="Gd">GD</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
