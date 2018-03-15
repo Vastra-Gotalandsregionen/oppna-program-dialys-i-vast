@@ -1,5 +1,6 @@
 import {Pd} from "./Pd";
 import {Ansvarig} from "./Ansvarig";
+import {Typ} from "./Typ";
 
 export class Patient {
   adress: string;
@@ -28,5 +29,9 @@ export class Patient {
   avropsOmbud: string;
   leveransMottagningsOmbud: string;
 
+  typ: Typ;
+
   pds: Array<Pd>
 }
+
+
