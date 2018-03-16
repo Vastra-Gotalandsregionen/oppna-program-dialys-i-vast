@@ -2,7 +2,7 @@
 
   <mat-toolbar class="action-toolbar">
     <h1>
-      Beställningar: {{pnr}}
+      Beställning: {{pnr}}
     </h1>
     <div class="action-toolbar-spacer"></div>
     <app-back-button class="action-toolbar-item"></app-back-button>
@@ -47,8 +47,34 @@
         </div>
       </div>
 
-      Beställningsformulär etc här.
+      <div>
+        <mat-table #table dense [dataSource]="bestallningDataSource">
+          <ng-container matColumnDef="artikel">
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikel / Produkt</span></mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.id}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="mangd">
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Mängd / Förpackning</span></mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.id}}</mat-cell>
+          </ng-container>
 
+          <ng-container matColumnDef="pdartikel">
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikelnr</span></mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.pdartikelID}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="antal">
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Antal</span></mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.antal}}</mat-cell>
+          </ng-container>
+
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+
+      </div>
 
       <div class="btn-container">
 

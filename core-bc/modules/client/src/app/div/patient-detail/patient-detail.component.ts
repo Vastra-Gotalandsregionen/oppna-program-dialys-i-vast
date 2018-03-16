@@ -7,9 +7,6 @@ import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
 import {Rekvistion} from "./Rekvistion";
 import {BestInfo} from "../../model/BestInfo";
-import {DataSource} from '@angular/cdk/collections'
-
-
 
 @Component({
   selector: 'app-apk-detail',
@@ -27,7 +24,7 @@ export class PatientDetailComponent implements OnInit {
   $replaces: Observable<Patient>;
   archivedDatas: Patient[] = [];
   rekvisition: Rekvistion = new Rekvistion();
-  dataSource: BestInfo[] = [];
+  dataSourceSenasteRekvisition: BestInfo[] = [];
   displayedColumns = ['id', 'datum', 'utskrivare', 'levdatum'];
 
   constructor(protected route: ActivatedRoute,
@@ -36,7 +33,6 @@ export class PatientDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-
 
     this.route.params.subscribe(params => {
       this.id = params.id;
@@ -50,29 +46,8 @@ export class PatientDetailComponent implements OnInit {
 
         $data.subscribe((data: Patient) => {
           this.data = data;
-          this.rekvisition.datum = new Date(data.pds[0].datum);
-          this.rekvisition.id = +data.pds[0].id;
-          this.dataSource = data.pds[0].bestInfos;
-
+          this.dataSourceSenasteRekvisition = data.pds[0].bestInfos;
         });
-
-/*        this.$replacedBy = $data
-          .filter((data: Patient) => !!data.ersattav)
-          .mergeMap((data: Patient) => this.http.get('/api/data/arbetsplatskodlan/' + data.ersattav))
-          .map(response => response.json());
-
-        this.$replaces = $data
-          .mergeMap((data: Patient) => this.http.get('/api/data/ersattav/' + data.arbetsplatskodlan))
-          .map(response => response.json());*/
-
-/*
-        this.http.getPage('/api/archivedData/' + this.id)
-          .map(response => response.json())
-          .subscribe((archivedDatas: Patient[]) => {
-            this.archivedDatas = archivedDatas;
-          });
-*/
-
       }
     });
   }

@@ -118,7 +118,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div>
-        <mat-table #table dense [dataSource]="data.pds[0].bestInfos">
+        <mat-table #table dense [dataSource]="dataSourceSenasteRekvisition.bestInfos">
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
             <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}" [queryParams]="{persnr:data.pnr, rekvisitionid:data.pds[0].id, rekvisDatum:data.pds[0].datum | date: 'yyyy-MM-dd' }">{{bestInfo.id}}</a></mat-cell>
@@ -172,7 +172,7 @@
             <ng-container matColumnDef="id">
               <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
               <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}"
-                                                       [queryParams]="{persnr:data.pnr, rekvisitionid:dat.id, rekvisDatum:dat.datum | date: 'yyyy-MM-dd' }">
+                                                       [queryParams]="{persnr:data.pnr, rekvisitionid:dat.id, rekvisDatum:dat.datum | date: 'yyyy-MM-dd' , patId: id}">
                                                     {{bestInfo.id}}</a>
               </mat-cell>
             </ng-container>
