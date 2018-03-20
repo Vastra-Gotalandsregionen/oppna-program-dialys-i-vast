@@ -5,6 +5,9 @@ import {JwtHttp} from "../../core/jwt-http";
 import {BestPDRad} from "../../model/BestPDRad";
 import {Observable} from 'rxjs/Observable';
 import {BestInfo} from "../../model/BestInfo";
+import {User} from "../../model/user";
+import {Response} from "@angular/http";
+import {BestRad} from "../../model/BestRad";
 
 
 @Component({
@@ -26,6 +29,7 @@ export class PrescriptionDetailComponent implements OnInit {
   bestallningFound: boolean = false;
   bestallningIndex: number;
   bestallningsInfo: BestInfo[];
+  bestallningsRader: BestRad[];
   displayedColumns = ['artikel', 'mangd', 'pdartikel', 'antal'];
   constructor(private route:ActivatedRoute, protected http: JwtHttp) {}
 
@@ -36,7 +40,12 @@ export class PrescriptionDetailComponent implements OnInit {
     this.rekvisId = this.route.snapshot.queryParams['rekvisitionid'];
     this.id = this.route.snapshot.queryParams['patId'];
 
-    if (this.id) {
+
+    /*this.http.get('/api/bestallning/' + this.bestallningsId).map<Response, BestRad[]>(response => response.json())
+      .subscribe(
+         rader=> this.bestallningsRader = rader
+      );*/
+     if (this.id) {
       const $data = this.http.get('/api/patient/' + this.id)
         .map(response => response.json())
         .share();

@@ -39,6 +39,11 @@ public class BestPDRad implements Serializable {
     @Column(name = "Antal")
     private Integer antal;
 
+    //@JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "pDArtikelID", foreignKey = @ForeignKey(name = "fk_BestPDRad_PDArtikel"))
+    private PDArtikel pdArtikel;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bestID", foreignKey = @ForeignKey(name = "fk_BestPDRad_BestInfo"))
@@ -114,5 +119,13 @@ public class BestPDRad implements Serializable {
 
     public void setBestInfo(BestInfo bestInfo) {
         this.bestInfo = bestInfo;
+    }
+
+    public PDArtikel getPdArtikel() {
+        return pdArtikel;
+    }
+
+    public void setPdArtikel(PDArtikel pdArtikel) {
+        this.pdArtikel = pdArtikel;
     }
 }

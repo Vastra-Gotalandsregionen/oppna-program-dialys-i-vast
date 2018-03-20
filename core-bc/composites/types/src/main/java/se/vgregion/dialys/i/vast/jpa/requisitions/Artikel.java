@@ -5,34 +5,29 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "Artikel")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Artikel.findAll", query = "SELECT a FROM Artikel a")
-    , @NamedQuery(name = "Artikel.findById", query = "SELECT a FROM Artikel a WHERE a.id = :id")
-    , @NamedQuery(name = "Artikel.findByGruppID", query = "SELECT a FROM Artikel a WHERE a.gruppID = :gruppID")
-    , @NamedQuery(name = "Artikel.findByNamn", query = "SELECT a FROM Artikel a WHERE a.namn = :namn")
-    , @NamedQuery(name = "Artikel.findByStorlek", query = "SELECT a FROM Artikel a WHERE a.storlek = :storlek")
-    , @NamedQuery(name = "Artikel.findByArtNr", query = "SELECT a FROM Artikel a WHERE a.artNr = :artNr")
-    , @NamedQuery(name = "Artikel.findByOrdning", query = "SELECT a FROM Artikel a WHERE a.ordning = :ordning")})
+        @NamedQuery(name = "Artikel.findAll", query = "SELECT a FROM Artikel a")
+        , @NamedQuery(name = "Artikel.findById", query = "SELECT a FROM Artikel a WHERE a.id = :id")
+        , @NamedQuery(name = "Artikel.findByGruppID", query = "SELECT a FROM Artikel a WHERE a.gruppID = :gruppID")
+        , @NamedQuery(name = "Artikel.findByNamn", query = "SELECT a FROM Artikel a WHERE a.namn = :namn")
+        , @NamedQuery(name = "Artikel.findByStorlek", query = "SELECT a FROM Artikel a WHERE a.storlek = :storlek")
+        , @NamedQuery(name = "Artikel.findByArtNr", query = "SELECT a FROM Artikel a WHERE a.artNr = :artNr")
+        , @NamedQuery(name = "Artikel.findByOrdning", query = "SELECT a FROM Artikel a WHERE a.ordning = :ordning")})
 public class Artikel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,7 +50,12 @@ public class Artikel implements Serializable {
     @Column(name = "ordning")
     private Integer ordning;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "artikel", fetch = FetchType.LAZY)
+    private Set<PDArtikel> pdArtikels;
+
     public Artikel() {
+
     }
 
     public Artikel(Integer id) {
@@ -134,5 +134,12 @@ public class Artikel implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Artikel[ id=" + id + " ]";
     }
-    
+
+    public Set<PDArtikel> getPdArtikels() {
+        return pdArtikels;
+    }
+
+    public void setPdArtikels(Set<PDArtikel> pdArtikels) {
+        this.pdArtikels = pdArtikels;
+    }
 }
