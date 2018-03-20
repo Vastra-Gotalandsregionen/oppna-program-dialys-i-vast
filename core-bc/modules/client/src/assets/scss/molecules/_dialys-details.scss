@@ -1,11 +1,11 @@
-.div-details {
+.dialys-details {
 
   padding: 10px;
 
-  &.div-details-highlight {
+  &.dialys-details-highlight {
     background: #eee;
 
-    .div-details-item {
+    .dialys-details-item {
       border-bottom: none;
     }
   }
@@ -23,16 +23,16 @@
   &.c5,
   &.c4 {
 
-    .div-details {
+    .dialys-details {
 
-      .div-details-item {
+      .dialys-details-item {
 
-        .div-details-item-label {
+        .dialys-details-item-label {
           margin-right: 1%;
           width: 49%;
         }
 
-        .div-details-item-data {
+        .dialys-details-item-data {
           width: 49.5%;
         }
 

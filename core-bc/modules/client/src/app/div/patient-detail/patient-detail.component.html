@@ -24,32 +24,32 @@
     <app-back-button class="action-toolbar-item"></app-back-button>
   </mat-toolbar>
 
-  <mat-card class="div-card">
+  <mat-card class="dialys-card">
 
     <mat-card-content>
 
       <div class="row">
         <div class="col c6">
           <div class="col-inner">
-            <div class="div-details">
+            <div class="dialys-details">
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Personnr:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Personnr:</div>
+                <div class="dialys-details-item-data">
                   {{data.pnr}}
                 </div>
               </div>
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Namn:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Namn:</div>
+                <div class="dialys-details-item-data">
                   {{data.fornamn}}
                 </div>
               </div>
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Label:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Label:</div>
+                <div class="dialys-details-item-data">
                   {{data.id}}
                 </div>
               </div>
@@ -59,33 +59,33 @@
         </div>
         <div class="col c6">
           <div class="col-inner">
-            <div class="div-details">
+            <div class="dialys-details">
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Gatuadress:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Gatuadress:</div>
+                <div class="dialys-details-item-data">
                   {{data.adress}}
                 </div>
               </div>
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Postadress:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Postadress:</div>
+                <div class="dialys-details-item-data">
                   {{data.postOrt}}
                 </div>
               </div>
 
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Telefon:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Telefon:</div>
+                <div class="dialys-details-item-data">
                   {{data.telefon}}
                 </div>
               </div>
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Epost:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Epost:</div>
+                <div class="dialys-details-item-data">
                   {{data.epost}}
                 </div>
               </div>
@@ -103,7 +103,7 @@
   <h4>PD Rekvisitioner: </h4>
   <mat-accordion>
 
-    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
+    <mat-expansion-panel class="dialys-requisition-panel dialys-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-icon>content_paste</mat-icon>
@@ -157,7 +157,7 @@
         <!--
         dat.bestInfos == null
         -->
-        <mat-expansion-panel class="div-requisition-panel " hideToggle="true" (opened)="panelOpenState[i] = true" (closed)="panelOpenState[i] = false">
+        <mat-expansion-panel class="dialys-requisition-panel " hideToggle="true" (opened)="panelOpenState[i] = true" (closed)="panelOpenState[i] = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>content_paste</mat-icon>

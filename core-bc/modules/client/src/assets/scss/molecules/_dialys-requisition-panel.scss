@@ -1,4 +1,4 @@
-.div-requisition-panel {
+.dialys-requisition-panel {
 
   .mat-expansion-panel-header {
 
@@ -44,27 +44,4 @@
 
 
   }
-
-
-
-  // &.div-requisition-panel-main {
-  //
-  //   .mat-expansion-panel-header {
-  //     background: $vgr-blue;
-  //     color: white;
-  //
-  //     .mat-expansion-panel-header-title,
-  //     .mat-expansion-panel-header-description,
-  //     .mat-expansion-indicator::after {
-  //       color: white;
-  //     }
-  //
-  //   }
-  //
-  // }
-
-
 }
-
-
-//.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']).cdk-keyboard-focused, .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']).cdk-program-focused, .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover
