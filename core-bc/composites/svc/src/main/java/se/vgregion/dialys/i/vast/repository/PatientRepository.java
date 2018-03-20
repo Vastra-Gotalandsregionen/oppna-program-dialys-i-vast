@@ -19,7 +19,9 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
             "left join fetch p.ansvarig a " +
             "left join fetch p.pds ps " +
             "left join fetch ps.bestInfos bi " +
-            "left join fetch bi.bestPDRads " +
+            "left join fetch bi.bestPDRads brad " +
+            "left join fetch brad.pdArtikel part " +
+            "left join fetch part.artikel art " +
             "where :id = p.id ")
     Patient findOne(@Param("id") Integer id);
 

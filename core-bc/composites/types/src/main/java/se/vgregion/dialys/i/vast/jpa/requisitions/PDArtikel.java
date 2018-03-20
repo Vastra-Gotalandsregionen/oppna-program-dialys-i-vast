@@ -5,16 +5,11 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.util.Set;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -39,8 +34,16 @@ public class PDArtikel implements Serializable {
     private Integer id;
     @Column(name = "PDID")
     private Integer pdid;
-    @Column(name = "ArtikelID")
+    @Column(name = "ArtikelID", updatable = false, insertable = false)
     private Integer artikelID;
+
+    @ManyToOne
+    @JoinColumn(name = "artikelID", foreignKey = @ForeignKey(name = "fk_PDArtikel_Artikel"))
+    private Artikel artikel;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "pdArtikel", fetch = FetchType.LAZY)
+    private Set<BestPDRad> bestPDRad;
 
     public PDArtikel() {
     }
@@ -97,5 +100,20 @@ public class PDArtikel implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel[ id=" + id + " ]";
     }
-    
+
+    public Set<BestPDRad> getBestPDRad() {
+        return bestPDRad;
+    }
+
+    public void setBestPDRad(Set<BestPDRad> bestPDRad) {
+        this.bestPDRad = bestPDRad;
+    }
+
+    public Artikel getArtikel() {
+        return artikel;
+    }
+
+    public void setArtikel(Artikel artikel) {
+        this.artikel = artikel;
+    }
 }
