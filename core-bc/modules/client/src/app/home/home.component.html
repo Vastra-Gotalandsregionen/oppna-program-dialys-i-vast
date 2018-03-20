@@ -16,7 +16,29 @@
 
   <div class="col c6">
     <div class="col-inner">
-      <app-content-box contentId="homeRight"></app-content-box>
+
+      <mat-card class="info-card" *ngIf="loggedIn">
+        <mat-card-content>
+          <div class="content-wrapper">
+            <div class="div-content">
+              <h3>Sök patient</h3>
+
+              <div class="div-search-box">
+                <mat-input-container class="div-search-input">
+                  <input matInput placeholder="Skriv in personnummer/namn.">
+                </mat-input-container>
+                <button type="submit"mat-raised-button class="btn">Sök patient</button>
+              </div>
+
+
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+
+
+
     </div>
   </div>
 
