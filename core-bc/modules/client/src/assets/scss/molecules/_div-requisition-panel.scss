@@ -9,6 +9,7 @@
       .mat-expansion-panel-header-description {
         flex-basis: 0;
         line-height: 24px;
+        flex-grow: 1;
       }
 
 
@@ -21,6 +22,12 @@
         }
 
         .title-name {
+          border-right: 1px solid #333;
+          padding-right: 20px;
+          margin-right: 20px;
+        }
+
+        .title-date {
           border-right: 1px solid #333;
           padding-right: 20px;
           margin-right: 20px;

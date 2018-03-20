@@ -9,18 +9,21 @@
           <span class="nav-label">Översikt</span>
         </a>
       </mat-list-item>
+      <!--
       <mat-list-item *ngIf="admin">
         <a routerLink="old-users" routerLinkActive="active">
           <mat-icon>people</mat-icon>
           <span class="nav-label">Användare (gamla)</span>
         </a>
       </mat-list-item>
+    -->
       <mat-list-item *ngIf="admin">
         <a routerLink="users" routerLinkActive="active">
           <mat-icon>people</mat-icon>
-          <span class="nav-label">Användare (nya)</span>
+          <span class="nav-label">Användare</span>
         </a>
       </mat-list-item>
+      <!--
       <mat-list-item *ngIf="loggedIn">
         <a routerLink="prodn1" routerLinkActive="active">
           <mat-icon>list</mat-icon>
@@ -57,6 +60,7 @@
           <span class="nav-label">Medicinsk verksamhetskod</span>
         </a>
       </mat-list-item>
+      -->
     </mat-list>
 
   </mat-sidenav>

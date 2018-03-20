@@ -103,17 +103,18 @@
   <h4>PD Rekvisitioner: </h4>
   <mat-accordion>
 
-    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main" hideToggle="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-icon>content_paste</mat-icon>
           <span class="title-name">Rekvisition {{data.pds[0].id}}</span>
           <span class="title-date">{{data.pds[0].datum | date: 'yyyy-MM-dd'}}</span>
+          <span class="title-orders">{{dataSourceSenasteRekvisition.bestInfos != null ? dataSourceSenasteRekvisition.bestInfos.length : '0'}} beställningar</span>
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
-            {{panelOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
           </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -151,17 +152,18 @@
     </mat-expansion-panel>
     <div *ngIf="showOldRequisitions">
 
-      <mat-expansion-panel *ngFor="let dat of data.pds | slice:1" class="div-requisition-panel " hideToggle="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel *ngFor="let dat of data.pds | slice:1; let i = index;" class="div-requisition-panel " hideToggle="true" (opened)="panelOpenState[i] = true" (closed)="panelOpenState[i] = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>content_paste</mat-icon>
             <span class="title-name">Rekvisition {{dat.id}}</span>
             <span class="title-date">{{dat.datum | date: 'yyyy-MM-dd'}}</span>
+            <span class="title-orders">{{dat.bestInfos != null ? dat.bestInfos.length : '0'}} beställningar</span>
           </mat-panel-title>
           <mat-panel-description>
             <mat-icon>add_shopping_cart</mat-icon>
             <span>
-              {{panelOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+              {{panelOpenState[i] ? 'Dölj beställningar' : 'Visa beställningar'}}
             </span>
           </mat-panel-description>
         </mat-expansion-panel-header>

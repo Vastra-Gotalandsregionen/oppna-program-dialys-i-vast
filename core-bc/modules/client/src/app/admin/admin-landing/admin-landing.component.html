@@ -9,7 +9,7 @@
 
 <mat-card>
   <mat-card-content>
-    <p>I administrationsvyn för Dialys-i-vast kan du hantera data som användare, Concise summeringsnivåer, motpart etc.</p>
+    <p>I administrationsvyn för Dialys i Väst kan du hantera data som användare, artiklar, apotek etc.</p>
     <p>Exakt vilka val som finns tillgängliga beror av vilka rättigheter du har som användare.</p>
 
 
@@ -17,9 +17,11 @@
       <mat-list-item *ngIf="admin">
         <a routerLink="../users" routerLinkActive="active">
           <mat-icon>people</mat-icon>
-          <span class="nav-label">Användare (nya)</span>
+          <span class="nav-label">Användare</span>
         </a>
       </mat-list-item>
+
+      <!--
       <mat-list-item *ngIf="loggedIn">
         <a routerLink="../prodn1" routerLinkActive="active">
           <mat-icon>list</mat-icon>
@@ -56,6 +58,7 @@
           <span class="nav-label">Medicinsk verksamhetskod</span>
         </a>
       </mat-list-item>
+      -->
     </mat-list>
 
 
