@@ -62,6 +62,9 @@ public class LoginController {
         } catch (Exception e) {
             try {
                 User user = userRepository.findOne(loginRequest.getUsername());
+                if (user == null) {
+                    throw new FailedLoginException("No such user: " + loginRequest.getUsername());
+                }
                 if (user.getPasswordEncryptionFlag()) {
                     if (!PasswordEncoder.getInstance().matches(loginRequest.getPassword(), user.getPassWord())) {
                         throw new FailedLoginException("Password dit not match with user i db either.");
