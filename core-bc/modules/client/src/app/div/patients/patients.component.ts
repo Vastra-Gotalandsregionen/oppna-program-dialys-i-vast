@@ -12,6 +12,7 @@ import {Prodn1} from '../../model/prodn1';
 import {MatDialog, MatSnackBar} from "@angular/material";
 import {ConfirmDialogComponent} from "../../shared/confirm-dialog/confirm-dialog.component";
 import {HostListener} from "@angular/core";
+import {StateService} from '../../core/state/state.service';
 
 @Component({
   selector: 'app-apk',
@@ -41,7 +42,8 @@ export class ApkComponent implements OnInit {
               private route: ActivatedRoute,
               private authService: AuthService,
               private snackBar: MatSnackBar,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private stateService: StateService) {
 
     this.location = location;
     this.stateCtrl = new FormControl();
@@ -103,13 +105,6 @@ export class ApkComponent implements OnInit {
 
       });
 
-    /*if (this.authService.jwt) {
-      this.usersProdn1sString$ = this.http.get('/api/prodn1')
-        .map(response => response.json())
-        .map((prodn1: Prodn1[]) => prodn1.map(prodn1 => prodn1.kortnamn).join(', '));
-    } else {
-      this.usersProdn1sString$ = Observable.from('');
-    }*/
   }
 
   private updateState() {
@@ -183,6 +178,9 @@ export class ApkComponent implements OnInit {
     if (this.onlyMyDatas) {
       params.set('onlyMyDatas', this.onlyMyDatas + '');
     }
+
+    console.log(this.authService.getLoggedInUserId());
+    params.set("userName", this.authService.getLoggedInUserId());
 
     const requestOptions = new RequestOptions();
     requestOptions.params = params;

@@ -271,14 +271,17 @@ public abstract class AbstractDatabaseCopy {
 
         Table table = target.getSchemas("public").get(0).getTable("users");
 
+        String password = "test";
+        // password = PasswordEncoder.getInstance().encodePassword(password);
+
         int i = 0;
         for (Map<String, Object> user : users) {
-            String password = (String) user.get("password");
-            password = PasswordEncoder.getInstance().encodePassword(password);
+            /*String password = (String) user.get("password");
+            password = PasswordEncoder.getInstance().encodePassword(password);*/
 
             Map<String, Object> where = new HashMap<>(), set = new HashMap<>();
             set.put("password", password);
-            set.put("password_encrypted_flag", true);
+            set.put("password_encrypted_flag", false);
             where.put("username", user.get("username"));
             target.update(table, set, where);
 
@@ -389,6 +392,56 @@ public abstract class AbstractDatabaseCopy {
         System.out.println("Deleted orphan bestinfo, " + r + " items.");
         r = target.update("delete from bestpdrad brad where brad.bestid not in (select id from bestinfo)");
         System.out.println("Deleted orphan bestpdrad, " + r + " items.");
+
+        target.update(
+                "delete from BestPDRad where id in (" +
+                        "select brad.id from BestPDRad brad, pdartikel part " +
+                        "where brad.pdArtikelId = part.id " +
+                        "and part.artikelid not in (select id from artikel)" +
+                        ")");
+
+        target.update("delete from pdartikel where artikelid not in (select id from artikel)");
         target.commit();
+    }
+
+    public static void main(String[] args) throws IOException, ParseException {
+        ConnectionExt connectionExt = new ConnectionExt(
+                "jdbc:postgresql://localhost:5432/dialys_i_vast",
+                "liferay",
+                "liferay",
+                org.postgresql.Driver.class.getName()
+        );
+        // fk_PDArtikel_Artikel
+        List<Map<String, Object>> items = connectionExt.query(
+                "select * from pdartikel where artikelid not in (select id from artikel)", 0, 1_000_000
+        );
+
+        for (Map<String, Object> item : items) {
+            System.out.println(item);
+        }
+
+        System.out.println("Found " + items.size() + " items.");
+
+        List<Map<String, Object>> bestPdRads = connectionExt.query(
+                "select brad.id from BestPDRad brad, pdartikel part " +
+                        "where brad.pdArtikelId = part.id " +
+                        "and part.artikelid not in (select id from artikel)",
+                0,
+                1_000_000
+        );
+        for (Map<String, Object> bestPdRad : bestPdRads) {
+            System.out.println(bestPdRad);
+        }
+        System.out.println("Antal bestpdrad " + bestPdRads.size());
+
+        connectionExt.update(
+                "delete from BestPDRad where id in (" +
+                        "select brad.id from BestPDRad brad, pdartikel part " +
+                        "where brad.pdArtikelId = part.id " +
+                        "and part.artikelid not in (select id from artikel)" +
+                        ")");
+
+        connectionExt.update("delete from pdartikel where artikelid not in (select id from artikel)");
+        connectionExt.commit();
     }
 }

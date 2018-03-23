@@ -86,16 +86,18 @@ public class PatientController {
     @Autowired
     PatientFinder patientFinder;
 
+    @PreAuthorize("@authService.isLoggedIn(authentication)")
     @RequestMapping(value = "filter", method = RequestMethod.GET)
     @Transactional
     public String getPatients(@RequestParam(value = "page", required = false) Integer page,
                               @RequestParam(value = "query", required = false) String query,
+                              @RequestParam(value = "userName", required = false) String userName,
                               @RequestParam(value = "sort", required = false) String sort,
                               @RequestParam(value = "asc", required = false) boolean asc) throws JsonProcessingException {
 
         Pageable pageable = makePageable(page, sort, asc);
 
-        return objectMapper.writeValueAsString(patientFinder.search(query, pageable));
+        return objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName));
     }
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")

@@ -23,7 +23,7 @@ public class PatientFinder {
     private EntityManager entityManager;
 
     @Transactional
-    public Page<Patient> search(String constraints, Pageable pageable) {
+    public Page<Patient> search(String constraints, Pageable pageable, String userName) {
         if (constraints == null) {
             constraints = "";
         }
@@ -51,32 +51,38 @@ public class PatientFinder {
             }
         }
 
+        sb.append(" where ");
         if (!conditions.isEmpty()) {
             String jpql = String.join(" or ", conditions);
-            sb.append(" where ");
+            sb.append("(");
             sb.append(jpql);
+            sb.append(") and ");
         }
 
-        String countJpql = "select count(*) from "
+        sb.append(" a.userName = ?" + i);
+        i++;
+        words.add(userName);
+
+        String countJpql = "select count(p) from "
                 + Patient.class.getSimpleName()
-                // + " p left join fetch p.ansvarig a "
-                + " p "
+                + " p join p.ansvarig a "
+                + "left join p.pds pds "
                 + sb.toString();
 
-        System.out.println("Jpql: " + countJpql);
+        String selectJpql = "select p from "
+                + Patient.class.getSimpleName()
+                + " p join fetch p.ansvarig a "
+                + "left join fetch p.pds pds "
+                + sb.toString()
+                + " "
+                + makeOrderByPart("p", pageable);
+
+        System.out.println("Jpql: " + selectJpql);
         System.out.println(words);
 
         return query(
                 Patient.class,
-                "select p from "
-                        + Patient.class.getSimpleName()
-                        + " p left join fetch p.ansvarig a "
-                        + "left join fetch p.pds pds "
-/*                        + "left join fetch pds.bestInfos bi "
-                        + "left join fetch bi.bestPDRads "*/
-                        + sb.toString()
-                        + " "
-                        + makeOrderByPart("p", pageable),
+                selectJpql,
                 countJpql,
                 pageable, words
         );
@@ -100,9 +106,20 @@ public class PatientFinder {
         return "order by " + String.join(", ", orders);
     }
 
+
+    private TypedQuery toTypedQuery(String jpql, Class clazz) {
+        try {
+            return entityManager.createQuery(jpql, (Class<Long>) clazz);
+        } catch (Exception e) {
+            System.out.println(clazz);
+            System.out.println(jpql);
+            throw new RuntimeException(e);
+        }
+    }
+
     private <T> Page<T> query(Class<T> clazz, String selectJpql, String countJpql, Pageable pageable, List words) {
-        TypedQuery<T> typedQuery = entityManager.createQuery(selectJpql, (Class) clazz);
-        TypedQuery<T> countQuery = entityManager.createQuery(countJpql, (Class<T>) Long.class);
+        TypedQuery<T> typedQuery = toTypedQuery(selectJpql, clazz);
+        TypedQuery<Long> countQuery = toTypedQuery(countJpql, Long.class);
 
         int i = 1;
         for (Object w : words) {
@@ -114,6 +131,8 @@ public class PatientFinder {
         Long count = (Long) countQuery.getSingleResult();
 
         Page<T> asPage = new PageImpl<T>(typedQuery.getResultList(), pageable, count);
+
+        System.out.println(typedQuery);
 
         return asPage;
     }
