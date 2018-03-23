@@ -23,7 +23,7 @@ public class PatientFinder {
     private EntityManager entityManager;
 
     @Transactional
-    public Page<Patient> search(String constraints, Pageable pageable, String userName) {
+    public Page<Patient> search(String constraints, Pageable pageable, String userName, Boolean onlyMyDatas) {
         if (constraints == null) {
             constraints = "";
         }
@@ -66,12 +66,14 @@ public class PatientFinder {
         String countJpql = "select count(p) from "
                 + Patient.class.getSimpleName()
                 + " p join p.ansvarig a "
+                + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
                 + "left join p.pds pds "
                 + sb.toString();
 
         String selectJpql = "select p from "
-                + Patient.class.getSimpleName()
-                + " p join fetch p.ansvarig a "
+                + Patient.class.getSimpleName() + " p "
+                + " join fetch p.ansvarig a "
+                + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
                 + "left join fetch p.pds pds "
                 + sb.toString()
                 + " "

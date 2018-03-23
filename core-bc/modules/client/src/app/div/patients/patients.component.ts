@@ -1,17 +1,15 @@
 import {FormControl} from '@angular/forms';
 import {Location} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {RequestOptions, URLSearchParams, Headers, Response} from '@angular/http';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {RequestOptions, URLSearchParams} from '@angular/http';
 import {Patient} from '../../model/Patient';
 import {RestResponse} from '../../model/rest-response';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../core/auth/auth.service';
 import {JwtHttp} from '../../core/jwt-http';
-import {Prodn1} from '../../model/prodn1';
 import {MatDialog, MatSnackBar} from "@angular/material";
 import {ConfirmDialogComponent} from "../../shared/confirm-dialog/confirm-dialog.component";
-import {HostListener} from "@angular/core";
 import {StateService} from '../../core/state/state.service';
 
 @Component({
@@ -89,7 +87,7 @@ export class ApkComponent implements OnInit {
             this.updateState();
           });
 
-          this.onlyActiveDatasCtrl.valueChanges
+        this.onlyActiveDatasCtrl.valueChanges
           .skip(1) // Skip on init
           .subscribe(value => {
             this.onlyActiveDatas = value;
@@ -143,7 +141,7 @@ export class ApkComponent implements OnInit {
     this.response = response;
 
     this.totalPagesArr = new Array(0);
-    for(let i = 1; i <= this.response.totalPages; i++) {
+    for (let i = 1; i <= this.response.totalPages; i++) {
       this.totalPagesArr.push(i);
     }
 
@@ -175,11 +173,12 @@ export class ApkComponent implements OnInit {
       params.set('onlyActiveDatas', this.onlyActiveDatas + '');
     }
 
-    if (this.onlyMyDatas) {
-      params.set('onlyMyDatas', this.onlyMyDatas + '');
+    if (!this.onlyMyDatas) {
+      this.onlyMyDatas = false;
     }
+    params.set('onlyMyDatas', this.onlyMyDatas + '');
 
-    console.log(this.authService.getLoggedInUserId());
+    console.log(' this.onlyMyDatas: ' + this.onlyMyDatas);
     params.set("userName", this.authService.getLoggedInUserId());
 
     const requestOptions = new RequestOptions();
