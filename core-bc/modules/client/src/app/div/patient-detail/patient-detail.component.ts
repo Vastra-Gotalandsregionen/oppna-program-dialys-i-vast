@@ -2,10 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
-import {Observable} from 'rxjs/Observable';
 import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
-import {Rekvistion} from "./Rekvistion";
 import {BestInfo} from "../../model/BestInfo";
 
 @Component({
@@ -20,10 +18,6 @@ export class PatientDetailComponent implements OnInit {
   id: string;
   data: Patient;
   showOldRequisitions: boolean;
-  $replacedBy: Observable<Patient>;
-  $replaces: Observable<Patient>;
-  archivedDatas: Patient[] = [];
-  rekvisition: Rekvistion = new Rekvistion();
   dataSourceSenasteRekvisition: BestInfo[] = [];
   displayedColumns = ['id', 'datum', 'utskrivare', 'levdatum'];
 
