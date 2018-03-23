@@ -114,7 +114,7 @@
         <mat-panel-description>
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
-            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}  ({{data.pds[0].bestInfos.length}})
           </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -168,7 +168,7 @@
             <mat-panel-description>
               <mat-icon>add_shopping_cart</mat-icon>
               <span>
-                {{panelOpenState[i] ? 'Dölj beställningar' : 'Visa beställningar'}}
+                {{panelOpenState[i] ? 'Dölj beställningar' : 'Visa beställningar'}}  ({{dat.bestInfos.length}})
               </span>
             </mat-panel-description>
           </mat-expansion-panel-header>
