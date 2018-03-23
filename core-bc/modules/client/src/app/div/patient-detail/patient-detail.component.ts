@@ -20,6 +20,7 @@ export class PatientDetailComponent implements OnInit {
   showOldRequisitions: boolean;
   dataSourceSenasteRekvisition: BestInfo[] = [];
   displayedColumns = ['id', 'datum', 'utskrivare', 'levdatum'];
+  panelOpenState: Number[] = [];
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,

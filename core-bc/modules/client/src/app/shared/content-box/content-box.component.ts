@@ -53,7 +53,7 @@ export class ContentBoxComponent implements OnInit, AfterViewInit {
         });
         const ref = this.contentDiv;
         setTimeout(() => {
-          const contentDiv = ref.nativeElement.getElementsByClassName('apk-content');
+          const contentDiv = ref.nativeElement.getElementsByClassName('dialys-content');
           if (contentDiv.length === 1) {
             const offsetHeight = contentDiv[0].offsetHeight;
             this.offsetHeight = offsetHeight;

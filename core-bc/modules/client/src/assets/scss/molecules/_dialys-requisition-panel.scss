@@ -1,0 +1,47 @@
+.dialys-requisition-panel {
+
+  .mat-expansion-panel-header {
+
+      padding-bottom: 5px;
+      padding-top: 5px;
+
+      .mat-expansion-panel-header-title,
+      .mat-expansion-panel-header-description {
+        flex-basis: 0;
+        line-height: 24px;
+        flex-grow: 1;
+      }
+
+
+      .mat-expansion-panel-header-title {
+        font-size: 1.3em;
+        font-weight: normal;
+
+        .mat-icon {
+          margin-right: 10px;
+        }
+
+        .title-name {
+          border-right: 1px solid #333;
+          padding-right: 20px;
+          margin-right: 20px;
+        }
+
+        .title-date {
+          border-right: 1px solid #333;
+          padding-right: 20px;
+          margin-right: 20px;
+        }
+
+
+      }
+
+      .mat-expansion-panel-header-description {
+        justify-content: space-between;
+        justify-content: flex-end;
+        align-items: right;
+      }
+
+
+  }
+}

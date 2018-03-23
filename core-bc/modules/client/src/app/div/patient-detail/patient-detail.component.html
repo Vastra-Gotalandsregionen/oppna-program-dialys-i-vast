@@ -24,32 +24,32 @@
     <app-back-button class="action-toolbar-item"></app-back-button>
   </mat-toolbar>
 
-  <mat-card class="div-card">
+  <mat-card class="dialys-card">
 
     <mat-card-content>
 
       <div class="row">
         <div class="col c6">
           <div class="col-inner">
-            <div class="div-details">
+            <div class="dialys-details">
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Personnr:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Personnr:</div>
+                <div class="dialys-details-item-data">
                   {{data.pnr}}
                 </div>
               </div>
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Namn:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Namn:</div>
+                <div class="dialys-details-item-data">
                   {{data.fornamn}}
                 </div>
               </div>
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Label:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Label:</div>
+                <div class="dialys-details-item-data">
                   {{data.id}}
                 </div>
               </div>
@@ -59,33 +59,33 @@
         </div>
         <div class="col c6">
           <div class="col-inner">
-            <div class="div-details">
+            <div class="dialys-details">
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Gatuadress:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Gatuadress:</div>
+                <div class="dialys-details-item-data">
                   {{data.adress}}
                 </div>
               </div>
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Postadress:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Postadress:</div>
+                <div class="dialys-details-item-data">
                   {{data.postOrt}}
                 </div>
               </div>
 
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Telefon:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Telefon:</div>
+                <div class="dialys-details-item-data">
                   {{data.telefon}}
                 </div>
               </div>
 
-              <div class="div-details-item">
-                <div class="div-details-item-label">Epost:</div>
-                <div class="div-details-item-data">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Epost:</div>
+                <div class="dialys-details-item-data">
                   {{data.epost}}
                 </div>
               </div>
@@ -103,17 +103,18 @@
   <h4>PD Rekvisitioner: </h4>
   <mat-accordion>
 
-    <mat-expansion-panel class="div-requisition-panel div-requisition-panel-main" hideToggle="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel class="dialys-requisition-panel dialys-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-icon>content_paste</mat-icon>
           <span class="title-name">Rekvisition {{data.pds[0].id}}</span>
           <span class="title-date">{{data.pds[0].datum | date: 'yyyy-MM-dd'}}</span>
+          <span class="title-orders">{{dataSourceSenasteRekvisition.bestInfos != null ? dataSourceSenasteRekvisition.bestInfos.length : '0'}} beställningar</span>
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
-            {{panelOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
           </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -151,59 +152,66 @@
     </mat-expansion-panel>
     <div *ngIf="showOldRequisitions">
 
-      <mat-expansion-panel *ngFor="let dat of data.pds | slice:1" class="div-requisition-panel " hideToggle="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>content_paste</mat-icon>
-            <span class="title-name">Rekvisition {{dat.id}}</span>
-            <span class="title-date">{{dat.datum | date: 'yyyy-MM-dd'}}</span>
-          </mat-panel-title>
-          <mat-panel-description>
-            <mat-icon>add_shopping_cart</mat-icon>
-            <span>
-              {{panelOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
-            </span>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div>
+      <div *ngFor="let dat of data.pds | slice:1; let i = index;">
 
-          <mat-table #table dense [dataSource]="dat.bestInfos">
+        <!--
+        dat.bestInfos == null
+        -->
+        <mat-expansion-panel class="dialys-requisition-panel " hideToggle="true" (opened)="panelOpenState[i] = true" (closed)="panelOpenState[i] = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>content_paste</mat-icon>
+              <span class="title-name">Rekvisition {{dat.id}}</span>
+              <span class="title-date">{{dat.datum | date: 'yyyy-MM-dd'}}</span>
+              <span class="title-orders">{{dat.bestInfos != null ? dat.bestInfos.length : '0'}} beställningar</span>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-icon>add_shopping_cart</mat-icon>
+              <span>
+                {{panelOpenState[i] ? 'Dölj beställningar' : 'Visa beställningar'}}
+              </span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
 
-            <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
-              <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}"
-                                                       [queryParams]="{persnr:data.pnr, rekvisitionid:dat.id, rekvisDatum:dat.datum | date: 'yyyy-MM-dd' , patId: id}">
-                                                    {{bestInfo.id}}</a>
-              </mat-cell>
-            </ng-container>
+            <mat-table #table dense [dataSource]="dat.bestInfos">
 
-            <ng-container matColumnDef="datum">
-              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningsdatum</span>
-              </mat-header-cell>
-              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
+                <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}"
+                                                         [queryParams]="{persnr:data.pnr, rekvisitionid:dat.id, rekvisDatum:dat.datum | date: 'yyyy-MM-dd' , patId: id}">
+                                                      {{bestInfo.id}}</a>
+                </mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="utskrivare">
-              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Utskrivare</span>
-              </mat-header-cell>
-              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="datum">
+                <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningsdatum</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="levdatum">
-              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Leveransdatum</span>
-              </mat-header-cell>
-              <mat-cell *matCellDef="let bestInfo"> {{bestInfo.levDatum | date:'yyyy-MM-dd'}}</mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="utskrivare">
+                <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Utskrivare</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
+              </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              <ng-container matColumnDef="levdatum">
+                <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Leveransdatum</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let bestInfo"> {{bestInfo.levDatum | date:'yyyy-MM-dd'}}</mat-cell>
+              </ng-container>
 
-          </mat-table>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-        </div>
+            </mat-table>
+
+          </div>
 
 
-      </mat-expansion-panel>
+        </mat-expansion-panel>
+      </div>
     </div>
 
   </mat-accordion>

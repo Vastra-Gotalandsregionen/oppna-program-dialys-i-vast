@@ -25,7 +25,7 @@
       </mat-toolbar>
 
 
-    <mat-card class="div-card">
+    <mat-card class="dialys-card">
       <mat-card-content>
 
         <h3>Välj ägarform <mat-icon matTooltip="Ange arbetsplatsens ägare. Krävs av eHälsomyndigheten">help</mat-icon></h3>
@@ -53,7 +53,7 @@
 
     </mat-card>
 
-    <mat-card [@slideIn]="apkForm.value.agarform === '1' || apkForm.value.agarform === '4' || apkForm.value.agarform === '5' ? 'in' :'out'" class="div-card">
+    <mat-card [@slideIn]="apkForm.value.agarform === '1' || apkForm.value.agarform === '4' || apkForm.value.agarform === '5' ? 'in' :'out'" class="dialys-card">
 
       <mat-card-content>
         <h3>Sök efter enhet i KIV</h3>
@@ -92,7 +92,7 @@
 
     <div class="apk-validate">
 
-      <mat-card class="div-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Ange ekonomiska koder</h3>
@@ -191,7 +191,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="div-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Ange vårdadministrativa koder</h3>
@@ -248,7 +248,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="div-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Välj Concise SumNivå</h3>
@@ -310,7 +310,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="div-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Ange kontaktuppgifter</h3>
@@ -382,7 +382,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="div-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Ange giltighetstid</h3>
@@ -421,7 +421,7 @@
       </mat-card>
 
 
-      <mat-card class="div-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="apkForm.value.agarform ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Ange övrig info</h3>
@@ -434,7 +434,7 @@
 
       </mat-card>
 
-      <mat-card class="div-card" [@slideIn]="data.arbetsplatskodlan ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="data.arbetsplatskodlan ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Enhetens arbetsplatskod</h3>
@@ -444,7 +444,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="div-card" [@slideIn]="apkForm.value.agarform && !data.arbetsplatskodlan ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="apkForm.value.agarform && !data.arbetsplatskodlan ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Generera arbetsplatskod</h3>
@@ -478,7 +478,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="div-card" [@slideIn]="data.arbetsplatskodlan ? 'in' : 'out'">
+      <mat-card class="dialys-card" [@slideIn]="data.arbetsplatskodlan ? 'in' : 'out'">
         <mat-card-content>
 
           <h3>Ersätts av</h3>
@@ -500,7 +500,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="div-card" *ngIf="($replaces | async)?.length > 0">
+      <mat-card class="dialys-card" *ngIf="($replaces | async)?.length > 0">
         <mat-card-content>
           <h3>Ersätter</h3>
 
@@ -510,7 +510,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="div-card" *ngIf="hasArchivedDatas">
+      <mat-card class="dialys-card" *ngIf="hasArchivedDatas">
         <mat-card-content>
 
           <h3>Tidigare versioner</h3>
