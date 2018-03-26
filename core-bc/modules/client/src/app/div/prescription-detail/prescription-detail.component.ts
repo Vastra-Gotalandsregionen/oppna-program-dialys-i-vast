@@ -33,7 +33,7 @@ export class PrescriptionDetailComponent implements OnInit {
 
     const $data = this.http.get('/api/bestallning/' + this.bestallningsId).map(response => response.json());
 
-  $data.subscribe((data: BestRad[]) => {
+    $data.subscribe((data: BestRad[]) => {
       this.bestallningsRader = data;
     });
   }

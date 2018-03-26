@@ -48,7 +48,36 @@
           </div>
         </div>
 
-        Beställningsformulär etc här.
+        <div>
+          <mat-table #table dense [dataSource]="artikels">
+            <ng-container matColumnDef="artikel">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikel / Produkt</span></mat-header-cell>
+              <mat-cell *matCellDef="let rad">{{rad.namn}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="mangd">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Mängd / Förpackning</span></mat-header-cell>
+              <mat-cell *matCellDef="let rad">{{rad.storlek}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="pdartikel">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikelnr</span></mat-header-cell>
+              <mat-cell *matCellDef="let rad">{{rad.artNr}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="antal">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Antal</span></mat-header-cell>
+              <mat-cell *matCellDef="let rad">
+                <mat-form-field>
+                  <input  type="number" placeholder="Antal" [(ngModel)]="rad.antal" matInput>
+                </mat-form-field>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+          </mat-table>
+
+        </div>
 
 
         <div class="btn-container">

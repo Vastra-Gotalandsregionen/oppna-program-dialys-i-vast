@@ -5,6 +5,7 @@ import {AuthService} from '../../core/auth/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
+import {Artikel} from "../../model/Artikel";
 
 @Component({
   selector: 'app-apk-detail',
@@ -17,6 +18,9 @@ export class PatientAddOrderComponent implements OnInit {
 
   id: string;
   data: Patient;
+  artikels: Artikel[];
+  rekvisId: number;
+  displayedColumns = ['artikel', 'mangd', 'pdartikel', 'antal'];
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
@@ -36,9 +40,16 @@ export class PatientAddOrderComponent implements OnInit {
 
         $data.subscribe((data: Patient) => {
           this.data = data;
+          this.rekvisId = data.pds[0].id;
+          const $articles = this.http.get('/api/artikels/' + this.rekvisId)
+            .map(response => response.json())
+            .share();
+
+          $articles.subscribe((dat: Artikel[]) => {
+            this.artikels = dat;
+
+          });
         });
-
-
       }
     });
   }
