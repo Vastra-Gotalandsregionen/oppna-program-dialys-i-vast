@@ -1,3 +1,3 @@
 export enum Typ {
-  Pd, Gd
+  PD, HD
 }

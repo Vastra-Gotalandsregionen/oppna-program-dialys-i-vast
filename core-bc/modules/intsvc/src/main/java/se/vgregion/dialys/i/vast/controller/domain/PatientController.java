@@ -3,6 +3,7 @@ package se.vgregion.dialys.i.vast.controller.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -92,12 +93,13 @@ public class PatientController {
     public String getPatients(@RequestParam(value = "page", required = false) Integer page,
                               @RequestParam(value = "query", required = false) String query,
                               @RequestParam(value = "userName", required = false) String userName,
+                              @RequestParam(value = "onlyMyDatas") Boolean onlyMyDatas,
                               @RequestParam(value = "sort", required = false) String sort,
                               @RequestParam(value = "asc", required = false) boolean asc) throws JsonProcessingException {
 
         Pageable pageable = makePageable(page, sort, asc);
 
-        return objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName));
+        return objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, onlyMyDatas));
     }
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")

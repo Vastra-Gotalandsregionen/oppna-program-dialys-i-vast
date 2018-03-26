@@ -21,13 +21,13 @@ public class PatientFinderIntegrationTest {
     private PatientFinder patientFinder;
 
 
-    @Ignore
+    // @Ignore
     @Test
     public void filtering() {
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "pnr").ignoreCase();
         Sort sort = new Sort(order);
         Pageable pageable = new PageRequest(0, 20, sort);
-        Page<Patient> result = patientFinder.search("", pageable, "helwa8");
+        Page<Patient> result = patientFinder.search("", pageable, "jaabl", false);
         for (Patient patient : result.getContent()) {
             System.out.println(patient);
         }

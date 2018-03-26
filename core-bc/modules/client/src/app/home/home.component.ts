@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../core/auth/auth.service';
 
 @Component({
@@ -8,11 +8,18 @@ import {AuthService} from '../core/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
 
+
+  @Input() filter: string;
+
+  // @Input() userName: string;
+
   constructor(private authService: AuthService) {
+
   }
 
   ngOnInit() {
-
+    //this.userName = this.authService.getLoggedInUserId();
+    this.filter = '';
   }
 
   get loggedIn() {

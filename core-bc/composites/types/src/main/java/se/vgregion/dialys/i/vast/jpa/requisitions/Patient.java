@@ -412,8 +412,8 @@ public class Patient implements Serializable {
     }
 
     public enum Typ {
-        Pd,
-        Gd
+        PD,
+        HD
     }
 
 }
