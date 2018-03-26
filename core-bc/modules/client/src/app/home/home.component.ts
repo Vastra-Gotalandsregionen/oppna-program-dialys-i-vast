@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../core/auth/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,9 @@ import {AuthService} from '../core/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-
   @Input() filter: string;
 
-  // @Input() userName: string;
-
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
 
   }
 
@@ -26,4 +24,7 @@ export class HomeComponent implements OnInit {
     return this.authService.isAuthenticated();
   }
 
+  public quickSearchClicked(f) {
+    this.router.navigate(['patienter'], {queryParams: {'filter': this.filter}});
+  }
 }

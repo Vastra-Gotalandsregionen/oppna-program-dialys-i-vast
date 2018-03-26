@@ -60,6 +60,10 @@ export class ApkComponent implements OnInit {
           this.selectedPage = this.page + 1;
         }
 
+        if (params.filter) {
+          this.query = params.filter;
+        }
+
         if (params.sort) {
           this.sort = {field: params.sort, ascending: params.asc === 'true'}
         }
@@ -119,9 +123,9 @@ export class ApkComponent implements OnInit {
         fullQueryPart = fullQueryPart.substring(1);
       }
 
-      this.location.replaceState('/apk', fullQueryPart);
+      this.location.replaceState('/patients', fullQueryPart);
     } else {
-      this.location.replaceState('/apk');
+      this.location.replaceState('/patients');
     }
 
     this.selectedPage = this.page + 1;

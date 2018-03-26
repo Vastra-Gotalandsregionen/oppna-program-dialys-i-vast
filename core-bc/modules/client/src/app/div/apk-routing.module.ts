@@ -4,9 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {PatientDetailComponent} from './patient-detail/patient-detail.component';
 import {PatientAddOrderComponent} from './patient-add-order/patient-add-order.component';
 import {PatientAddRequisitionComponent} from './patient-add-requisition/patient-add-requisition.component';
-import {ApkEditComponent} from './apk-edit/apk-edit.component';
 import {ArchivedDatasComponent} from './archived-datas/archived-datas.component';
-import {FormChangedGuard} from "./guard/form-changed.guard";
 import {PatientAddComponent} from './patient-add/patient-add.component';
 import {PatientEditComponent} from "./patient-edit/patient-edit.component";
 import {PrescriptionDetailComponent} from "./prescription-detail/prescription-detail.component";
@@ -38,26 +36,25 @@ const routes: Routes = [
         path: ':id/add-requisition',
         component: PatientAddRequisitionComponent
         //canDeactivate: [FormChangedGuard]
-      },
-
-      {
+      }, {
         path: ':id/add-order',
         component: PatientAddOrderComponent
         //canDeactivate: [FormChangedGuard]
-      },
-
-
-      {
+      }, {
         path: ':id/edit',
         component: PatientEditComponent
         //component: ApkEditComponent
         //,        canDeactivate: [FormChangedGuard]
-      },
-      {
+      }, {
         path: ':id/archivedDatas',
         component: ArchivedDatasComponent
+      }, {
+        path: '/patienter',
+        component: ApkComponent
+      }, {
+        path: 'create/edit/',
+        component: PatientEditComponent
       }
-
     ]
   }
 
@@ -67,4 +64,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ApkRoutingModule { }
+export class ApkRoutingModule {
+}

@@ -25,27 +25,17 @@
 
               <div class="dialys-search-box">
                 <mat-input-container class="dialys-search-input">
-                  <input matInput placeholder="Skriv in personnummer/namn." [(value)]="filter">
+                  <input id="filter" matInput placeholder="Skriv in personnummer/namn." [(ngModel)]="filter">
                 </mat-input-container>
-                <button type="submit"mat-raised-button class="btn"
-                        routerLink="patienter" routerLinkActive="active">Sök patient</button>
+                <button type="submit" mat-raised-button class="btn"
+                        (click)="quickSearchClicked()">
+                  Sök patient
+                </button>
               </div>
-
-              <!--
-
-                            <button mat-menu-item routerLink="{{data.id}}/edit" *ngIf="userHasEditPermission(data)">
-                <mat-icon>edit</mat-icon>
-                <span>Redigera patient</span>
-              </button>
-              -->
-
-
             </div>
           </div>
         </mat-card-content>
       </mat-card>
-
-
 
 
     </div>
