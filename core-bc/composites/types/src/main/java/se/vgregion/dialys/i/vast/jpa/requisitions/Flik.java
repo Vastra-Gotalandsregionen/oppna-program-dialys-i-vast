@@ -5,32 +5,26 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "Flik")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Flik.findAll", query = "SELECT f FROM Flik f")
-    , @NamedQuery(name = "Flik.findById", query = "SELECT f FROM Flik f WHERE f.id = :id")
-    , @NamedQuery(name = "Flik.findByTitel", query = "SELECT f FROM Flik f WHERE f.titel = :titel")
-    , @NamedQuery(name = "Flik.findByOrdning", query = "SELECT f FROM Flik f WHERE f.ordning = :ordning")
-    , @NamedQuery(name = "Flik.findByTyp", query = "SELECT f FROM Flik f WHERE f.typ = :typ")})
+        @NamedQuery(name = "Flik.findAll", query = "SELECT f FROM Flik f")
+        , @NamedQuery(name = "Flik.findById", query = "SELECT f FROM Flik f WHERE f.id = :id")
+        , @NamedQuery(name = "Flik.findByTitel", query = "SELECT f FROM Flik f WHERE f.titel = :titel")
+        , @NamedQuery(name = "Flik.findByOrdning", query = "SELECT f FROM Flik f WHERE f.ordning = :ordning")
+        , @NamedQuery(name = "Flik.findByTyp", query = "SELECT f FROM Flik f WHERE f.typ = :typ")})
 public class Flik implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,6 +41,10 @@ public class Flik implements Serializable {
     @Size(max = 2)
     @Column(name = "Typ")
     private String typ;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "flik")
+    private Set<Grupp> grupps;
 
     public Flik() {
     }
@@ -111,5 +109,12 @@ public class Flik implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Flik[ id=" + id + " ]";
     }
-    
+
+    public Set<Grupp> getGrupps() {
+        return grupps;
+    }
+
+    public void setGrupps(Set<Grupp> grupps) {
+        this.grupps = grupps;
+    }
 }

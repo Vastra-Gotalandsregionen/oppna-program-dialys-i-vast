@@ -5,32 +5,24 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "Grupp")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Grupp.findAll", query = "SELECT g FROM Grupp g")
-    , @NamedQuery(name = "Grupp.findById", query = "SELECT g FROM Grupp g WHERE g.id = :id")
-    , @NamedQuery(name = "Grupp.findByFlikID", query = "SELECT g FROM Grupp g WHERE g.flikID = :flikID")
-    , @NamedQuery(name = "Grupp.findByTitel", query = "SELECT g FROM Grupp g WHERE g.titel = :titel")
-    , @NamedQuery(name = "Grupp.findByOrdning", query = "SELECT g FROM Grupp g WHERE g.ordning = :ordning")})
+        @NamedQuery(name = "Grupp.findAll", query = "SELECT g FROM Grupp g")
+        , @NamedQuery(name = "Grupp.findById", query = "SELECT g FROM Grupp g WHERE g.id = :id")
+        , @NamedQuery(name = "Grupp.findByFlikID", query = "SELECT g FROM Grupp g WHERE g.flikID = :flikID")
+        , @NamedQuery(name = "Grupp.findByTitel", query = "SELECT g FROM Grupp g WHERE g.titel = :titel")
+        , @NamedQuery(name = "Grupp.findByOrdning", query = "SELECT g FROM Grupp g WHERE g.ordning = :ordning")})
 public class Grupp implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +38,13 @@ public class Grupp implements Serializable {
     private String titel;
     @Column(name = "Ordning")
     private Integer ordning;
+
+    @OneToMany(mappedBy = "grupp")
+    private Set<Artikel> artikels;
+
+    @ManyToOne
+    @JoinColumn(name = "flikID", foreignKey = @ForeignKey(name = "fk_grupp_flik"))
+    private Flik flik;
 
     public Grupp() {
     }
@@ -110,5 +109,20 @@ public class Grupp implements Serializable {
     public String toString() {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Grupp[ id=" + id + " ]";
     }
-    
+
+    public Set<Artikel> getArtikels() {
+        return artikels;
+    }
+
+    public void setArtikels(Set<Artikel> artikels) {
+        this.artikels = artikels;
+    }
+
+    public Flik getFlik() {
+        return flik;
+    }
+
+    public void setFlik(Flik flik) {
+        this.flik = flik;
+    }
 }

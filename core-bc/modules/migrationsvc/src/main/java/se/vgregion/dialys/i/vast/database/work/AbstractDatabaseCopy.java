@@ -444,4 +444,15 @@ public abstract class AbstractDatabaseCopy {
         connectionExt.update("delete from pdartikel where artikelid not in (select id from artikel)");
         connectionExt.commit();
     }
+
+    protected void insertObsoleteFlik() {
+        // public.flik{titel={Baxter}, ordning={1}, typ={PD}, id={1}}
+        Map<String, Object> obsoleteFlik = new HashMap<>();
+        obsoleteFlik.put("titel", "Obsoleta varor");
+        obsoleteFlik.put("ordning", -1);
+        obsoleteFlik.put("typ", "PD");
+        obsoleteFlik.put("id", 99);
+        target.insert("public.flik", obsoleteFlik);
+        target.commit();
+    }
 }

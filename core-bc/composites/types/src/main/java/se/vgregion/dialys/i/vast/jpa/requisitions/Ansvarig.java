@@ -53,7 +53,7 @@ public class Ansvarig implements Serializable {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "mottagningID", referencedColumnName = "id")
+    @JoinColumn(name = "mottagningID", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_ansvarig_mottagning"))
     private Mottagning mottagning;
 
 

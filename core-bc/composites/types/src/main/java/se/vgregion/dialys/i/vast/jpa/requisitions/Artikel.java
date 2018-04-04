@@ -11,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -36,7 +35,7 @@ public class Artikel implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "GruppID")
+    @Column(name = "GruppID", insertable = false, updatable = false)
     private Integer gruppID;
     @Size(max = 50)
     @Column(name = "Namn")
@@ -53,6 +52,11 @@ public class Artikel implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "artikel", fetch = FetchType.LAZY)
     private Set<PDArtikel> pdArtikels;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "gruppID", foreignKey = @ForeignKey(name = "fk_artikel_grupp"))
+    private Grupp grupp;
 
     public Artikel() {
 
@@ -141,5 +145,13 @@ public class Artikel implements Serializable {
 
     public void setPdArtikels(Set<PDArtikel> pdArtikels) {
         this.pdArtikels = pdArtikels;
+    }
+
+    public Grupp getGrupp() {
+        return grupp;
+    }
+
+    public void setGrupp(Grupp grupp) {
+        this.grupp = grupp;
     }
 }

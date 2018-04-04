@@ -37,6 +37,7 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.obfuscateUserPasswords();
         dc.obfuscatePatients();
         dc.removeOrphanPdAndBestInfoAndBestPDRad();
+        dc.insertObsoleteFlik();
     }
 
 }
