@@ -5,6 +5,8 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,6 +44,7 @@ public class Grupp implements Serializable {
     @OneToMany(mappedBy = "grupp")
     private Set<Artikel> artikels;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "flikID", foreignKey = @ForeignKey(name = "fk_grupp_flik"))
     private Flik flik;

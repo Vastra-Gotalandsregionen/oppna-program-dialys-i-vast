@@ -42,7 +42,7 @@ public class Flik implements Serializable {
     @Column(name = "Typ")
     private String typ;
 
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "flik")
     private Set<Grupp> grupps;
 

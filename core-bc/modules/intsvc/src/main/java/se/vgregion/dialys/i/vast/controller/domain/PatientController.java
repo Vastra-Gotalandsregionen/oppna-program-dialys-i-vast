@@ -3,7 +3,6 @@ package se.vgregion.dialys.i.vast.controller.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
-import se.vgregion.dialys.i.vast.jpa.requisitions.BestPDRad;
-import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
-import se.vgregion.dialys.i.vast.jpa.requisitions.Pd;
+import se.vgregion.dialys.i.vast.jpa.requisitions.*;
 import se.vgregion.dialys.i.vast.repository.PatientRepository;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
@@ -126,7 +122,7 @@ public class PatientController {
         }*/
         //makeForumBuilderPropertyMapping(Patient.class, "data");
         //makeCopyDataCode(Patient.class, "formModel", "data");
-        makeTypeScriptVersion(BestPDRad.class);
+        makeTypeScriptVersion(Grupp.class);
     }
 
     public static void makeTypeScriptVersion(Class ofThat) throws IntrospectionException {
