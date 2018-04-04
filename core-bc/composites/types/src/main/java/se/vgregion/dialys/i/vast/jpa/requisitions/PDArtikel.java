@@ -7,32 +7,33 @@ package se.vgregion.dialys.i.vast.jpa.requisitions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "PDArtikel")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PDArtikel.findAll", query = "SELECT p FROM PDArtikel p")
-    , @NamedQuery(name = "PDArtikel.findById", query = "SELECT p FROM PDArtikel p WHERE p.id = :id")
-    , @NamedQuery(name = "PDArtikel.findByPdid", query = "SELECT p FROM PDArtikel p WHERE p.pdid = :pdid")
-    , @NamedQuery(name = "PDArtikel.findByArtikelID", query = "SELECT p FROM PDArtikel p WHERE p.artikelID = :artikelID")})
+        @NamedQuery(name = "PDArtikel.findAll", query = "SELECT p FROM PDArtikel p")
+        , @NamedQuery(name = "PDArtikel.findById", query = "SELECT p FROM PDArtikel p WHERE p.id = :id")
+        , @NamedQuery(name = "PDArtikel.findByPdid", query = "SELECT p FROM PDArtikel p WHERE p.pdid = :pdid")
+        , @NamedQuery(name = "PDArtikel.findByArtikelID", query = "SELECT p FROM PDArtikel p WHERE p.artikelID = :artikelID")})
 public class PDArtikel implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "PDID")
+
+    @Column(name = "PDID", insertable = false, updatable = false)
     private Integer pdid;
     @Column(name = "ArtikelID", updatable = false, insertable = false)
     private Integer artikelID;
@@ -44,6 +45,11 @@ public class PDArtikel implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "pdArtikel", fetch = FetchType.LAZY)
     private Set<BestPDRad> bestPDRad;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "pdid", foreignKey = @ForeignKey(name = "fk_pdartikel_pd"))
+    private Pd pd;
 
     public PDArtikel() {
     }
@@ -115,5 +121,13 @@ public class PDArtikel implements Serializable {
 
     public void setArtikel(Artikel artikel) {
         this.artikel = artikel;
+    }
+
+    public Pd getPd() {
+        return pd;
+    }
+
+    public void setPd(Pd pd) {
+        this.pd = pd;
     }
 }

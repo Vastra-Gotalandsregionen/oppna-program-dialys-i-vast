@@ -2,7 +2,7 @@
 
   <mat-toolbar class="action-toolbar">
     <h1>
-       Ny rekvisition: {{data.pnr}}
+      Ny rekvisition: {{data.pnr}}
     </h1>
     <div class="action-toolbar-spacer"></div>
 
@@ -10,86 +10,96 @@
 
   </mat-toolbar>
 
-    <mat-card class="dialys-card">
+  <mat-card class="dialys-card">
 
-      <mat-card-content>
+    <mat-card-content>
 
-        <div class="row">
-        	<div class="col c6">
-        		<div class="col-inner">
+      <div class="row">
+        <div class="col c6">
+          <div class="col-inner">
 
-              <div class="dialys-details">
+            <div class="dialys-details">
 
-                <div class="dialys-details-item">
-                  <div class="dialys-details-item-label">Personnr:</div>
-                  <div class="dialys-details-item-data">
-                    {{data.pnr}}
-                  </div>
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Personnr:</div>
+                <div class="dialys-details-item-data">
+                  {{data.pnr}}
                 </div>
+              </div>
 
-                <div class="dialys-details-item">
-                  <div class="dialys-details-item-label">Rekvisitionsdatum:</div>
-                  <div class="dialys-details-item-data">
-                    2016-01-01
-                  </div>
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Rekvisitionsdatum:</div>
+                <div class="dialys-details-item-data">
+                  2016-01-01
                 </div>
+              </div>
 
-                <div class="dialys-details-item">
-                  <div class="dialys-details-item-label">Ersätter rekvisition:</div>
-                  <div class="dialys-details-item-data">
-                    -
-                  </div>
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Ersätter rekvisition:</div>
+                <div class="dialys-details-item-data">
+                  -
                 </div>
-
               </div>
 
             </div>
-        	</div>
-          <div class="col c6"></div>
+
+          </div>
         </div>
+        <div class="col c6"></div>
+      </div>
 
-        <mat-tab-group dynamicHeight="true" [@.disabled]="true"  >
-          <mat-tab label="{{flik.titel}}" *ngFor="let flik of fliks">
-            <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true" >
-              <mat-tab *ngFor="let grupp of flik.grupps" label="{{grupp.titel}}">
+      <mat-tab-group dynamicHeight="true" [@.disabled]="true">
+        <mat-tab label="{{flik.titel}}" *ngFor="let flik of fliks">
+          <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true">
+            <mat-tab *ngFor="let grupp of flik.grupps" label="{{grupp.titel}}">
 
-                <mat-table #table dense [dataSource]="grupp.artikels">
-                  <ng-container matColumnDef="namn">
-                    <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikel / Produkt</span></mat-header-cell>
-                    <mat-cell *matCellDef="let rad">{{rad.namn}}</mat-cell>
-                  </ng-container>
+              <mat-table #table dense [dataSource]="grupp.artikels">
+                <ng-container matColumnDef="namn">
+                  <mat-header-cell *matHeaderCellDef><span
+                    style="font-size:16px;font-weight:bold">Artikel / Produkt</span></mat-header-cell>
+                  <mat-cell *matCellDef="let rad">{{rad.namn}}</mat-cell>
+                </ng-container>
 
-                  <ng-container matColumnDef="storlek">
-                    <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Mängd / Förpackning</span></mat-header-cell>
-                    <mat-cell *matCellDef="let rad">{{rad.storlek}}</mat-cell>
-                  </ng-container>
+                <ng-container matColumnDef="storlek">
+                  <mat-header-cell *matHeaderCellDef><span
+                    style="font-size:16px;font-weight:bold">Mängd / Förpackning</span></mat-header-cell>
+                  <mat-cell *matCellDef="let rad">{{rad.storlek}}</mat-cell>
+                </ng-container>
 
-                  <ng-container matColumnDef="artNr">
-                    <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikelnr</span></mat-header-cell>
-                    <mat-cell *matCellDef="let rad">{{rad.artNr}}</mat-cell>
-                  </ng-container>
+                <ng-container matColumnDef="artNr">
+                  <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikelnr</span>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let rad">
+                    {{rad.artNr}}
+                    <mat-checkbox [value]="selectedArtiklar.indexOf(rad)!=-1" (change)="onItemSelect(rad)">Använd
+                      tillfällig leveransadress
+                    </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
 
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-                </mat-table>
-              </mat-tab>
-            </mat-tab-group>
-          </mat-tab>
-
-
-        </mat-tab-group>
-
-        <div class="btn-container">
-          <button type="submit"mat-raised-button class="btn">Spara rekvisition</button> &nbsp;
-          <button type="submit"mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
-          <button type="submit"mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
-        </div>
-
-      </mat-card-content>
-    </mat-card>
+              </mat-table>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-tab>
 
 
+      </mat-tab-group>
+
+      <div class="btn-container">
+        <button type="submit" mat-raised-button class="btn" (click)="saveToServer()">Spara rekvisition</button> &nbsp;
+        <button type="submit" mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
+        <button type="submit" mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+
+  hej:
+  {{selectedArtiklar}}
 
 
 </div>

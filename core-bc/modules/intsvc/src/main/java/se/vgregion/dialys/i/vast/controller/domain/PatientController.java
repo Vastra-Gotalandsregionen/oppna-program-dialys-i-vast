@@ -122,7 +122,7 @@ public class PatientController {
         }*/
         //makeForumBuilderPropertyMapping(Patient.class, "data");
         //makeCopyDataCode(Patient.class, "formModel", "data");
-        makeTypeScriptVersion(Grupp.class);
+        makeTypeScriptVersion(PDArtikel.class);
     }
 
     public static void makeTypeScriptVersion(Class ofThat) throws IntrospectionException {

@@ -1,11 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
-import {Observable} from 'rxjs/Observable';
 import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
 import {Flik} from "../../model/Flik";
+import {Pd} from "../../model/Pd";
+import {PDArtikel} from "../../model/PDArtikel";
 
 @Component({
   selector: 'app-apk-detail',
@@ -20,6 +21,11 @@ export class PatientAddRequisitionComponent implements OnInit {
   data: Patient;
   displayedColumns = ['namn', 'storlek', 'artNr'];
 
+  @Input()
+  selectedArtiklar = [];
+
+  pd: Pd = new Pd();
+
   private fliks: Array<Flik>;
 
   constructor(protected route: ActivatedRoute,
@@ -28,8 +34,6 @@ export class PatientAddRequisitionComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
     this.route.params.subscribe(params => {
       this.id = params.id;
 
@@ -59,4 +63,30 @@ export class PatientAddRequisitionComponent implements OnInit {
   userHasEditPermission(data: Patient) {
     return this.authService.userHasDataEditPermission(data);
   }
+
+  onItemSelect(rad) {
+    console.log("Addar en rad " + rad);
+    if (this.selectedArtiklar.indexOf(rad) != -1) {
+      this.pd.pdArtikels.splice(this.selectedArtiklar.indexOf(rad));
+      this.selectedArtiklar.splice(this.selectedArtiklar.indexOf(rad));
+    } else {
+      this.selectedArtiklar.push(rad);
+      let pdArtikel: PDArtikel = new PDArtikel();
+      pdArtikel.artikel = rad;
+      this.pd.pdArtikels.push(rad);
+    }
+    console.log(this.selectedArtiklar);
+    console.log(this.pd);
+  }
+
+  saveToServer(){
+    const $data = this.http.put('/api/pd/', this.pd)
+      .map(response => response.json())
+      .share();
+    $data.subscribe((data: Pd) => {
+      this.pd = data;
+      console.log("Sparade", data);
+    });
+  }
+
 }
