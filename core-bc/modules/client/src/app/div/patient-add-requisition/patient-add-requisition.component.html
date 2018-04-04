@@ -49,7 +49,7 @@
       </div>
 
       <mat-tab-group dynamicHeight="true" [@.disabled]="true">
-        <mat-tab label="{{flik.titel}}" *ngFor="let flik of fliks">
+        <mat-tab label="{{flik.titel.trim()}}" *ngFor="let flik of fliks">
           <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true">
             <mat-tab *ngFor="let grupp of flik.grupps" label="{{grupp.titel}}">
 
@@ -96,10 +96,5 @@
 
     </mat-card-content>
   </mat-card>
-
-
-  hej:
-  {{selectedArtiklar}}
-
 
 </div>

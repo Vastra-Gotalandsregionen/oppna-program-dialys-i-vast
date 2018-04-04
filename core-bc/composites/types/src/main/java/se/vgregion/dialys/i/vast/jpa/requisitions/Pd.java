@@ -55,7 +55,7 @@ public class Pd implements Serializable {
     @OneToMany(mappedBy = "pd")
     private Set<BestInfo> bestInfos;
 
-    @OneToMany(mappedBy = "pd", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pd")
     private Set<PDArtikel> pdArtikels;
 
     public Patient getPatient() {

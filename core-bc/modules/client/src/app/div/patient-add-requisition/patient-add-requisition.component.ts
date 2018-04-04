@@ -65,18 +65,16 @@ export class PatientAddRequisitionComponent implements OnInit {
   }
 
   onItemSelect(rad) {
-    console.log("Addar en rad " + rad);
-    if (this.selectedArtiklar.indexOf(rad) != -1) {
-      this.pd.pdArtikels.splice(this.selectedArtiklar.indexOf(rad));
-      this.selectedArtiklar.splice(this.selectedArtiklar.indexOf(rad));
+    var index: number = this.selectedArtiklar.indexOf(rad);
+    if (index != -1) {
+      this.pd.pdArtikels.splice(index);
+      this.selectedArtiklar.splice(index);
     } else {
       this.selectedArtiklar.push(rad);
       let pdArtikel: PDArtikel = new PDArtikel();
       pdArtikel.artikel = rad;
-      this.pd.pdArtikels.push(rad);
+      this.pd.pdArtikels.push(pdArtikel);
     }
-    console.log(this.selectedArtiklar);
-    console.log(this.pd);
   }
 
   saveToServer(){
@@ -85,7 +83,6 @@ export class PatientAddRequisitionComponent implements OnInit {
       .share();
     $data.subscribe((data: Pd) => {
       this.pd = data;
-      console.log("Sparade", data);
     });
   }
 

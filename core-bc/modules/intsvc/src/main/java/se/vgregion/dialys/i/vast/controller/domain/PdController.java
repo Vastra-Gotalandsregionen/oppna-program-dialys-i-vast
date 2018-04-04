@@ -2,9 +2,11 @@ package se.vgregion.dialys.i.vast.controller.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Pd;
+import se.vgregion.dialys.i.vast.repository.ArtikelRepository;
 import se.vgregion.dialys.i.vast.repository.PdRepository;
 
 import java.util.ArrayList;
@@ -19,6 +21,9 @@ public class PdController {
     @Autowired
     private PdRepository pdRepository;
 
+    @Autowired
+    private ArtikelRepository artikelRepository;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Pd> getPds() {
         List<Pd> result = new ArrayList<>();
@@ -27,6 +32,7 @@ public class PdController {
     }
 
     //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @Transactional
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<Pd> savePd(@RequestBody Pd pd) {
         System.out.println("Försöker spara en pd");
@@ -34,6 +40,7 @@ public class PdController {
         for (PDArtikel pdArtikel : pd.getPdArtikels()) {
             System.out.println(i + "" + pdArtikel);
             i++;
+            System.out.println(" " + pdArtikel.getArtikel());
         }
         return ResponseEntity.ok(pdRepository.save(pd));
     }

@@ -38,6 +38,8 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.obfuscatePatients();
         dc.removeOrphanPdAndBestInfoAndBestPDRad();
         dc.insertObsoleteFlik();
+
+        dc.fixJpaIndex();
     }
 
 }

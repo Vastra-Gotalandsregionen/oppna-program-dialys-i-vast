@@ -401,6 +401,8 @@ public abstract class AbstractDatabaseCopy {
                         ")");
 
         target.update("delete from pdartikel where artikelid not in (select id from artikel)");
+        target.update("delete from pdArtikel where pdid not in (select id from pd)");
+
         target.commit();
     }
 
@@ -453,6 +455,21 @@ public abstract class AbstractDatabaseCopy {
         obsoleteFlik.put("typ", "PD");
         obsoleteFlik.put("id", 99);
         target.insert("public.flik", obsoleteFlik);
+        target.commit();
+    }
+
+    protected void fixJpaIndex() {
+        target.execute("DROP SEQUENCE if exists public.hibernate_sequence");
+
+        target.execute("CREATE SEQUENCE public.hibernate_sequence\n" +
+                "        INCREMENT 1\n" +
+                "        MINVALUE 1\n" +
+                "        MAXVALUE 9223372036854775807\n" +
+                "        START 207994\n" +
+                "        CACHE 1;\n" +
+                "        ALTER TABLE public.hibernate_sequence\n" +
+                "        OWNER TO liferay");
+
         target.commit();
     }
 }
