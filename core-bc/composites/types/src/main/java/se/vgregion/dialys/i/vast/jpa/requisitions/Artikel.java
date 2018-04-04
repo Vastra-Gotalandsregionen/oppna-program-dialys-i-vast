@@ -58,6 +58,17 @@ public class Artikel implements Serializable {
     @JoinColumn(name = "gruppID", foreignKey = @ForeignKey(name = "fk_artikel_grupp"))
     private Grupp grupp;
 
+
+    private Integer maxantal;
+
+    public Integer getMaxantal() {
+        return maxantal;
+    }
+
+    public void setMaxantal(Integer maxantal) {
+        this.maxantal = maxantal;
+    }
+
     public Artikel() {
 
     }

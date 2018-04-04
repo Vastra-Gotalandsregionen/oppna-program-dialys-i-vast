@@ -5,5 +5,5 @@ export class Artikel{
   storlek: string;
   ordning: number;
   antal: number;
-
+  maxantal: number;
 }

@@ -39,7 +39,6 @@
                   </div>
                 </div>
 
-
               </div>
 
             </div>
@@ -48,6 +47,7 @@
           </div>
         </div>
 
+        <hr>
         <div>
           <mat-table #table dense [dataSource]="artikels">
             <ng-container matColumnDef="artikel">
@@ -62,6 +62,11 @@
             <ng-container matColumnDef="pdartikel">
               <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikelnr</span></mat-header-cell>
               <mat-cell *matCellDef="let rad">{{rad.artNr}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="maxantal">
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Max antal</span></mat-header-cell>
+                  <mat-cell *matCellDef="let rad">{{rad.maxantal}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="antal">
               <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Antal</span></mat-header-cell>

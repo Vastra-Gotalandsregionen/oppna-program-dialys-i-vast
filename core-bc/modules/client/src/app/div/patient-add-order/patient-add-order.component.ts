@@ -20,7 +20,7 @@ export class PatientAddOrderComponent implements OnInit {
   data: Patient;
   artikels: Artikel[];
   rekvisId: number;
-  displayedColumns = ['artikel', 'mangd', 'pdartikel', 'antal'];
+  displayedColumns = ['artikel', 'mangd', 'pdartikel','maxantal', 'antal'];
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
