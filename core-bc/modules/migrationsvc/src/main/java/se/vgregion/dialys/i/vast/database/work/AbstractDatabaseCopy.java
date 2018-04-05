@@ -46,7 +46,7 @@ public abstract class AbstractDatabaseCopy {
                         0,
                         1_000_000
                 );
-                System.out.print("\nInserts " + items.size() + " into " + table.getTableName());
+                System.out.println("\nInserts " + items.size() + " into " + table.getTableName());
                 if (items.isEmpty()) {
                     continue;
                 }
@@ -94,7 +94,7 @@ public abstract class AbstractDatabaseCopy {
             item.put("id", c);
             target.insert(table, item);
             c++;
-            if (c % 100 == 0){
+            if (c % 1000 == 0){
                 target.commit();
                 System.out.print(" " + c);
             }
@@ -105,7 +105,7 @@ public abstract class AbstractDatabaseCopy {
         int c = 0;
         for (Map<String, Object> item : items) {
             target.insert(table, item);
-            if (c % 100 == 0){
+            if (c % 1000 == 0){
                 target.commit();
                 System.out.print(" " + c);
             }
