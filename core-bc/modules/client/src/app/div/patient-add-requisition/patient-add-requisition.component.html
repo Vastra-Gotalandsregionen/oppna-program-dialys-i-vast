@@ -39,8 +39,11 @@
 
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Ersätter rekvisition:</div>
-                <div class="dialys-details-item-data">
+                <div class="dialys-details-item-data" *ngIf="pd.patient.pds.length === 0">
                   -
+                </div>
+                <div class="dialys-details-item-data" *ngIf="pd.patient.pds.length > 0">
+                  {{pd.patient.pds[0].id}} med datum {{pd.patient.pds[0].datum | date: 'yyyy-MM-dd'}}
                 </div>
               </div>
 

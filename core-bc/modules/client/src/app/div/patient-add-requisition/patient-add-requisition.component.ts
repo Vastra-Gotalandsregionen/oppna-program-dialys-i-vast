@@ -46,6 +46,8 @@ export class PatientAddRequisitionComponent implements OnInit {
         $data.subscribe((data: Patient) => {
           this.data = data;
           this.pd.patient = data;
+          this.pd.patient.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
+          // So that the latest and current pd will be at position 0 in the list. 'datum' might be changed to 'giltig'?
           this.pd.datum = new Date();
 
           const $fliks = this.http.get('/api/flik')

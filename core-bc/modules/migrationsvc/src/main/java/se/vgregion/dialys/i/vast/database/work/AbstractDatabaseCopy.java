@@ -3,7 +3,6 @@ package se.vgregion.dialys.i.vast.database.work;
 import se.vgregion.arbetsplatskoder.db.migration.sql.ConnectionExt;
 import se.vgregion.arbetsplatskoder.db.migration.sql.meta.Schema;
 import se.vgregion.arbetsplatskoder.db.migration.sql.meta.Table;
-import se.vgregion.dialys.i.vast.util.PasswordEncoder;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -47,7 +46,7 @@ public abstract class AbstractDatabaseCopy {
                         0,
                         1_000_000
                 );
-                System.out.println("Inserts " + items.size() + " into " + table.getTableName() + ".");
+                System.out.print("\nInserts " + items.size() + " into " + table.getTableName());
                 if (items.isEmpty()) {
                     continue;
                 }
@@ -95,12 +94,22 @@ public abstract class AbstractDatabaseCopy {
             item.put("id", c);
             target.insert(table, item);
             c++;
+            if (c % 100 == 0){
+                target.commit();
+                System.out.print(" " + c);
+            }
         }
     }
 
     private void insert(String table, List<Map<String, Object>> items) {
+        int c = 0;
         for (Map<String, Object> item : items) {
             target.insert(table, item);
+            if (c % 100 == 0){
+                target.commit();
+                System.out.print(" " + c);
+            }
+            c++;
         }
     }
 
@@ -294,6 +303,11 @@ public abstract class AbstractDatabaseCopy {
             }
             i++;
         }
+        target.commit();
+    }
+
+    public void miscPatientsUpdates() {
+        target.execute("update users set typ = 'LA' where typ = 'La'");
         target.commit();
     }
 

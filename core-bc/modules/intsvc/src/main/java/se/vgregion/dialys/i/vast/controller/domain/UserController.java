@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -30,7 +28,12 @@ public class UserController {
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<User> saveUser(@RequestBody User user) {
-        // return ResponseEntity.ok(userRepository.save(user));
+        User fromDb = userRepository.findOne(user.getUserName());
+        if (fromDb != null) {
+            if (!fromDb.getPassWord().equals(user.getPassWord())) {
+                user.setPasswordEncryptionFlag(false);
+            }
+        }
         user = userRepository.save(user);
         return ResponseEntity.ok(userRepository.findOne(user.getUserName()));
     }

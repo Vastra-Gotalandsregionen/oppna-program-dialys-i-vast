@@ -183,9 +183,7 @@ public class LdapLoginService {
     }
 
     private User syncUser(User user) throws NamingException {
-
-        User foundUser = userRepository.findOne(user.getName());
-
+        User foundUser = userRepository.findOne(user.getUserName());
         if (foundUser != null) {
             // Keep these...
             /*user.setRole(foundUser.getRole());
