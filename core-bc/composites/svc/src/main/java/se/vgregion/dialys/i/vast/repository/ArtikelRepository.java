@@ -11,6 +11,6 @@ public interface ArtikelRepository extends JpaRepository<Artikel, Integer> {
 
 
     @Query("select art from Artikel art"+
-    " join art.pdArtikels pda" + " where :pdid = pda.pdid")
+    " join art.pdArtikels pda" + " where :pdid = pda.pdid" + " and art.namn NOT like '%UTGÅTT%'")
     List<Artikel> getArtikelsForRekvisition(@Param("pdid") Integer pdid);
 }
