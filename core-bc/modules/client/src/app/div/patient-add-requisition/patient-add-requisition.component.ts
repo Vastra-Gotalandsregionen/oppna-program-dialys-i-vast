@@ -7,6 +7,8 @@ import {JwtHttp} from "../../core/jwt-http";
 import {Flik} from "../../model/Flik";
 import {Pd} from "../../model/Pd";
 import {PDArtikel} from "../../model/PDArtikel";
+import {Grupp} from "../../model/Grupp";
+import {Artikel} from "../../model/Artikel";
 
 @Component({
   selector: 'app-apk-detail',
@@ -51,6 +53,14 @@ export class PatientAddRequisitionComponent implements OnInit {
             .share();
           $fliks.subscribe((data: Array<Flik>) => {
             this.fliks = data;
+            /*this.fliks.sort((a: Flik, b: Flik) => {
+
+            })*/
+            this.fliks.forEach((flik: Flik) => {
+              flik.grupps.forEach((grupp: Grupp) => {
+                grupp.artikels.sort((a: Artikel, b: Artikel) => (a.namn > b.namn ? 1 : -1));
+              });
+            });
           });
 
         });
