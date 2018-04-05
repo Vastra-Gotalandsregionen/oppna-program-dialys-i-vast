@@ -6,6 +6,7 @@
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -55,13 +56,15 @@ public class Pd implements Serializable {
     @OneToMany(mappedBy = "pd")
     private Set<BestInfo> bestInfos;
 
-    @OneToMany(mappedBy = "pd")
+    @OneToMany(mappedBy = "pd", cascade = CascadeType.ALL)
     private Set<PDArtikel> pdArtikels;
 
+    @JsonIgnore
     public Patient getPatient() {
         return patient;
     }
 
+    @JsonProperty
     public void setPatient(Patient patient) {
         this.patient = patient;
     }

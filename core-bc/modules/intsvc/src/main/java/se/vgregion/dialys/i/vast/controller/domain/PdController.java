@@ -35,12 +35,9 @@ public class PdController {
     @Transactional
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<Pd> savePd(@RequestBody Pd pd) {
-        System.out.println("Försöker spara en pd");
-        int i = 0;
         for (PDArtikel pdArtikel : pd.getPdArtikels()) {
-            System.out.println(i + "" + pdArtikel);
-            i++;
-            System.out.println(" " + pdArtikel.getArtikel());
+            pdArtikel.setPd(pd);
+            // Todo: Check if this is really the way to do this.
         }
         return ResponseEntity.ok(pdRepository.save(pd));
     }

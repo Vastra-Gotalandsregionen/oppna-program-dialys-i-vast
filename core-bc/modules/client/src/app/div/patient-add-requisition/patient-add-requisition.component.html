@@ -30,7 +30,10 @@
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Rekvisitionsdatum:</div>
                 <div class="dialys-details-item-data">
-                  2016-01-01
+                  {{pd.datum | date : 'yyyy-MM-dd'}}
+                  <!--<mat-form-field class="example-full-width">
+                    <input matInput ngModel="pd.datum" type="date" placeholder="Rekdatum">
+                  </mat-form-field>-->
                 </div>
               </div>
 
@@ -71,9 +74,23 @@
                   </mat-header-cell>
                   <mat-cell *matCellDef="let rad">
                     {{rad.artNr}}
-                    <mat-checkbox [value]="selectedArtiklar.indexOf(rad)!=-1" (change)="onItemSelect(rad)">Använd
-                      tillfällig leveransadress
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="ordination">
+                  <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Ordination</span>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let rad">
+                    <mat-checkbox [value]="selectedArtiklar.indexOf(rad)!=-1" (change)="onItemSelect(rad)">
                     </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="maxantal">
+                  <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Maxantal</span>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let rad">
+                    {{rad.maxantal}}
                   </mat-cell>
                 </ng-container>
 

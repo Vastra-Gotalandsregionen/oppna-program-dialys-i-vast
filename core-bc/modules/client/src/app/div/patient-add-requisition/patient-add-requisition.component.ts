@@ -19,7 +19,7 @@ export class PatientAddRequisitionComponent implements OnInit {
 
   id: string;
   data: Patient;
-  displayedColumns = ['namn', 'storlek', 'artNr'];
+  displayedColumns = ['namn', 'storlek', 'artNr', 'ordination', 'maxantal'];
 
   @Input()
   selectedArtiklar = [];
@@ -43,6 +43,8 @@ export class PatientAddRequisitionComponent implements OnInit {
           .share();
         $data.subscribe((data: Patient) => {
           this.data = data;
+          this.pd.patient = data;
+          this.pd.datum = new Date();
 
           const $fliks = this.http.get('/api/flik')
             .map(response => response.json())
@@ -77,7 +79,7 @@ export class PatientAddRequisitionComponent implements OnInit {
     }
   }
 
-  saveToServer(){
+  saveToServer() {
     const $data = this.http.put('/api/pd/', this.pd)
       .map(response => response.json())
       .share();
