@@ -79,7 +79,7 @@ export class PatientAddRequisitionComponent implements OnInit {
     }
   }
 
-  saveToServer(){
+  saveToServer() {
     const $data = this.http.put('/api/pd/', this.pd)
       .map(response => response.json())
       .share();

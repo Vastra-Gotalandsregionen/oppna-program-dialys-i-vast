@@ -83,23 +83,25 @@ public class PDArtikel implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PDArtikel)) return false;
+
+        PDArtikel pdArtikel = (PDArtikel) o;
+
+        if (id != null ? !id.equals(pdArtikel.id) : pdArtikel.id != null) return false;
+        if (pdid != null ? !pdid.equals(pdArtikel.pdid) : pdArtikel.pdid != null) return false;
+        if (artikelID != null ? !artikelID.equals(pdArtikel.artikelID) : pdArtikel.artikelID != null) return false;
+        return artikel != null ? artikel.equals(pdArtikel.artikel) : pdArtikel.artikel == null;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PDArtikel)) {
-            return false;
-        }
-        PDArtikel other = (PDArtikel) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (pdid != null ? pdid.hashCode() : 0);
+        result = 31 * result + (artikelID != null ? artikelID.hashCode() : 0);
+        result = 31 * result + (artikel != null ? artikel.hashCode() : 0);
+        return result;
     }
 
     @Override
