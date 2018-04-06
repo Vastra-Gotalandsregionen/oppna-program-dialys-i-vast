@@ -472,7 +472,7 @@ public abstract class AbstractDatabaseCopy {
         target.commit();
     }
 
-    protected void fixJpaIndex() {
+    protected void fixJpaSequence() {
         target.execute("DROP SEQUENCE if exists public.hibernate_sequence");
 
         target.execute("CREATE SEQUENCE public.hibernate_sequence\n" +
@@ -482,8 +482,29 @@ public abstract class AbstractDatabaseCopy {
                 "        START 207994\n" +
                 "        CACHE 1;\n" +
                 "        ALTER TABLE public.hibernate_sequence\n" +
-                "        OWNER TO liferay");
+                "        ");
 
         target.commit();
     }
+
+    protected void fixTypFieldOnPatient() {
+        // Set all the PD:s
+        target.execute("update patient set typ = 'PD' where id in \n" +
+                " (select distinct p.id\n" +
+                "from mottagning m\n" +
+                " join ansvarig a on a.mottagningid = m.id\n" +
+                " join patient p on p.pas = a.id\n" +
+                "where m.namn like 'PD %')");
+
+        // Set all the HD:s
+        target.execute("update patient set typ = 'HD' where id in \n" +
+                " (select distinct p.id\n" +
+                "from mottagning m\n" +
+                " join ansvarig a on a.mottagningid = m.id\n" +
+                " join patient p on p.pas = a.id\n" +
+                "where m.namn like 'HD %')");
+
+        target.commit();
+    }
+
 }

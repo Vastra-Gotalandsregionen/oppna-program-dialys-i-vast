@@ -1,9 +1,11 @@
 <mat-toolbar class="action-toolbar">
   <h1>
-     Sök patient
+    Sök patient
   </h1>
   <div class="action-toolbar-spacer"></div>
-  <a class="action-toolbar-item" mat-fab routerLink="create/edit" matTooltip="Lägg till ny patient" *ngIf="loggedIn"><mat-icon>add</mat-icon></a>
+  <a class="action-toolbar-item" mat-fab routerLink="create/edit" matTooltip="Lägg till ny patient" *ngIf="loggedIn">
+    <mat-icon>add</mat-icon>
+  </a>
 </mat-toolbar>
 
 <mat-card>
@@ -13,10 +15,13 @@
     <mat-toolbar class="action-toolbar">
 
       <mat-input-container class="action-toolbar-item" (keydown)="$event.stopPropagation();">
-        <input matInput placeholder="Skriv in personnummer eller för/efter-namn för att filtrera listan nedan." [formControl]="stateCtrl" [(ngModel)]="query">
+        <input matInput placeholder="Skriv in personnummer eller för/efter-namn för att filtrera listan nedan."
+               [formControl]="stateCtrl" [(ngModel)]="query">
       </mat-input-container>
 
-      <mat-checkbox class="action-toolbar-item" [formControl]="onlyMyDatasCtrl" [(ngModel)]="onlyMyDatas" *ngIf="loggedIn">Bara <span class="tooltip-text" matTooltip="{{usersProdn1sString$ | async}}">mina patienter</span></mat-checkbox>
+<!--      <mat-checkbox class="action-toolbar-item" [formControl]="onlyMyDatasCtrl" [(ngModel)]="onlyMyDatas"
+                    *ngIf="loggedIn">Bara <span class="tooltip-text" matTooltip="{{usersProdn1sString$ | async}}">mina patienter</span>
+      </mat-checkbox>-->
 
       <!-- This feature is not needed. -->
       <!--
@@ -32,79 +37,83 @@
   <mat-card-content>
     <table *ngIf="response" class="apk-table apks-table">
       <thead>
-        <tr>
-          <th class="row-pnr">
-            <button class="sort-button" mat-button (click)="toggleSort('pnr')" [ngClass]="{'sort-field': sort?.field === 'pnr', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
-              Personnummer <mat-icon>arrow_drop_up</mat-icon>
-            </button>
-          </th>
-          <th class="row-efternamn">
-            <button class="sort-button" mat-button (click)="toggleSort('efternamn')" [ngClass]="{'sort-field': sort?.field === 'efternamn', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
-              Efternamn <mat-icon>arrow_drop_up</mat-icon>
-            </button>
-          </th>
-          <th class="row-fornamn">
-            Förnamn
-          </th>
-          <th class="row-senaste-rekvisition" matTooltip="Undernivå för organisation i Concise statistiksystem">
-            Senaste rekvisition
-          </th>
-          <th class="row-senaste-bestallning" matTooltip="Ekonomisk kod">
-            Senaste beställning
-          </th>
-          <th class="row-menu" matTooltip="Klicka på prickarna för att visa flera val">Meny</th>
-        </tr>
+      <tr>
+        <th class="row-pnr">
+          <button class="sort-button" mat-button (click)="toggleSort('pnr')"
+                  [ngClass]="{'sort-field': sort?.field === 'pnr', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
+            Personnummer
+            <mat-icon>arrow_drop_up</mat-icon>
+          </button>
+        </th>
+        <th class="row-efternamn">
+          <button class="sort-button" mat-button (click)="toggleSort('efternamn')"
+                  [ngClass]="{'sort-field': sort?.field === 'efternamn', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
+            Efternamn
+            <mat-icon>arrow_drop_up</mat-icon>
+          </button>
+        </th>
+        <th class="row-fornamn">
+          Förnamn
+        </th>
+        <th class="row-senaste-rekvisition" matTooltip="Undernivå för organisation i Concise statistiksystem">
+          Senaste rekvisition
+        </th>
+        <th class="row-senaste-bestallning" matTooltip="Ekonomisk kod">
+          Senaste beställning
+        </th>
+        <th class="row-menu" matTooltip="Klicka på prickarna för att visa flera val">Meny</th>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of response.content">
-          <td>
-            <a routerLink="{{data.id}}" routerLinkActive="active">
-              {{data.pnr}}
-            </a>
-          </td>
-          <td>
-            <a routerLink="{{data.id}}" routerLinkActive="active">
-              {{data.efternamn}}
-            </a>
-          </td>
-          <td>
-            <a routerLink="{{data.id}}" routerLinkActive="active">
-              {{data.fornamn}}
-            </a>
-          </td>
-          <td>
-            Senaste rek
-          </td>
-          <td>
-            Senaste best
-          </td>
-          <td>
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_vert</mat-icon>
+      <tr *ngFor="let data of response.content">
+        <td>
+          <a routerLink="{{data.id}}" routerLinkActive="active">
+            {{data.pnr}}
+          </a>
+        </td>
+        <td>
+          <a routerLink="{{data.id}}" routerLinkActive="active">
+            {{data.efternamn}}
+          </a>
+        </td>
+        <td>
+          <a routerLink="{{data.id}}" routerLinkActive="active">
+            {{data.fornamn}}
+          </a>
+        </td>
+        <td>
+          {{data.pds.length > 0 ? data.pds[0].id: 'Ingen ännu'}}
+        </td>
+        <td>
+          {{data.pds.length > 0 && data.pds[0].bestInfos && data.pds[0].bestInfos.length > 0 ? data.pds[0].bestInfos[0].id: 'Ingen ännu'}}
+        </td>
+        <td>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="{{data.id}}">
+              <mat-icon>folder_open</mat-icon>
+              <span>Visa patientinfo</span>
             </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="{{data.id}}">
-                <mat-icon>folder_open</mat-icon>
-                <span>Visa patientinfo</span>
-              </button>
 
-              <button mat-menu-item routerLink="{{data.id}}/add-order" *ngIf="userHasEditPermission(data)">
-                <mat-icon>add_shopping_cart</mat-icon>
-                <span>Ny beställning</span>
-              </button>
+            <button mat-menu-item routerLink="{{data.id}}/add-order" *ngIf="userHasEditPermission(data)">
+              <mat-icon>add_shopping_cart</mat-icon>
+              <span>Ny beställning</span>
+            </button>
 
-              <button mat-menu-item routerLink="{{data.id}}/add-requisition" *ngIf="userHasEditPermission(data)">
-                <mat-icon>content_paste</mat-icon>
-                <span>Ny rekvisition</span>
-              </button>
+            <button mat-menu-item routerLink="{{data.id}}/add-requisition" *ngIf="userHasEditPermission(data)">
+              <mat-icon>content_paste</mat-icon>
+              <span>Ny rekvisition</span>
+            </button>
 
-              <button mat-menu-item routerLink="{{data.id}}/edit" *ngIf="userHasEditPermission(data)">
-                <mat-icon>edit</mat-icon>
-                <span>Redigera patient</span>
-              </button>
-            </mat-menu>
-          </td>
-        </tr>
+            <button mat-menu-item routerLink="{{data.id}}/edit" *ngIf="userHasEditPermission(data)">
+              <mat-icon>edit</mat-icon>
+              <span>Redigera patient</span>
+            </button>
+          </mat-menu>
+        </td>
+      </tr>
       </tbody>
     </table>
   </mat-card-content>
@@ -118,13 +127,18 @@
 
       <div class="paging-toolbar-spacer"></div>
 
-      <button (click)="previousPage()" mat-button [disabled]="response.first"><mat-icon>arrow_back</mat-icon> Föregående</button>
-      <button (click)="nextPage()" mat-button [disabled]="response.last">Nästa <mat-icon>arrow_forward</mat-icon></button>
+      <button (click)="previousPage()" mat-button [disabled]="response.first">
+        <mat-icon>arrow_back</mat-icon>
+        Föregående
+      </button>
+      <button (click)="nextPage()" mat-button [disabled]="response.last">Nästa
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
 
       <div class="paging-toolbar-spacer"></div>
 
       <mat-form-field class="select-page-field">
-        <mat-select placeholder="Välj sida" [(ngModel)]="selectedPage" (change)="goToSelectedPage()" >
+        <mat-select placeholder="Välj sida" [(ngModel)]="selectedPage" (change)="goToSelectedPage()">
           <mat-option *ngFor="let page of totalPagesArr" [value]=page>Sida {{page}}</mat-option>
         </mat-select>
       </mat-form-field>

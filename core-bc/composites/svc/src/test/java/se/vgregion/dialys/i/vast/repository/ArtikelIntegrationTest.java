@@ -1,5 +1,6 @@
 package se.vgregion.dialys.i.vast.repository;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class ArtikelIntegrationTest {
     @Autowired
     private ArtikelRepository artikelRepository;
 
+    @Ignore
     @Transactional
     @Test
     public void updateAllMaxAntal() {

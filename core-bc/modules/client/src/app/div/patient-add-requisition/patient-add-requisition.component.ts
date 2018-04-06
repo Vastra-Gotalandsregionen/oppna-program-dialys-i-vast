@@ -9,6 +9,7 @@ import {Pd} from "../../model/Pd";
 import {PDArtikel} from "../../model/PDArtikel";
 import {Grupp} from "../../model/Grupp";
 import {Artikel} from "../../model/Artikel";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-apk-detail',
@@ -26,13 +27,17 @@ export class PatientAddRequisitionComponent implements OnInit {
   @Input()
   selectedArtiklar = [];
 
+  @Input()
+  saving: boolean = false;
+
   pd: Pd = new Pd();
 
   private fliks: Array<Flik>;
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
-              protected authService: AuthService) {
+              protected authService: AuthService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -50,7 +55,7 @@ export class PatientAddRequisitionComponent implements OnInit {
           // So that the latest and current pd will be at position 0 in the list. 'datum' might be changed to 'giltig'?
           this.pd.datum = new Date();
 
-          const $fliks = this.http.get('/api/flik')
+          const $fliks = this.http.get('/api/flik?typ=' + this.data.typ)
             .map(response => response.json())
             .share();
           $fliks.subscribe((data: Array<Flik>) => {
@@ -92,11 +97,14 @@ export class PatientAddRequisitionComponent implements OnInit {
   }
 
   saveToServer() {
+    this.saving = true;
     const $data = this.http.put('/api/pd/', this.pd)
       .map(response => response.json())
       .share();
     $data.subscribe((data: Pd) => {
       this.pd = data;
+      this.snackBar.open('Lyckades spara!', null, {duration: 3000});
+      this.saving = false;
     });
   }
 

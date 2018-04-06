@@ -28,19 +28,26 @@ import java.util.Set;
 public class Flik implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+
     @Size(max = 20)
     @Column(name = "Titel")
     private String titel;
+
     @Column(name = "Ordning")
     private Integer ordning;
+
     @Size(max = 2)
     @Column(name = "Typ")
     private String typ;
+
+    @Column(name = "aktiv")
+    private Boolean aktiv;
 
     //@JsonIgnore
     @OneToMany(mappedBy = "flik")
@@ -116,5 +123,13 @@ public class Flik implements Serializable {
 
     public void setGrupps(Set<Grupp> grupps) {
         this.grupps = grupps;
+    }
+
+    public Boolean getAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(Boolean aktiv) {
+        this.aktiv = aktiv;
     }
 }

@@ -21,10 +21,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/patient")
@@ -94,6 +91,9 @@ public class PatientController {
                               @RequestParam(value = "asc", required = false) boolean asc) throws JsonProcessingException {
 
         Pageable pageable = makePageable(page, sort, asc);
+
+        System.out.println("Här kommer parametrarna: ");
+        System.out.println(objectMapper.writeValueAsString(Arrays.asList(query, pageable, userName, onlyMyDatas)));
 
         return objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, onlyMyDatas));
     }

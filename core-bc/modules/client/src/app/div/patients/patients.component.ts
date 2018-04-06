@@ -11,6 +11,8 @@ import {JwtHttp} from '../../core/jwt-http';
 import {MatDialog, MatSnackBar} from "@angular/material";
 import {ConfirmDialogComponent} from "../../shared/confirm-dialog/confirm-dialog.component";
 import {StateService} from '../../core/state/state.service';
+import {Pd} from "../../model/Pd";
+import {BestInfo} from "../../model/BestInfo";
 
 @Component({
   selector: 'app-apk',
@@ -141,7 +143,16 @@ export class ApkComponent implements OnInit {
   }
 
   private handleResponse(response) {
-    console.log('handleResponse', response)
+    //console.log('handleResponse', response)
+    response.content.forEach((p: Patient) => {
+      p.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
+      // Sort it backwards so that u will get the current pd first.
+      if (p.pds.length > 0) {
+        if (p.pds[0].bestInfos)
+          p.pds[0].bestInfos.sort((a: BestInfo, b: BestInfo) => (a.datum > b.datum ? -1 : 1))
+      }
+    });
+    console.log("Resultat", response.content);
     this.response = response;
 
     this.totalPagesArr = new Array(0);

@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.converter.json.GsonBuilderUtils;
+import org.springframework.http.converter.json.GsonFactoryBean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
@@ -27,6 +29,7 @@ public class PatientFinder {
         if (constraints == null) {
             constraints = "";
         }
+        System.out.println("pageable: " + pageable);
         List<String> constraintsFrags = Arrays.asList(constraints.split(Pattern.quote(" ")));
 
         StringBuilder sb = new StringBuilder();
@@ -82,11 +85,14 @@ public class PatientFinder {
         System.out.println("Jpql: " + selectJpql);
         System.out.println(words);
 
+        String s = "select p from Patient p  join fetch p.ansvarig a  join a.mottagning m join m.ansvarigs a2 left join fetch p.pds pds  where (lower(p.pnr) like ?1 or lower(p.fornamn) like ?2 or lower(p.efternamn) like ?3) and  a.userName = ?4 order by p.pnr ASC\n";
+        String t = "select p from Patient p  join fetch p.ansvarig a  join a.mottagning m join m.ansvarigs a2 left join fetch p.pds pds  where (lower(p.pnr) like ?1 or lower(p.fornamn) like ?2 or lower(p.efternamn) like ?3) and  a.userName = ?4 order by p.pnr ASC, p.efternamn ASC\n";
         return query(
                 Patient.class,
                 selectJpql,
                 countJpql,
-                pageable, words
+                pageable,
+                words
         );
 
     }
