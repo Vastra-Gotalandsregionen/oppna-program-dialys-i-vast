@@ -85,7 +85,8 @@
                   <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Ordination</span>
                   </mat-header-cell>
                   <mat-cell *matCellDef="let rad">
-                    <mat-checkbox [value]="selectedArtiklar.indexOf(rad)!=-1" (change)="onItemSelect(rad)">
+                    <mat-checkbox [value]="selectedArtiklar.indexOf(rad)!=-1"
+                                  [checked]="selectedArtiklar.indexOf(rad) != -1" (change)="onItemSelect(rad)">
                     </mat-checkbox>
                   </mat-cell>
                 </ng-container>

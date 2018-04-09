@@ -22,6 +22,7 @@ export class PatientAddRequisitionComponent implements OnInit {
 
   id: string;
   data: Patient;
+  latestPd: Pd;
   displayedColumns = ['namn', 'storlek', 'artNr', 'ordination', 'maxantal'];
 
   @Input()
@@ -29,6 +30,8 @@ export class PatientAddRequisitionComponent implements OnInit {
 
   @Input()
   saving: boolean = false;
+
+  artikelToPdArtikels: Map<Artikel, PDArtikel> = new Map();
 
   pd: Pd = new Pd();
 
@@ -51,7 +54,20 @@ export class PatientAddRequisitionComponent implements OnInit {
         $data.subscribe((data: Patient) => {
           this.data = data;
           this.pd.patient = data;
+
           this.pd.patient.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
+          var pdArtikelsByArtikelKey: Map<number, PDArtikel> = new Map();
+          if (this.pd.patient.pds.length > 0) {
+            this.latestPd = this.data.pds[0];
+          } else {
+            this.latestPd = new Pd();
+          }
+          this.latestPd.pdArtikels.forEach((pdArtikel: PDArtikel) => {
+            pdArtikelsByArtikelKey.set(pdArtikel.artikel.id, pdArtikel);
+          });
+
+          console.log("latestPd", this.latestPd);
+
           // So that the latest and current pd will be at position 0 in the list. 'datum' might be changed to 'giltig'?
           this.pd.datum = new Date();
 
@@ -60,13 +76,21 @@ export class PatientAddRequisitionComponent implements OnInit {
             .share();
           $fliks.subscribe((data: Array<Flik>) => {
             this.fliks = data;
-            /*this.fliks.sort((a: Flik, b: Flik) => {
-
-            })*/
             this.fliks.forEach((flik: Flik) => {
               flik.grupps.forEach((grupp: Grupp) => {
                 grupp.artikels.sort((a: Artikel, b: Artikel) => (a.namn > b.namn ? 1 : -1));
+                grupp.artikels.forEach((artikel: Artikel) => {
+                  var pdArtikel = new PDArtikel();
+                  pdArtikel.artikel = artikel;
+                  this.artikelToPdArtikels.set(artikel, pdArtikel);
+                  if (pdArtikelsByArtikelKey.has(artikel.id)) {
+                    console.log("Hittade match mot gammal rekvistion: ", artikel);
+                    this.selectedArtiklar.push(artikel);
+                    this.pd.pdArtikels.push(pdArtikel);
+                  }
+                });
               });
+
             });
           });
 

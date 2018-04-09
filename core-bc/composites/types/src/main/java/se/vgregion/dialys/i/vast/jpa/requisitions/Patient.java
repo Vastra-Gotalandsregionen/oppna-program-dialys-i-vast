@@ -124,8 +124,8 @@ public class Patient implements Serializable {
     private Integer pas;
 
     @Column(name = "typ")
-    @Enumerated(EnumType.STRING)
-    private Typ typ;
+    // @Enumerated(EnumType.STRING)
+    private String typ;
 
     @Column(name = "leveransPaminnelse")
     private Boolean leveransPaminnelse = false;
@@ -403,17 +403,17 @@ public class Patient implements Serializable {
         this.leveransPaminnelse = leveransPaminnelse;
     }
 
-    public Typ getTyp() {
+    public String getTyp() {
         return typ;
     }
 
-    public void setTyp(Typ typ) {
+    public void setTyp(String typ) {
         this.typ = typ;
     }
 
-    public enum Typ {
+    /*public enum Typ {
         PD,
         HD
-    }
+    }*/
 
 }

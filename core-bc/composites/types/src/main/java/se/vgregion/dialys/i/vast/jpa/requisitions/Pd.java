@@ -33,25 +33,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Pd implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+
     @Column(name = "PatientID", updatable = false, insertable = false)
     private Integer patientID;
+
     @Column(name = "Datum")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datum;
+
     @Column(name = "Ersatter")
     private Integer ersatter;
+
     @Column(name = "Giltighet")
     @Temporal(TemporalType.TIMESTAMP)
     private Date giltighet;
+
     @Column(name = "SskID")
     private Integer sskID;
+
     @Column(name = "LAS")
     private Integer las;
+
+    @Column(name = "typ")
+    private String typ;
 
     @OneToMany(mappedBy = "pd")
     private Set<BestInfo> bestInfos;
@@ -176,5 +186,13 @@ public class Pd implements Serializable {
 
     public void setPdArtikels(Set<PDArtikel> pdArtikels) {
         this.pdArtikels = pdArtikels;
+    }
+
+    public String getTyp() {
+        return typ;
+    }
+
+    public void setTyp(String typ) {
+        this.typ = typ;
     }
 }

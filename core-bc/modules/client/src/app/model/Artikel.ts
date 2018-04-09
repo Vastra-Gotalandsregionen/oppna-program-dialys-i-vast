@@ -6,4 +6,5 @@ export class Artikel{
   ordning: number;
   antal: number;
   maxantal: number;
+  id: number;
 }

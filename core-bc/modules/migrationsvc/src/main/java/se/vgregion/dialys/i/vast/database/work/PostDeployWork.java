@@ -24,6 +24,11 @@ public class PostDeployWork {
             target.update("update artikel set maxantal = ? where id = ?", random.nextInt(20), artikel.get("id"));
         }
         target.commit();
+
+        target.update("update pd set typ = 'HD' where id in (\n" +
+                "select p.id from pd p join patient pat on p.patientid = pat.id where pat.typ = 'HD'\n" +
+                ")");
+        target.commit();
     }
 
 }
