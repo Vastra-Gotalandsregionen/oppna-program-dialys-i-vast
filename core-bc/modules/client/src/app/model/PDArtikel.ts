@@ -9,4 +9,5 @@ export class PDArtikel {
   bestPDRad: Array<BestPDRad>;
   id: number;
   pdid: number;
+  maxantal: number;
 }
