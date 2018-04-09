@@ -39,7 +39,7 @@
 
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Ersätter rekvisition:</div>
-                <div class="dialys-details-item-data" *ngIf="pd.patient.pds.length === 0">
+                <div class="dialys-details-item-data" *ngIf="!pd || !pd.patient || pd.patient.pds.length === 0">
                   -
                 </div>
                 <div class="dialys-details-item-data" *ngIf="pd.patient.pds.length > 0">
@@ -95,7 +95,9 @@
                   <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Maxantal</span>
                   </mat-header-cell>
                   <mat-cell *matCellDef="let rad">
-                    {{rad.maxantal}}
+                    <mat-input-container>
+                      <input id="name" [(ngModel)]="artikelToPdArtikels.get(rad).maxantal" type="number" matInput>
+                    </mat-input-container>
                   </mat-cell>
                 </ng-container>
 

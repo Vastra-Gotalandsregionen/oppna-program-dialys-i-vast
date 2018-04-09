@@ -84,9 +84,10 @@ export class PatientAddRequisitionComponent implements OnInit {
                   pdArtikel.artikel = artikel;
                   this.artikelToPdArtikels.set(artikel, pdArtikel);
                   if (pdArtikelsByArtikelKey.has(artikel.id)) {
-                    console.log("Hittade match mot gammal rekvistion: ", artikel);
+                    pdArtikel.artikel = artikel;
                     this.selectedArtiklar.push(artikel);
                     this.pd.pdArtikels.push(pdArtikel);
+                    pdArtikel.maxantal = pdArtikelsByArtikelKey.get(artikel.id).maxantal;
                   }
                 });
               });
@@ -114,22 +115,27 @@ export class PatientAddRequisitionComponent implements OnInit {
       this.selectedArtiklar.splice(index);
     } else {
       this.selectedArtiklar.push(rad);
-      let pdArtikel: PDArtikel = new PDArtikel();
+      // let pdArtikel: PDArtikel = new PDArtikel();
+      let pdArtikel: PDArtikel = this.artikelToPdArtikels.get(rad);
       pdArtikel.artikel = rad;
       this.pd.pdArtikels.push(pdArtikel);
     }
   }
 
   saveToServer() {
+    console.log("saveToServer start");
     this.saving = true;
     const $data = this.http.put('/api/pd/', this.pd)
       .map(response => response.json())
       .share();
     $data.subscribe((data: Pd) => {
-      this.pd = data;
+      console.log("saveToServer callback");
+      //this.pd = data;
       this.snackBar.open('Lyckades spara!', null, {duration: 3000});
       this.saving = false;
+      console.log("saveToServer callback - end");
     });
+    console.log("saveToServer end");
   }
 
 }
