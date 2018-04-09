@@ -42,6 +42,11 @@ export class PatientDetailComponent implements OnInit {
         $data.subscribe((data: Patient) => {
           this.data = data;
           data.pds = (data.pds.sort((a:Pd, b: Pd) => (a.datum < b.datum ? 1 : -1)));
+
+          for (let pd of data.pds)
+          {
+            pd.bestInfos.sort((a:BestInfo, b: BestInfo) => (a.datum < b.datum ? 1: -1));
+          }
           this.dataSourceSenasteRekvisition = data.pds[0].bestInfos;
         });
       }
