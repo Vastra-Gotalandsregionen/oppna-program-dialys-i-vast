@@ -35,8 +35,12 @@ public class PDArtikel implements Serializable {
 
     @Column(name = "PDID", insertable = false, updatable = false)
     private Integer pdid;
+
     @Column(name = "ArtikelID", updatable = false, insertable = false)
     private Integer artikelID;
+
+    @Column(name = "maxantal")
+    private Integer maxantal;
 
     @ManyToOne
     @JoinColumn(name = "artikelID", foreignKey = @ForeignKey(name = "fk_PDArtikel_Artikel"))
@@ -131,5 +135,13 @@ public class PDArtikel implements Serializable {
 
     public void setPd(Pd pd) {
         this.pd = pd;
+    }
+
+    public Integer getMaxantal() {
+        return maxantal;
+    }
+
+    public void setMaxantal(Integer maxantal) {
+        this.maxantal = maxantal;
     }
 }
