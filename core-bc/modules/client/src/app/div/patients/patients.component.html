@@ -65,49 +65,49 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of response.content">
+      <tr *ngFor="let patient of response.content">
         <td>
-          <a routerLink="{{data.id}}" routerLinkActive="active">
-            {{data.pnr}}
+          <a routerLink="{{patient.id}}" routerLinkActive="active">
+            {{patient.pnr}}
           </a>
         </td>
         <td>
-          <a routerLink="{{data.id}}" routerLinkActive="active">
-            {{data.efternamn}}
+          <a routerLink="{{patient.id}}" routerLinkActive="active">
+            {{patient.efternamn}}
           </a>
         </td>
         <td>
-          <a routerLink="{{data.id}}" routerLinkActive="active">
-            {{data.fornamn}}
+          <a routerLink="{{patient.id}}" routerLinkActive="active">
+            {{patient.fornamn}}
           </a>
         </td>
         <td>
-          {{data.pds.length > 0 ? data.pds[0].id: 'Ingen ännu'}}
+          {{patient.pds.length > 0 ? patient.pds[0].id : 'Ingen ännu'}}
         </td>
         <td>
-          {{data.pds.length > 0 && data.pds[0].bestInfos && data.pds[0].bestInfos.length > 0 ? data.pds[0].bestInfos[0].id: 'Ingen ännu'}}
+          {{patient.pds.length > 0 && patient.pds[0].bestInfos && patient.pds[0].bestInfos.length > 0 ? patient.pds[0].bestInfos[0].id: 'Ingen ännu'}}
         </td>
         <td>
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="{{data.id}}">
+            <button mat-menu-item routerLink="{{patient.id}}">
               <mat-icon>folder_open</mat-icon>
               <span>Visa patientinfo</span>
             </button>
 
-            <button mat-menu-item routerLink="{{data.id}}/add-order" *ngIf="userHasEditPermission(data)">
+            <button mat-menu-item routerLink="{{patient.id}}/add-order" *ngIf="userHasEditPermission(patient)">
               <mat-icon>add_shopping_cart</mat-icon>
               <span>Ny beställning</span>
             </button>
 
-            <button mat-menu-item routerLink="{{data.id}}/add-requisition" *ngIf="userHasEditPermission(data)">
+            <button mat-menu-item routerLink="{{patient.id}}/add-requisition" *ngIf="userHasEditPermission(patient)">
               <mat-icon>content_paste</mat-icon>
               <span>Ny rekvisition</span>
             </button>
 
-            <button mat-menu-item routerLink="{{data.id}}/edit" *ngIf="userHasEditPermission(data)">
+            <button mat-menu-item routerLink="{{patient.id}}/edit" *ngIf="userHasEditPermission(patient)">
               <mat-icon>edit</mat-icon>
               <span>Redigera patient</span>
             </button>

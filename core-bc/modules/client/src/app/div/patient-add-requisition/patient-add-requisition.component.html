@@ -1,8 +1,8 @@
-<div *ngIf="data">
+<div *ngIf="patient">
 
   <mat-toolbar class="action-toolbar">
     <h1>
-      Ny rekvisition: {{data.pnr}}
+      Ny rekvisition: {{patient.pnr}}
     </h1>
     <div class="action-toolbar-spacer"></div>
 
@@ -22,27 +22,24 @@
 
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Personnr:</div>
-                <div class="dialys-details-item-data">
-                  {{data.pnr}}
+                <div class="dialys-details-item-patient">
+                  {{patient.pnr}}
                 </div>
               </div>
 
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Rekvisitionsdatum:</div>
-                <div class="dialys-details-item-data">
+                <div class="dialys-details-item-patient">
                   {{pd.datum | date : 'yyyy-MM-dd'}}
-                  <!--<mat-form-field class="example-full-width">
-                    <input matInput ngModel="pd.datum" type="date" placeholder="Rekdatum">
-                  </mat-form-field>-->
                 </div>
               </div>
 
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Ersätter rekvisition:</div>
-                <div class="dialys-details-item-data" *ngIf="!pd || !pd.patient || pd.patient.pds.length === 0">
+                <div class="dialys-details-item-patient" *ngIf="!pd || !pd.patient || pd.patient.pds.length === 0">
                   -
                 </div>
-                <div class="dialys-details-item-data" *ngIf="pd.patient.pds.length > 0">
+                <div class="dialys-details-item-patient" *ngIf="pd.patient.pds.length > 0">
                   {{pd.patient.pds[0].id}} med datum {{pd.patient.pds[0].datum | date: 'yyyy-MM-dd'}}
                 </div>
               </div>

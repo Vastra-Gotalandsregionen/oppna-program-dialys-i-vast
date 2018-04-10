@@ -21,7 +21,7 @@ export class PatientAddRequisitionComponent implements OnInit {
   @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
 
   id: string;
-  data: Patient;
+  patient: Patient;
   latestPd: Pd;
   displayedColumns = ['namn', 'storlek', 'artNr', 'ordination', 'maxantal'];
 
@@ -48,17 +48,17 @@ export class PatientAddRequisitionComponent implements OnInit {
       this.id = params.id;
 
       if (this.id) {
-        const $data = this.http.get('/api/patient/' + this.id)
+        const $patientRpc = this.http.get('/api/patient/' + this.id)
           .map(response => response.json())
           .share();
-        $data.subscribe((data: Patient) => {
-          this.data = data;
-          this.pd.patient = data;
+        $patientRpc.subscribe((patient: Patient) => {
+          this.patient = patient;
+          this.pd.patient = patient;
 
           this.pd.patient.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
           var pdArtikelsByArtikelKey: Map<number, PDArtikel> = new Map();
           if (this.pd.patient.pds.length > 0) {
-            this.latestPd = this.data.pds[0];
+            this.latestPd = this.patient.pds[0];
           } else {
             this.latestPd = new Pd();
           }
@@ -71,11 +71,11 @@ export class PatientAddRequisitionComponent implements OnInit {
           // So that the latest and current pd will be at position 0 in the list. 'datum' might be changed to 'giltig'?
           this.pd.datum = new Date();
 
-          const $fliks = this.http.get('/api/flik?typ=' + this.data.typ)
+          const $fliks = this.http.get('/api/flik?typ=' + this.patient.typ)
             .map(response => response.json())
             .share();
-          $fliks.subscribe((data: Array<Flik>) => {
-            this.fliks = data;
+          $fliks.subscribe((patient: Array<Flik>) => {
+            this.fliks = patient;
             this.fliks.forEach((flik: Flik) => {
               flik.grupps.forEach((grupp: Grupp) => {
                 grupp.artikels.sort((a: Artikel, b: Artikel) => (a.namn > b.namn ? 1 : -1));
@@ -104,8 +104,8 @@ export class PatientAddRequisitionComponent implements OnInit {
     return this.id;
   }
 
-  userHasEditPermission(data: Patient) {
-    return this.authService.userHasDataEditPermission(data);
+  userHasEditPermission(patient: Patient) {
+    return this.authService.userHasDataEditPermission(patient);
   }
 
   onItemSelect(rad) {
@@ -128,9 +128,9 @@ export class PatientAddRequisitionComponent implements OnInit {
     const $data = this.http.put('/api/pd/', this.pd)
       .map(response => response.json())
       .share();
-    $data.subscribe((data: Pd) => {
+    $data.subscribe((patient: Pd) => {
       console.log("saveToServer callback");
-      //this.pd = data;
+      //this.pd = patient;
       this.snackBar.open('Lyckades spara!', null, {duration: 3000});
       this.saving = false;
       console.log("saveToServer callback - end");
