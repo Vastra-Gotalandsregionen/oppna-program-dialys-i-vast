@@ -109,17 +109,17 @@
           <mat-icon>content_paste</mat-icon>
           <span class="title-name">Rekvisition {{data.pds[0].id}}</span>
           <span class="title-date">{{data.pds[0].datum | date: 'yyyy-MM-dd'}}</span>
-          <span class="title-orders">{{dataSourceSenasteRekvisition.bestInfos != null ? dataSourceSenasteRekvisition.bestInfos.length : '0'}} beställningar</span>
+          <span class="title-orders">{{data.pds[0].bestInfos != null ? data.pds[0].bestInfos.length : '0'}} beställningar</span>
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
-            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}  ({{dataSourceSenasteRekvisition.bestInfos != null ? dataSourceSenasteRekvisition.bestInfos.length : '0'}})
+            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}  ({{data.pds[0].bestInfos != null ? data.pds[0].bestInfos.length : '0'}}
           </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div>
-        <mat-table #table dense [dataSource]="dataSourceSenasteRekvisition.bestInfos">
+        <mat-table #table dense [dataSource]="data.pds[0].bestInfos">
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
             <mat-cell *matCellDef="let bestInfo"> <a routerLink="prescription/{{bestInfo.id}}" [queryParams]="{persnr:data.pnr, rekvisitionid:data.pds[0].id, rekvisDatum:data.pds[0].datum | date: 'yyyy-MM-dd' }">{{bestInfo.id}}</a></mat-cell>

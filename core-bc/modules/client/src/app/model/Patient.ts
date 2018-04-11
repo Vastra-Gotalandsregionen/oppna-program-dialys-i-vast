@@ -32,6 +32,25 @@ export class Patient {
   typ: Typ;
 
   pds: Array<Pd>
+
+  private static template: Patient = new Patient();
+
+  public static init(that: Patient) {
+    that.sortPds = this.template.sortPds;
+  }
+
+  public sortPds() {
+    if (this.pds != null) {
+      this.pds.sort((a: Pd, b: Pd) =>
+        ((a.datum > b.datum || (a.datum == b.datum && a.id > b.id)) ? -1 : 1));
+      this.pds.forEach((pd: Pd) => {
+        if (!pd.sortBestInfos)
+          Pd.init(pd);
+        pd.sortBestInfos();
+      });
+    }
+  }
+
 }
 
 
