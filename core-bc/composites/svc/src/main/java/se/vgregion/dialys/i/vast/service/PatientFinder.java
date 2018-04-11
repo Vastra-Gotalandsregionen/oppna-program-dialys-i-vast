@@ -66,11 +66,12 @@ public class PatientFinder {
         i++;
         words.add(userName);
 
-        String countJpql = "select count(p) from "
+        String countJpql = "select count(distinct p) from "
                 + Patient.class.getSimpleName()
                 + " p join p.ansvarig a "
                 + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
                 + "left join p.pds pds "
+                + "left join pds.bestInfos bestInfo "
                 + sb.toString();
 
         String selectJpql = "select p from "
@@ -78,15 +79,11 @@ public class PatientFinder {
                 + " join fetch p.ansvarig a "
                 + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
                 + "left join fetch p.pds pds "
+                + "left join fetch pds.bestInfos bestInfo "
                 + sb.toString()
                 + " "
                 + makeOrderByPart("p", pageable);
 
-        System.out.println("Jpql: " + selectJpql);
-        System.out.println(words);
-
-        String s = "select p from Patient p  join fetch p.ansvarig a  join a.mottagning m join m.ansvarigs a2 left join fetch p.pds pds  where (lower(p.pnr) like ?1 or lower(p.fornamn) like ?2 or lower(p.efternamn) like ?3) and  a.userName = ?4 order by p.pnr ASC\n";
-        String t = "select p from Patient p  join fetch p.ansvarig a  join a.mottagning m join m.ansvarigs a2 left join fetch p.pds pds  where (lower(p.pnr) like ?1 or lower(p.fornamn) like ?2 or lower(p.efternamn) like ?3) and  a.userName = ?4 order by p.pnr ASC, p.efternamn ASC\n";
         return query(
                 Patient.class,
                 selectJpql,

@@ -12,7 +12,7 @@ export class Pd {
   patient: Patient;
   patientID: number;
   sskID: number;
-  bestInfos: Array<BestInfo>;
+  bestInfos: Array<BestInfo> = [];
 
   pdArtikels: Array<PDArtikel> = [];
 

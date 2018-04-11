@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {JwtHttp} from "../../core/jwt-http";
 import {Ansvarig} from "../../model/Ansvarig";
 import {Mottagning} from "../../model/Mottagning";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-patient-edit',
@@ -26,7 +27,7 @@ export class PatientEditComponent implements OnInit {
 
   @Input() mottagningById: Map<number, Mottagning> = new Map<number, Mottagning>();
 
-  constructor(private route: ActivatedRoute, private http: JwtHttp, private router: Router) {
+  constructor(private route: ActivatedRoute, private http: JwtHttp, private router: Router, private snackBar: MatSnackBar) {
 
   }
 
@@ -71,8 +72,13 @@ export class PatientEditComponent implements OnInit {
     this.http.put('/api/patient', this.patient).map(response => response.json()).subscribe(
       (updated: Patient) => {
         console.log('Saved', updated);
-        if (!this.patient.id)
-          this.router.navigate(['/patienter/' + updated.id + '/edit']);
+        this.snackBar.open('Lyckades spara!', null, {duration: 3000})
+          .afterDismissed().subscribe(() => {
+          if (!this.patient.id) {
+            this.patient.id = updated.id;
+            this.router.navigate(['/patienter/' + updated.id + '/edit']);
+          }
+        });
       }
     );
   }

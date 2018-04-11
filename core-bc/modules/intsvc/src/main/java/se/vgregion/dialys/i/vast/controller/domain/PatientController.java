@@ -1,6 +1,7 @@
 package se.vgregion.dialys.i.vast.controller.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class PatientController {
 
     @PostConstruct
     void init() {
-        objectMapper.addMixIn(Pd.class, PdMixin.class);
+        //objectMapper.addMixIn(Pd.class, PdMixin.class);
+        objectMapper.addMixIn(BestInfo.class, BestInfoMixin.class);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -91,9 +93,6 @@ public class PatientController {
                               @RequestParam(value = "asc", required = false) boolean asc) throws JsonProcessingException {
 
         Pageable pageable = makePageable(page, sort, asc);
-
-        System.out.println("Här kommer parametrarna: ");
-        System.out.println(objectMapper.writeValueAsString(Arrays.asList(query, pageable, userName, onlyMyDatas)));
 
         return objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, onlyMyDatas));
     }
@@ -160,11 +159,19 @@ public class PatientController {
         }
     }
 
-    private static class PdMixin {
+    /*private static class PdMixin {
 
         @JsonIgnore
         private Set<BestInfo> bestInfos;
 
+    }*/
+
+    private static class BestInfoMixin {
+
+        @JsonIgnore
+        private Set<BestPDRad> bestPDRads;
+
     }
+
 
 }
