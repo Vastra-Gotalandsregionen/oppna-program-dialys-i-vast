@@ -28,14 +28,14 @@
                 <div class="dialys-details-item">
                   <div class="dialys-details-item-label">Rekvisitionsnr:</div>
                   <div class="dialys-details-item-data">
-                    -
+                    {{rekvisId}}
                   </div>
                 </div>
 
                 <div class="dialys-details-item">
                   <div class="dialys-details-item-label">Rekvisitionsdatum:</div>
                   <div class="dialys-details-item-data">
-                    2016-01-01
+                    {{rekvisdatum | date:'yyyy-MM-dd'}}
                   </div>
                 </div>
 
@@ -52,27 +52,27 @@
           <mat-table #table dense [dataSource]="artikels">
             <ng-container matColumnDef="artikel">
               <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikel / Produkt</span></mat-header-cell>
-              <mat-cell *matCellDef="let rad">{{rad.namn}}</mat-cell>
+              <mat-cell *matCellDef="let rad">{{rad.artikel.namn}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="mangd">
               <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Mängd / Förpackning</span></mat-header-cell>
-              <mat-cell *matCellDef="let rad">{{rad.storlek}}</mat-cell>
+              <mat-cell *matCellDef="let rad" style="margin-left: 30px">{{rad.artikel.storlek}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="pdartikel">
               <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikelnr</span></mat-header-cell>
-              <mat-cell *matCellDef="let rad">{{rad.artNr}}</mat-cell>
+              <mat-cell *matCellDef="let rad">{{rad.artikel.artNr}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="maxantal">
-              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Max antal</span></mat-header-cell>
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Maxantal förpackning</span></mat-header-cell>
                   <mat-cell *matCellDef="let rad">{{rad.maxantal}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="antal">
-              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Antal</span></mat-header-cell>
+              <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Antal förpackning</span></mat-header-cell>
               <mat-cell *matCellDef="let rad">
                 <mat-form-field>
-                  <input  type="number" placeholder="Antal" [(ngModel)]="rad.antal" matInput>
+                  <input  type="number" placeholder="Antal" [(ngModel)]="rad.artikel.antal" matInput>
                 </mat-form-field>
               </mat-cell>
             </ng-container>

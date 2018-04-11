@@ -18,9 +18,12 @@ public class PostDeployWork {
         target.execute("update flik set aktiv = false where titel is null or titel = '' or titel = 'Obsoleta varor'");
         target.commit();
 
-        target.update("update pd set typ = 'HD' where id in (\n" +
-                "select p.id from pd p join patient pat on p.patientid = pat.id where pat.typ = 'HD'\n" +
+        target.update("update patient set typ = 'PD'");
+
+        target.update("update pd set typ = 'PD' where id in (\n" +
+                "select p.id from pd p join patient pat on p.patientid = pat.id where pat.typ = 'PD'\n" +
                 ")");
+
         target.commit();
     }
 

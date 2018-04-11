@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
 import {Artikel} from "../../model/Artikel";
+import {PDArtikel} from "../../model/PDArtikel";
 
 @Component({
   selector: 'app-apk-detail',
@@ -18,8 +19,9 @@ export class PatientAddOrderComponent implements OnInit {
 
   id: string;
   data: Patient;
-  artikels: Artikel[];
+  artikels: PDArtikel[];
   rekvisId: number;
+  rekvisdatum: Date;
   displayedColumns = ['artikel', 'mangd', 'pdartikel','maxantal', 'antal'];
 
   constructor(protected route: ActivatedRoute,
@@ -41,11 +43,12 @@ export class PatientAddOrderComponent implements OnInit {
         $data.subscribe((data: Patient) => {
           this.data = data;
           this.rekvisId = data.pds[0].id;
+          this.rekvisdatum = data.pds[0].datum;
           const $articles = this.http.get('/api/artikels/' + this.rekvisId)
             .map(response => response.json())
             .share();
 
-          $articles.subscribe((dat: Artikel[]) => {
+          $articles.subscribe((dat: PDArtikel[]) => {
             this.artikels = dat;
 
           });
