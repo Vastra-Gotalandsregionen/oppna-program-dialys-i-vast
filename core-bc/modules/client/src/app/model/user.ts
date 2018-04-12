@@ -19,5 +19,8 @@ export class User {
   passWord: string;
   typ: string;
 
-  //userName: string;
+  sjukskoterska: boolean;
+  admin: boolean;
+  pharmaceut: boolean;
+
 }

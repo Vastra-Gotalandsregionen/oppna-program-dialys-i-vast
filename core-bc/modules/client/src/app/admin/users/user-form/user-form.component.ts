@@ -20,9 +20,17 @@ export class UserFormComponent implements OnInit {
 
   @Input('name') name;
 
-  /*@Input('passWord') passWord;
+  @Input('sjukskoterska') sjukskoterska;
 
-  @Input('typ') typ;*/
+  @Input('admin') admin;
+
+  @Input('pharmaceut') pharmaceut;
+
+  @Input('passWord') passWord;
+
+  @Input('passWord') typ;
+
+  /*@Input('typ') typ;*/
 
   /*@Input('lastName') lastName;
   @Input('mail') mail;*/
@@ -68,6 +76,9 @@ export class UserFormComponent implements OnInit {
       'name': [{value: this.user.name, disabled: false}, []],
       'passWord': [{value: this.user.passWord, disabled: false}, [Validators.required]],
       'typ': [{value: this.user.typ, disabled: false}, []],
+      'sjukskoterska': [{value: this.user.typ, disabled: false}, []],
+      'admin': [{value: this.user.typ, disabled: false}, []],
+      'pharmaceut': [{value: this.user.typ, disabled: false}, []],
       /*'lastName': [{value: this.user.lastName, disabled: false}, []],
       'mail': [{value: this.user.mail, disabled: false}, []],*/
       /*'roleGroup': this.formBuilder.group({

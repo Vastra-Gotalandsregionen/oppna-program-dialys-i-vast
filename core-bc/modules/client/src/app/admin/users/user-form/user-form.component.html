@@ -16,13 +16,21 @@
         <mat-input-container>
           <input id="passWord" placeholder="Lösenord" type="text" matInput formControlName="passWord">
         </mat-input-container>
-        <!--<mat-input-container>
+
+        <!--&lt;!&ndash;<mat-input-container>
           <input id="lastName" placeholder="Efternamn" type="text" matInput formControlName="lastName">
         </mat-input-container>-->
-        <!--<mat-input-container>
-          <input id="mail" placeholder="E-Post" type="text" matInput formControlName="mail">
-        </mat-input-container>-->
 
+        <div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+          <mat-checkbox id="sjukskoterska" name="sjukskoterska" formControlName="sjukskoterska">Sjuksköterska
+          </mat-checkbox>
+        </div>
+        <div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+          <mat-checkbox id="pharmaceut" name="pharmaceut" formControlName="pharmaceut">Pharmaceut</mat-checkbox>
+        </div>
+        <div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+          <mat-checkbox id="admin" name="admin" formControlName="admin">Admin</mat-checkbox>
+        </div>
         <!--<div formGroupName="roleGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
           <label class="field-label">Behörighet</label>
           <mat-radio-group formControlName="role">

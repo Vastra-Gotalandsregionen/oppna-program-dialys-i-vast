@@ -50,6 +50,15 @@ public class User implements Serializable {
     @Column(name = "Typ")
     private String typ;
 
+    @Column(name = "sjukskoterska")
+    private Boolean sjukskoterska;
+
+    @Column(name = "pharmaceut")
+    private Boolean pharmaceut;
+
+    @Column(name = "admin")
+    private Boolean admin;
+
     @Column(name = "password_encrypted_flag")
     private Boolean passwordEncryptionFlag = false;
 
@@ -150,5 +159,29 @@ public class User implements Serializable {
 
     public void setPasswordEncryptionFlag(Boolean passwordIsEncrpted) {
         this.passwordEncryptionFlag = passwordIsEncrpted;
+    }
+
+    public Boolean getSjukskoterska() {
+        return sjukskoterska;
+    }
+
+    public void setSjukskoterska(Boolean sjukskoterska) {
+        this.sjukskoterska = sjukskoterska;
+    }
+
+    public Boolean getPharmaceut() {
+        return pharmaceut;
+    }
+
+    public void setPharmaceut(Boolean pharmaceut) {
+        this.pharmaceut = pharmaceut;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }

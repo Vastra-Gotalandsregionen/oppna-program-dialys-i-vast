@@ -98,6 +98,11 @@ export class AuthService {
     return token ? token.displayName : null;
   }
 
+  getAdmin(): boolean {
+    const token = this.getToken();
+    return token ? !token.admin : null;
+  }
+
   isAdmin() {
     const token = this.getToken();
     if (token) {

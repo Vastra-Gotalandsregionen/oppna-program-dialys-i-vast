@@ -67,6 +67,10 @@ export class AppComponent {
     return this.authService.getLoggedInUserId();
   }
 
+  getAdmin(): boolean {
+    return this.authService.getAdmin();
+  }
+
   userAvatarBackgroundImageStyle(): SafeStyle {
     return this.sanitizer.bypassSecurityTrustStyle('url(/api/user/' + this.getLoggedInUserId() + '/thumbnailPhoto)');
   }

@@ -37,6 +37,9 @@ public class PostDeployWork {
                 "select p.id from pd p join patient pat on p.patientid = pat.id where pat.typ = 'HD'\n" +
                 ")");
 
+        target.update("update users set sjukskoterska = true where userName in " +
+                "( select u.userName from users u join ansvarig a on a.userName = u.userName)");
+
         target.commit();
     }
 
