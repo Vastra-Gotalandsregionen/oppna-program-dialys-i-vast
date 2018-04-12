@@ -1,8 +1,7 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, NgModule, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
-import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
 import {Flik} from "../../model/Flik";
 import {Pd} from "../../model/Pd";
@@ -10,15 +9,16 @@ import {PDArtikel} from "../../model/PDArtikel";
 import {Grupp} from "../../model/Grupp";
 import {Artikel} from "../../model/Artikel";
 import {MatSnackBar} from "@angular/material";
+import {RequisitionEditComponent} from "../requisition-edit/requisition-edit.component";
 
 @Component({
   selector: 'app-apk-detail',
   templateUrl: './patient-add-requisition.component.html',
-  styleUrls: ['./patient-add-requisition.component.css']
+  styleUrls: ['./patient-add-requisition.component.css'],
 })
 export class PatientAddRequisitionComponent implements OnInit {
 
-  @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
+  @ViewChild(RequisitionEditComponent) requisitionEditComponent: RequisitionEditComponent;
 
   id: string;
   patient: Patient;
@@ -55,7 +55,10 @@ export class PatientAddRequisitionComponent implements OnInit {
           this.patient = patient;
           this.pd.patient = patient;
 
-          this.pd.patient.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
+          Patient.init(this.pd.patient);
+          this.pd.patient.sortPds();
+          // this.pd.patient.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
+
           var pdArtikelsByArtikelKey: Map<number, PDArtikel> = new Map();
           if (this.pd.patient.pds.length > 0) {
             this.latestPd = this.patient.pds[0];

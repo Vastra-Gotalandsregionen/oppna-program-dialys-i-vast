@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApkFormComponent } from './apk-form.component';
+import { RequisitionEditComponent } from './requisition-edit.component';
 
-describe('ApkFormComponent', () => {
-  let component: ApkFormComponent;
-  let fixture: ComponentFixture<ApkFormComponent>;
+describe('RequisitionEditComponent', () => {
+  let component: RequisitionEditComponent;
+  let fixture: ComponentFixture<RequisitionEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApkFormComponent ]
+      declarations: [ RequisitionEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApkFormComponent);
+    fixture = TestBed.createComponent(RequisitionEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

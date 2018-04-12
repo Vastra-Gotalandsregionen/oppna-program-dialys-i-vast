@@ -43,8 +43,6 @@ const routes: Routes = [
       }, {
         path: ':id/edit',
         component: PatientEditComponent
-        //component: ApkEditComponent
-        //,        canDeactivate: [FormChangedGuard]
       }, {
         path: ':id/archivedDatas',
         component: ArchivedDatasComponent

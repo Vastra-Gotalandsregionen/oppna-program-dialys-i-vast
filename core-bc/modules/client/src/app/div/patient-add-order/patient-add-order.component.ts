@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
 import {Observable} from 'rxjs/Observable';
-import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
 import {Artikel} from "../../model/Artikel";
 import {PDArtikel} from "../../model/PDArtikel";
@@ -18,8 +17,6 @@ import {MatSnackBar} from "@angular/material";
   styleUrls: ['./patient-add-order.component.css']
 })
 export class PatientAddOrderComponent implements OnInit {
-
-  @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
 
   id: string;
   data: Patient;

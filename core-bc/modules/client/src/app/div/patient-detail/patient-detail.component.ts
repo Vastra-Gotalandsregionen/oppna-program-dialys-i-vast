@@ -2,18 +2,16 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
-import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
 import {BestInfo} from "../../model/BestInfo";
-import {Pd} from '../../model/Pd';
+import {Pd} from "../../model/Pd";
+
 @Component({
   selector: 'app-apk-detail',
   templateUrl: './patient-detail.component.html',
   styleUrls: ['./patient-detail.component.css']
 })
 export class PatientDetailComponent implements OnInit {
-
-  @ViewChild(ApkFormComponent) apkFormComponent: ApkFormComponent;
 
   id: string;
   data: Patient;
@@ -41,12 +39,8 @@ export class PatientDetailComponent implements OnInit {
 
         $data.subscribe((data: Patient) => {
           this.data = data;
-          data.pds = (data.pds.sort((a:Pd, b: Pd) => (a.datum < b.datum ? 1 : -1)));
-
-          for (let pd of data.pds)
-          {
-            pd.bestInfos.sort((a:BestInfo, b: BestInfo) => (a.datum < b.datum ? 1: -1));
-          }
+          Patient.init(this.data);
+          this.data.sortPds();
           this.dataSourceSenasteRekvisition = data.pds[0].bestInfos;
         });
       }
