@@ -24,10 +24,15 @@ public class UserController {
         return userRepository.findAllByOrderByUserName();
     }
 
-    @Transactional
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
+    public ResponseEntity<User> save(@RequestBody User user) {
+        System.out.println("UserController::save " + user);
+        return saveUserImp(user);
+    }
+
+    @Transactional
+    protected ResponseEntity<User> saveUserImp(@RequestBody User user) {
         User fromDb = userRepository.findOne(user.getUserName());
         if (fromDb != null) {
             if (!fromDb.getPassWord().equals(user.getPassWord())) {

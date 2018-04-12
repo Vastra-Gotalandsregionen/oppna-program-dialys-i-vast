@@ -21,14 +21,14 @@
           <input id="lastName" placeholder="Efternamn" type="text" matInput formControlName="lastName">
         </mat-input-container>-->
 
-        <div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+        <div ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
           <mat-checkbox id="sjukskoterska" name="sjukskoterska" formControlName="sjukskoterska">Sjuksköterska
           </mat-checkbox>
         </div>
-        <div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+        <div ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
           <mat-checkbox id="pharmaceut" name="pharmaceut" formControlName="pharmaceut">Pharmaceut</mat-checkbox>
         </div>
-        <div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+        <div ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
           <mat-checkbox id="admin" name="admin" formControlName="admin">Admin</mat-checkbox>
         </div>
         <!--<div formGroupName="roleGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
@@ -39,7 +39,7 @@
           </mat-radio-group>
         </div>-->
 
-        <div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+        <!--<div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
           <label class="field-label">Typ</label>
           <mat-radio-group formControlName="typ">
             <mat-radio-button value="PD">PD</mat-radio-button>
@@ -47,7 +47,7 @@
             <mat-radio-button value="HD">HD</mat-radio-button>
             <mat-radio-button value="LA">LA</mat-radio-button>
           </mat-radio-group>
-        </div>
+        </div>-->
 
 
         <div class="btn-container button-row">

@@ -57,7 +57,7 @@ public class LoginController {
                 }*/
             }
             String[] roles = getRoles(user);
-            String token = JwtUtil.createToken(user.getUserName(), user.getName(), roles);
+            String token = JwtUtil.createToken(user.getUserName(), user.getName(), user.getSjukskoterska(), user.getAdmin(), user.getPharmaceut(), roles);
             return ResponseEntity.ok(token);
         } catch (Exception e) {
             try {
@@ -69,7 +69,7 @@ public class LoginController {
                     if (!PasswordEncoder.getInstance().matches(loginRequest.getPassword(), user.getPassWord())) {
                         throw new FailedLoginException("Password dit not match with user i db either.");
                     }
-                } else{
+                } else {
                     if (!user.getPassWord().equals(loginRequest.getPassword())) {
                         throw new FailedLoginException("Password dit not match with user i db either.");
                     } else {
@@ -79,7 +79,7 @@ public class LoginController {
                     }
                 }
                 String[] roles = getRoles(user);
-                String token = JwtUtil.createToken(user.getUserName(), user.getName(), roles);
+                String token = JwtUtil.createToken(user.getUserName(), user.getName(), user.getSjukskoterska(), user.getAdmin(), user.getPharmaceut(), roles);
                 return ResponseEntity.ok(token);
             } catch (Exception fle) {
                 LOGGER.warn(e.getClass().getCanonicalName() + " - " + e.getMessage());
@@ -100,7 +100,7 @@ public class LoginController {
 
             String[] roles = getRoles(user);
 
-            String token = JwtUtil.createToken(user.getUserName(), user.getName(), roles);
+            String token = JwtUtil.createToken(user.getUserName(), user.getName(), user.getSjukskoterska(), user.getAdmin(), user.getPharmaceut(), roles);
 
             return ResponseEntity.ok(token);
         } catch (JWTVerificationException e) {
@@ -146,6 +146,7 @@ public class LoginController {
                 String[] impersonatedRoles = getRoles(impersonated);
 
                 String token = JwtUtil.createToken(impersonated.getUserName(), impersonated.getName(),
+                        impersonated.getSjukskoterska(), impersonated.getAdmin(), impersonated.getPharmaceut(),
                         impersonatedRoles);
 
                 return ResponseEntity.ok(token);

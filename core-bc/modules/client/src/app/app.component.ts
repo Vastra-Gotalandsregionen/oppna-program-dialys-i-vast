@@ -5,6 +5,7 @@ import {LoginDialogComponent} from './shared/login-dialog/login-dialog.component
 import {AuthService} from './core/auth/auth.service';
 import {Router} from '@angular/router';
 import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
+import {User} from "./model/user";
 
 @Component({
   selector: 'app-root',
@@ -68,7 +69,20 @@ export class AppComponent {
   }
 
   getAdmin(): boolean {
+    this.getUser();
     return this.authService.getAdmin();
+  }
+
+  getPharmaceut(): boolean {
+    return this.authService.getPharmaceut();
+  }
+
+  getSjukskoterska(): boolean {
+    return this.authService.getSjukskoterska();
+  }
+
+  public getUser(): User {
+    return this.authService.getUser();
   }
 
   userAvatarBackgroundImageStyle(): SafeStyle {

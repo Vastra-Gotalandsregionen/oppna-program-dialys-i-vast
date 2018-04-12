@@ -33,7 +33,7 @@ public class JwtUtil {
         secret = jwtSignSecret;
     }
 
-    public static String createToken(String userName, String displayName, String[] roles) {
+    public static String createToken(String userName, String displayName, Boolean sjukskoterska, Boolean admin, Boolean pharmaceut, String[] roles) {
         try {
             Date timeAhead = Date.from(Instant.now().plus(MINUTES_AGE, ChronoUnit.MINUTES));
             Date now = Date.from(Instant.now());
@@ -46,6 +46,9 @@ public class JwtUtil {
                     .withSubject(userName != null ? String.valueOf(userName) : null)
                     .withArrayClaim("roles", roles)
                     .withClaim("displayName", displayName)
+                    .withClaim("sjukskoterska", sjukskoterska)
+                    .withClaim("admin", admin)
+                    .withClaim("pharmaceut", pharmaceut)
                     .withIssuedAt(now)
                     .withExpiresAt(timeAhead)
                     .sign(Algorithm.HMAC256(secret));

@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {Http} from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
+import {User} from "../../model/user";
 
 @Injectable()
 export class AuthService {
@@ -100,7 +101,21 @@ export class AuthService {
 
   getAdmin(): boolean {
     const token = this.getToken();
-    return token ? !token.admin : null;
+    return token ? token.admin : false;
+  }
+
+  getUser(): User {
+    return this.getToken();
+  }
+
+  getPharmaceut(): boolean {
+    const token = this.getToken();
+    return token ? token.pharmaceut : false;
+  }
+
+  getSjukskoterska(): boolean {
+    const token = this.getToken();
+    return token ? token.sjukskoterska : false;
   }
 
   isAdmin() {
