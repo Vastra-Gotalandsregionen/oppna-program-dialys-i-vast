@@ -4,23 +4,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
-import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
+import se.vgregion.dialys.i.vast.repository.BestInfoRepository;
 import se.vgregion.dialys.i.vast.repository.BestRadRepository;
 import se.vgregion.dialys.i.vast.vymodel.BestArtikelRad;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/bestallning")
-public class BestallningController {
+@RequestMapping("/bestInfo")
+public class BestInfoController {
 
     @Autowired
-    private BestRadRepository bestRadRepository;
+    private BestInfoRepository bestInfoRepository;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public List<BestArtikelRad> getBestallningRaderInfo(@PathVariable("id") Integer id) {
         return bestRadRepository.getBestArtikelRads(id);
+    }*/
+
+    //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public ResponseEntity<BestInfo> saveUser(@RequestBody BestInfo bestInfo) {
+        return ResponseEntity.ok(bestInfoRepository.save(bestInfo));
     }
 
 }

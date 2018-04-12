@@ -7,6 +7,10 @@ import {ApkFormComponent} from "../apk-form/apk-form.component";
 import {JwtHttp} from "../../core/jwt-http";
 import {Artikel} from "../../model/Artikel";
 import {PDArtikel} from "../../model/PDArtikel";
+import {BestPDRad} from "../../model/BestPDRad";
+import {BestInfo} from "../../model/BestInfo";
+import {Pd} from "../../model/Pd";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-apk-detail',
@@ -19,14 +23,18 @@ export class PatientAddOrderComponent implements OnInit {
 
   id: string;
   data: Patient;
-  artikels: PDArtikel[];
+  artikels: PDArtikelRow[];
   rekvisId: number;
   rekvisdatum: Date;
   displayedColumns = ['artikel', 'mangd', 'pdartikel','maxantal', 'antal'];
 
+  bestInfo: BestInfo = new BestInfo();
+
+
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
-              protected authService: AuthService) {
+              protected authService: AuthService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -48,9 +56,15 @@ export class PatientAddOrderComponent implements OnInit {
             .map(response => response.json())
             .share();
 
-          $articles.subscribe((dat: PDArtikel[]) => {
+          $articles.subscribe((dat: PDArtikelRow[]) => {
             this.artikels = dat;
+            for (let pdArtikelRow of dat) {
+              var bestPdRow = new BestPDRad();
+              bestPdRow.pdartikelID = pdArtikelRow.id;
+              pdArtikelRow.bestPdRow = bestPdRow;
+              this.bestInfo.bestPDRads.push(bestPdRow);
 
+            }
           });
         });
       }
@@ -64,4 +78,29 @@ export class PatientAddOrderComponent implements OnInit {
   userHasEditPermission(data: Patient) {
     return this.authService.userHasDataEditPermission(data);
   }
+
+  saveToServer() {
+    console.log("item to save 1", this.bestInfo);
+    for (let rad of this.bestInfo.bestPDRads) {
+      if (rad.antal === null || rad.antal < 1) {
+        this.bestInfo.bestPDRads.splice(this.bestInfo.bestPDRads.indexOf(rad));
+      }
+    }
+
+    console.log("item to save 2", this.bestInfo);
+    const $data = this.http.put('/api/bestInfo/', this.bestInfo)
+      .map(response => response.json())
+      .share();
+    $data.subscribe((patient: BestInfo) => {
+      console.log("saveToServer callback");
+      this.snackBar.open('Lyckades spara!', null, {duration: 3000});
+      console.log("saveToServer callback - end");
+    });
+
+  }
+
+}
+
+export class PDArtikelRow extends PDArtikel {
+  bestPdRow: BestPDRad;
 }

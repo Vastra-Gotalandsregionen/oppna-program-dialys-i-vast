@@ -60,7 +60,7 @@ public class BestInfo implements Serializable {
     @JoinColumn(name = "pdid", foreignKey = @ForeignKey(name = "fk_bestInfo_pd"))
     private Pd pd;
 
-    @OneToMany(mappedBy = "bestInfo")
+    @OneToMany(mappedBy = "bestInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BestPDRad> bestPDRads;
 
     public BestInfo() {

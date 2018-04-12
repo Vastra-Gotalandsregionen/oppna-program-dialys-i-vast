@@ -9,5 +9,5 @@ export class BestInfo {
   pd: Pd;
   pdid: number;
   utskrivare: string;
-  bestPDRads: Array<BestPDRad>;
+  bestPDRads: Array<BestPDRad> = [];
 }

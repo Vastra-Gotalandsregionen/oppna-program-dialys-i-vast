@@ -6,7 +6,7 @@ import {BestPDRad} from "./BestPDRad";
 export class PDArtikel {
   artikel: Artikel;
   artikelID: number;
-  bestPDRad: Array<BestPDRad>;
+  bestPDRads: Array<BestPDRad>;
   id: number;
   pdid: number;
   maxantal: number;

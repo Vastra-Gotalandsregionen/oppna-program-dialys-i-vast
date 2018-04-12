@@ -27,15 +27,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class BestPDRad implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "BestID")
+
+    @Column(name = "BestID", updatable = false, insertable = false)
     private Integer bestID;
-    @Column(name = "PDArtikelID")
+
+    @Column(name = "PDArtikelID", updatable = false, insertable = false)
     private Integer pDArtikelID;
+
     @Column(name = "Antal")
     private Integer antal;
 
@@ -46,7 +50,7 @@ public class BestPDRad implements Serializable {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bestID", foreignKey = @ForeignKey(name = "fk_BestPDRad_BestInfo"))
+    @JoinColumn(name = "BestID", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_BestPDRad_BestInfo"))
     private BestInfo bestInfo;
 
     public BestPDRad() {
@@ -88,24 +92,32 @@ public class BestPDRad implements Serializable {
         this.antal = antal;
     }
 
+
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BestPDRad)) return false;
+
+        BestPDRad bestPDRad = (BestPDRad) o;
+
+        if (id != null ? !id.equals(bestPDRad.id) : bestPDRad.id != null) return false;
+        if (bestID != null ? !bestID.equals(bestPDRad.bestID) : bestPDRad.bestID != null) return false;
+        if (pDArtikelID != null ? !pDArtikelID.equals(bestPDRad.pDArtikelID) : bestPDRad.pDArtikelID != null)
+            return false;
+        if (antal != null ? !antal.equals(bestPDRad.antal) : bestPDRad.antal != null) return false;
+        if (pdArtikel != null ? !pdArtikel.equals(bestPDRad.pdArtikel) : bestPDRad.pdArtikel != null) return false;
+        return bestInfo != null ? bestInfo.equals(bestPDRad.bestInfo) : bestPDRad.bestInfo == null;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BestPDRad)) {
-            return false;
-        }
-        BestPDRad other = (BestPDRad) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (bestID != null ? bestID.hashCode() : 0);
+        result = 31 * result + (pDArtikelID != null ? pDArtikelID.hashCode() : 0);
+        result = 31 * result + (antal != null ? antal.hashCode() : 0);
+        result = 31 * result + (pdArtikel != null ? pdArtikel.hashCode() : 0);
+        result = 31 * result + (bestInfo != null ? bestInfo.hashCode() : 0);
+        return result;
     }
 
     @Override
