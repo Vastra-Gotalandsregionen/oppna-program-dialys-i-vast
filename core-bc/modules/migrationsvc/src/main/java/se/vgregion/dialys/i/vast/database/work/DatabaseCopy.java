@@ -30,8 +30,6 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.createTablesInTarget();
         dc.addAllTuplesFromLegacyIntoTarget();
         dc.connectUsersWithAnsvarig();
-        //Todo: kolla de som inte fixas av addUserNameToUserRoles
-        dc.addUserNameToUserRoles();
 
         // Todo: This should not be done when running job for production... comment away then.
         dc.obfuscateUserPasswords();
@@ -41,7 +39,7 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.insertObsoleteFlik();
 
         dc.fixJpaSequence();
-        dc.fixTypFieldOnPatient();
+        dc.dropSomeTables();
     }
 
 }

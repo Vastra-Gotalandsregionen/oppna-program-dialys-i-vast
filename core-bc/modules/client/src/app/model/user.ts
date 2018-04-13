@@ -1,4 +1,3 @@
-import {UsersRoles} from "./UsersRoles";
 import {Ansvarig} from "./Ansvarig";
 
 export class User {
@@ -13,7 +12,6 @@ export class User {
   // Obsolete end
 
   ansvariga: Array<Ansvarig>;
-  usersRoles: Array<UsersRoles>;
 
   name: string;
   passWord: string;

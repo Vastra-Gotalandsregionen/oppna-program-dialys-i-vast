@@ -72,42 +72,26 @@ public abstract class AbstractDatabaseCopy {
         }
     }
 
-    public void addUserNameToUserRoles() {
-        List<Map<String, Object>> sourceUsers = source.query("select * from users", 0, 100_000);
-        Map<Number, String> idToUserNameMap = new HashMap<>();
-        for (Map<String, Object> item : sourceUsers) {
-            idToUserNameMap.put((Integer) item.get("ID"), (String) item.get("UserName"));
-        }
-
-        for (Number oldId : idToUserNameMap.keySet()) {
-            String userName = idToUserNameMap.get(oldId);
-            target.update("update usersroles set username = ? where usersid = ?", userName, oldId);
-        }
-        target.commit();
-        target.update("delete from usersroles where username is null");
-        target.commit();
-    }
-
     private void insertWithBrandNewPrimaryKeys(String table, List<Map<String, Object>> items) {
-        int c = 0;
+        int c = 1;
         for (Map<String, Object> item : items) {
             item.put("id", c);
             target.insert(table, item);
-            c++;
-            if (c % 1000 == 0){
+            if (c % 10000 == 0) {
                 target.commit();
-                System.out.print(" " + c);
+                System.out.print(" " + (c / 1000) + "t");
             }
+            c++;
         }
     }
 
     private void insert(String table, List<Map<String, Object>> items) {
-        int c = 0;
+        int c = 1;
         for (Map<String, Object> item : items) {
             target.insert(table, item);
-            if (c % 1000 == 0){
+            if (c % 10000 == 0) {
                 target.commit();
-                System.out.print(" " + c);
+                System.out.print(" " + (c / 1000) + "t");
             }
             c++;
         }
@@ -473,7 +457,7 @@ public abstract class AbstractDatabaseCopy {
     }
 
     protected void fixJpaSequence() {
-        target.execute("DROP SEQUENCE if exists public.hibernate_sequence");
+        /*target.execute("DROP SEQUENCE if exists public.hibernate_sequence");
 
         target.execute("CREATE SEQUENCE public.hibernate_sequence\n" +
                 "        INCREMENT 1\n" +
@@ -481,30 +465,18 @@ public abstract class AbstractDatabaseCopy {
                 "        MAXVALUE 9223372036854775807\n" +
                 "        START 207994\n" +
                 "        CACHE 1;\n" +
-                "        ALTER TABLE public.hibernate_sequence\n" +
+                // "        ALTER TABLE public.hibernate_sequence;\n" +
                 "        ");
 
-        target.commit();
+        target.commit();*/
     }
 
-    protected void fixTypFieldOnPatient() {
-        // Set all the PD:s
-        target.execute("update patient set typ = 'PD' where id in \n" +
-                " (select distinct p.id\n" +
-                "from mottagning m\n" +
-                " join ansvarig a on a.mottagningid = m.id\n" +
-                " join patient p on p.pas = a.id\n" +
-                "where m.namn like 'PD %')");
-
-        // Set all the HD:s
-        target.execute("update patient set typ = 'HD' where id in \n" +
-                " (select distinct p.id\n" +
-                "from mottagning m\n" +
-                " join ansvarig a on a.mottagningid = m.id\n" +
-                " join patient p on p.pas = a.id\n" +
-                "where m.namn like 'HD %')");
-
-        target.commit();
+    public void dropSomeTables() {
+        target.execute("drop table usersRoles");
+        target.execute("drop table roles");
+        target.execute("drop table rolesPages");
+        target.execute("drop table pages");
+        target.execute("drop table sysDiagrams");
     }
 
 }

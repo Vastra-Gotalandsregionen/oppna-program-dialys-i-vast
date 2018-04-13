@@ -65,9 +65,6 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Ansvarig> ansvariga;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<UsersRoles> usersRoles;
-
     public User() {
     }
 
@@ -143,14 +140,6 @@ public class User implements Serializable {
 
     public void setAnsvariga(Set<Ansvarig> ansvariga) {
         this.ansvariga = ansvariga;
-    }
-
-    public Set<UsersRoles> getUsersRoles() {
-        return usersRoles;
-    }
-
-    public void setUsersRoles(Set<UsersRoles> usersRoles) {
-        this.usersRoles = usersRoles;
     }
 
     public Boolean getPasswordEncryptionFlag() {
