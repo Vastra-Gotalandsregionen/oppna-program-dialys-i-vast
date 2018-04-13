@@ -15,14 +15,13 @@ import java.util.List;
 @RequestMapping("/mottagning")
 public class MottagningController {
 
-
     @Autowired
     private MottagningRepository mottagningRepository;
 
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public List<Mottagning> getMottagnings() {
+    public List<Mottagning> getAll() {
         return mottagningRepository.findAll();
     }
+
 }

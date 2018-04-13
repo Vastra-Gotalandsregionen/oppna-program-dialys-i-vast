@@ -65,6 +65,9 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Ansvarig> ansvariga;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Anstallning> anstallnings;
+
     public User() {
     }
 
@@ -172,5 +175,13 @@ public class User implements Serializable {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public Set<Anstallning> getAnstallnings() {
+        return anstallnings;
+    }
+
+    public void setAnstallnings(Set<Anstallning> anstallnings) {
+        this.anstallnings = anstallnings;
     }
 }

@@ -31,23 +31,23 @@
         <div ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
           <mat-checkbox id="admin" name="admin" formControlName="admin">Admin</mat-checkbox>
         </div>
-        <!--<div formGroupName="roleGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
-          <label class="field-label">Behörighet</label>
-          <mat-radio-group formControlName="role">
-            <mat-radio-button value="ADMIN">ADMIN</mat-radio-button>
-            <mat-radio-button value="USER">USER</mat-radio-button>
-          </mat-radio-group>
-        </div>-->
 
-        <!--<div formGroupName="typGroup" ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
-          <label class="field-label">Typ</label>
-          <mat-radio-group formControlName="typ">
-            <mat-radio-button value="PD">PD</mat-radio-button>
-            <mat-radio-button value="La">La</mat-radio-button>
-            <mat-radio-button value="HD">HD</mat-radio-button>
-            <mat-radio-button value="LA">LA</mat-radio-button>
-          </mat-radio-group>
-        </div>-->
+
+        <table class="apk-table users-table">
+          <thead>
+          <tr>
+            <th class="row-id">Mottagning</th>
+            <th class="row-first-name">Vald</th>
+          </tr>
+          </thead>
+          <tr *ngFor="let mottagning of mottagnings">
+            <td>{{mottagning.namn}}</td>
+            <td>
+              <mat-checkbox></mat-checkbox>
+            </td>
+          </tr>
+        </table>
+
 
 
         <div class="btn-container button-row">

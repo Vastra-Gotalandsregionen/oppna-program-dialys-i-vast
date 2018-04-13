@@ -6,6 +6,8 @@ import {User} from '../../../model/user';
 import {Observable} from 'rxjs/Observable';
 import {JwtHttp} from '../../../core/jwt-http';
 import {Router} from '@angular/router';
+import {Mottagning} from "../../../model/Mottagning";
+import {Anstallning} from "../../../model/anstallning";
 
 @Component({
   selector: 'app-user-form',
@@ -29,6 +31,10 @@ export class UserFormComponent implements OnInit {
   @Input('passWord') passWord;
 
   @Input('typ') typ;
+
+  mottagnings: Mottagning[];
+
+  anstallnings: Anstallning[];
 
   /*@Input('typ') typ;*/
 
@@ -54,9 +60,18 @@ export class UserFormComponent implements OnInit {
       const user$ = this.http.get('/api/user/' + this.userName)
         .map<Response, User>(response => response.json());
 
-      Observable.forkJoin([user$])
+      const mottagnings$ = this.http.get('/api/mottagning/')
+        .map<Response, User>(response => response.json());
+
+      Observable.forkJoin([user$, mottagnings$])
         .subscribe((result: any[]) => {
           this.user = result[0];
+          this.mottagnings = result[1];
+          for (const mottagning of mottagnings) {
+            const anstallning = new Anstallning();
+            anstallning.mottagningId = mottagning.id;
+            this.anstallnings.push(anstallning);
+          }
           console.log(result);
           this.buildForm();
         });
@@ -75,19 +90,9 @@ export class UserFormComponent implements OnInit {
       'userName': [{value: this.user.userName, disabled: false}, [Validators.required]],
       'name': [{value: this.user.name, disabled: false}, []],
       'passWord': [{value: this.user.passWord, disabled: false}, [Validators.required]],
-/*      'typ': [{value: this.user.typ, disabled: false}, []],*/
       'sjukskoterska': [{value: this.user.sjukskoterska, disabled: false}, []],
       'admin': [{value: this.user.admin, disabled: false}, []],
       'pharmaceut': [{value: this.user.pharmaceut, disabled: false}, []],
-      /*'lastName': [{value: this.user.lastName, disabled: false}, []],
-      'mail': [{value: this.user.mail, disabled: false}, []],*/
-      /*'roleGroup': this.formBuilder.group({
-        'role': [{value: this.user.role, disabled: false}, [Validators.required]]
-      }),
-
-      'usersRole': this.formBuilder.group({
-        'typ': [{value: this.user.typ, disabled: false}, [Validators.required]]
-      })*/
     });
 
     let userIdField = this.userForm.get('userName');
@@ -119,12 +124,6 @@ export class UserFormComponent implements OnInit {
     this.user.pharmaceut = this.userForm.get('pharmaceut').value;
     this.user.admin = this.userForm.get('admin').value;
     this.user.sjukskoterska = this.userForm.get('sjukskoterska').value;
-
-    /*this.user.typ = this.userForm.get('typGroup').get('typ').value;*/
-    /*this.user.role = this.userForm.get('roleGroup').get('role').value;
-    this.user.inactivated = this.user.inactivated;*/
-
-    //var foo:User = new User();
 
     console.log('user', this.user);
     this.http.put('/api/user/', this.user)
