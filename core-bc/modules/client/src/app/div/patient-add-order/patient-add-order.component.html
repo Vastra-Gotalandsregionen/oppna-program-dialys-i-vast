@@ -49,6 +49,7 @@
 
         <hr>
 
+        <form novalidate (ngSubmit)="saveToServer(orderModel)" #orderModel="ngForm">
         <div>
           <mat-table #table dense [dataSource]="artikels">
             <ng-container matColumnDef="artikel">
@@ -73,7 +74,10 @@
               <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Antal förpackning</span></mat-header-cell>
               <mat-cell *matCellDef="let rad">
                 <mat-form-field>
-                  <input  type="number" placeholder="Antal" [(ngModel)]="rad.bestPdRow.antal" matInput>
+                  <input  type="number" placeholder="Antal" [(ngModel)]="rad.bestPdRow.antal"
+                          name="antalfp"
+                          #antalfield="ngModel"
+                          matInput>
                 </mat-form-field>
               </mat-cell>
             </ng-container>
@@ -88,14 +92,14 @@
 
         <div class="btn-container">
 
-          <button type="submit"mat-raised-button class="btn" (click)="saveToServer()">Spara beställning</button> &nbsp;
-          <button type="submit"mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
-          <button type="submit"mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
+          <button type="submit"mat-raised-button class="btn">Spara beställning</button> &nbsp;
+          <button type="button"mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
+          <button type="button"mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
 
 
         </div>
 
-
+        </form>
       </mat-card-content>
     </mat-card>
 

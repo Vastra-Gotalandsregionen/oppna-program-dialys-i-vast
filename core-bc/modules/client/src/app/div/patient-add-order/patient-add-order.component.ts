@@ -10,6 +10,8 @@ import {BestPDRad} from "../../model/BestPDRad";
 import {BestInfo} from "../../model/BestInfo";
 import {Pd} from "../../model/Pd";
 import {MatSnackBar} from "@angular/material";
+import {identifierModuleUrl} from "@angular/compiler";
+import {FormsModule, NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-apk-detail',
@@ -41,6 +43,7 @@ export class PatientAddOrderComponent implements OnInit {
       this.id = params.id;
 
       if (this.id) {
+
         const $data = this.http.get('/api/patient/' + this.id)
           .map(response => response.json())
           .share();
@@ -76,11 +79,15 @@ export class PatientAddOrderComponent implements OnInit {
     return this.authService.userHasDataEditPermission(data);
   }
 
-  saveToServer() {
+  saveToServer(orderModel: NgForm) {
     console.log("item to save 1", this.bestInfo);
     for (let rad of this.bestInfo.bestPDRads) {
-      if (rad.antal === null || rad.antal < 1) {
-        this.bestInfo.bestPDRads.splice(this.bestInfo.bestPDRads.indexOf(rad));
+      if (rad.antal == null || rad.antal < 1) {
+        //console.log("rad" + this.bestInfo.bestPDRads.indexOf(rad));
+        //this.bestInfo.bestPDRads.splice(this.bestInfo.bestPDRads.indexOf(rad), 1);
+        this.bestInfo.bestPDRads.forEach( (item, index) => {
+          if(item.antal == null || item.antal < 1) this.bestInfo.bestPDRads.splice(index,1);
+        });
       }
     }
 
@@ -92,7 +99,11 @@ export class PatientAddOrderComponent implements OnInit {
       console.log("saveToServer callback");
       this.snackBar.open('Lyckades spara!', null, {duration: 3000});
       console.log("saveToServer callback - end");
+      console.log(orderModel.form);
+      console.log('saved' + JSON.stringify(orderModel.value))
+      //orderModel.controls.antalfp.reset(0);
     });
+
 
   }
 
