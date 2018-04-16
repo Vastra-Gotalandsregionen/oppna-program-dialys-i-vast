@@ -32,6 +32,7 @@ export class UserFormComponent implements OnInit {
 
   @Input('typ') typ;
 
+  @Input('mottagnings')
   mottagnings: Mottagning[];
 
   anstallnings: Anstallning[];
@@ -67,7 +68,7 @@ export class UserFormComponent implements OnInit {
         .subscribe((result: any[]) => {
           this.user = result[0];
           this.mottagnings = result[1];
-          for (const mottagning of mottagnings) {
+          for (const mottagning of this.mottagnings) {
             const anstallning = new Anstallning();
             anstallning.mottagningId = mottagning.id;
             this.anstallnings.push(anstallning);
