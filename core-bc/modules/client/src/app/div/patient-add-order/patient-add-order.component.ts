@@ -80,18 +80,20 @@ export class PatientAddOrderComponent implements OnInit {
   }
 
   saveToServer(orderModel: NgForm) {
-    console.log("item to save 1", this.bestInfo);
+
     for (let rad of this.bestInfo.bestPDRads) {
-      if (rad.antal == null || rad.antal < 1) {
-        //console.log("rad" + this.bestInfo.bestPDRads.indexOf(rad));
-        //this.bestInfo.bestPDRads.splice(this.bestInfo.bestPDRads.indexOf(rad), 1);
-        this.bestInfo.bestPDRads.forEach( (item, index) => {
+      this.bestInfo.bestPDRads = this.bestInfo.bestPDRads.filter(item => item.antal != null
+      || item.antal > 0);
+
+      /*if (rad.antal == null || rad.antal < 1) {
+        console.log("rad" + this.bestInfo.bestPDRads.indexOf(rad));
+        this.bestInfo.bestPDRads.splice(this.bestInfo.bestPDRads.indexOf(rad)-1, 1);
+       /* this.bestInfo.bestPDRads.forEach( (item, index) => {
           if(item.antal == null || item.antal < 1) this.bestInfo.bestPDRads.splice(index,1);
-        });
-      }
+        });*/
+      //}*/
     }
 
-    console.log("item to save 2", this.bestInfo);
     const $data = this.http.put('/api/bestInfo/', this.bestInfo)
       .map(response => response.json())
       .share();
@@ -101,7 +103,6 @@ export class PatientAddOrderComponent implements OnInit {
       console.log("saveToServer callback - end");
       console.log(orderModel.form);
       console.log('saved' + JSON.stringify(orderModel.value))
-      //orderModel.controls.antalfp.reset(0);
     });
 
 
