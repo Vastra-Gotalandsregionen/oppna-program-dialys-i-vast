@@ -1,4 +1,5 @@
 import {Ansvarig} from "./Ansvarig";
+import {Anstallning} from "./anstallning";
 
 export class User {
   userName: string;
@@ -11,7 +12,9 @@ export class User {
   inactivated: boolean;
   // Obsolete end
 
-  ansvariga: Array<Ansvarig>;
+  ansvariga: Array<Ansvarig> = [];
+
+  anstallnings: Array<Anstallning> = [];
 
   name: string;
   passWord: string;
