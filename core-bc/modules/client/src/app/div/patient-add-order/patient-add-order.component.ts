@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
 import {Observable} from 'rxjs/Observable';
@@ -33,7 +33,8 @@ export class PatientAddOrderComponent implements OnInit {
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
               protected authService: AuthService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -93,7 +94,8 @@ export class PatientAddOrderComponent implements OnInit {
         });*/
       //}*/
     }
-
+    this.bestInfo.datum = new Date();
+    this.bestInfo.pdid = +this.rekvisId;
     const $data = this.http.put('/api/bestInfo/', this.bestInfo)
       .map(response => response.json())
       .share();
@@ -103,6 +105,7 @@ export class PatientAddOrderComponent implements OnInit {
       console.log("saveToServer callback - end");
       console.log(orderModel.form);
       console.log('saved' + JSON.stringify(orderModel.value))
+      this.router.navigate(['../../'], {relativeTo: this.route})
     });
 
 
