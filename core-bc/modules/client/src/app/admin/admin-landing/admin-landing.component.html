@@ -12,8 +12,8 @@
     <p>I administrationsvyn för Dialys i Väst kan du hantera data som användare, artiklar, apotek etc.</p>
     <p>Exakt vilka val som finns tillgängliga beror av vilka rättigheter du har som användare.</p>
 
-
     <mat-list class="block-navigation">
+
       <mat-list-item *ngIf="admin">
         <a routerLink="../users" routerLinkActive="active">
           <mat-icon>people</mat-icon>
@@ -21,46 +21,7 @@
         </a>
       </mat-list-item>
 
-      <!--
-      <mat-list-item *ngIf="loggedIn">
-        <a routerLink="../prodn1" routerLinkActive="active">
-          <mat-icon>list</mat-icon>
-          <span class="nav-label">Concise SumNivå 1</span>
-        </a>
-      </mat-list-item>
-      <mat-list-item *ngIf="loggedIn">
-        <a routerLink="../prodn2" routerLinkActive="active">
-          <mat-icon>list</mat-icon>
-          <span class="nav-label">Concise SumNivå 2</span>
-        </a>
-      </mat-list-item>
-      <mat-list-item *ngIf="loggedIn">
-        <a routerLink="../prodn3" routerLinkActive="active">
-          <mat-icon>list</mat-icon>
-          <span class="nav-label">Concise SumNivå 3</span>
-        </a>
-      </mat-list-item>
-      <mat-list-item *ngIf="admin">
-        <a routerLink="../ao3" routerLinkActive="active">
-          <mat-icon>business_center</mat-icon>
-          <span class="nav-label">Motpart</span>
-        </a>
-      </mat-list-item>
-      <mat-list-item *ngIf="admin">
-        <a routerLink="../vardform" routerLinkActive="active">
-          <mat-icon>local_pharmacy</mat-icon>
-          <span class="nav-label">Vårdform</span>
-        </a>
-      </mat-list-item>
-      <mat-list-item *ngIf="admin">
-        <a routerLink="../verksamhet" routerLinkActive="active">
-          <mat-icon>domain</mat-icon>
-          <span class="nav-label">Medicinsk verksamhetskod</span>
-        </a>
-      </mat-list-item>
-      -->
     </mat-list>
-
 
   </mat-card-content>
 </mat-card>
