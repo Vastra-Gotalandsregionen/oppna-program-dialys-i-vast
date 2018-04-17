@@ -19,10 +19,6 @@
                [formControl]="stateCtrl" [(ngModel)]="query">
       </mat-input-container>
 
-<!--      <mat-checkbox class="action-toolbar-item" [formControl]="onlyMyDatasCtrl" [(ngModel)]="onlyMyDatas"
-                    *ngIf="loggedIn">Bara <span class="tooltip-text" matTooltip="{{usersProdn1sString$ | async}}">mina patienter</span>
-      </mat-checkbox>-->
-
       <!-- This feature is not needed. -->
       <!--
       <mat-checkbox class="action-toolbar-item" [formControl]="onlyActiveDatasCtrl" [(ngModel)]="onlyActiveDatas">Med PD-rekvisition som snart går ut</mat-checkbox>
@@ -55,10 +51,10 @@
         <th class="row-fornamn">
           Förnamn
         </th>
-        <th class="row-senaste-rekvisition" matTooltip="Undernivå för organisation i Concise statistiksystem">
+        <th class="row-senaste-rekvisition">
           Senaste rekvisition
         </th>
-        <th class="row-senaste-bestallning" matTooltip="Ekonomisk kod">
+        <th class="row-senaste-bestallning">
           Senaste beställning
         </th>
         <th class="row-menu" matTooltip="Klicka på prickarna för att visa flera val">Meny</th>
