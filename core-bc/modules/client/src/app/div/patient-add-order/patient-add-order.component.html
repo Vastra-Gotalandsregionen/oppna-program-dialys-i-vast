@@ -86,6 +86,13 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
           </mat-table>
+          <mat-form-field style="margin-top: 30px">
+          <textarea matInput placeholder="Fri text" style="height: 100px;"
+                    [(ngModel)]=bestInfo.fritext
+                    name="fritxt"
+                    #fritext="ngModel"></textarea>
+         </mat-form-field>
+
 
         </div>
 
