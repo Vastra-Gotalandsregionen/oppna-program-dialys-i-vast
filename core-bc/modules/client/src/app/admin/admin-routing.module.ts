@@ -19,11 +19,6 @@ const routes: Routes = [
         loadChildren: './users/users.module#UsersModule'
       },
       {
-        path: 'artiklar-pd',
-        canActivate: [AdminGuard],
-        loadChildren: './artiklar-pd/artiklar-pd.module#ArtiklarPdModule'
-      },
-      {
         path: '**',
         redirectTo: 'landing'
       },
