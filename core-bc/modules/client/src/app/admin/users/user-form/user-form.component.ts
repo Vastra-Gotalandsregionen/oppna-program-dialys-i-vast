@@ -35,7 +35,7 @@ export class UserFormComponent implements OnInit {
   @Input('mottagnings')
   mottagnings: Mottagning[];
 
-  anstallnings: Anstallning[];
+  // anstallnings: Anstallning[] = [];
 
   /*@Input('typ') typ;*/
 
@@ -68,11 +68,6 @@ export class UserFormComponent implements OnInit {
         .subscribe((result: any[]) => {
           this.user = result[0];
           this.mottagnings = result[1];
-          for (const mottagning of this.mottagnings) {
-            const anstallning = new Anstallning();
-            anstallning.mottagningId = mottagning.id;
-            this.anstallnings.push(anstallning);
-          }
           console.log(result);
           this.buildForm();
         });
@@ -163,5 +158,30 @@ export class UserFormComponent implements OnInit {
       return new Observable(observer => observer.next(null)).take(1);
     }
   };
+
+  onMottagningChecked(item: Mottagning) {
+    var index: number = -1;
+    var i: number = 0;
+    for (const mottagning of this.user.mottagnings) {
+      if (mottagning.id === item.id){
+        index = i;
+        break;
+      }
+      i++;
+    }
+    if (index > -1) {
+      this.user.mottagnings.splice(index, 1);
+    } else {
+      if (this.user.mottagnings.indexOf(item) === -1)
+        this.user.mottagnings.push(item);
+    }
+  }
+
+  doesUserHaveMottagning(item: Mottagning): boolean {
+    for (const mottagning of this.user.mottagnings) {
+      if (mottagning.id === item.id) return true;
+    }
+    return false;
+  }
 
 }

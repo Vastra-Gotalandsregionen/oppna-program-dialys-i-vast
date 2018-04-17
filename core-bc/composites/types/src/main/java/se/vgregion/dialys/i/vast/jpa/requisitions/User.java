@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -65,8 +66,14 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Ansvarig> ansvariga;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Anstallning> anstallnings;
+/*    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Anstallning> anstallnings;*/
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "anstallning",
+            joinColumns = @JoinColumn(name = "username"),
+            inverseJoinColumns = @JoinColumn(name = "mottagningid"))
+    private Set<Mottagning> mottagnings = new HashSet<>();
 
     public User() {
     }
@@ -177,11 +184,19 @@ public class User implements Serializable {
         this.admin = admin;
     }
 
-    public Set<Anstallning> getAnstallnings() {
+    public Set<Mottagning> getMottagnings() {
+        return mottagnings;
+    }
+
+    public void setMottagnings(Set<Mottagning> mottagnings) {
+        this.mottagnings = mottagnings;
+    }
+
+  /*  public Set<Anstallning> getAnstallnings() {
         return anstallnings;
     }
 
     public void setAnstallnings(Set<Anstallning> anstallnings) {
         this.anstallnings = anstallnings;
-    }
+    }*/
 }

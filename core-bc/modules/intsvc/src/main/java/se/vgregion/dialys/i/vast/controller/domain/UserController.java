@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
+import se.vgregion.dialys.i.vast.repository.MottagningRepository;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MottagningRepository mottagningRepository;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUsers() {
@@ -27,7 +31,7 @@ public class UserController {
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<User> save(@RequestBody User user) {
-        System.out.println("UserController::save " + user);
+        //System.out.println(user.getAnstallnings());
         return saveUserImp(user);
     }
 
@@ -39,6 +43,11 @@ public class UserController {
                 user.setPasswordEncryptionFlag(false);
             }
         }
+        /*for (Anstallning anstallning : user.getAnstallnings()) {
+            Mottagning mottagning = mottagningRepository.findOne(anstallning.getMottagningId());
+            anstallning.setMottagning(mottagning);
+            anstallning.setUser(user);
+        }*/
         user = userRepository.save(user);
         return ResponseEntity.ok(userRepository.findOne(user.getUserName()));
     }
