@@ -35,17 +35,9 @@ export class UserFormComponent implements OnInit {
   @Input('mottagnings')
   mottagnings: Mottagning[];
 
-  // anstallnings: Anstallning[] = [];
-
-  /*@Input('typ') typ;*/
-
-  /*@Input('lastName') lastName;
-  @Input('mail') mail;*/
-
   userForm: FormGroup;
 
   user: User;
-  // selectedProdn1Ids: number[];
 
   constructor(private http: JwtHttp,
               private formBuilder: FormBuilder,
@@ -62,7 +54,7 @@ export class UserFormComponent implements OnInit {
         .map<Response, User>(response => response.json());
 
       const mottagnings$ = this.http.get('/api/mottagning/')
-        .map<Response, User>(response => response.json());
+        .map<Response, Array<Mottagning>>(response => response.json());
 
       Observable.forkJoin([user$, mottagnings$])
         .subscribe((result: any[]) => {
@@ -76,6 +68,9 @@ export class UserFormComponent implements OnInit {
       this.user = new User();
       //this.user.role = 'USER';
       this.user.typ = 'PD';
+      const mottagnings$ = this.http.get('/api/mottagning/')
+        .map<Response, Array<Mottagning>>(response => response.json());
+      mottagnings$.subscribe((mottagnings) => this.mottagnings = mottagnings);
       this.buildForm();
     }
   }

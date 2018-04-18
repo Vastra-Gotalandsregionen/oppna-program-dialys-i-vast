@@ -29,7 +29,14 @@
         <td>{{user.name}}</td>
         <!--<td>{{user.lastName}}</td>
         <td>{{user.mail}}</td>-->
-        <td>Behörigheter</td>
+        <td>
+          <mat-chip-list>
+            <mat-chip style="color: blue;" *ngIf="user.admin">A</mat-chip>
+            <mat-chip style="color: red;" *ngIf="user.sjukskoterska">S</mat-chip>
+            <mat-chip style="color: green;" *ngIf="user.pharmaceut">P</mat-chip>
+          </mat-chip-list>
+
+        </td>
 
         <td>
           <button mat-icon-button [matMenuTriggerFor]="menu">
