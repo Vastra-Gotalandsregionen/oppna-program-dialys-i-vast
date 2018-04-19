@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -139,6 +140,12 @@ public class Patient implements Serializable {
     public Set<Pd> getPds() {
         return pds;
     }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "inskrivning",
+            joinColumns = @JoinColumn(name = "patientid"),
+            inverseJoinColumns = @JoinColumn(name = "mottagningid"))
+    private Set<Mottagning> mottagnings = new HashSet<>();
 
     private static int noNulls(Long l) {
         if (l == null) {
@@ -409,6 +416,14 @@ public class Patient implements Serializable {
 
     public void setTyp(String typ) {
         this.typ = typ;
+    }
+
+    public Set<Mottagning> getMottagnings() {
+        return mottagnings;
+    }
+
+    public void setMottagnings(Set<Mottagning> mottagnings) {
+        this.mottagnings = mottagnings;
     }
 
     /*public enum Typ {

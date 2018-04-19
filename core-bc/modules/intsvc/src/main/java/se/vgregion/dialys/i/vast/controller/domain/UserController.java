@@ -43,11 +43,6 @@ public class UserController {
                 user.setPasswordEncryptionFlag(false);
             }
         }
-        /*for (Anstallning anstallning : user.getAnstallnings()) {
-            Mottagning mottagning = mottagningRepository.findOne(anstallning.getMottagningId());
-            anstallning.setMottagning(mottagning);
-            anstallning.setUser(user);
-        }*/
         user = userRepository.save(user);
         return ResponseEntity.ok(userRepository.findOne(user.getUserName()));
     }

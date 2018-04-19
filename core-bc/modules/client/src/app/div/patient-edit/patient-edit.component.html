@@ -1,7 +1,7 @@
 <mat-toolbar class="action-toolbar">
   <h1>
 
-     {{patient && patient.pnr ? 'Redigera patient' : 'Skapa patient'}}: {{patient ? patient.pnr : 'N/A'}}
+    {{patient && patient.pnr ? 'Redigera patient' : 'Skapa patient'}}: {{patient ? patient.pnr : 'N/A'}}
   </h1>
   <div class="action-toolbar-spacer"></div>
   <app-back-button class="action-toolbar-item"></app-back-button>
@@ -13,22 +13,23 @@
 
     <div class="row">
       <div class="col c3">
-      	<div class="col-inner">
+        <div class="col-inner">
 
           <span class="dialys-guide-label">
             <span class="dialys-guide-label-number">1</span>
             <span class="dialys-guide-label-text">Ange personuppgifter</span>
           </span>
 
-      	</div>
+        </div>
       </div>
       <div class="col c9">
-      	<div class="col-inner">
+        <div class="col-inner">
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="name" [(ngModel)]="patient.pnr" placeholder="Personnummer" type="text" matInput>
+                <input id="name" #pnrInput required [(ngModel)]="patient.pnr" placeholder="Personnummer" type="text"
+                       matInput>
               </mat-input-container>
             </div>
             <mat-icon class="dialys-form-field-help" matTooltip="Hjälptext här.">help</mat-icon>
@@ -50,21 +51,21 @@
             </div>
           </div>
 
-      	</div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col c3">
-      	<div class="col-inner">
+        <div class="col-inner">
           <span class="dialys-guide-label">
             <span class="dialys-guide-label-number">2</span>
             <span class="dialys-guide-label-text">Ange patient- och mottagningsuppgifter</span>
           </span>
-      	</div>
+        </div>
       </div>
       <div class="col c9">
-      	<div class="col-inner">
+        <div class="col-inner">
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
@@ -78,58 +79,38 @@
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
-              <mat-form-field>
-                <mat-select *ngIf="patient" [(ngModel)]="patient.ansvarig.mottagningID" placeholder="Mottagning">
-                  <mat-option *ngFor="let mottagning of mottagnings" [value]="mottagning.id">
-                    {{mottagning.namn}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <h3 #mottagningsHead>Mottagningar </h3>
+              <div class="form-element" *ngFor="let mottagning of mottagnings">
+                <mat-checkbox [checked]="doesPatientHaveMottagning(mottagning)"
+                              (change)="onMottagningChecked(mottagning)">
+                  {{mottagning.namn}}
+                </mat-checkbox>
+              </div>
+
             </div>
           </div>
 
-          <div class="dialys-form-field-ctn">
-            <div class="dialys-form-field">
-              <mat-form-field>
-                <mat-select *ngIf="patient" placeholder="PAS - patientasvarig sjuksköterska" [(ngModel)]="patient.ansvarig" [compareWith]="compareAnsvarigs">
-                  <mat-option *ngFor="let ansvarig of (mottagningById.get(patient.ansvarig.mottagningID)) ? mottagningById.get(patient.ansvarig.mottagningID).ansvarigs : []"
-                              [value]="ansvarig">
-                    {{ansvarig.namn}} ({{ansvarig.userName}})
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div class="dialys-form-field-ctn">
-            <div class="dialys-form-field">
-              <mat-input-container>
-                <input id="lasText" [(ngModel)]="patient.lasText" placeholder="LAS - patientasvarig läkare" type="text"
-                       matInput>
-              </mat-input-container>
-            </div>
-          </div>
-
-      	</div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col c3">
-      	<div class="col-inner">
+        <div class="col-inner">
           <span class="dialys-guide-label">
             <span class="dialys-guide-label-number">3</span>
             <span class="dialys-guide-label-text">Ange adressuppgifter</span>
           </span>
-      	</div>
+        </div>
       </div>
       <div class="col c9">
-      	<div class="col-inner">
+        <div class="col-inner">
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="gatuAdress" [(ngModel)]="patient.adress" placeholder="Gatuadress" type="text" matInput>
+                <input id="gatuAdress" [(ngModel)]="patient.adress" placeholder="Gatuadress" type="text" matInput
+                       [maxlength]="255">
               </mat-input-container>
             </div>
           </div>
@@ -137,7 +118,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="postNr" [(ngModel)]="patient.postNr" placeholder="Postnummer" type="text" matInput>
+                <input id="postNr" [(ngModel)]="patient.postNr" placeholder="Postnummer" type="text" matInput
+                       [maxlength]="255">
               </mat-input-container>
             </div>
           </div>
@@ -145,7 +127,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="postOrt" [(ngModel)]="patient.postOrt" placeholder="Postort" type="text" matInput>
+                <input id="postOrt" [(ngModel)]="patient.postOrt" placeholder="Postort" type="text" matInput
+                       [maxlength]="255">
               </mat-input-container>
             </div>
           </div>
@@ -153,7 +136,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="portkod" [(ngModel)]="patient.portkod" placeholder="Portkod" type="text" matInput>
+                <input id="portkod" [(ngModel)]="patient.portkod" placeholder="Portkod" type="text" matInput
+                       [maxlength]="255">
               </mat-input-container>
             </div>
           </div>
@@ -164,26 +148,27 @@
             </div>
           </div>
 
-      	</div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col c3">
-      	<div class="col-inner">
+        <div class="col-inner">
           <span class="dialys-guide-label">
             <span class="dialys-guide-label-number">4</span>
             <span class="dialys-guide-label-text">Ange kontaktuppgifter</span>
           </span>
-      	</div>
+        </div>
       </div>
       <div class="col c9">
-      	<div class="col-inner">
+        <div class="col-inner">
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="telefon" [(ngModel)]="patient.telefon" placeholder="Telefonnummer" type="text" matInput>
+                <input id="telefon" [(ngModel)]="patient.telefon" placeholder="Telefonnummer" type="text" matInput
+                       [maxlength]="255">
               </mat-input-container>
             </div>
           </div>
@@ -191,7 +176,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="mobil" [(ngModel)]="patient.mobil" placeholder="Mobilnummer" type="text" matInput>
+                <input id="mobil" [(ngModel)]="patient.mobil" placeholder="Mobilnummer" type="text" matInput
+                       [maxlength]="255">
               </mat-input-container>
             </div>
           </div>
@@ -199,32 +185,42 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="epost" [(ngModel)]="patient.epost" placeholder="Epost" type="text" matInput>
+                <input id="epost" [(ngModel)]="patient.epost" placeholder="Epost" type="text" matInput
+                       [maxlength]="255">
               </mat-input-container>
             </div>
           </div>
 
 
-      	</div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col c3">
-      	<div class="col-inner">
+        <div class="col-inner">
           <span class="dialys-guide-label">
             <span class="dialys-guide-label-number">5</span>
             <span class="dialys-guide-label-text">Ange Leveransdetaljer</span>
           </span>
-      	</div>
+        </div>
       </div>
       <div class="col c9">
-      	<div class="col-inner">
+        <div class="col-inner">
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="utdelDag" [(ngModel)]="patient.utdelDag" placeholder="Utdelningsdag" type="text" matInput>
+                <mat-select [(value)]="patient.utdelDag" placeholder="Utdelningsdag">
+                  <mat-option>Ingen uppgift</mat-option>
+                  <mat-option value="Måndag">Måndag</mat-option>
+                  <mat-option value="Tisdag">Tisdag</mat-option>
+                  <mat-option value="Onsdag">Onsdag</mat-option>
+                  <mat-option value="Torsdag">Torsdag</mat-option>
+                  <mat-option value="Fredag">Fredag</mat-option>
+                  <mat-option value="Lördag">Lördag</mat-option>
+                  <mat-option value="Söndag">Söndag</mat-option>
+                </mat-select>
               </mat-input-container>
             </div>
           </div>
@@ -240,8 +236,14 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="utdelVecka" [(ngModel)]="patient.utdelVecka" placeholder="Utdelningsvecka" type="text" matInput>
+                <mat-select [(value)]="patient.utdelVecka" placeholder="Utdelningsvecka">
+                  <mat-option>Ingen uppgift</mat-option>
+                  <mat-option value="Måndag">Jämn</mat-option>
+                  <mat-option value="Tisdag">Ojämn</mat-option>
+                  <mat-option value="Onsdag">Varje</mat-option>
+                </mat-select>
               </mat-input-container>
+
             </div>
           </div>
 
@@ -251,21 +253,21 @@
             </div>
           </div>
 
-      	</div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col c3">
-      	<div class="col-inner">
+        <div class="col-inner">
           <span class="dialys-guide-label">
             <span class="dialys-guide-label-number">6</span>
             <span class="dialys-guide-label-text">Ange ombud</span>
           </span>
-      	</div>
+        </div>
       </div>
       <div class="col c9">
-      	<div class="col-inner">
+        <div class="col-inner">
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
@@ -278,49 +280,53 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input [(ngModel)]="patient.leveransMottagningsOmbud" placeholder="Ombud för leveransmottagning" type="text" matInput>
+                <input [(ngModel)]="patient.leveransMottagningsOmbud" placeholder="Ombud för leveransmottagning"
+                       type="text" matInput>
               </mat-input-container>
             </div>
           </div>
 
-      	</div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col c3">
-      	<div class="col-inner">
+        <div class="col-inner">
           <span class="dialys-guide-label">
             <span class="dialys-guide-label-number">7</span>
             <span class="dialys-guide-label-text">Ange övrig information</span>
           </span>
-      	</div>
+        </div>
       </div>
       <div class="col c9">
-      	<div class="col-inner">
+        <div class="col-inner">
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <textarea placeholder="Kommentar / fritext" type="text" matInput [(ngModel)]="patient.ovrigt" ></textarea>
+                <textarea placeholder="Kommentar / fritext" type="text" matInput
+                          [(ngModel)]="patient.ovrigt"></textarea>
               </mat-input-container>
             </div>
           </div>
 
-      	</div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col c3">
-      	<div class="col-inner">
+        <div class="col-inner">
         </div>
       </div>
       <div class="col c9">
         <div class="col-inner">
           <div class="btn-container">
-            <button type="submit"mat-raised-button class="btn" (click)="saveToServerSide()">Spara patient</button> &nbsp;
-            <button type="submit"mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
+            <button type="submit" mat-raised-button class="btn"
+                    (click)="saveToServerSide()">Spara patient
+            </button> &nbsp;
+            <button type="submit" mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
           </div>
         </div>
       </div>

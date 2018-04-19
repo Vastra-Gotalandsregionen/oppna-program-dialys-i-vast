@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * After first deploy of the application - run this.
@@ -57,6 +56,27 @@ public class PostDeployWork {
         fixTypFieldOnPatient();
         putRolesIntoUsers();
         createAnstallningar();
+        insertSomeLinks();
+        correctPatientUtdelgningsdagVecka();
+        bindPatientToMottagning();
+    }
+
+    private static void correctPatientUtdelgningsdagVecka() {
+        target.execute("update patient set utdeldag = null where utdeldag = '--Välj--'");
+
+        /* Jämn | Ojämn | Varje
+         "-1";851
+         "0";189
+         "1";189
+         "2";116
+         */
+
+        target.execute("update patient set utdelvecka = ? where utdelvecka = ?", null, "-1");
+        target.execute("update patient set utdelvecka = ? where utdelvecka = ?", "Jämn", "0");
+        target.execute("update patient set utdelvecka = ? where utdelvecka = ?", "Ojämn", "1");
+        target.execute("update patient set utdelvecka = ? where utdelvecka = ?", "Varje", "2");
+
+        target.commit();
     }
 
     protected static void fixTypFieldOnPatient() {
@@ -127,15 +147,31 @@ public class PostDeployWork {
     }
 
     static void insertSomeLinks() {
-        /*
-        delete from link
-insert into link values (-1, 'AV-fistel', false, 'http://www.vardhandboken.se/Texter/Dialys-hemodialys/AV-fistel/');
-insert into link values (-2, 'Årsredovisning', false, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Jour-%20och%20Plac.listor/%C3%85rsredovisning%202017_4.pdf');
-insert into link values (-3, 'Dialysutredningen', true, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Sammanf%20dialys.pdf');
-         */
         target.execute("insert into link values (-1, 'AV-fistel', false, 'http://www.vardhandboken.se/Texter/Dialys-hemodialys/AV-fistel/')");
         target.execute("insert into link values (-2, 'Årsredovisning', false, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Jour-%20och%20Plac.listor/%C3%85rsredovisning%202017_4.pdf')");
         target.execute("insert into link values (-3, 'Dialysutredningen', true, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Sammanf%20dialys.pdf')");
+        target.commit();
+    }
+
+
+    static void bindPatientToMottagning() {
+        ConnectionExt target = PostDeployWork.target;
+
+        List<Map<String, Object>> bindings = target.query(
+                "select distinct p.id as patientid, m.id as mottagningid " +
+                        "from patient p\n" +
+                        " join ansvarig a on a.id = p.pas\n" +
+                        " join mottagning m on (a.mottagningid = m.id)", 0, 1_000_000);
+
+        System.out.println("Inserts " + bindings.size() + " items in inskrivning.");
+
+        for (Map<String, Object> binding : bindings) {
+            target.insert("inskrivning", binding);
+        }
+
+        System.out.println("Removes anstallning.");
+        target.execute("drop table anstallning");
+
         target.commit();
     }
 

@@ -1,6 +1,6 @@
 import {Pd} from "./Pd";
 import {Ansvarig} from "./Ansvarig";
-import {Typ} from "./Typ";
+import {Mottagning} from "./Mottagning";
 
 export class Patient {
   adress: string;
@@ -29,9 +29,11 @@ export class Patient {
   avropsOmbud: string;
   leveransMottagningsOmbud: string;
 
-  typ: Typ;
+  typ: string = 'PD';
 
   pds: Array<Pd>
+
+  mottagnings: Array<Mottagning> = [];
 
   private static template: Patient = new Patient();
 

@@ -33,7 +33,7 @@ export class UserFormComponent implements OnInit {
   @Input('typ') typ;
 
   @Input('mottagnings')
-  mottagnings: Mottagning[];
+  mottagnings: Mottagning[] = [];
 
   userForm: FormGroup;
 
@@ -154,7 +154,7 @@ export class UserFormComponent implements OnInit {
     }
   };
 
-  onMottagningChecked(item: Mottagning) {
+  public onMottagningChecked(item: Mottagning) {
     var index: number = -1;
     var i: number = 0;
     for (const mottagning of this.user.mottagnings) {
@@ -172,7 +172,7 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  doesUserHaveMottagning(item: Mottagning): boolean {
+  public doesUserHaveMottagning(item: Mottagning): boolean {
     for (const mottagning of this.user.mottagnings) {
       if (mottagning.id === item.id) return true;
     }
