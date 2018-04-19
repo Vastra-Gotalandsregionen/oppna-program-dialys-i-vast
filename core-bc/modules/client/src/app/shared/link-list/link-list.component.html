@@ -8,7 +8,7 @@
 
         <div class="col c4" *ngIf="(loggedIn) || (!loggedIn && !link.get('privateContent').value)">
           <div class="col-inner">
-            <a [href]="link.get('url').value" class="link-box" *ngIf="!editingLink(i)">
+            <a [href]="link.get('url').value" target="{{link.get('label').value}}" class="link-box" *ngIf="!editingLink(i)">
               <mat-icon class="link-box-icon" aria-hidden="true">file_download</mat-icon>
 
               <span class="link-box-label">{{link.get('label').value}}</span>

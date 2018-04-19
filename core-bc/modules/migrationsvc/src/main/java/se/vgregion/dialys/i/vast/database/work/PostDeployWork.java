@@ -50,6 +50,8 @@ public class PostDeployWork {
         target.update("update users set sjukskoterska = true where userName in " +
                 "( select u.userName from users u join ansvarig a on a.userName = u.userName)");
 
+        target.execute("update users set admin = true, sjukskoterska = true, pharmaceut = true where username = 'anger5'");
+
         target.commit();
 
         fixTypFieldOnPatient();
@@ -89,7 +91,7 @@ public class PostDeployWork {
                 100_000
         );
 
-        target.execute("update users set admin = false, pharmaceut = false, sjukskoterska = false");
+        target.execute("update users set admin = true, pharmaceut = false, sjukskoterska = false");
         target.commit();
 
         for (Map<String, Object> userAndRole : result) {
@@ -121,6 +123,19 @@ public class PostDeployWork {
             target.insert("anstallning", anstallning);
         }
 
+        target.commit();
+    }
+
+    static void insertSomeLinks() {
+        /*
+        delete from link
+insert into link values (-1, 'AV-fistel', false, 'http://www.vardhandboken.se/Texter/Dialys-hemodialys/AV-fistel/');
+insert into link values (-2, 'Årsredovisning', false, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Jour-%20och%20Plac.listor/%C3%85rsredovisning%202017_4.pdf');
+insert into link values (-3, 'Dialysutredningen', true, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Sammanf%20dialys.pdf');
+         */
+        target.execute("insert into link values (-1, 'AV-fistel', false, 'http://www.vardhandboken.se/Texter/Dialys-hemodialys/AV-fistel/')");
+        target.execute("insert into link values (-2, 'Årsredovisning', false, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Jour-%20och%20Plac.listor/%C3%85rsredovisning%202017_4.pdf')");
+        target.execute("insert into link values (-3, 'Dialysutredningen', true, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Sammanf%20dialys.pdf')");
         target.commit();
     }
 

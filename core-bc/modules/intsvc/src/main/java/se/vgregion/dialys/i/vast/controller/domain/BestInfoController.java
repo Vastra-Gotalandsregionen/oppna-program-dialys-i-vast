@@ -9,6 +9,7 @@ import se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel;
 import se.vgregion.dialys.i.vast.repository.BestInfoRepository;
 import se.vgregion.dialys.i.vast.repository.BestRadRepository;
 import se.vgregion.dialys.i.vast.repository.PDArtikelRepository;
+import se.vgregion.dialys.i.vast.repository.PdRepository;
 import se.vgregion.dialys.i.vast.vymodel.BestArtikelRad;
 
 import java.util.List;
@@ -21,7 +22,10 @@ public class BestInfoController {
     private BestInfoRepository bestInfoRepository;
 
     @Autowired
-    PDArtikelRepository pdArtikelRepository;
+    private PDArtikelRepository pdArtikelRepository;
+
+    @Autowired
+    private PdRepository pdRepository;
 
 
 /*    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -37,6 +41,7 @@ public class BestInfoController {
             bestPDRad.setBestInfo(bestInfo);
             bestPDRad.setPdArtikel(pdArtikelRepository.findOne(bestPDRad.getPDArtikelID()));
         }
+        bestInfo.setPd(pdRepository.findOne(bestInfo.getPdid()));
         return ResponseEntity.ok(bestInfoRepository.save(bestInfo));
     }
 

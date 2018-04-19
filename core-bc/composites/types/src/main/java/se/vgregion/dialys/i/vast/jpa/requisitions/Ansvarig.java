@@ -40,7 +40,7 @@ public class Ansvarig implements Serializable {
     @Column(name = "Namn")
     private String namn;
 
-    @Column(name = "MottagningID")
+    @Column(name = "MottagningID", updatable = false, insertable = false)
     private Integer mottagningID;
 
     @Column(name = "userName", updatable = false, insertable = false)
