@@ -23,19 +23,20 @@ export class ApkComponent implements OnInit {
 
   stateCtrl: FormControl;
   onlyActiveDatasCtrl: FormControl;
-  onlyMyDatasCtrl: FormControl;
+  // onlyMyDatasCtrl: FormControl;
+  status: string = 'Aktiv';
 
   query: string;
   page = 0;
   selectedPage = 1;
   totalPagesArr: Array<number>;
-  onlyActiveDatas: boolean;
-  onlyMyDatas: boolean;
+  // onlyActiveDatas: boolean;
+  // onlyMyDatas: boolean;
   location: Location;
 
   response: RestResponse<Patient>;
   sort: { field: string, ascending: boolean };
-  usersProdn1sString$: Observable<string>;
+  // usersProdn1sString$: Observable<string>;
 
   constructor(private http: JwtHttp,
               location: Location,
@@ -48,7 +49,7 @@ export class ApkComponent implements OnInit {
     this.location = location;
     this.stateCtrl = new FormControl();
     this.onlyActiveDatasCtrl = new FormControl();
-    this.onlyMyDatasCtrl = new FormControl();
+    // this.onlyMyDatasCtrl = new FormControl();
   }
 
   ngOnInit() {
@@ -70,17 +71,17 @@ export class ApkComponent implements OnInit {
           this.sort = {field: params.sort, ascending: params.asc === 'true'}
         }
 
-        if (params.onlyActiveDatas) {
+        /*if (params.onlyActiveDatas) {
           this.onlyActiveDatas = params.onlyActiveDatas === 'true';
         } else {
           //this.onlyActiveDatas = this.loggedIn;
-        }
+        }*/
 
-        if (params.onlyMyDatas) {
+        /*if (params.onlyMyDatas) {
           this.onlyMyDatas = params.onlyMyDatas === 'true';
         } else {
           //this.onlyMyDatas = this.loggedIn;
-        }
+        }*/
 
 
         this.fetchDatas();
@@ -93,33 +94,36 @@ export class ApkComponent implements OnInit {
             this.updateState();
           });
 
-        this.onlyActiveDatasCtrl.valueChanges
+        /*this.onlyActiveDatasCtrl.valueChanges
           .skip(1) // Skip on init
           .subscribe(value => {
             this.onlyActiveDatas = value;
             this.updateState();
-          });
+          });*/
 
+/*
         this.onlyMyDatasCtrl.valueChanges
           .skip(1) // Skip on init
           .subscribe(value => {
             this.onlyMyDatas = value;
             this.updateState();
           });
+*/
 
       });
 
   }
 
-  private updateState() {
-    if (this.query || this.page > 0 || this.sort || this.onlyMyDatas || this.onlyActiveDatas) {
+  public updateState() {
+    if (this.query || this.page > 0 || this.sort || /*this.onlyMyDatas ||*/ this.status) {
       const queryPart = (this.query ? '&query=' + this.query : '');
       const pagePart = (this.page > 0 ? '&page=' + this.page : '');
       const sortPart = (this.sort ? '&sort=' + this.sort.field + '&asc=' + this.sort.ascending : '');
-      const onlyMyDatasPart = (this.onlyMyDatas ? `&onlyMyDatas=${this.onlyMyDatas}` : '');
-      const onlyActiveDatasPart = (this.onlyActiveDatas ? `&onlyActiveDatas=${this.onlyActiveDatas}` : '');
+      //const onlyMyDatasPart = (this.onlyMyDatas ? `&onlyMyDatas=${this.onlyMyDatas}` : '');
+      // const onlyActiveDatasPart = (this.onlyActiveDatas ? `&onlyActiveDatas=${this.onlyActiveDatas}` : '');
+      const statusPart = (this.status ? `&status=${this.status}` : '');
 
-      let fullQueryPart = queryPart + pagePart + sortPart + onlyMyDatasPart + onlyActiveDatasPart;
+      let fullQueryPart = queryPart + pagePart + sortPart + /*onlyMyDatasPart +*/ statusPart;
 
       if (fullQueryPart.startsWith('&')) {
         fullQueryPart = fullQueryPart.substring(1);
@@ -184,21 +188,21 @@ export class ApkComponent implements OnInit {
       params.set('asc', this.sort.ascending + '');
     }
 
-    if (this.onlyActiveDatas) {
-      params.set('onlyActiveDatas', this.onlyActiveDatas + '');
+    if (this.status) {
+      params.set('status', this.status + '');
     }
 
-    if (!this.onlyMyDatas) {
+    /*if (!this.onlyMyDatas) {
       this.onlyMyDatas = false;
-    }
-    params.set('onlyMyDatas', this.onlyMyDatas + '');
+    }*/
+    /*params.set('onlyMyDatas', this.onlyMyDatas + '');
 
-    console.log(' this.onlyMyDatas: ' + this.onlyMyDatas);
+    console.log(' this.onlyMyDatas: ' + this.onlyMyDatas);*/
     params.set("userName", this.authService.getLoggedInUserId());
 
     const requestOptions = new RequestOptions();
     requestOptions.params = params;
-    console.log('reguestOptions: ', requestOptions);
+    // console.log('reguestOptions: ', requestOptions);
     return this.http.get('/api/patient/filter', requestOptions).map(response => response.json());
   }
 
@@ -253,9 +257,10 @@ export class ApkComponent implements OnInit {
   }
 
   get admin() {
-    return this.authService.isAdmin();
+    return this.authService.isAdmin() || this.authService.getAdmin();
   }
 
+/*
   confirmDelete(data: Patient) {
     let dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
@@ -269,12 +274,13 @@ export class ApkComponent implements OnInit {
       if (result === 'confirm') {
         this.http.delete('/api/data/' + data.id)
           .subscribe(response => {
-            console.log(response);
+            // console.log(response);
             this.updateState();
             this.snackBar.open('Lyckades spara!', null, {duration: 3000});
           });
       }
     });
   }
+*/
 
 }

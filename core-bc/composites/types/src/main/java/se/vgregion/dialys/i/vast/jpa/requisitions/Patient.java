@@ -114,6 +114,10 @@ public class Patient implements Serializable {
     @Column(name = "leveransMottagningsOmbud")
     private String leveransMottagningsOmbud;
 
+    @Column(name = "status")
+    private String status = "Aktiv"; // Pausad, Avslutad
+
+
     public Set<Pd> getPds() {
         return pds;
     }
@@ -141,8 +145,8 @@ public class Patient implements Serializable {
     @Column(name = "Samtycke")
     private Boolean samtycke;
 
-    @Column(name = "IsDeleted")
-    private Boolean isDeleted;
+/*    @Column(name = "IsDeleted")
+    private Boolean isDeleted;*/
 
 /*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pas", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_patient_ansvarig"))
@@ -297,13 +301,13 @@ public class Patient implements Serializable {
         this.samtycke = samtycke;
     }
 
-    public Boolean getIsDeleted() {
+/*    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
     public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -371,13 +375,13 @@ public class Patient implements Serializable {
         this.leveransMottagningsOmbud = leveransMottagningsOmbud;
     }
 
-    public Boolean getDeleted() {
+    /*public Boolean getDeleted() {
         return isDeleted;
     }
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
-    }
+    }*/
 
     public Boolean getLeveransPaminnelse() {
         return leveransPaminnelse;
@@ -401,6 +405,14 @@ public class Patient implements Serializable {
 
     public void setMottagnings(Set<Mottagning> mottagnings) {
         this.mottagnings = mottagnings;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     /*public enum Typ {

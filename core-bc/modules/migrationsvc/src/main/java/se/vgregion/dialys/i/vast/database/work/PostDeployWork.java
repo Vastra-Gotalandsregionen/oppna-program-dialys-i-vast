@@ -59,6 +59,7 @@ public class PostDeployWork {
         insertSomeLinks();
         correctPatientUtdelgningsdagVecka();
         bindPatientToMottagning();
+        putValueIntoPatientsStatusAndDeleteIsDeleted();
     }
 
     private static void correctPatientUtdelgningsdagVecka() {
@@ -151,6 +152,18 @@ public class PostDeployWork {
         target.execute("insert into link values (-2, 'Årsredovisning', false, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Jour-%20och%20Plac.listor/%C3%85rsredovisning%202017_4.pdf')");
         target.execute("insert into link values (-3, 'Dialysutredningen', true, 'http://intra.sahlgrenska.se/upload/SU/Omr%C3%A5de%205/VERKSAMHETER/Njurmedicin/Sammanf%20dialys.pdf')");
         target.commit();
+    }
+
+    static void putValueIntoPatientsStatusAndDeleteIsDeleted() {
+        int c = 0;
+        c = target.update("update patient set status = 'Aktiv' where isdeleted = false");
+        System.out.println("Aktiva patients " + c);
+        c = target.update("update patient set status = 'Avslutad' where isdeleted = true");
+        System.out.println("Avslutade patients " + c);
+        c = target.update("update patient set status = 'Pausad' where isdeleted is null");
+        System.out.println("Pausade patients " + c);
+        target.commit();
+        target.execute("alter table patient drop column isdeleted");
     }
 
 

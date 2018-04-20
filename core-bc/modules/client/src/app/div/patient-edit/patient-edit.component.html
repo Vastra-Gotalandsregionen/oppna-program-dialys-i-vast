@@ -38,7 +38,7 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="fornamn" [(ngModel)]="patient.fornamn" placeholder="Förnamn" type="text" matInput>
+                <input required #fornamnInput id="fornamn" [(ngModel)]="patient.fornamn" placeholder="Förnamn" type="text" matInput>
               </mat-input-container>
             </div>
           </div>
@@ -46,7 +46,7 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="efternamn" [(ngModel)]="patient.efternamn" placeholder="Efternamn" type="text" matInput>
+                <input required #efternamnInput id="efternamn" [(ngModel)]="patient.efternamn" placeholder="Efternamn" type="text" matInput>
               </mat-input-container>
             </div>
           </div>
@@ -109,7 +109,7 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="gatuAdress" [(ngModel)]="patient.adress" placeholder="Gatuadress" type="text" matInput
+                <input #adressInput required id="gatuAdress" [(ngModel)]="patient.adress" placeholder="Gatuadress" type="text" matInput
                        [maxlength]="255">
               </mat-input-container>
             </div>
@@ -118,7 +118,7 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="postNr" [(ngModel)]="patient.postNr" placeholder="Postnummer" type="text" matInput
+                <input #postNrInput required id="postNr" [(ngModel)]="patient.postNr" placeholder="Postnummer" type="text" matInput
                        [maxlength]="255">
               </mat-input-container>
             </div>
@@ -127,7 +127,7 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="postOrt" [(ngModel)]="patient.postOrt" placeholder="Postort" type="text" matInput
+                <input #postOrtInput required id="postOrt" [(ngModel)]="patient.postOrt" placeholder="Postort" type="text" matInput
                        [maxlength]="255">
               </mat-input-container>
             </div>
@@ -167,7 +167,7 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input id="telefon" [(ngModel)]="patient.telefon" placeholder="Telefonnummer" type="text" matInput
+                <input #telefonInput required id="telefon" [(ngModel)]="patient.telefon" placeholder="Telefonnummer" type="text" matInput
                        [maxlength]="255">
               </mat-input-container>
             </div>
@@ -318,6 +318,32 @@
     <div class="row">
       <div class="col c3">
         <div class="col-inner">
+          <span class="dialys-guide-label">
+            <span class="dialys-guide-label-number">8</span>
+            <span class="dialys-guide-label-text">Ange aktualitet</span>
+          </span>
+        </div>
+      </div>
+      <div class="col c9">
+        <div class="col-inner">
+
+          <div class="dialys-form-field-ctn">
+            <div class="dialys-form-field">
+              <mat-select [(value)]="patient.status" placeholder="Status">
+                <mat-option value="Aktiv">Aktiv</mat-option>
+                <mat-option value="Pausad">Pausad</mat-option>
+                <mat-option value="Avslutad">Avslutad</mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col c3">
+        <div class="col-inner">
         </div>
       </div>
       <div class="col c9">
@@ -326,7 +352,9 @@
             <button type="submit" mat-raised-button class="btn"
                     (click)="saveToServerSide()">Spara patient
             </button> &nbsp;
-            <button type="submit" mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;
+            <button type="submit" mat-raised-button class="btn btn-secondary" onclick="window.history.back();">
+              Avbryt
+            </button> &nbsp;
           </div>
         </div>
       </div>

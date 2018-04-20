@@ -3,11 +3,11 @@ import {Mottagning} from "./Mottagning";
 
 export class Patient {
   adress: string;
+  status: string = 'Aktiv';
   efternamn: string;
   epost: string;
   fornamn: string;
   id: number;
-  isDeleted: boolean;
   mobil: string;
   pnr: string;
   portkod: string;

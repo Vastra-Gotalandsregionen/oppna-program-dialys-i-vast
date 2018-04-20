@@ -19,10 +19,11 @@
                [formControl]="stateCtrl" [(ngModel)]="query">
       </mat-input-container>
 
-      <!-- This feature is not needed. -->
-      <!--
-      <mat-checkbox class="action-toolbar-item" [formControl]="onlyActiveDatasCtrl" [(ngModel)]="onlyActiveDatas">Med PD-rekvisition som snart går ut</mat-checkbox>
-      -->
+      <mat-select [(value)]="status" placeholder="Status" (change)="updateState()">
+        <mat-option value="Aktiv">Aktiv</mat-option>
+        <mat-option value="Pausad">Pausad</mat-option>
+        <mat-option value="Avslutad">Avslutad</mat-option>
+      </mat-select>
 
       <div class="action-toolbar-spacer"></div>
 
@@ -78,10 +79,15 @@
           </a>
         </td>
         <td>
-          {{patient.pds.length > 0 ? patient.pds[0].id : 'Ingen ännu'}}
+          {{patient.pds.length > 0 ? (patient.pds[0].datum | date: 'yyyy-MM-dd') : 'Ingen ännu'}}
         </td>
         <td>
-          {{patient.pds.length > 0 && patient.pds[0].bestInfos && patient.pds[0].bestInfos.length > 0 ? patient.pds[0].bestInfos[0].id: 'Ingen ännu'}}
+          {{
+          patient.pds.length > 0 && patient.pds[0].bestInfos && patient.pds[0].bestInfos.length > 0
+          ? (patient.pds[0].bestInfos[0].datum | date: 'yyyy-MM-dd')
+          :
+          'Ingen ännu'
+          }}
         </td>
         <td>
           <button mat-icon-button [matMenuTriggerFor]="menu">

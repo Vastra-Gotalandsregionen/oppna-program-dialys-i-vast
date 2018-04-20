@@ -20,7 +20,23 @@ export class PatientEditComponent implements OnInit {
 
   @ViewChild('mottagningsHead') mottagningsHead: ElementRef;
 
-  constructor(private route: ActivatedRoute, private http: JwtHttp, private router: Router, private snackBar: MatSnackBar) {
+  @ViewChild('fornamnInput') fornamnInput: ElementRef;
+
+  @ViewChild('efternamnInput') efternamnInput: ElementRef;
+
+
+  @ViewChild('adressInput') adressInput: ElementRef;
+
+  @ViewChild('postNrInput') postNrInput: ElementRef;
+
+  @ViewChild('postOrtInput') postOrtInput: ElementRef;
+
+  @ViewChild('telefonInput') telefonInput: ElementRef;
+
+  constructor(private route: ActivatedRoute,
+              private http: JwtHttp,
+              private router: Router,
+              private snackBar: MatSnackBar) {
 
   }
 
@@ -51,17 +67,12 @@ export class PatientEditComponent implements OnInit {
       .map(response => response.json())
       .subscribe((incommingMottagnings: Array<Mottagning>) => {
         this.mottagnings = incommingMottagnings;
-        /*console.log(incommingMottagnings);
-        this.mottagnings.forEach(
-          item => this.mottagningById.set(item.id, item)
-        );*/
       });
 
   }
 
   saveToServerSide() {
     if (!this.checkRequiredFields()) {
-
       return;
     }
     this.http.put('/api/patient', this.patient).map(response => response.json()).subscribe(
@@ -83,9 +94,33 @@ export class PatientEditComponent implements OnInit {
       this.abortShowErrorAndFocus('Personnummer måste vara ifylld.', this.pnrInput.nativeElement);
       return false;
     }
+    if (!this.patient.fornamn || this.patient.fornamn.trim() === '') {
+      this.abortShowErrorAndFocus('Förnamn måste vara ifylld.', this.fornamnInput.nativeElement);
+      return false;
+    }
+    if (!this.patient.efternamn || this.patient.efternamn.trim() === '') {
+      this.abortShowErrorAndFocus('Efternamn måste vara ifylld.', this.efternamnInput.nativeElement);
+      return false;
+    }
     if (this.patient.mottagnings.length == 0) {
       this.abortShowErrorAndFocus("Minst en mottagning måste vara vald.", this.mottagningsHead.nativeElement);
+      return false;
+    }
 
+    if (!this.patient.adress || this.patient.adress.trim() === '') {
+      this.abortShowErrorAndFocus('Adress måste vara ifylld.', this.adressInput.nativeElement);
+      return false;
+    }
+    if (!this.patient.postOrt || this.patient.postOrt.trim() === '') {
+      this.abortShowErrorAndFocus('Postort måste vara ifylld.', this.postOrtInput.nativeElement);
+      return false;
+    }
+    if (!this.patient.postNr || this.patient.postNr.trim() === '') {
+      this.abortShowErrorAndFocus('Postnummer måste vara ifylld.', this.postNrInput.nativeElement);
+      return false;
+    }
+    if (!this.patient.telefon || this.patient.telefon.trim() === '') {
+      this.abortShowErrorAndFocus('Telefonnummer måste vara ifylld.', this.telefonInput.nativeElement);
       return false;
     }
     return true;
