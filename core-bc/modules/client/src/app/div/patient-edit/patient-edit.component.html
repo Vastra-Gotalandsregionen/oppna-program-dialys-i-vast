@@ -235,14 +235,22 @@
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
-              <mat-input-container>
+              <!--<mat-input-container>
                 <mat-select [(value)]="patient.utdelVecka" placeholder="Utdelningsvecka">
                   <mat-option>Ingen uppgift</mat-option>
-                  <mat-option value="Måndag">Jämn</mat-option>
-                  <mat-option value="Tisdag">Ojämn</mat-option>
-                  <mat-option value="Onsdag">Varje</mat-option>
+                  <mat-option value="Jämn">Jämn</mat-option>
+                  <mat-option value="Ojämn">Ojämn</mat-option>
+                  <mat-option value="Varje">Varje</mat-option>
                 </mat-select>
-              </mat-input-container>
+              </mat-input-container>-->
+
+              <mat-radio-group [(value)]="patient.utdelVecka">
+                <mat-label>Utdelningsvecka:</mat-label>
+                <mat-radio-button>Ingen uppgift</mat-radio-button> |
+                <mat-radio-button value="Jämn">Jämn</mat-radio-button> |
+                <mat-radio-button value="Ojämn">Ojämn</mat-radio-button> |
+                <mat-radio-button value="Varje">Varje</mat-radio-button>
+              </mat-radio-group>
 
             </div>
           </div>
