@@ -113,19 +113,20 @@ export class AuthService {
     return token ? token.pharmaceut : false;
   }
 
-  getSjukskoterska(): boolean {
+  public getSjukskoterska(): boolean {
     const token = this.getToken();
     return token ? token.sjukskoterska : false;
   }
 
   isAdmin() {
-    const token = this.getToken();
+    /*const token = this.getToken();
     if (token) {
       const roles = <string[]>token.roles;
       return roles.indexOf('ADMIN') > -1;
     }
 
-    return false;
+    return false;*/
+    return this.getAdmin();
   }
 
   canImpersonate() {

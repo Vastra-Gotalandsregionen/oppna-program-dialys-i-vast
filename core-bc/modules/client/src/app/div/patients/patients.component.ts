@@ -40,7 +40,7 @@ export class ApkComponent implements OnInit {
   constructor(private http: JwtHttp,
               location: Location,
               private route: ActivatedRoute,
-              private authService: AuthService,
+              public authService: AuthService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog,
               private stateService: StateService) {

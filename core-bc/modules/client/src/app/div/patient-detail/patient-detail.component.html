@@ -17,7 +17,7 @@
     </a>
 
     <a class="action-toolbar-item" mat-fab routerLink="add-requisition" matTooltip="Ny rekvisition"
-       *ngIf="userHasEditPermission(data)">
+       *ngIf="userHasEditPermission(data) && this.authService.getSjukskoterska()">
       <mat-icon>content_paste</mat-icon>
     </a>
 

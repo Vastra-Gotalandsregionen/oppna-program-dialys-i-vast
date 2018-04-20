@@ -21,25 +21,6 @@ import java.util.Set;
 @Entity
 @Table(name = "Patient")
 @XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p")
-        , @NamedQuery(name = "Patient.findById", query = "SELECT p FROM Patient p WHERE p.id = :id")
-        , @NamedQuery(name = "Patient.findByPnr", query = "SELECT p FROM Patient p WHERE p.pnr = :pnr")
-        , @NamedQuery(name = "Patient.findByEfternamn", query = "SELECT p FROM Patient p WHERE p.efternamn = :efternamn")
-        , @NamedQuery(name = "Patient.findByFornamn", query = "SELECT p FROM Patient p WHERE p.fornamn = :fornamn")
-        , @NamedQuery(name = "Patient.findByAdress", query = "SELECT p FROM Patient p WHERE p.adress = :adress")
-        , @NamedQuery(name = "Patient.findByPostNr", query = "SELECT p FROM Patient p WHERE p.postNr = :postNr")
-        , @NamedQuery(name = "Patient.findByPostOrt", query = "SELECT p FROM Patient p WHERE p.postOrt = :postOrt")
-        , @NamedQuery(name = "Patient.findByTelefon", query = "SELECT p FROM Patient p WHERE p.telefon = :telefon")
-        , @NamedQuery(name = "Patient.findByMobil", query = "SELECT p FROM Patient p WHERE p.mobil = :mobil")
-        , @NamedQuery(name = "Patient.findByEpost", query = "SELECT p FROM Patient p WHERE p.epost = :epost")
-        , @NamedQuery(name = "Patient.findByPortkod", query = "SELECT p FROM Patient p WHERE p.portkod = :portkod")
-        , @NamedQuery(name = "Patient.findByUtdelDag", query = "SELECT p FROM Patient p WHERE p.utdelDag = :utdelDag")
-        , @NamedQuery(name = "Patient.findByUtdelVecka", query = "SELECT p FROM Patient p WHERE p.utdelVecka = :utdelVecka")
-        , @NamedQuery(name = "Patient.findByUtdelText", query = "SELECT p FROM Patient p WHERE p.utdelText = :utdelText")
-        , @NamedQuery(name = "Patient.findByPas", query = "SELECT p FROM Patient p WHERE p.pas = :pas")
-        , @NamedQuery(name = "Patient.findBySamtycke", query = "SELECT p FROM Patient p WHERE p.samtycke = :samtycke")
-        , @NamedQuery(name = "Patient.findByIsDeleted", query = "SELECT p FROM Patient p WHERE p.isDeleted = :isDeleted")})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Patient implements Serializable {
 
@@ -121,11 +102,7 @@ public class Patient implements Serializable {
     @Column(name = "ovrigt")
     private String ovrigt;
 
-    @Column(name = "PAS", updatable = false, insertable = false)
-    private Integer pas;
-
     @Column(name = "typ")
-    // @Enumerated(EnumType.STRING)
     private String typ;
 
     @Column(name = "leveransPaminnelse")
@@ -167,9 +144,9 @@ public class Patient implements Serializable {
     @Column(name = "IsDeleted")
     private Boolean isDeleted;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+/*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pas", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_patient_ansvarig"))
-    private Ansvarig ansvarig;
+    private Ansvarig ansvarig;*/
 
     @Column(name = "lasText")
     private String lasText;
@@ -304,13 +281,13 @@ public class Patient implements Serializable {
         this.utdelText = utdelText;
     }
 
-    public Integer getPas() {
+/*    public Integer getPas() {
         return pas;
     }
 
     public void setPas(Integer pas) {
         this.pas = pas;
-    }
+    }*/
 
     public Boolean getSamtycke() {
         return samtycke;
@@ -353,13 +330,13 @@ public class Patient implements Serializable {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Patient[ id=" + id + " ]";
     }
 
-    public Ansvarig getAnsvarig() {
+/*    public Ansvarig getAnsvarig() {
         return ansvarig;
     }
 
     public void setAnsvarig(Ansvarig ansvarig) {
         this.ansvarig = ansvarig;
-    }
+    }*/
 
     public String getLasText() {
         return lasText;

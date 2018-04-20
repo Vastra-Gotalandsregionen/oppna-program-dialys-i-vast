@@ -169,8 +169,8 @@ public class PostDeployWork {
             target.insert("inskrivning", binding);
         }
 
-        System.out.println("Removes anstallning.");
-        target.execute("drop table anstallning");
+        System.out.println("Removes ansvarig.");
+        target.execute("drop table ansvarig");
 
         target.commit();
     }

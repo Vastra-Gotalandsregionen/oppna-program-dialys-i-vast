@@ -62,22 +62,24 @@ public class PatientFinder {
             sb.append(") and ");
         }
 
-        sb.append(" a.userName = ?" + i);
+        sb.append(" u.userName = ?" + i);
         i++;
         words.add(userName);
 
         String countJpql = "select count(distinct p) from "
                 + Patient.class.getSimpleName()
-                + " p join p.ansvarig a "
-                + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
+                + " p join p.mottagnings m "
+                + " join m.users u "
+                // + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
                 + "left join p.pds pds "
                 + "left join pds.bestInfos bestInfo "
                 + sb.toString();
 
         String selectJpql = "select p from "
                 + Patient.class.getSimpleName() + " p "
-                + " join fetch p.ansvarig a "
-                + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
+                + " join fetch p.mottagnings m "
+                + " join m.users u "
+                // + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
                 + "left join fetch p.pds pds "
                 + "left join fetch pds.bestInfos bestInfo "
                 + sb.toString()
@@ -141,5 +143,5 @@ public class PatientFinder {
 
         return asPage;
     }
-
+    
 }

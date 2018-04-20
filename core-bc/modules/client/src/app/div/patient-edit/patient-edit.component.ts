@@ -2,7 +2,6 @@ import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@a
 import {Patient} from "../../model/Patient";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JwtHttp} from "../../core/jwt-http";
-import {Ansvarig} from "../../model/Ansvarig";
 import {Mottagning} from "../../model/Mottagning";
 import {MatSnackBar} from "@angular/material";
 
@@ -15,17 +14,7 @@ export class PatientEditComponent implements OnInit {
 
   @Input() patient: Patient;
 
-  // @Input() ansvarigs: Array<Ansvarig> = [];
-
-  // @Input() ansvarigsDomain: Array<Ansvarig> = [];
-
   @Input() mottagnings: Array<Mottagning> = [];
-
-  // @Input() selectedMottagning: Mottagning;
-
-  // @Input() selectedAnsvarig: Ansvarig;
-
-  // @Input() mottagningById: Map<number, Mottagning> = new Map<number, Mottagning>();
 
   @ViewChild('pnrInput') pnrInput: ElementRef;
 
@@ -41,7 +30,6 @@ export class PatientEditComponent implements OnInit {
 
   ngOnInit() {
     this.patient = new Patient();
-    this.patient.ansvarig = new Ansvarig();
     const id = this.route.snapshot.paramMap.get('id');
     if (id === 'create')
       this.fetchReferencedData();
@@ -69,10 +57,6 @@ export class PatientEditComponent implements OnInit {
         );*/
       });
 
-  }
-
-  compareAnsvarigs(a1: Ansvarig, a2: Ansvarig): boolean {
-    return a1.id === a2.id;
   }
 
   saveToServerSide() {

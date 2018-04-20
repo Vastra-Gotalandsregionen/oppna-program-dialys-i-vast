@@ -42,8 +42,8 @@ public class PatientFinderIntegrationTest {
     }
 
     @Test
-    public void findHighestBeginningWith() throws Exception {
-
+    public void misc() throws Exception {
+        patientFinder.misc();
     }
 
 }

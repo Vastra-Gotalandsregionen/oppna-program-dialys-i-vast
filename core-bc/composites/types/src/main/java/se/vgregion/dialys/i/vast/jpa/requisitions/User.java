@@ -63,8 +63,8 @@ public class User implements Serializable {
     @Column(name = "password_encrypted_flag")
     private Boolean passwordEncryptionFlag = false;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Ansvarig> ansvariga;
+/*    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Ansvarig> ansvariga;*/
 
 /*    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Anstallning> anstallnings;*/
@@ -144,13 +144,13 @@ public class User implements Serializable {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.User[ userName=" + userName + " ]";
     }
 
-    public Set<Ansvarig> getAnsvariga() {
+/*    public Set<Ansvarig> getAnsvariga() {
         return ansvariga;
     }
 
     public void setAnsvariga(Set<Ansvarig> ansvariga) {
         this.ansvariga = ansvariga;
-    }
+    }*/
 
     public Boolean getPasswordEncryptionFlag() {
         return passwordEncryptionFlag;

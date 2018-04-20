@@ -1,4 +1,3 @@
-import {Ansvarig} from "./Ansvarig";
 import {Mottagning} from "./Mottagning";
 
 export class User {
@@ -12,9 +11,6 @@ export class User {
   inactivated: boolean;
   // Obsolete end
 
-  // ansvariga: Array<Ansvarig> = [];
-
-  /*anstallnings: Array<Anstallning> = [];*/
   mottagnings: Array<Mottagning> = [];
 
   name: string;

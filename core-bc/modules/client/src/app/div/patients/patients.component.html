@@ -3,7 +3,7 @@
     Sök patient
   </h1>
   <div class="action-toolbar-spacer"></div>
-  <a class="action-toolbar-item" mat-fab routerLink="create/edit" matTooltip="Lägg till ny patient" *ngIf="loggedIn">
+  <a class="action-toolbar-item" mat-fab routerLink="create/edit" matTooltip="Lägg till ny patient" *ngIf="loggedIn && authService.getSjukskoterska()">
     <mat-icon>add</mat-icon>
   </a>
 </mat-toolbar>
@@ -98,7 +98,7 @@
               <span>Ny beställning</span>
             </button>
 
-            <button mat-menu-item routerLink="{{patient.id}}/add-requisition" *ngIf="userHasEditPermission(patient)">
+            <button mat-menu-item routerLink="{{patient.id}}/add-requisition" *ngIf="userHasEditPermission(patient) && authService.getSjukskoterska()">
               <mat-icon>content_paste</mat-icon>
               <span>Ny rekvisition</span>
             </button>

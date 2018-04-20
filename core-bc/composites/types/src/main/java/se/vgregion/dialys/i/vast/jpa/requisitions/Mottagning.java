@@ -5,24 +5,28 @@
  */
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
-import java.io.Serializable;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- *
  * @author clalu4
  */
 @Entity
 @Table(name = "Mottagning")
 @XmlRootElement
+/*
 @NamedQueries({
-    @NamedQuery(name = "Mottagning.findAll", query = "SELECT m FROM Mottagning m")
-    , @NamedQuery(name = "Mottagning.findById", query = "SELECT m FROM Mottagning m WHERE m.id = :id")
-    , @NamedQuery(name = "Mottagning.findByNamn", query = "SELECT m FROM Mottagning m WHERE m.namn = :namn")
-    , @NamedQuery(name = "Mottagning.findByApotekID", query = "SELECT m FROM Mottagning m WHERE m.apotekID = :apotekID")})
+        @NamedQuery(name = "Mottagning.findAll", query = "SELECT m FROM Mottagning m")
+        , @NamedQuery(name = "Mottagning.findById", query = "SELECT m FROM Mottagning m WHERE m.id = :id")
+        , @NamedQuery(name = "Mottagning.findByNamn", query = "SELECT m FROM Mottagning m WHERE m.namn = :namn")
+        , @NamedQuery(name = "Mottagning.findByApotekID", query = "SELECT m FROM Mottagning m WHERE m.apotekID = :apotekID")})
+*/
 public class Mottagning implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,10 +44,19 @@ public class Mottagning implements Serializable {
     @Column(name = "ApotekID")
     private Integer apotekID;
 
-    @OneToMany(mappedBy = "mottagning")
-    private Set<Ansvarig> ansvarigs;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "mottagnings")
+    private Set<User> users = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "mottagnings")
+    private Set<Patient> patients = new HashSet<>();
+
+/*    @OneToMany(mappedBy = "mottagning")
+    private Set<Ansvarig> ansvarigs;*/
 
     public Mottagning() {
+
     }
 
     public Mottagning(Integer id) {
@@ -99,11 +112,27 @@ public class Mottagning implements Serializable {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.Mottagning[ id=" + id + " ]";
     }
 
-    public Set<Ansvarig> getAnsvarigs() {
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(Set<Patient> patients) {
+        this.patients = patients;
+    }
+
+/*    public Set<Ansvarig> getAnsvarigs() {
         return ansvarigs;
     }
 
     public void setAnsvarigs(Set<Ansvarig> ansvarigs) {
         this.ansvarigs = ansvarigs;
-    }
+    }*/
 }
