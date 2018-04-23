@@ -16,7 +16,7 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
     @Override
     @Query("select p from Patient p " +
-            "left join fetch p.ansvarig a " +
+            // "left join fetch p.ansvarig a " +
             "left join fetch p.pds ps " +
             "left join fetch ps.bestInfos bi " +
             "left join fetch bi.bestPDRads brad " +

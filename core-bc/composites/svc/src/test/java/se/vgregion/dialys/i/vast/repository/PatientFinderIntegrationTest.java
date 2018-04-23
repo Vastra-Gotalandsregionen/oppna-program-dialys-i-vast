@@ -26,24 +26,13 @@ public class PatientFinderIntegrationTest {
     // @Ignore
     @Test
     public void filtering() {
-        /*
-        [null,{"sort":[{"direction":"ASC","property":"pnr","ignoreCase":true,"nullHandling":"NATIVE","ascending":true,"descending":false},{"direction":"ASC","property":"efternamn","ignoreCase":true,"nullHandling":"NATIVE","ascending":true,"descending":false}],"offset":0,"pageNumber":0,"pageSize":20},"anger5",false]
-
-         */
-       //  System.out.println(objectMapper.writeValueAsString(Arrays.asList(query, pageable, userName, onlyMyDatas)));
-
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "pnr").ignoreCase();
         Sort sort = new Sort(order);
         Pageable pageable = new PageRequest(0, 20, sort);
-        Page<Patient> result = patientFinder.search(null, pageable, "anger5", false);
+        Page<Patient> result = patientFinder.search(null, pageable, "anger5", "Aktiv");
         for (Patient patient : result.getContent()) {
             System.out.println(patient);
         }
-    }
-
-    @Test
-    public void findHighestBeginningWith() throws Exception {
-
     }
 
 }

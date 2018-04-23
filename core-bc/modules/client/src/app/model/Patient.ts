@@ -1,17 +1,14 @@
 import {Pd} from "./Pd";
-import {Ansvarig} from "./Ansvarig";
-import {Typ} from "./Typ";
+import {Mottagning} from "./Mottagning";
 
 export class Patient {
   adress: string;
-  ansvarig: Ansvarig;
+  status: string = 'Aktiv';
   efternamn: string;
   epost: string;
   fornamn: string;
   id: number;
-  isDeleted: boolean;
   mobil: string;
-  pas: number;
   pnr: string;
   portkod: string;
   postNr: string;
@@ -21,7 +18,6 @@ export class Patient {
   utdelDag: string;
   utdelText: string;
   utdelVecka: string;
-  lasText: string;
   ovrigt: string;
 
   // About the delivery
@@ -29,9 +25,11 @@ export class Patient {
   avropsOmbud: string;
   leveransMottagningsOmbud: string;
 
-  typ: Typ;
+  typ: string = 'PD';
 
   pds: Array<Pd>
+
+  mottagnings: Array<Mottagning> = [];
 
   private static template: Patient = new Patient();
 

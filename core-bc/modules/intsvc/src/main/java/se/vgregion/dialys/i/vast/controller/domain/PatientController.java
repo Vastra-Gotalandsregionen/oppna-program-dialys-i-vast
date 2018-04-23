@@ -1,7 +1,6 @@
 package se.vgregion.dialys.i.vast.controller.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import se.vgregion.dialys.i.vast.jpa.requisitions.*;
+import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
+import se.vgregion.dialys.i.vast.jpa.requisitions.BestPDRad;
+import se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel;
+import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
 import se.vgregion.dialys.i.vast.repository.PatientRepository;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
@@ -22,7 +24,10 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/patient")
@@ -88,13 +93,16 @@ public class PatientController {
     public String getPatients(@RequestParam(value = "page", required = false) Integer page,
                               @RequestParam(value = "query", required = false) String query,
                               @RequestParam(value = "userName", required = false) String userName,
-                              @RequestParam(value = "onlyMyDatas") Boolean onlyMyDatas,
+                              @RequestParam(value = "status", defaultValue = "Aktiv") String status,
                               @RequestParam(value = "sort", required = false) String sort,
-                              @RequestParam(value = "asc", required = false) boolean asc) throws JsonProcessingException {
+                              @RequestParam(value = "asc", required = false) boolean asc,
+                              @RequestHeader(value = "Authorization") String authorization) throws JsonProcessingException {
+
+        System.out.println("Authorization: " + authorization);
 
         Pageable pageable = makePageable(page, sort, asc);
 
-        return objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, onlyMyDatas));
+        return objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status));
     }
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")

@@ -33,19 +33,11 @@ export class UserFormComponent implements OnInit {
   @Input('typ') typ;
 
   @Input('mottagnings')
-  mottagnings: Mottagning[];
-
-  anstallnings: Anstallning[];
-
-  /*@Input('typ') typ;*/
-
-  /*@Input('lastName') lastName;
-  @Input('mail') mail;*/
+  mottagnings: Mottagning[] = [];
 
   userForm: FormGroup;
 
   user: User;
-  // selectedProdn1Ids: number[];
 
   constructor(private http: JwtHttp,
               private formBuilder: FormBuilder,
@@ -62,17 +54,12 @@ export class UserFormComponent implements OnInit {
         .map<Response, User>(response => response.json());
 
       const mottagnings$ = this.http.get('/api/mottagning/')
-        .map<Response, User>(response => response.json());
+        .map<Response, Array<Mottagning>>(response => response.json());
 
       Observable.forkJoin([user$, mottagnings$])
         .subscribe((result: any[]) => {
           this.user = result[0];
           this.mottagnings = result[1];
-          for (const mottagning of this.mottagnings) {
-            const anstallning = new Anstallning();
-            anstallning.mottagningId = mottagning.id;
-            this.anstallnings.push(anstallning);
-          }
           console.log(result);
           this.buildForm();
         });
@@ -81,6 +68,9 @@ export class UserFormComponent implements OnInit {
       this.user = new User();
       //this.user.role = 'USER';
       this.user.typ = 'PD';
+      const mottagnings$ = this.http.get('/api/mottagning/')
+        .map<Response, Array<Mottagning>>(response => response.json());
+      mottagnings$.subscribe((mottagnings) => this.mottagnings = mottagnings);
       this.buildForm();
     }
   }
@@ -163,5 +153,30 @@ export class UserFormComponent implements OnInit {
       return new Observable(observer => observer.next(null)).take(1);
     }
   };
+
+  public onMottagningChecked(item: Mottagning) {
+    var index: number = -1;
+    var i: number = 0;
+    for (const mottagning of this.user.mottagnings) {
+      if (mottagning.id === item.id){
+        index = i;
+        break;
+      }
+      i++;
+    }
+    if (index > -1) {
+      this.user.mottagnings.splice(index, 1);
+    } else {
+      if (this.user.mottagnings.indexOf(item) === -1)
+        this.user.mottagnings.push(item);
+    }
+  }
+
+  public doesUserHaveMottagning(item: Mottagning): boolean {
+    for (const mottagning of this.user.mottagnings) {
+      if (mottagning.id === item.id) return true;
+    }
+    return false;
+  }
 
 }

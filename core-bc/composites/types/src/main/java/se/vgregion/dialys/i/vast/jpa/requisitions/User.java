@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -62,11 +63,17 @@ public class User implements Serializable {
     @Column(name = "password_encrypted_flag")
     private Boolean passwordEncryptionFlag = false;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Ansvarig> ansvariga;
+/*    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Ansvarig> ansvariga;*/
 
-    @OneToMany(mappedBy = "user")
-    private Set<Anstallning> anstallnings;
+/*    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Anstallning> anstallnings;*/
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "anstallning",
+            joinColumns = @JoinColumn(name = "username"),
+            inverseJoinColumns = @JoinColumn(name = "mottagningid"))
+    private Set<Mottagning> mottagnings = new HashSet<>();
 
     public User() {
     }
@@ -137,13 +144,13 @@ public class User implements Serializable {
         return "se.vgregion.dialys.i.vast.jpa.requisitions.User[ userName=" + userName + " ]";
     }
 
-    public Set<Ansvarig> getAnsvariga() {
+/*    public Set<Ansvarig> getAnsvariga() {
         return ansvariga;
     }
 
     public void setAnsvariga(Set<Ansvarig> ansvariga) {
         this.ansvariga = ansvariga;
-    }
+    }*/
 
     public Boolean getPasswordEncryptionFlag() {
         return passwordEncryptionFlag;
@@ -177,11 +184,19 @@ public class User implements Serializable {
         this.admin = admin;
     }
 
-    public Set<Anstallning> getAnstallnings() {
+    public Set<Mottagning> getMottagnings() {
+        return mottagnings;
+    }
+
+    public void setMottagnings(Set<Mottagning> mottagnings) {
+        this.mottagnings = mottagnings;
+    }
+
+  /*  public Set<Anstallning> getAnstallnings() {
         return anstallnings;
     }
 
     public void setAnstallnings(Set<Anstallning> anstallnings) {
         this.anstallnings = anstallnings;
-    }
+    }*/
 }

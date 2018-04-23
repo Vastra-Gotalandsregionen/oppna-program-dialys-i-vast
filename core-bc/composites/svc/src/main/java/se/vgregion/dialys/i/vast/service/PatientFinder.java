@@ -1,14 +1,15 @@
 package se.vgregion.dialys.i.vast.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.converter.json.GsonBuilderUtils;
-import org.springframework.http.converter.json.GsonFactoryBean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
+import se.vgregion.dialys.i.vast.jpa.requisitions.User;
+import se.vgregion.dialys.i.vast.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,12 +25,15 @@ public class PatientFinder {
     @PersistenceContext()
     private EntityManager entityManager;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Transactional
-    public Page<Patient> search(String constraints, Pageable pageable, String userName, Boolean onlyMyDatas) {
+    public Page<Patient> search(String constraints, Pageable pageable, String userName, String status) {
         if (constraints == null) {
             constraints = "";
         }
-        System.out.println("pageable: " + pageable);
+
         List<String> constraintsFrags = Arrays.asList(constraints.split(Pattern.quote(" ")));
 
         StringBuilder sb = new StringBuilder();
@@ -62,24 +66,33 @@ public class PatientFinder {
             sb.append(") and ");
         }
 
-        sb.append(" a.userName = ?" + i);
+        User user = userRepository.findOne(userName);
+        boolean worksAsPharmaceut = user != null && user.getPharmaceut() != null && user.getPharmaceut();
+
+        if (!worksAsPharmaceut) {
+            sb.append(" u.userName = ?" + i);
+            i++;
+            words.add(userName);
+            sb.append(" and ");
+        }
+        sb.append(" p.status = ?" + i);
         i++;
-        words.add(userName);
+        words.add(status);
 
         String countJpql = "select count(distinct p) from "
-                + Patient.class.getSimpleName()
-                + " p join p.ansvarig a "
-                + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
-                + "left join p.pds pds "
-                + "left join pds.bestInfos bestInfo "
+                + Patient.class.getSimpleName() // Pharamaceut:s can se all patients.
+                + (worksAsPharmaceut ? " p" : (" p join p.mottagnings m"
+                + " join m.users u "))
+                + " left join p.pds pds "
+                + " left join pds.bestInfos bestInfo "
                 + sb.toString();
 
         String selectJpql = "select p from "
-                + Patient.class.getSimpleName() + " p "
-                + " join fetch p.ansvarig a "
-                + (!onlyMyDatas ? (" join a.mottagning m join m.ansvarigs a2 ") : "")
-                + "left join fetch p.pds pds "
-                + "left join fetch pds.bestInfos bestInfo "
+                + Patient.class.getSimpleName() // Pharamaceut:s can se all patients.
+                + (worksAsPharmaceut ? " p" : (" p join p.mottagnings m"
+                + " join m.users u "))
+                + " left join fetch p.pds pds "
+                + " left join fetch pds.bestInfos bestInfo "
                 + sb.toString()
                 + " "
                 + makeOrderByPart("p", pageable);

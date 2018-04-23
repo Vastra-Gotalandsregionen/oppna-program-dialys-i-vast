@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   @Input() filter: string;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService, private router: Router) {
 
   }
 

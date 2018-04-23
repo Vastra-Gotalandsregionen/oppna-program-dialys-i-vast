@@ -1,5 +1,4 @@
-import {Ansvarig} from "./Ansvarig";
-import {Anstallning} from "./anstallning";
+import {Mottagning} from "./Mottagning";
 
 export class User {
   userName: string;
@@ -12,9 +11,7 @@ export class User {
   inactivated: boolean;
   // Obsolete end
 
-  ansvariga: Array<Ansvarig> = [];
-
-  anstallnings: Array<Anstallning> = [];
+  mottagnings: Array<Mottagning> = [];
 
   name: string;
   passWord: string;

@@ -64,7 +64,6 @@ export class PatientAddOrderComponent implements OnInit {
               bestPdRow.pdartikelID = pdArtikelRow.id;
               pdArtikelRow.bestPdRow = bestPdRow;
               this.bestInfo.bestPDRads.push(bestPdRow);
-
             }
           });
         });

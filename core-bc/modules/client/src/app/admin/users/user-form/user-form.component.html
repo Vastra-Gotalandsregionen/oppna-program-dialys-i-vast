@@ -14,12 +14,10 @@
           <input id="name" placeholder="Namn" type="text" matInput formControlName="name">
         </mat-input-container>
         <mat-input-container>
-          <input id="passWord" placeholder="Lösenord" type="text" matInput formControlName="passWord">
+          <input id="passWord" placeholder="Lösenord" type="password" matInput formControlName="passWord">
         </mat-input-container>
 
-        <!--&lt;!&ndash;<mat-input-container>
-          <input id="lastName" placeholder="Efternamn" type="text" matInput formControlName="lastName">
-        </mat-input-container>-->
+        <h3>Behörigheter</h3>
 
         <div ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
           <mat-checkbox id="sjukskoterska" name="sjukskoterska" formControlName="sjukskoterska">Sjuksköterska
@@ -32,23 +30,12 @@
           <mat-checkbox id="admin" name="admin" formControlName="admin">Admin</mat-checkbox>
         </div>
 
-
-        <table class="apk-table users-table">
-          <thead>
-          <tr>
-            <th class="row-id">Mottagning</th>
-            <th class="row-first-name">Vald</th>
-          </tr>
-          </thead>
-          <tr *ngFor="let mottagning of mottagnings">
-            <td>{{mottagning.namn}}</td>
-            <td>
-              <mat-checkbox></mat-checkbox>
-            </td>
-          </tr>
-        </table>
-
-
+        <h3>Mottagningar</h3>
+        <div class="form-element" *ngFor="let mottagning of mottagnings">
+          <mat-checkbox [checked]="doesUserHaveMottagning(mottagning)" (change)="onMottagningChecked(mottagning)">
+            {{mottagning.namn}}
+          </mat-checkbox>
+        </div>
 
         <div class="btn-container button-row">
           <button mat-raised-button type="submit">Spara</button>

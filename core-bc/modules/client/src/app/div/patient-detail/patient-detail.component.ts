@@ -22,7 +22,7 @@ export class PatientDetailComponent implements OnInit {
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
-              protected authService: AuthService) {
+              public authService: AuthService) {
   }
 
   ngOnInit() {
