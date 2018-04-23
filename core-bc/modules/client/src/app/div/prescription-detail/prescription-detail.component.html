@@ -47,8 +47,8 @@
         </div>
       </div>
 
-      <div id="bastallningsTableWrap">
-        <mat-table #table dense [dataSource]="bestallningsRader">
+      <div>
+        <mat-table #table dense [dataSource]="dataSources">
           <ng-container matColumnDef="artikel">
             <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikel / Produkt</span></mat-header-cell>
             <mat-cell *matCellDef="let rad">{{rad.artikel}}</mat-cell>
@@ -78,7 +78,7 @@
 
       <div class="btn-container">
 
-        <button (click)="print()" mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
+        <button type="submit"mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
 
       </div>
 
@@ -89,3 +89,4 @@
 
 
 </div>
+
