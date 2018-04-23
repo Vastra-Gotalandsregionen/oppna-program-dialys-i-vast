@@ -30,6 +30,7 @@ public class PatientFinder {
 
     @Transactional
     public Page<Patient> search(String constraints, Pageable pageable, String userName, String status) {
+        long startTime = System.currentTimeMillis();
         if (constraints == null) {
             constraints = "";
         }
@@ -97,14 +98,15 @@ public class PatientFinder {
                 + " "
                 + makeOrderByPart("p", pageable);
 
-        return query(
+        Page<Patient> result = query(
                 Patient.class,
                 selectJpql,
                 countJpql,
                 pageable,
                 words
         );
-
+        System.out.println("Time to search " + (System.currentTimeMillis() - startTime));
+        return result;
     }
 
     private String makeOrderByPart(String forThatTypeAlias, Pageable pageable) {

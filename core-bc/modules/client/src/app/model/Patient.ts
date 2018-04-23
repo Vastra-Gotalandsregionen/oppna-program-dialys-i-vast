@@ -1,5 +1,7 @@
 import {Pd} from "./Pd";
 import {Mottagning} from "./Mottagning";
+import * as moment from "moment";
+import _date = moment.unitOfTime._date;
 
 export class Patient {
   adress: string;
@@ -27,7 +29,13 @@ export class Patient {
 
   typ: string = 'PD';
 
-  pds: Array<Pd>
+  pds: Array<Pd>;
+
+  tempAdressFrom: Date;
+  tempAdressTom: Date;
+  tempPostNr: string;
+  tempPostOrt: string;
+  tempAdress: string;
 
   mottagnings: Array<Mottagning> = [];
 

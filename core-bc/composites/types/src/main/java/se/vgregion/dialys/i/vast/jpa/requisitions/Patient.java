@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -117,6 +118,27 @@ public class Patient implements Serializable {
     @Column(name = "status")
     private String status = "Aktiv"; // Pausad, Avslutad
 
+    // Begin temp-address-fields
+    @Column(name = "tempAdressFrom")
+    private Date tempAdressFrom; // Pausad, Avslutad
+
+    @Column(name = "tempAdressTom")
+    private Date tempAdressTom; // Pausad, Avslutad
+
+    // @Basic(optional = false)
+    @Size(min = 1, max = 50)
+    @Column(name = "tempAdress")
+    private String tempAdress;
+
+    // @Basic(optional = false)
+    @Size(min = 1, max = 6)
+    @Column(name = "tempPostNr")
+    private String tempPostNr;
+
+    // @Basic(optional = false)
+    @Size(min = 1, max = 50)
+    @Column(name = "tempPostOrt")
+    private String tempPostOrt;
 
     public Set<Pd> getPds() {
         return pds;
@@ -285,14 +307,6 @@ public class Patient implements Serializable {
         this.utdelText = utdelText;
     }
 
-/*    public Integer getPas() {
-        return pas;
-    }
-
-    public void setPas(Integer pas) {
-        this.pas = pas;
-    }*/
-
     public Boolean getSamtycke() {
         return samtycke;
     }
@@ -301,13 +315,6 @@ public class Patient implements Serializable {
         this.samtycke = samtycke;
     }
 
-/*    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }*/
 
     @Override
     public int hashCode() {
@@ -375,14 +382,6 @@ public class Patient implements Serializable {
         this.leveransMottagningsOmbud = leveransMottagningsOmbud;
     }
 
-    /*public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }*/
-
     public Boolean getLeveransPaminnelse() {
         return leveransPaminnelse;
     }
@@ -415,9 +414,43 @@ public class Patient implements Serializable {
         this.status = status;
     }
 
-    /*public enum Typ {
-        PD,
-        HD
-    }*/
+    public Date getTempAdressFrom() {
+        return tempAdressFrom;
+    }
 
+    public void setTempAdressFrom(Date tempAdressFrom) {
+        this.tempAdressFrom = tempAdressFrom;
+    }
+
+    public Date getTempAdressTom() {
+        return tempAdressTom;
+    }
+
+    public void setTempAdressTom(Date tempAdressTom) {
+        this.tempAdressTom = tempAdressTom;
+    }
+
+    public String getTempAdress() {
+        return tempAdress;
+    }
+
+    public void setTempAdress(String tempAdress) {
+        this.tempAdress = tempAdress;
+    }
+
+    public String getTempPostNr() {
+        return tempPostNr;
+    }
+
+    public void setTempPostNr(String tempPostNr) {
+        this.tempPostNr = tempPostNr;
+    }
+
+    public String getTempPostOrt() {
+        return tempPostOrt;
+    }
+
+    public void setTempPostOrt(String tempPostOrt) {
+        this.tempPostOrt = tempPostOrt;
+    }
 }
