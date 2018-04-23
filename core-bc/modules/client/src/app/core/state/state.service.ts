@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Anvandare} from '../../model/anvandare';
+import {User} from '../../model/user';
 
 @Injectable()
 export class StateService {
 
-  private _loggedInUser: Anvandare;
+  private _loggedInUser: User;
   private _showContentEdit: boolean;
   private _showDebug: boolean;
   private _showSidenav: boolean;
@@ -12,11 +12,11 @@ export class StateService {
 
   constructor() {}
 
-  get loggedInUser(): Anvandare {
+  get loggedInUser(): User {
     return this._loggedInUser;
   }
 
-  set loggedInUser(value: Anvandare) {
+  set loggedInUser(value: User) {
     this._loggedInUser = value;
   }
 

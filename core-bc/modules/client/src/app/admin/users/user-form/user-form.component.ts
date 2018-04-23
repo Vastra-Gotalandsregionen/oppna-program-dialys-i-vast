@@ -7,7 +7,6 @@ import {Observable} from 'rxjs/Observable';
 import {JwtHttp} from '../../../core/jwt-http';
 import {Router} from '@angular/router';
 import {Mottagning} from "../../../model/Mottagning";
-import {Anstallning} from "../../../model/anstallning";
 
 @Component({
   selector: 'app-user-form',
@@ -42,7 +41,8 @@ export class UserFormComponent implements OnInit {
   constructor(private http: JwtHttp,
               private formBuilder: FormBuilder,
               private errorHandler: ErrorHandler,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
 
@@ -158,7 +158,7 @@ export class UserFormComponent implements OnInit {
     var index: number = -1;
     var i: number = 0;
     for (const mottagning of this.user.mottagnings) {
-      if (mottagning.id === item.id){
+      if (mottagning.id === item.id) {
         index = i;
         break;
       }

@@ -1,11 +1,8 @@
 import {ApkComponent} from './patients/patients.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {PatientDetailComponent} from './patient-detail/patient-detail.component';
 import {PatientAddOrderComponent} from './patient-add-order/patient-add-order.component';
 import {PatientAddRequisitionComponent} from './patient-add-requisition/patient-add-requisition.component';
-import {ArchivedDatasComponent} from './archived-datas/archived-datas.component';
-import {PatientAddComponent} from './patient-add/patient-add.component';
 import {PatientEditComponent} from "./patient-edit/patient-edit.component";
 import {PrescriptionDetailComponent} from "./prescription-detail/prescription-detail.component";
 
@@ -18,20 +15,9 @@ const routes: Routes = [
         component: ApkComponent
       },
       {
-        path: 'create',
-        component: PatientAddComponent
-        //canDeactivate: [FormChangedGuard]
-      },
-      {
-        path: ':id',
-        component: PatientDetailComponent
-      },
-
-      {
         path: ':id/prescription/:id',
         component: PrescriptionDetailComponent
       },
-
       {
         path: ':id/add-requisition',
         component: PatientAddRequisitionComponent
@@ -43,9 +29,6 @@ const routes: Routes = [
       }, {
         path: ':id/edit',
         component: PatientEditComponent
-      }, {
-        path: ':id/archivedDatas',
-        component: ArchivedDatasComponent
       }, {
         path: '/patienter',
         component: ApkComponent
