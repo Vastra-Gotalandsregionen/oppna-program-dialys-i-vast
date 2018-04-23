@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Patient} from "../../model/Patient";
 import {JwtHttp} from "../../core/jwt-http";
 import {BestRad} from "../../model/BestRad";
+import {MatTableDataSource} from "@angular/material";
 
 
 @Component({
@@ -19,6 +20,7 @@ export class PrescriptionDetailComponent implements OnInit {
   rekvisId: string;
   id: string;
   bestallningsRader: BestRad[];
+  dataSources = new MatTableDataSource<BestRad>();
   displayedColumns = ['artikel', 'mangd', 'pdartikel', 'antal'];
   constructor(private route:ActivatedRoute, protected http: JwtHttp) {}
 
@@ -34,7 +36,8 @@ export class PrescriptionDetailComponent implements OnInit {
     const $data = this.http.get('/api/bestallning/' + this.bestallningsId).map(response => response.json());
 
     $data.subscribe((data: BestRad[]) => {
-      this.bestallningsRader = data;
+      this.dataSources.data = data;
+      //this.bestallningsRader = data;
     });
   }
 }
