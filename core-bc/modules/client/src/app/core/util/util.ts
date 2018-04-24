@@ -40,7 +40,7 @@ export class Util {
   }
 
 
-  public static print(title: String, printContents: string): void {
+  public static print(title: string, printContents: string): void {
       let popupWin;
       popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
       popupWin.document.open();
