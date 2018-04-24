@@ -59,28 +59,24 @@
 
               <mat-table #table dense [dataSource]="grupp.artikels">
                 <ng-container matColumnDef="namn">
-                  <mat-header-cell *matHeaderCellDef><span
-                    style="font-size:16px;font-weight:bold">Artikel / Produkt</span></mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
                   <mat-cell *matCellDef="let rad">{{rad.namn}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="storlek">
-                  <mat-header-cell *matHeaderCellDef><span
-                    style="font-size:16px;font-weight:bold">Mängd / Förpackning</span></mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef>Mängd / frp</mat-header-cell>
                   <mat-cell *matCellDef="let rad">{{rad.storlek}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="artNr">
-                  <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Artikelnr</span>
-                  </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef>Artikelnr</mat-header-cell>
                   <mat-cell *matCellDef="let rad">
                     {{rad.artNr}}
                   </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="ordination">
-                  <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Ordination</span>
-                  </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef>Ordination</mat-header-cell>
                   <mat-cell *matCellDef="let rad">
                     <mat-checkbox [value]="selectedArtiklar.indexOf(rad)!=-1"
                                   [checked]="selectedArtiklar.indexOf(rad) != -1" (change)="onItemSelect(rad)">
@@ -89,8 +85,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="maxantal">
-                  <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Maxantal</span>
-                  </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef>Maxantal frp</mat-header-cell>
                   <mat-cell *matCellDef="let rad">
                     <mat-input-container>
                       <input id="name" [(ngModel)]="artikelToPdArtikels.get(rad).maxantal" type="number" matInput>

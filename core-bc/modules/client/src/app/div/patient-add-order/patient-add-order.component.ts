@@ -12,6 +12,7 @@ import {Pd} from "../../model/Pd";
 import {MatSnackBar} from "@angular/material";
 import {identifierModuleUrl} from "@angular/compiler";
 import {FormsModule, NgForm} from "@angular/forms";
+import {Util} from "../../core/util/util";
 
 @Component({
   selector: 'app-apk-detail',
@@ -110,6 +111,11 @@ export class PatientAddOrderComponent implements OnInit {
     });
 
 
+  }
+
+  print(title: string, printNodeId: string): boolean {
+    let printContents = document.getElementById(printNodeId).innerHTML;
+    return Util.print(title, printContents);
   }
 
 }

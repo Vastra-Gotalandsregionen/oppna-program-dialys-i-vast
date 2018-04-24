@@ -38,4 +38,24 @@ export class Util {
     let dateObject = new Date(date);
     return dateObject;
   }
+
+
+  public static print(title: string, printContents: string): boolean {
+      let popupWin;
+      popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+      popupWin.document.open();
+      popupWin.document.write(`
+        <html>
+          <head>
+            <title>${title}</title>
+            <link href="/assets/print/print.css" rel="stylesheet">
+          </head>
+      <body onload="window.print();window.close()">${printContents}</body>
+        </html>`
+      );
+      popupWin.document.close();
+      return false;
+  }
+
+
 }
