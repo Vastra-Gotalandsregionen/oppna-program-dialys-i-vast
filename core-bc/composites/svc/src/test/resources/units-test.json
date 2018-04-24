@@ -1,72 +1,175 @@
 {
-  "id": 5191,
-  "lankod": 14,
-  "arbetsplatskod": "031301",
-  "ao3": "820",
-  "ansvar": "21520",
-  "frivilligUppgift": null,
-  "agarform": "2",
-  "vardform": "30",
-  "verksamhet": "014",
-  "sorteringskodProd": "v1801",
-  "sorteringskodBest": "",
-  "benamning": "Nämndomr 1, kommunalt anställd sjuksköterska",
-  "benamningKort": "Nämndomr 1, kommunalt anställd ssk",
-  "postnr": "45126",
-  "postort": "Uddevalla",
-  "postadress": "HSNK Uddevalla",
-  "lakemedkomm": "LK2",
-  "kontaktAkod": "Mari-Louise Dunert",
-  "leverans": 1,
-  "fakturering": 2,
-  "anmarkning": "",
-  "fromDatum": "1900-01-01",
-  "tillDatum": "2199-12-01",
-  "regDatum": "2018-03-13 15:12",
-  "ersattav": "",
-  "userId": 68,
-  "arbetsplatskodlan": "14031301",
-  "namn": "",
-  "andringsdatum": "2018-03-13 15:12",
-  "kommun": null,
-  "slask": null,
-  "apodos": false,
-  "externfaktura": null,
-  "kommunkod": "1488",
-  "externfakturamodell": "nej",
-  "vgpv": false,
-  "hsaid": "",
-  "userIdNew": "monhj7",
-  "deletable": false,
-  "groupCode": null,
-  "hsaidMissingInKiv": null,
-  "prodn1": {
-    "id": -3,
-    "producentid": "HSN 21 Norra",
-    "kortnamn": "HSN 21 Norra",
-    "raderad": false
+  "_embedded" : {
+    "mottagnings" : [ {
+      "namn" : "PD Mottagning SU",
+      "apotekID" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/1"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/1"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/1/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/1/patients"
+        }
+      }
+    }, {
+      "namn" : "PD Mottagning SÄS",
+      "apotekID" : 2,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/2"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/2"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/2/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/2/patients"
+        }
+      }
+    }, {
+      "namn" : "PD Mottagning NÄL",
+      "apotekID" : 3,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/3"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/3"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/3/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/3/patients"
+        }
+      }
+    }, {
+      "namn" : "PD Mottagning SKAS",
+      "apotekID" : 4,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/4"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/4"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/4/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/4/patients"
+        }
+      }
+    }, {
+      "namn" : "PD Mottagning Östra",
+      "apotekID" : 3,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/5"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/5"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/5/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/5/patients"
+        }
+      }
+    }, {
+      "namn" : "HD Mottagning MLN",
+      "apotekID" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/6"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/6"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/6/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/6/patients"
+        }
+      }
+    }, {
+      "namn" : "HD Mottagning SKAS",
+      "apotekID" : 4,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/7"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/7"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/7/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/7/patients"
+        }
+      }
+    }, {
+      "namn" : "HD Mottagning NÄL",
+      "apotekID" : 3,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/8"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/8"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/8/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/8/patients"
+        }
+      }
+    }, {
+      "namn" : "HD Mottagning SU",
+      "apotekID" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/9"
+        },
+        "mottagning" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/9"
+        },
+        "users" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/9/users"
+        },
+        "patients" : {
+          "href" : "http://localhost:4200/dialys-i-vast/mottagnings/9/patients"
+        }
+      }
+    } ]
   },
-  "prodn3": {
-    "id": -63,
-    "producentid": "Kommunala distriktssköterskor",
-    "kortnamn": "Kommunala distriktssköterskor",
-    "raderad": false,
-    "n2": "Komm och statl vårdgivare",
-    "prodn2": {
-      "id": -16,
-      "producentid": "Komm och statl vårdgivare",
-      "kortnamn": "Komm och statl vårdgivare",
-      "raderad": false,
-      "n1": "HSN 21 Norra",
-      "prodn1": {
-        "id": -3,
-        "producentid": "HSN 21 Norra",
-        "kortnamn": "HSN 21 Norra",
-        "raderad": false
-      },
-      "autoradering": null,
-      "riktvarde": null
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:4200/dialys-i-vast/mottagnings"
     },
-    "autoradering": false
+    "profile" : {
+      "href" : "http://localhost:4200/dialys-i-vast/profile/mottagnings"
+    },
+    "search" : {
+      "href" : "http://localhost:4200/dialys-i-vast/mottagnings/search"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 9,
+    "totalPages" : 1,
+    "number" : 0
   }
 }

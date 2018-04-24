@@ -4,6 +4,7 @@ import {SharedModule} from '../shared/shared.module';
 import {AdminRoutingModule} from './admin-routing.module';
 import { AdminLandingComponent } from './admin-landing/admin-landing.component';
 import { AdminComponent } from './admin.component';
+import { MottagningsListComponent } from './mottagnings/mottagnings-list/mottagnings-list.component';
 
 @NgModule({
   imports: [

@@ -5,6 +5,7 @@ import {PatientAddOrderComponent} from './patient-add-order/patient-add-order.co
 import {PatientAddRequisitionComponent} from './patient-add-requisition/patient-add-requisition.component';
 import {PatientEditComponent} from "./patient-edit/patient-edit.component";
 import {PrescriptionDetailComponent} from "./prescription-detail/prescription-detail.component";
+import {PatientDetailComponent} from "./patient-detail/patient-detail.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
       {
         path: '',
         component: ApkComponent
+      },
+      {
+        path: ':id',
+        component: PatientDetailComponent
       },
       {
         path: ':id/prescription/:id',
@@ -29,9 +34,12 @@ const routes: Routes = [
       }, {
         path: ':id/edit',
         component: PatientEditComponent
-      }, {
+      },/* {
         path: '/patienter',
         component: ApkComponent
+      },*/ {
+        path: '/patienter/:id',
+        component: PatientDetailComponent
       }, {
         path: 'create/edit/',
         component: PatientEditComponent
