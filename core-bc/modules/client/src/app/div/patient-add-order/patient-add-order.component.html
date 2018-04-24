@@ -19,16 +19,16 @@
               <div class="dialys-details">
 
                 <div class="dialys-details-item">
-                  <div class="dialys-details-item-label">Personnr:</div>
+                  <div class="dialys-details-item-label">Förnamn:</div>
                   <div class="dialys-details-item-data">
-                    {{data.pnr}}
+                    {{data.fornamn}}
                   </div>
                 </div>
 
                 <div class="dialys-details-item">
-                  <div class="dialys-details-item-label">Rekvisitionsnr:</div>
+                  <div class="dialys-details-item-label">Efternamn:</div>
                   <div class="dialys-details-item-data">
-                    {{rekvisId}}
+                    {{data.efternamn}}
                   </div>
                 </div>
 
@@ -39,13 +39,144 @@
                   </div>
                 </div>
 
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Rekvisitionsnr:</div>
+                  <div class="dialys-details-item-data">
+                   {{rekvisId}}
+                  </div>
+                </div>
+                <br>
+
               </div>
 
             </div>
         	</div>
           <div class="col c6">
+            <div class="col-inner">
+
+              <div class="dialys-details">
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Gatuadress:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.adress}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Postnummer:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.postNr}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Postort:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.postOrt}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Portkod:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.portkod}}
+                  </div>
+                </div>
+                <br>
+
+              </div>
+
+            </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col c6">
+            <div class="col-inner">
+
+              <div class="dialys-details">
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Telefonnr:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.telefon}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Mobilnummer:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.mobil}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Epost:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.epost}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item" *ngIf="data.leveransMottagningsOmbud != null">
+                  <div class="dialys-details-item-label">ombod för anrop:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.leveransMottagningsOmbud}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col c6">
+            <div class="col-inner">
+
+              <div class="dialys-details">
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Utdelningsdag:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.utdelDag}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">utdelningstid:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.utdelDag}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item">
+                  <div class="dialys-details-item-label">Utdelning:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.utdelVecka}}
+                  </div>
+                </div>
+
+                <div class="dialys-details-item" *ngIf="data.avropsOmbud != null">
+                  <div class="dialys-details-item-label">Ombud för avrop:</div>
+                  <div class="dialys-details-item-data">
+                    {{data.avropsOmbud}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="dialys-details">
+            <div class="dialys-details-item" *ngIf="data.ovrigt != null">
+              <div class="dialys-details-item-label">Övriga information:</div>
+              <div class="dialys-details-item-data">
+                {{data.ovrigt}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+
 
         <hr>
 
