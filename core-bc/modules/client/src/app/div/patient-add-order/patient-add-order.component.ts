@@ -94,6 +94,8 @@ export class PatientAddOrderComponent implements OnInit {
       //}*/
     }
     this.bestInfo.datum = new Date();
+    this.bestInfo.fritext = orderModel.form.controls.fritxt.value;
+    this.bestInfo.levDatum = orderModel.form.controls.leveransdatum.value;
     this.bestInfo.pdid = +this.rekvisId;
     const $data = this.http.put('/api/bestInfo/', this.bestInfo)
       .map(response => response.json())

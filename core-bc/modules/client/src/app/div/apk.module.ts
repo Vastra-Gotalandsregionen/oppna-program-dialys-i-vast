@@ -8,11 +8,13 @@ import {UserHasDataPermissionGuard} from './guard/user-has-data-permission.guard
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { PrescriptionDetailComponent } from './prescription-detail/prescription-detail.component';
 import { RequisitionEditComponent } from './requisition-edit/requisition-edit.component';
+import { FlexLayoutModule} from "@angular/flex-layout";
 
 @NgModule({
   imports: [
     ApkRoutingModule,
-    SharedModule
+    SharedModule,
+    FlexLayoutModule
   ],
   declarations: [
     ApkComponent,
