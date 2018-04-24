@@ -40,7 +40,7 @@ export class Util {
   }
 
 
-  public static print(title: string, printContents: string): void {
+  public static print(title: string, printContents: string): boolean {
       let popupWin;
       popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
       popupWin.document.open();
@@ -54,6 +54,7 @@ export class Util {
         </html>`
       );
       popupWin.document.close();
+      return false;
   }
 
 

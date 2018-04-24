@@ -42,9 +42,9 @@ export class PrescriptionDetailComponent implements OnInit {
     });
   }
 
-  print(title: string, printNodeId: string): void {
+  print(title: string, printNodeId: string): boolean {
     let printContents = document.getElementById(printNodeId).innerHTML;
-    Util.print(title, printContents);
+    return Util.print(title, printContents);
   }
 
 }
