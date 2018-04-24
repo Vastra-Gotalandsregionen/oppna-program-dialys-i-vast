@@ -1,10 +1,9 @@
-.foo {
-  background: black;
-  color: white;
-}
-
 .mat-table {
     display: block;
+}
+
+.mat-header-row {
+  background: transparent;
 }
 
 .mat-header-row,
