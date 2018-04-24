@@ -4,6 +4,7 @@ import {Patient} from "../../model/Patient";
 import {JwtHttp} from "../../core/jwt-http";
 import {BestRad} from "../../model/BestRad";
 import {MatTableDataSource} from "@angular/material";
+import {Util} from "../../core/util/util";
 
 
 @Component({
@@ -41,56 +42,9 @@ export class PrescriptionDetailComponent implements OnInit {
     });
   }
 
-  print(): void {
-      let printContents, popupWin;
-      printContents = document.getElementById('bastallningsTableWrap').innerHTML;
-      popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-      popupWin.document.open();
-      popupWin.document.write(`
-        <html>
-          <head>
-            <title>Beställning</title>
-            <style>
-              .mat-table {
-                  display: block;
-              }
-
-              .mat-header-row,
-              .mat-row {
-                  align-items: center;
-                  border-bottom: 1px solid #333;
-                  box-sizing: border-box;
-                  display: flex;
-                  padding: 0 24px;
-              }
-
-              .mat-header-cell {
-                  color: #555;
-                  font-size: 12px;
-                  font-weight: bold;
-              }
-
-              .mat-cell,
-              .mat-header-cell {
-                  flex: 1;
-                  overflow: hidden;
-                  padding: 10px;
-                  word-wrap: break-word;
-              }
-
-              .mat-table .mat-cell {
-              	 font-size: 14px;
-                 overflow: visible;
-                 color: #333;
-              }
-
-            </style>
-          </head>
-      <body onload="window.print();window.close()">${printContents}</body>
-        </html>`
-      );
-      popupWin.document.close();
+  print(title: String, printNodeId: String): void {
+    let printContents = document.getElementById(printNodeId).innerHTML;
+    Util.print(title, printContents);
   }
-
 
 }

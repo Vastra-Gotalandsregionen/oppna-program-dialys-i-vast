@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../core/auth/auth.service";
 
+import {Util} from "../../core/util/util";
+
 @Component({
   selector: 'app-admin-landing',
   templateUrl: './admin-landing.component.html',
@@ -20,4 +22,5 @@ export class AdminLandingComponent implements OnInit {
   get loggedIn() {
     return this.authService.isAuthenticated();
   }
+
 }
