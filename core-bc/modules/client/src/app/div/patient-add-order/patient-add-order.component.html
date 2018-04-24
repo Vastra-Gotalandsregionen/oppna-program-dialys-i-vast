@@ -89,15 +89,16 @@
 
           <div>
             <mat-form-field style="margin-top: 30px; width: 300px">
-          <textarea matInput placeholder="Fri text" style="height: 100px;"
+          <textarea matInput placeholder="Fri text" style="height: 50px;"
                     [(ngModel)]=bestInfo.fritext
                     name="fritxt"
                     #fritext="ngModel"></textarea>
             </mat-form-field>
 
-            <mat-form-field style="margin-top: 30px; width: 300px" fxLayoutAlign="center left">
+            <mat-form-field style="margin-top: 20px; width: 300px" fxLayoutAlign="center end">
               <input matInput [matDatepicker]="picker"
                      placeholder="Leveransdatum"
+                     style="height: 20px;"
                      [(ngModel)]=bestInfo.levDatum
                       name="leveransdatum"
                       #levdatum="ngModel">
