@@ -14,12 +14,16 @@ import {Util} from "../../core/util/util";
 })
 export class PrescriptionDetailComponent implements OnInit {
 
-  data:Patient;
   bestallningsId: number;
   pnr: string;
   rekvisDatum: Date;
   rekvisId: string;
   id: string;
+  gata: string;
+  postNummer: string;
+  postOrt: string;
+  fornamn: string;
+  efternamn: string;
   bestallningsRader: BestRad[];
   dataSources = new MatTableDataSource<BestRad>();
   displayedColumns = ['artikel', 'mangd', 'pdartikel', 'antal'];
@@ -31,6 +35,11 @@ export class PrescriptionDetailComponent implements OnInit {
     this.rekvisDatum = this.route.snapshot.queryParams['rekvisDatum'];
     this.rekvisId = this.route.snapshot.queryParams['rekvisitionid'];
     this.id = this.route.snapshot.queryParams['patId'];
+    this.gata = this.route.snapshot.queryParams['gatuadress'];
+    this.postOrt = this.route.snapshot.queryParams['postort'];
+    this.postNummer = this.route.snapshot.queryParams['postnummer'];
+    this.fornamn = this.route.snapshot.queryParams['namn'];
+    this.efternamn = this.route.snapshot.queryParams['efternamn'];
 
 
 
