@@ -1,10 +1,9 @@
-.foo {
-  background: black;
-  color: white;
-}
-
 .mat-table {
     display: block;
+}
+
+.mat-header-row {
+  background: transparent;
 }
 
 .mat-header-row,
@@ -35,3 +34,24 @@
    overflow: visible;
    color: #333;
 }
+
+.mat-table .mat-cell input {
+  border: 0px;
+}
+
+.mat-table .mat-cell .mat-form-field-label-wrapper {
+  display: none;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+     color: transparent;
+ }
+ :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color: transparent;
+ }
+ ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color: transparent;
+ }
+ :-ms-input-placeholder { /* Internet Explorer 10+ */
+     color: transparent;
+ }

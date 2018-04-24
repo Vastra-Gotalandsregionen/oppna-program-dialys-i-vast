@@ -50,9 +50,11 @@ export class Util {
             <title>${title}</title>
             <link href="/assets/print/print.css" rel="stylesheet">
           </head>
-      <body onload="window.print();window.close()">${printContents}</body>
+          <body onload="window.print();window.close()">${printContents}</body>
         </html>`
       );
+      //<body onload="window.print();window.close()">${printContents}</body>
+      //<body onload="">${printContents}</body>
       popupWin.document.close();
       return false;
   }
