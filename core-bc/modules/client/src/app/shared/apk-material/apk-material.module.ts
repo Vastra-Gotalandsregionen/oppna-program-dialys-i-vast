@@ -15,7 +15,7 @@ import {
   MatNativeDateModule,
   MatTabsModule,
   DateAdapter, MAT_DATE_LOCALE,
-  MatTableModule,
+  MatTableModule, MatPaginatorModule,
 } from '@angular/material';
 
 @NgModule({
@@ -44,7 +44,8 @@ import {
     MatDatepickerModule,
     MatTabsModule,
     MatNativeDateModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   declarations: [],
   exports: [
@@ -72,7 +73,8 @@ import {
     MatDatepickerModule,
     MatTabsModule,
     MatNativeDateModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
     providers: [
     {provide: DateAdapter, useClass: MyDateAdapter},

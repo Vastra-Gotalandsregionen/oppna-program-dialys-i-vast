@@ -1,10 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
 import {JwtHttp} from "../../core/jwt-http";
 import {BestInfo} from "../../model/BestInfo";
 import {Pd} from "../../model/Pd";
+import {MatPaginator, MatTableDataSource} from "@angular/material";
+import {BestRad} from "../../model/BestRad";
 
 @Component({
   selector: 'app-apk-detail',
@@ -17,8 +19,10 @@ export class PatientDetailComponent implements OnInit {
   data: Patient;
   showOldRequisitions: boolean;
   dataSourceSenasteRekvisition: BestInfo[] = [];
+  dataSource1 = new MatTableDataSource<BestInfo>();
   displayedColumns = ['id', 'datum', 'utskrivare', 'levdatum'];
   panelOpenState: Number[] = [];
+  @ViewChild('page1') page1 : MatPaginator;
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
@@ -41,7 +45,10 @@ export class PatientDetailComponent implements OnInit {
           this.data = data;
           Patient.init(this.data);
           this.data.sortPds();
-          this.dataSourceSenasteRekvisition = data.pds[0].bestInfos;
+
+          setTimeout(() => this.dataSource1.paginator = this.page1);
+          this.dataSource1.data = data.pds[0].bestInfos;
+
         });
       }
     });
