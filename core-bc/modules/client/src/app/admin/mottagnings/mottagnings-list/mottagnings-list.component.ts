@@ -4,6 +4,7 @@ import {JwtHttp} from "../../../core/jwt-http";
 import {MatDialog} from "@angular/material";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
 import {InputDialogComponent} from "../../../shared/input-dialog/input-dialog.component";
+import {MottagningsDialogComponent} from "../mottagnings-dialog/mottagnings-dialog.component";
 
 @Component({
   selector: 'app-mottagnings-list',
@@ -15,7 +16,7 @@ export class MottagningsListComponent implements OnInit {
   constructor(private http: JwtHttp, private dialog: MatDialog) {
   }
 
-  displayedColumns = ['id', 'name', 'personnelCount', 'patientCount', 'menu'];
+  displayedColumns = ['id', 'name', 'status', 'personnelCount', 'patientCount', 'menu'];
 
   mottagnings: MottagningExt[];
 
@@ -70,19 +71,15 @@ export class MottagningsListComponent implements OnInit {
   }
 
   change(mottagning: Mottagning) {
-    let dialogRef = this.dialog.open(InputDialogComponent, {
-      data: {
-        text: 'Ändra namn på mottagning' + mottagning.namn + '?',
-        value: mottagning.namn,
-        confirmButtonText: 'Ändra',
-      },
+    mottagning = Object.assign({}, mottagning);
+    let dialogRef = this.dialog.open(MottagningsDialogComponent, {
+      data: mottagning,
       panelClass: 'apk-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        mottagning.namn = result;
-        this.http.put('/api/mottagning/', mottagning)
+        this.http.put('/api/mottagning/', result)
           .subscribe(response => {
             console.log(response);
             this.fetchListItems();
@@ -93,25 +90,7 @@ export class MottagningsListComponent implements OnInit {
 
   createNewMottagning() {
     const mottagning: Mottagning = new Mottagning();
-    let dialogRef = this.dialog.open(InputDialogComponent, {
-      data: {
-        text: 'Ange namn på ny mottagning',
-        value: mottagning.namn,
-        confirmButtonText: 'Skapa',
-      },
-      panelClass: 'apk-dialog'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result != null) {
-        mottagning.namn = result;
-        this.http.put('/api/mottagning/', mottagning)
-          .subscribe(response => {
-            console.log(response);
-            this.fetchListItems();
-          });
-      }
-    });
+    this.change(mottagning);
   }
 
 }

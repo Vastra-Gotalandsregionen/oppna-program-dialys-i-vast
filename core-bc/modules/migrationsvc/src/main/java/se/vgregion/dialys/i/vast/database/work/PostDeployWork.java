@@ -186,6 +186,9 @@ public class PostDeployWork {
         target.execute("drop table ansvarig");
 
         target.commit();
+
+        target.execute("update mottagning set status = 'Aktiv'");
+        target.commit();
     }
 
 

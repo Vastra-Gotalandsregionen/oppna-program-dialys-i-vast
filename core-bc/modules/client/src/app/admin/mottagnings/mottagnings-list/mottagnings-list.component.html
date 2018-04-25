@@ -20,6 +20,11 @@
     <mat-cell *matCellDef="let mottagning"> {{mottagning.namn}} </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+    <mat-cell *matCellDef="let mottagning"> {{mottagning.status}} </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="personnelCount">
     <mat-header-cell *matHeaderCellDef> Personal </mat-header-cell>
     <mat-cell *matCellDef="let mottagning"> {{mottagning.personalCount}} </mat-cell>
@@ -39,7 +44,7 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="change(mottagning)">
           <mat-icon>folder_open</mat-icon>
-          <span>Döp om</span>
+          <span>Redigera</span>
         </button>
 
         <button mat-menu-item (click)="confirmDelete(mottagning)"
