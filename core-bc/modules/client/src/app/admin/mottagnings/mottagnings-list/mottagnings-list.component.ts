@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Mottagning} from "../../../model/Mottagning";
 import {JwtHttp} from "../../../core/jwt-http";
+import {MatDialog} from "@angular/material";
+import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
+import {InputDialogComponent} from "../../../shared/input-dialog/input-dialog.component";
 
 @Component({
   selector: 'app-mottagnings-list',
@@ -9,10 +12,10 @@ import {JwtHttp} from "../../../core/jwt-http";
 })
 export class MottagningsListComponent implements OnInit {
 
-  constructor(private http: JwtHttp) {
+  constructor(private http: JwtHttp, private dialog: MatDialog) {
   }
 
-  displayedColumns = ['id', 'name', 'personnelCount', 'patientCount'];
+  displayedColumns = ['id', 'name', 'personnelCount', 'patientCount', 'menu'];
 
   mottagnings: MottagningExt[];
 
@@ -43,6 +46,72 @@ export class MottagningsListComponent implements OnInit {
             });
         }
       );
+  }
+
+
+  confirmDelete(mottagning: Mottagning) {
+    let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        text: 'Är du säker att du vill ta bort ' + mottagning.namn + '?',
+        confirmButtonText: 'Ta bort'
+      },
+      panelClass: 'apk-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        this.http.delete('/api/mottagning/' + mottagning.id)
+          .subscribe(response => {
+            console.log(response);
+            this.fetchListItems();
+          });
+      }
+    });
+  }
+
+  change(mottagning: Mottagning) {
+    let dialogRef = this.dialog.open(InputDialogComponent, {
+      data: {
+        text: 'Ändra namn på mottagning' + mottagning.namn + '?',
+        value: mottagning.namn,
+        confirmButtonText: 'Ändra',
+      },
+      panelClass: 'apk-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        mottagning.namn = result;
+        this.http.put('/api/mottagning/', mottagning)
+          .subscribe(response => {
+            console.log(response);
+            this.fetchListItems();
+          });
+      }
+    });
+  }
+
+  createNewMottagning() {
+    const mottagning: Mottagning = new Mottagning();
+    let dialogRef = this.dialog.open(InputDialogComponent, {
+      data: {
+        text: 'Ange namn på ny mottagning',
+        value: mottagning.namn,
+        confirmButtonText: 'Skapa',
+      },
+      panelClass: 'apk-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        mottagning.namn = result;
+        this.http.put('/api/mottagning/', mottagning)
+          .subscribe(response => {
+            console.log(response);
+            this.fetchListItems();
+          });
+      }
+    });
   }
 
 }

@@ -17,6 +17,7 @@ import {CKEditorModule} from "ng2-ckeditor";
 import { LaddaModule } from 'angular2-ladda';
 import { LinkListComponent } from './link-list/link-list.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
+import {InputDialogComponent} from "./input-dialog/input-dialog.component";
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { ContentBoxComponent } from './content-box/content-box.component';
     ErrorDialogComponent,
     LoginDialogComponent,
     ConfirmDialogComponent,
+    InputDialogComponent,
     BackButtonComponent,
     SidenavToggleButtonComponent,
     EllipsisPipe,
@@ -42,7 +44,8 @@ import { ContentBoxComponent } from './content-box/content-box.component';
   entryComponents: [
     ErrorDialogComponent,
     LoginDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    InputDialogComponent
   ],
   exports: [
     ApkMaterialModule,

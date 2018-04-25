@@ -3,7 +3,7 @@
     Mottagningar
   </h1>
   <div class="action-toolbar-spacer"></div>
-  <a class="action-toolbar-item" mat-fab routerLink="create/edit" matTooltip="Lägg till ny mottagning">
+  <a class="action-toolbar-item" mat-fab (click)="createNewMottagning()" matTooltip="Lägg till ny mottagning">
     <mat-icon>add</mat-icon>
   </a>
 </mat-toolbar>
@@ -16,7 +16,7 @@
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Namn </mat-header-cell>
     <mat-cell *matCellDef="let mottagning"> {{mottagning.namn}} </mat-cell>
   </ng-container>
 
@@ -32,20 +32,26 @@
 
   <ng-container matColumnDef="menu">
     <mat-header-cell *matHeaderCellDef> Meny </mat-header-cell>
-    <mat-cell *matColumnDef="let mottagning">
-<!--      <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="{{mottagning.id}}">
+    <mat-cell *matCellDef="let mottagning">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="change(mottagning)">
           <mat-icon>folder_open</mat-icon>
-          <span>Visa</span>
+          <span>Döp om</span>
         </button>
 
-        <button mat-menu-item routerLink="{{mottagning.id}}/add-requisition" *ngIf="mottagning.personalCount === 0 && mottagning.patientCount === 0">
+        <button mat-menu-item (click)="confirmDelete(mottagning)"
+                *ngIf="mottagning.personalCount === 0 && mottagning.patientCount === 0">
           <mat-icon>content_paste</mat-icon>
           <span>Radera</span>
         </button>
-      </mat-menu>-->
+      </mat-menu>
     </mat-cell>
   </ng-container>
+
+
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

@@ -23,20 +23,16 @@ export class ApkComponent implements OnInit {
 
   stateCtrl: FormControl;
   onlyActiveDatasCtrl: FormControl;
-  // onlyMyDatasCtrl: FormControl;
   status: string = 'Aktiv';
 
   query: string;
   page = 0;
   selectedPage = 1;
   totalPagesArr: Array<number>;
-  // onlyActiveDatas: boolean;
-  // onlyMyDatas: boolean;
   location: Location;
 
   response: RestResponse<Patient>;
   sort: { field: string, ascending: boolean };
-  // usersProdn1sString$: Observable<string>;
 
   constructor(private http: JwtHttp,
               location: Location,

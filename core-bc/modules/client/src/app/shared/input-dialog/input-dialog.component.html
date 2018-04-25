@@ -1,0 +1,18 @@
+<h1 mat-dialog-title="">Bekräfta</h1>
+
+<div class="confirm-dialog">
+
+    <div mat-dialog-content>
+      <div> {{data.text}} </div>
+      <div class="dialys-form-field">
+        <mat-input-container>
+          <input [(ngModel)]="data.value" type="text" matInput>
+        </mat-input-container>
+      </div>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button class="btn btn-primary" (click)="dialogRef.close(data.value)" mat-raised-button>{{data.confirmButtonText}}</button>
+        <button mat-button class="btn btn-default" (click)="dialogRef.close(null)">Avbryt</button>
+    </div>
+</div>
