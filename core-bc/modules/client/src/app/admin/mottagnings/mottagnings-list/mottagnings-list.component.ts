@@ -12,9 +12,9 @@ export class MottagningsListComponent implements OnInit {
   constructor(private http: JwtHttp) {
   }
 
-  displayedColumns = ['name'];
+  displayedColumns = ['id', 'name', 'personnelCount', 'patientCount'];
 
-  mottagnings: Mottagning[];
+  mottagnings: MottagningExt[];
 
   ngOnInit() {
     console.log('MottagningsListComponent');
@@ -27,8 +27,27 @@ export class MottagningsListComponent implements OnInit {
         (mottagnings: any) => {
           this.mottagnings = mottagnings;
           console.log("got data ", this.mottagnings);
+          var url: string = '/api/generic/counts/Mottagning/users/iids/';
+          var ids = '';
+          this.mottagnings.forEach((i) => ids += 'i' + i.id);
+          this.http.get(url + ids)
+            .map(response => response.json())
+            .subscribe((counts: Array<number>) => {
+              for (var c = 0; c < counts.length; c++) this.mottagnings[c].personalCount = counts[c];
+            });
+          url = '/api/generic/counts/Mottagning/patients/iids/';
+          this.http.get(url + ids)
+            .map(response => response.json())
+            .subscribe((counts: Array<number>) => {
+              for (var c = 0; c < counts.length; c++) this.mottagnings[c].patientCount = counts[c];
+            });
         }
       );
   }
 
+}
+
+class MottagningExt extends Mottagning {
+  personalCount: number;
+  patientCount: number;
 }
