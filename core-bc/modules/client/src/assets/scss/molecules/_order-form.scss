@@ -1,0 +1,24 @@
+.order-form {
+
+  .form-element {
+    margin: 20px 0;
+  }
+
+  .order-comment {
+    max-width: $scaffolding-max-width/2;
+    width: 100%;
+
+    textarea {
+      height: 150px;
+    }
+  }
+
+  .order-delivery-date {
+
+    max-width: $scaffolding-max-width/2;
+    width: 100%;
+
+
+  }
+
+}
