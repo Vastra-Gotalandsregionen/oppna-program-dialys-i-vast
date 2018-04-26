@@ -1,10 +1,10 @@
 package se.vgregion.dialys.i.vast.controller.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Mottagning;
 import se.vgregion.dialys.i.vast.repository.MottagningRepository;
 
@@ -21,6 +21,20 @@ public class MottagningController {
     @ResponseBody
     public List<Mottagning> getAll() {
         return mottagningRepository.findAll();
+    }
+
+    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+        mottagningRepository.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public ResponseEntity<Void> save(@RequestBody Mottagning mottagning) {
+        mottagningRepository.save(mottagning);
+        return ResponseEntity.ok().build();
     }
 
 }

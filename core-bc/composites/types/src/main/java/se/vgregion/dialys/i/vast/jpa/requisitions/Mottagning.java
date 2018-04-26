@@ -44,6 +44,9 @@ public class Mottagning implements Serializable {
     @Column(name = "ApotekID")
     private Integer apotekID;
 
+    @Column(name = "status")
+    private String status = "Aktiv"; // Avslutad, Pausad
+
     @JsonIgnore
     @ManyToMany(mappedBy = "mottagnings")
     private Set<User> users = new HashSet<>();
@@ -51,9 +54,6 @@ public class Mottagning implements Serializable {
     @JsonIgnore
     @ManyToMany(mappedBy = "mottagnings")
     private Set<Patient> patients = new HashSet<>();
-
-/*    @OneToMany(mappedBy = "mottagning")
-    private Set<Ansvarig> ansvarigs;*/
 
     public Mottagning() {
 
@@ -126,6 +126,14 @@ public class Mottagning implements Serializable {
 
     public void setPatients(Set<Patient> patients) {
         this.patients = patients;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 /*    public Set<Ansvarig> getAnsvarigs() {

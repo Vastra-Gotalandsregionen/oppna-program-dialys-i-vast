@@ -6,17 +6,16 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
+import se.vgregion.dialys.i.vast.jpa.requisitions.Pd;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @Component
@@ -28,7 +27,16 @@ public class PatientFinder {
     @Autowired
     private UserRepository userRepository;
 
-    @Transactional
+    /**
+     * Observe: This service removes all but one of the Patients Pd:s and their BestInfo:s.
+     * This because only the first Pd and Bestinfos are used in the view using this service.
+     *
+     * @param constraints
+     * @param pageable
+     * @param userName
+     * @param status
+     * @return
+     */
     public Page<Patient> search(String constraints, Pageable pageable, String userName, String status) {
         long startTime = System.currentTimeMillis();
         if (constraints == null) {
@@ -105,9 +113,38 @@ public class PatientFinder {
                 pageable,
                 words
         );
+
+        leavJustOnePdAndBestInfo(result);
+
         System.out.println("Time to search " + (System.currentTimeMillis() - startTime));
+
         return result;
     }
+
+    static void leavJustOnePdAndBestInfo(Page<Patient> insideThose) {
+        for (Patient patient : insideThose) {
+            leavJustOnePdAndBestInfo(patient);
+        }
+    }
+
+    static void leavJustOnePdAndBestInfo(Patient insideThat) {
+        if (insideThat.getPds().size() > 1) {
+            NavigableSet<Pd> pds = new TreeSet<>((o1, o2) -> o1.getDatum().before(o2.getDatum()) ? 1 : -1);
+            pds.addAll(insideThat.getPds());
+            insideThat.getPds().clear();
+            Pd withHighestDateValue = pds.first();
+            insideThat.getPds().add(withHighestDateValue);
+            if (withHighestDateValue.getBestInfos().size() > 1) {
+                NavigableSet<BestInfo> bestInfos = new TreeSet(
+                        (Comparator<BestInfo>) (o1, o2) -> (o1.getDatum().before(o2.getDatum()) ? 1 : -1)
+                );
+                bestInfos.addAll(withHighestDateValue.getBestInfos());
+                withHighestDateValue.getBestInfos().clear();
+                withHighestDateValue.getBestInfos().add(bestInfos.first());
+            }
+        }
+    }
+
 
     private String makeOrderByPart(String forThatTypeAlias, Pageable pageable) {
         List<String> orders = new ArrayList<>();

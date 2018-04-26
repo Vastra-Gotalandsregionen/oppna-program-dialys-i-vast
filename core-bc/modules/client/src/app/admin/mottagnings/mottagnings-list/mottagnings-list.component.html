@@ -1,14 +1,59 @@
-<p>
-  mottagnings-list works!
-</p>
-
+<mat-toolbar class="action-toolbar">
+  <h1>
+    Mottagningar
+  </h1>
+  <div class="action-toolbar-spacer"></div>
+  <a class="action-toolbar-item" mat-fab (click)="createNewMottagning()" matTooltip="Lägg till ny mottagning">
+    <mat-icon>add</mat-icon>
+  </a>
+</mat-toolbar>
 
 <mat-table #table [dataSource]="mottagnings">
 
-  <!-- Name Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let mottagning"> {{mottagning.id}} </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Namn </mat-header-cell>
     <mat-cell *matCellDef="let mottagning"> {{mottagning.namn}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+    <mat-cell *matCellDef="let mottagning"> {{mottagning.status}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="personnelCount">
+    <mat-header-cell *matHeaderCellDef> Personal </mat-header-cell>
+    <mat-cell *matCellDef="let mottagning"> {{mottagning.personalCount}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="patientCount">
+    <mat-header-cell *matHeaderCellDef> Patienter </mat-header-cell>
+    <mat-cell *matCellDef="let mottagning"> {{mottagning.patientCount}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="menu">
+    <mat-header-cell *matHeaderCellDef> Meny </mat-header-cell>
+    <mat-cell *matCellDef="let mottagning">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="change(mottagning)">
+          <mat-icon>folder_open</mat-icon>
+          <span>Redigera</span>
+        </button>
+
+        <button mat-menu-item (click)="confirmDelete(mottagning)"
+                *ngIf="mottagning.personalCount === 0 && mottagning.patientCount === 0">
+          <mat-icon>content_paste</mat-icon>
+          <span>Radera</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
