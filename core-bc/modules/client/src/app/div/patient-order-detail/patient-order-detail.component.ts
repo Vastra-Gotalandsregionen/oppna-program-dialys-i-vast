@@ -8,11 +8,11 @@ import {Util} from "../../core/util/util";
 
 
 @Component({
-  selector: 'app-prescription-detail',
-  templateUrl: './prescription-detail.component.html',
-  styleUrls: ['./prescription-detail.component.scss']
+  selector: 'app-patient-order-detail',
+  templateUrl: './patient-order-detail.component.html',
+  styleUrls: ['./patient-order-detail.component.scss']
 })
-export class PrescriptionDetailComponent implements OnInit {
+export class PatientOrderDetailComponent implements OnInit {
 
   bestallningsId: number;
   pnr: string;

@@ -6,7 +6,7 @@ import {ApkRoutingModule} from './apk-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import {UserHasDataPermissionGuard} from './guard/user-has-data-permission.guard';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
-import { PrescriptionDetailComponent } from './prescription-detail/prescription-detail.component';
+import { PatientOrderDetailComponent } from './patient-order-detail/patient-order-detail.component';
 import { RequisitionEditComponent } from './requisition-edit/requisition-edit.component';
 import { FlexLayoutModule} from "@angular/flex-layout";
 import {PatientDetailComponent} from "./patient-detail/patient-detail.component";
@@ -24,7 +24,7 @@ import {PatientDetailComponent} from "./patient-detail/patient-detail.component"
     PatientAddRequisitionComponent,
     PatientDetailComponent,
     PatientEditComponent,
-    PrescriptionDetailComponent,
+    PatientOrderDetailComponent,
     RequisitionEditComponent
   ],
   providers: [
