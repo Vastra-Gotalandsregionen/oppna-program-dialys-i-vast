@@ -17,39 +17,228 @@
       <div class="row">
         <div class="col c6">
           <div class="col-inner">
-
             <div class="dialys-details">
-
               <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Personnr:</div>
-                <div class="dialys-details-item-patient">
-                  {{patient.pnr}}
+                <div class="dialys-details-item-label">Förnamn:</div>
+                <div class="dialys-details-item-data">
+                  {{patient.fornamn}}
                 </div>
               </div>
-
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Efternamn:</div>
+                <div class="dialys-details-item-data">
+                  {{patient.efternamn}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col c6">
+          <div class="col-inner">
+            <div class="dialys-details">
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Rekvisitionsdatum:</div>
-                <div class="dialys-details-item-patient">
+                <div class="dialys-details-item-data">
                   {{pd.datum | date : 'yyyy-MM-dd'}}
                 </div>
               </div>
-
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Ersätter rekvisition:</div>
-                <div class="dialys-details-item-patient" *ngIf="!pd || !pd.patient || pd.patient.pds.length === 0">
+                <div class="dialys-details-item-data" *ngIf="!pd || !pd.patient || pd.patient.pds.length === 0">
                   -
                 </div>
-                <div class="dialys-details-item-patient" *ngIf="pd.patient.pds.length > 0">
-                  {{pd.patient.pds[0].id}} med datum {{pd.patient.pds[0].datum | date: 'yyyy-MM-dd'}}
+                <div class="dialys-details-item-data" *ngIf="pd.patient.pds.length > 0">
+                    {{pd.patient.pds[0].id}} med datum {{pd.patient.pds[0].datum | date: 'yyyy-MM-dd'}}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <mat-accordion class="patient-data-accordion" multi=true>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>mail</mat-icon>
+                Adressuppgifter
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class="dialys-details">
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Gatuadress:</div>
+              <div class="dialys-details-item-data">
+                {{patient.adress}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Postnummer:</div>
+              <div class="dialys-details-item-data">
+                {{patient.postNr}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Postort:</div>
+              <div class="dialys-details-item-data">
+                {{patient.postOrt}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Portkod:</div>
+              <div class="dialys-details-item-data">
+                {{patient.portkod}}
+              </div>
             </div>
 
           </div>
-        </div>
-        <div class="col c6"></div>
-      </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf=false>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>mail</mat-icon>
+                Temporära adressuppgifter
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          Content here
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>phone</mat-icon>
+                Kontaktuppgifter
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class="dialys-details">
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Telefonnr:</div>
+              <div class="dialys-details-item-data">
+                {{patient.telefon}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Mobilnummer:</div>
+              <div class="dialys-details-item-data">
+                {{patient.mobil}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Epost:</div>
+              <div class="dialys-details-item-data">
+                {{patient.epost}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item" *ngIf="patient.leveransMottagningsOmbud != null">
+              <div class="dialys-details-item-label">Ombud för anrop:</div>
+              <div class="dialys-details-item-data">
+                {{patient.leveransMottagningsOmbud}}
+              </div>
+            </div>
+          </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>date_range</mat-icon>
+                Leveransdetaljer
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class="dialys-details">
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Utdelningsdag:</div>
+              <div class="dialys-details-item-data">
+                {{patient.utdelDag}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">utdelningstid:</div>
+              <div class="dialys-details-item-data">
+                {{patient.utdelDag}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Utdelning:</div>
+              <div class="dialys-details-item-data">
+                {{patient.utdelVecka}}
+              </div>
+            </div>
+
+            <div class="dialys-details-item" *ngIf="patient.avropsOmbud != null">
+              <div class="dialys-details-item-label">Ombud för avrop:</div>
+              <div class="dialys-details-item-data">
+                {{patient.avropsOmbud}}
+              </div>
+            </div>
+          </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf=false>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>person_outline</mat-icon>
+                Ombud
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          Content here
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="patient.ovrigt != null">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>comment</mat-icon>
+                Övrig information
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="dialys-details">
+            <div class="dialys-details-item">
+              <div class="dialys-details-item-label">Övrig information:</div>
+              <div class="dialys-details-item-data">
+                {{patient.ovrigt}}
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+
+
+
+
+
+
+
 
       <mat-tab-group dynamicHeight="true" [@.disabled]="true">
         <mat-tab label="{{flik.titel.trim()}}" *ngFor="let flik of fliks">
