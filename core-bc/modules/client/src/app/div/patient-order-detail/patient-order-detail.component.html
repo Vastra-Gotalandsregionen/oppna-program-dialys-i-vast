@@ -15,6 +15,45 @@
       <div class="row">
         <div class="col c6">
           <div class="col-inner">
+            <div class="dialys-details">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Förnamn:</div>
+                <div class="dialys-details-item-data">
+                  {{fornamn}}
+                </div>
+              </div>
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Efternamn:</div>
+                <div class="dialys-details-item-data">
+                  {{efternamn}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col c6">
+          <div class="col-inner">
+            <div class="dialys-details">
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Rekvisitionsdatum:</div>
+                <div class="dialys-details-item-data">
+                  {{rekvisdatum | date:'yyyy-MM-dd'}}
+                </div>
+              </div>
+              <div class="dialys-details-item">
+                <div class="dialys-details-item-label">Rekvisitionsnr:</div>
+                <div class="dialys-details-item-data">
+                 {{rekvisId}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col c6">
+          <div class="col-inner">
 
             <div class="dialys-details">
 
@@ -88,7 +127,12 @@
         </div>
       </div>
 
-      <br><hr>
+
+
+
+
+
+
       <div id="bastallningsTableWrap">
         <mat-table #table dense [dataSource]="dataSources">
           <ng-container matColumnDef="artikel">

@@ -18,6 +18,7 @@ import { LaddaModule } from 'angular2-ladda';
 import { LinkListComponent } from './link-list/link-list.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import {InputDialogComponent} from "./input-dialog/input-dialog.component";
+import { PatientDetailsComponent } from './patient-details/patient-details.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import {InputDialogComponent} from "./input-dialog/input-dialog.component";
     EllipsisPipe,
     DateXPipe,
     LinkListComponent,
-    ContentBoxComponent
+    ContentBoxComponent,
+    PatientDetailsComponent
   ],
   entryComponents: [
     ErrorDialogComponent,
@@ -60,7 +62,8 @@ import {InputDialogComponent} from "./input-dialog/input-dialog.component";
     SidenavToggleButtonComponent,
     EllipsisPipe,
     DateXPipe,
-    CKEditorModule
+    CKEditorModule,
+    PatientDetailsComponent
   ],
   providers: [
     ErrorHandler,
