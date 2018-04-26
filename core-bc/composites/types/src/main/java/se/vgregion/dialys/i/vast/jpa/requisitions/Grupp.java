@@ -6,7 +6,6 @@
 package se.vgregion.dialys.i.vast.jpa.requisitions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -20,12 +19,6 @@ import java.util.Set;
 @Entity
 @Table(name = "Grupp")
 @XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "Grupp.findAll", query = "SELECT g FROM Grupp g")
-        , @NamedQuery(name = "Grupp.findById", query = "SELECT g FROM Grupp g WHERE g.id = :id")
-        , @NamedQuery(name = "Grupp.findByFlikID", query = "SELECT g FROM Grupp g WHERE g.flikID = :flikID")
-        , @NamedQuery(name = "Grupp.findByTitel", query = "SELECT g FROM Grupp g WHERE g.titel = :titel")
-        , @NamedQuery(name = "Grupp.findByOrdning", query = "SELECT g FROM Grupp g WHERE g.ordning = :ordning")})
 public class Grupp implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,15 +27,15 @@ public class Grupp implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "FlikID")
-    private Integer flikID;
+    /*@Column(name = "FlikID", insertable = false, updatable = false)
+    private Integer flikID;*/
     @Size(max = 20)
     @Column(name = "Titel")
     private String titel;
     @Column(name = "Ordning")
     private Integer ordning;
 
-    @OneToMany(mappedBy = "grupp")
+    @OneToMany(mappedBy = "grupp", cascade = CascadeType.ALL)
     private Set<Artikel> artikels;
 
     @JsonIgnore
@@ -65,13 +58,13 @@ public class Grupp implements Serializable {
         this.id = id;
     }
 
-    public Integer getFlikID() {
+    /*public Integer getFlikID() {
         return flikID;
     }
 
     public void setFlikID(Integer flikID) {
         this.flikID = flikID;
-    }
+    }*/
 
     public String getTitel() {
         return titel;

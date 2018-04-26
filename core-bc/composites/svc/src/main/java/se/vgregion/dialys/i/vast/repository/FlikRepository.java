@@ -21,8 +21,8 @@ public interface FlikRepository extends JpaRepository<Flik, Integer> {
     List<Flik> findAll();
 
     @Query("select distinct f from Flik f " +
-            "join fetch f.grupps gs " +
-            "join fetch gs.artikels " +
+            "left join fetch f.grupps gs " +
+            "left join fetch gs.artikels " +
             "where f.typ = :typ and f.aktiv = :aktiv " +
             "order by f.ordning")
     List<Flik> findFliksByTypAndAktiv(@Param("typ") String typ, @Param("aktiv") Boolean aktiv);

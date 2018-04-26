@@ -8,4 +8,5 @@ export class Flik {
   ordning: number;
   titel: string;
   typ: string;
+  aktiv: boolean;
 }

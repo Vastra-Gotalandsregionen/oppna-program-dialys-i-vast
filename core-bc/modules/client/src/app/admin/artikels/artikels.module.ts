@@ -1,13 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ArtikelsListComponent } from './artikels-list/artikels-list.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ArtikelsListComponent} from './artikels-list/artikels-list.component';
 import {ArtikelsRoutingModule} from "./artikels-routing.module";
+import {MatAccordion, MatExpansionModule} from "@angular/material";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   imports: [
     CommonModule,
-    ArtikelsRoutingModule
+    ArtikelsRoutingModule,
+    SharedModule,
+    FlexLayoutModule
   ],
-  declarations: [ArtikelsListComponent]
+  declarations: [ArtikelsListComponent],
+  schemas: [
+    MatAccordion,
+    MatExpansionModule
+  ]
 })
-export class ArtikelsModule { }
+export class ArtikelsModule {
+
+}

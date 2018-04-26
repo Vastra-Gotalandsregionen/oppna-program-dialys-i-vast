@@ -50,7 +50,7 @@ public class Flik implements Serializable {
     private Boolean aktiv;
 
     //@JsonIgnore
-    @OneToMany(mappedBy = "flik")
+    @OneToMany(mappedBy = "flik", cascade = CascadeType.ALL)
     private Set<Grupp> grupps;
 
     public Flik() {

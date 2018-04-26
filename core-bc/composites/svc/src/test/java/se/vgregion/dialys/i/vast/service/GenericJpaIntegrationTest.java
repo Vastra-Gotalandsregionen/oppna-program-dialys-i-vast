@@ -25,6 +25,13 @@ public class GenericJpaIntegrationTest {
                 1, 2, 3, 4, 5, 6, 7, 8
         );
         System.out.println(result);
+
+        result = genericJpa.fetchCounts(
+                "Grupp",
+                "artikels.pdArtikels",
+                1, 2, 3, 4, 5, 6, 7, 8
+        );
+        System.out.println(result);
     }
 
 }

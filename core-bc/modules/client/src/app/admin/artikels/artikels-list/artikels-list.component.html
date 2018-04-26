@@ -1,3 +1,92 @@
-<p>
-  artikels-list works!
-</p>
+<mat-toolbar class="action-toolbar">
+  <h1>
+    Flikar, grupper och artiklar
+  </h1>
+  <div class="action-toolbar-spacer"></div>
+  <a class="action-toolbar-item" mat-fab (click)="createNewFlik()" matTooltip="Lägg till ny flik">
+    <mat-icon>add</mat-icon>
+  </a>
+</mat-toolbar>
+
+
+<mat-accordion multi="true">
+
+  <mat-expansion-panel *ngFor="let flik of fliks">
+    <mat-expansion-panel-header>
+      {{flik.titel}}
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+
+      <div class="dialys-form-field">
+        <mat-input-container>
+          <input [(ngModel)]="flik.titel" placeholder="Titel" type="text" [maxlength]="20" matInput>
+        </mat-input-container>
+      </div>
+      <mat-checkbox [(ngModel)]="flik.aktiv">Aktiv</mat-checkbox>
+
+      <div>
+        <ul>
+          <li *ngFor="let grupp of flik.grupps">
+            <h3>{{grupp.titel}}</h3>
+
+            <mat-table #table [dataSource]="toArtikelExts(grupp.artikels)">
+
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let artikel"> {{artikel.id}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Namn </mat-header-cell>
+                <mat-cell *matCellDef="let artikel"> {{artikel.namn}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="artNr">
+                <mat-header-cell *matHeaderCellDef> ArtNr </mat-header-cell>
+                <mat-cell *matCellDef="let artikel"> {{artikel.artNr}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="storlek">
+                <mat-header-cell *matHeaderCellDef> Storlek </mat-header-cell>
+                <mat-cell *matCellDef="let artikel"> {{artikel.storlek}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="pdArtikelsCount">
+                <mat-header-cell *matHeaderCellDef> Beställningar </mat-header-cell>
+                <mat-cell *matCellDef="let artikel"> {{artikel.pdArtikelsCount}} </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount']"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: ['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount'];"></mat-row>
+
+            </mat-table>
+
+
+          </li>
+        </ul>
+      </div>
+
+    </ng-template>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+<div class="row">
+  <div class="col c3">
+    <div class="col-inner">
+    </div>
+  </div>
+  <div class="col c9">
+    <div class="col-inner">
+      <div class="btn-container">
+        <button type="submit" mat-raised-button class="btn" (click)="saveToServerSide()">Spara
+        </button> &nbsp;
+        <button type="submit" mat-raised-button class="btn btn-secondary" onclick="window.history.back();">
+          Avbryt
+        </button> &nbsp;
+      </div>
+    </div>
+  </div>
+</div>
