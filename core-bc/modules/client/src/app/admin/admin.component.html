@@ -3,16 +3,32 @@
   <mat-sidenav class="example-sidenav" #sidenav mode="side" align="start" [opened]="sidebarOpen">
 
     <mat-list>
+
       <mat-list-item>
         <a routerLink="landing" routerLinkActive="active">
           <mat-icon>home</mat-icon>
           <span class="nav-label">Översikt</span>
         </a>
       </mat-list-item>
+
       <mat-list-item *ngIf="admin">
         <a routerLink="users" routerLinkActive="active">
           <mat-icon>people</mat-icon>
           <span class="nav-label">Användare</span>
+        </a>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="admin">
+        <a routerLink="mottagnings" routerLinkActive="active">
+          <mat-icon>local_hospital</mat-icon>
+          <span class="nav-label">Mottagningar</span>
+        </a>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="admin">
+        <a routerLink="artikels" routerLinkActive="false">
+          <mat-icon>shop</mat-icon>
+          <span class="nav-label">Artiklar</span>
         </a>
       </mat-list-item>
 
