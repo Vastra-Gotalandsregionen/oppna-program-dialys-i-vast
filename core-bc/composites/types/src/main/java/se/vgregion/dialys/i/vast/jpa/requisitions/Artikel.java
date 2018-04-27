@@ -19,35 +19,36 @@ import java.util.Set;
 @Entity
 @Table(name = "Artikel")
 @XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "Artikel.findAll", query = "SELECT a FROM Artikel a")
-        , @NamedQuery(name = "Artikel.findById", query = "SELECT a FROM Artikel a WHERE a.id = :id")
-        , @NamedQuery(name = "Artikel.findByGruppID", query = "SELECT a FROM Artikel a WHERE a.gruppID = :gruppID")
-        , @NamedQuery(name = "Artikel.findByNamn", query = "SELECT a FROM Artikel a WHERE a.namn = :namn")
-        , @NamedQuery(name = "Artikel.findByStorlek", query = "SELECT a FROM Artikel a WHERE a.storlek = :storlek")
-        , @NamedQuery(name = "Artikel.findByArtNr", query = "SELECT a FROM Artikel a WHERE a.artNr = :artNr")
-        , @NamedQuery(name = "Artikel.findByOrdning", query = "SELECT a FROM Artikel a WHERE a.ordning = :ordning")})
 public class Artikel implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "GruppID", insertable = false, updatable = false)
-    private Integer gruppID;
+
+/*    @Column(name = "GruppID", insertable = false, updatable = false)
+    private Integer gruppID;*/
+
     @Size(max = 50)
     @Column(name = "Namn")
     private String namn;
+
     @Size(max = 50)
     @Column(name = "Storlek")
     private String storlek;
+
     @Size(max = 20)
     @Column(name = "ArtNr")
     private String artNr;
+
     @Column(name = "ordning")
     private Integer ordning;
+
+    @Column(name = "aktiv")
+    private Boolean aktiv = true;
 
     @JsonIgnore
     @OneToMany(mappedBy = "artikel", fetch = FetchType.LAZY)
@@ -85,13 +86,13 @@ public class Artikel implements Serializable {
         this.id = id;
     }
 
-    public Integer getGruppID() {
+/*    public Integer getGruppID() {
         return gruppID;
     }
 
     public void setGruppID(Integer gruppID) {
         this.gruppID = gruppID;
-    }
+    }*/
 
     public String getNamn() {
         return namn;
@@ -164,5 +165,13 @@ public class Artikel implements Serializable {
 
     public void setGrupp(Grupp grupp) {
         this.grupp = grupp;
+    }
+
+    public Boolean getAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(Boolean aktiv) {
+        this.aktiv = aktiv;
     }
 }

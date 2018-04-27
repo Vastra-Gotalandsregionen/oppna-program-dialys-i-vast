@@ -22,20 +22,24 @@ import java.util.Set;
 public class Grupp implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+
     /*@Column(name = "FlikID", insertable = false, updatable = false)
     private Integer flikID;*/
+
     @Size(max = 20)
     @Column(name = "Titel")
     private String titel;
+
     @Column(name = "Ordning")
     private Integer ordning;
 
-    @OneToMany(mappedBy = "grupp", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "grupp", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Artikel> artikels;
 
     @JsonIgnore

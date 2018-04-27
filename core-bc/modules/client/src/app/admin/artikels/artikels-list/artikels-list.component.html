@@ -11,54 +11,85 @@
 
 <mat-accordion multi="true">
 
-  <mat-expansion-panel *ngFor="let flik of fliks">
+  <mat-expansion-panel *ngFor="let flik of toFlikExts(fliks)">
     <mat-expansion-panel-header>
       {{flik.titel}}
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
 
-      <div class="dialys-form-field">
-        <mat-input-container>
-          <input [(ngModel)]="flik.titel" placeholder="Titel" type="text" [maxlength]="20" matInput>
-        </mat-input-container>
+      <div>
+        <input [(ngModel)]="flik.titel" placeholder="Titel" type="text" [maxlength]="20" matInput>
+        <mat-checkbox [(ngModel)]="flik.aktiv">Aktiv</mat-checkbox>
+        <button mat-button *ngIf="flik.removeable" (click)="removeFlik(flik)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
-      <mat-checkbox [(ngModel)]="flik.aktiv">Aktiv</mat-checkbox>
+
 
       <div>
         <ul>
-          <li *ngFor="let grupp of flik.grupps">
-            <h3>{{grupp.titel}}</h3>
+          <li *ngFor="let grupp of toGruppExts(flik.grupps)">
+            <h3>
+              <input [(ngModel)]="grupp.titel" type="text" [maxlength]="20" matInput> {{grupp.id}}
+              <button mat-button *ngIf="grupp.removeable" (click)="removeGrupp(flik, grupp)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </h3>
 
             <mat-table #table [dataSource]="toArtikelExts(grupp.artikels)">
 
               <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-                <mat-cell *matCellDef="let artikel"> {{artikel.id}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+                <mat-cell *matCellDef="let artikel"> {{artikel.id}}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef> Namn </mat-header-cell>
-                <mat-cell *matCellDef="let artikel"> {{artikel.namn}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> Namn</mat-header-cell>
+                <mat-cell *matCellDef="let artikel">
+                  <input [(ngModel)]="artikel.namn" type="text" [maxlength]="50" matInput *ngIf="artikel.editable">
+                  <span *ngIf="!artikel.editable">
+                  {{artikel.namn}}
+                </span>
+                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="artNr">
-                <mat-header-cell *matHeaderCellDef> ArtNr </mat-header-cell>
-                <mat-cell *matCellDef="let artikel"> {{artikel.artNr}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> ArtNr</mat-header-cell>
+                <mat-cell *matCellDef="let artikel">
+                  <input [(ngModel)]="artikel.artNr" type="text" [maxlength]="20" matInput *ngIf="artikel.editable">
+                  <span *ngIf="!artikel.editable">{{artikel.artNr}}</span>
+                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="storlek">
-                <mat-header-cell *matHeaderCellDef> Storlek </mat-header-cell>
-                <mat-cell *matCellDef="let artikel"> {{artikel.storlek}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> Storlek</mat-header-cell>
+                <mat-cell *matCellDef="let artikel">
+                  <input [(ngModel)]="artikel.storlek" type="text" [maxlength]="20" matInput *ngIf="artikel.editable">
+                  <span *ngIf="!artikel.editable">{{artikel.storlek}}</span>
+                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="pdArtikelsCount">
-                <mat-header-cell *matHeaderCellDef> Beställningar </mat-header-cell>
-                <mat-cell *matCellDef="let artikel"> {{artikel.pdArtikelsCount}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> Beställningar</mat-header-cell>
+                <mat-cell *matCellDef="let artikel"> {{artikel.pdArtikelsCount}}</mat-cell>
               </ng-container>
 
-              <mat-header-row *matHeaderRowDef="['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount']"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: ['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount'];"></mat-row>
+              <ng-container matColumnDef="aktiv">
+                <mat-header-cell *matHeaderCellDef> Aktiv</mat-header-cell>
+
+                <mat-cell *matCellDef="let artikel">
+                  <mat-checkbox [(ngModel)]="artikel.aktiv"></mat-checkbox>
+                  <!--<mat-icon *ngIf="artikel.aktiv && !artikel.editable">check_circle</mat-icon>
+                  <mat-icon *ngIf="!artikel.aktiv && !artikel.editable">block</mat-icon>-->
+                </mat-cell>
+
+              </ng-container>
+
+              <mat-header-row
+                *matHeaderRowDef="['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount', 'aktiv']"></mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: ['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount', 'aktiv'];"></mat-row>
 
             </mat-table>
 

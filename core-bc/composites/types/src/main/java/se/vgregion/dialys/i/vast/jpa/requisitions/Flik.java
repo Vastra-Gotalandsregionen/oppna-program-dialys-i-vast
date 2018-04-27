@@ -19,12 +19,6 @@ import java.util.Set;
 @Entity
 @Table(name = "Flik")
 @XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "Flik.findAll", query = "SELECT f FROM Flik f")
-        , @NamedQuery(name = "Flik.findById", query = "SELECT f FROM Flik f WHERE f.id = :id")
-        , @NamedQuery(name = "Flik.findByTitel", query = "SELECT f FROM Flik f WHERE f.titel = :titel")
-        , @NamedQuery(name = "Flik.findByOrdning", query = "SELECT f FROM Flik f WHERE f.ordning = :ordning")
-        , @NamedQuery(name = "Flik.findByTyp", query = "SELECT f FROM Flik f WHERE f.typ = :typ")})
 public class Flik implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,10 +44,16 @@ public class Flik implements Serializable {
     private Boolean aktiv;
 
     //@JsonIgnore
-    @OneToMany(mappedBy = "flik", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "flik", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Grupp> grupps;
 
+    @JsonIgnore
+    @ManyToOne()
+    @JoinColumn(name = "flikrotid", foreignKey = @ForeignKey(name = "fk_flik_flikrot"))
+    private FlikRot flikRot = new FlikRot(0);
+
     public Flik() {
+
     }
 
     public Flik(Integer id) {
@@ -131,5 +131,13 @@ public class Flik implements Serializable {
 
     public void setAktiv(Boolean aktiv) {
         this.aktiv = aktiv;
+    }
+
+    public FlikRot getFlikRot() {
+        return flikRot;
+    }
+
+    public void setFlikRot(FlikRot flikRot) {
+        this.flikRot = flikRot;
     }
 }
