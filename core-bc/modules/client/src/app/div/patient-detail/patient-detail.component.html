@@ -12,6 +12,7 @@
     </a>
 
     <a class="action-toolbar-item" mat-fab routerLink="add-order" matTooltip="Ny beställning"
+       [disabled]='!giltigRekvisitionFinns'
        *ngIf="userHasEditPermission(data)">
       <mat-icon>add_shopping_cart</mat-icon>
     </a>
@@ -27,7 +28,6 @@
   <mat-card class="dialys-card">
 
     <mat-card-content>
-
       <div class="row">
       <div class="col c6">
         <div class="col-inner">
@@ -168,21 +168,26 @@
   <mat-accordion>
 
     <mat-expansion-panel class="dialys-requisition-panel dialys-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+
+      <mat-expansion-panel-header >
+        <mat-panel-title *ngIf="!giltigRekvisitionFinns"><mat-icon>report_problem</mat-icon>
+        <span class="">Det finns ingen giltig rekvisition för den här patienten.</span> </mat-panel-title>
+
+        <mat-panel-title *ngIf="giltigRekvisitionFinns">
           <mat-icon>content_paste</mat-icon>
-          <span class="title-name">Rekvisition {{data.pds[0].id}}</span>
-          <span class="title-date">{{data.pds[0].datum | date: 'yyyy-MM-dd'}}</span>
-          <span class="title-orders">{{data.pds[0].bestInfos != null ? data.pds[0].bestInfos.length : '0'}} beställningar</span>
+          <span class="title-name">Rekvisition {{headerdata.id}}</span>
+          <span class="title-date">{{headerdata.datum | date: 'yyyy-MM-dd'}}</span>
+          <span class="title-type">{{headerdata.typ}}</span>
+          <span class="title-orders">{{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}} beställningar</span>
         </mat-panel-title>
-        <mat-panel-description>
+        <mat-panel-description *ngIf="giltigRekvisitionFinns">
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
-            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}  ({{data.pds[0].bestInfos != null ? data.pds[0].bestInfos.length : '0'}}
+            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}  ({{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}}
           </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div>
+      <div *ngIf="giltigRekvisitionFinns">
         <mat-table #table [dataSource]="dataSource1">
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
@@ -225,7 +230,7 @@
     </mat-expansion-panel>
     <div *ngIf="showOldRequisitions">
 
-      <div *ngFor="let dat of data.pds | slice:1; let i = index;">
+      <div *ngFor="let dat of data.pds; let i = index;">
 
         <!--
         dat.bestInfos == null
@@ -236,6 +241,7 @@
               <mat-icon>content_paste</mat-icon>
               <span class="title-name">Rekvisition {{dat.id}}</span>
               <span class="title-date">{{dat.datum | date: 'yyyy-MM-dd'}}</span>
+              <span class="title-type">{{dat.typ}}</span>
               <span class="title-orders">{{dat.bestInfos != null ? dat.bestInfos.length : '0'}} beställningar</span>
             </mat-panel-title>
             <mat-panel-description>

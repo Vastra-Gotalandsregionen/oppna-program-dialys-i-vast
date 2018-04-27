@@ -15,10 +15,14 @@ import {BestRad} from "../../model/BestRad";
 })
 export class PatientDetailComponent implements OnInit {
 
+  headerdata: Pd;
+  giltigRekvisitionFinns: boolean;
+  pdRekviser: Pd[];
+  hdRekviser: Pd[];
   id: string;
+  patTyp: string;
   data: Patient;
   showOldRequisitions: boolean;
-  dataSourceSenasteRekvisition: BestInfo[] = [];
   dataSource1 = new MatTableDataSource<BestInfo>();
   displayedColumns = ['id', 'datum', 'utskrivare', 'levdatum'];
   panelOpenState: Number[] = [];
@@ -45,10 +49,39 @@ export class PatientDetailComponent implements OnInit {
           this.data = data;
           Patient.init(this.data);
           this.data.sortPds();
-
-          setTimeout(() => this.dataSource1.paginator = this.page1);
-          this.dataSource1.data = data.pds[0].bestInfos;
-
+          this.patTyp = data.typ;
+          if (this.patTyp == 'PD')
+          {
+            this.pdRekviser = data.pds.filter(item => item.typ == 'PD')
+            if (this.pdRekviser.length != 0)
+            {
+              this.giltigRekvisitionFinns = true;
+              setTimeout(() => this.dataSource1.paginator = this.page1);
+              this.dataSource1.data = this.pdRekviser[0].bestInfos;
+              this.headerdata = this.pdRekviser[0];
+              this.data.pds = this.data.pds.filter(item => item.id != this.pdRekviser[0].id)
+            }
+            else
+            {
+              this.giltigRekvisitionFinns = false;
+            }
+          }
+          else if(this.patTyp == 'HD')
+          {
+            this.hdRekviser = data.pds.filter(item => item.typ == 'HD')
+            if (this.hdRekviser.length != 0)
+            {
+              this.giltigRekvisitionFinns = true;
+              setTimeout(() => this.dataSource1.paginator = this.page1);
+              this.dataSource1.data = this.hdRekviser[0].bestInfos;
+              this.headerdata = this.hdRekviser[0];
+              this.data.pds = this.data.pds.filter(item => item.id != this.hdRekviser[0].id)
+            }
+            else
+            {
+              this.giltigRekvisitionFinns = false;
+            }
+          }
         });
       }
     });

@@ -23,16 +23,21 @@
 
         .title-name {
           border-right: 1px solid #333;
-          padding-right: 20px;
-          margin-right: 20px;
+          padding-right: 15px;
+          margin-right: 15px;
         }
 
         .title-date {
           border-right: 1px solid #333;
-          padding-right: 20px;
-          margin-right: 20px;
+          padding-right: 15px;
+          margin-right: 15px;
         }
 
+        .title-type {
+          border-right: 1px solid #333;
+          padding-right: 15px;
+          margin-right: 15px;
+        }
 
       }
 
@@ -41,7 +46,6 @@
         justify-content: flex-end;
         align-items: right;
       }
-
 
   }
 }

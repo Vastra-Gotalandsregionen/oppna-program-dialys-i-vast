@@ -14,6 +14,7 @@ export class Pd {
   sskID: number;
   bestInfos: Array<BestInfo> = [];
   pdArtikels: Array<PDArtikel> = [];
+  typ: string;
 
   public sortBestInfos() {
     if (this.bestInfos)
