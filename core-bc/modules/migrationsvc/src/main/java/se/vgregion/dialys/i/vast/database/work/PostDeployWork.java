@@ -60,6 +60,14 @@ public class PostDeployWork {
         correctPatientUtdelgningsdagVecka();
         bindPatientToMottagning();
         putValueIntoPatientsStatusAndDeleteIsDeleted();
+        putValueIntoFlikRotAndKeysForThat();
+    }
+
+    private static void putValueIntoFlikRotAndKeysForThat() {
+        target.execute("insert into flikrot values (0)");
+        target.execute("update flik set flikrotid = 0");
+        target.execute("update artikel set aktiv = true");
+        target.commit();
     }
 
     private static void correctPatientUtdelgningsdagVecka() {
