@@ -9,23 +9,24 @@
 </mat-toolbar>
 
 
-<mat-accordion multi="true">
+<mat-accordion multi="true" ngClass="fliks">
 
   <mat-expansion-panel *ngFor="let flik of toFlikExts(fliks)">
     <mat-expansion-panel-header>
-      {{flik.titel}}
+      {{flik.titel}} {{flik.id}}
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
 
-      <div>
-        <input [(ngModel)]="flik.titel" placeholder="Titel" type="text" [maxlength]="20" matInput>
-        <mat-checkbox [(ngModel)]="flik.aktiv">Aktiv</mat-checkbox>
-        <button mat-button *ngIf="flik.removeable" (click)="removeFlik(flik)">
+      <mat-grid-list cols="3" rowHeight="10:1">
+        <mat-grid-tile style="text-align: left;">
+          <input [(ngModel)]="flik.titel" placeholder="Titel" type="text" [maxlength]="20" matInput>
+        </mat-grid-tile>
+        <mat-grid-tile><mat-checkbox [(ngModel)]="flik.aktiv">Aktiv</mat-checkbox></mat-grid-tile>
+        <mat-grid-tile><button mat-button *ngIf="flik.removeable" (click)="removeFlik(flik)">
           <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-
+        </button></mat-grid-tile>
+      </mat-grid-list>
 
       <div>
         <ul>

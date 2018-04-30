@@ -31,16 +31,17 @@ export class ArtikelsListComponent implements OnInit {
         this.flikRot = flikRot;
         this.fliks = flikRot.fliks;
         console.log('fliks', this.fliks);
-        const groups:Grupp[] = [];
+        const groups: Grupp[] = [];
         this.fliks.forEach(f => f.grupps.forEach(g => groups.push(g)));
         this.fetchArtikelUsageFromServer(groups);
         this.startFetchGruppsArtikelUsageFromServer();
+        this.fetchFliksArtikelUsageFromServer(this.fliks);
       }
     );
   }
 
   startFetchGruppsArtikelUsageFromServer() {
-    const groups:Grupp[] = [];
+    const groups: Grupp[] = [];
     this.fliks.forEach(f => f.grupps.forEach(g => groups.push(g)));
     this.fetchGruppsArtikelUsageFromServer(groups);
   }
@@ -60,11 +61,27 @@ export class ArtikelsListComponent implements OnInit {
 
   }
 
+  fetchFliksArtikelUsageFromServer(fliks: Flik[]) {
+    if (fliks.length === 0) return;
+    var ids: number[] = [];
+    fliks.forEach((i) => ids.push(i.id));
+    if (ids.length === 0) return;
+
+    var url = '/api/generic/counts/Flik/grupps.artikels.pdArtikels/iids/' + ids;
+    this.http.get(url).map(response => response.json()).subscribe(
+      (counts: number[]) => {
+        for (var i = 0; i < counts.length; i++) {
+          this.toFlikExt(fliks[i]).pdArtikelsCount = counts[i];
+          this.toFlikExt(fliks[i]).removeable = (counts[i] === 0);
+        }
+      });
+  }
+
   fetchArtikelUsageFromServer(groups: Grupp[]) {
     if (groups.length === 0) return;
     var ids: number[] = [];
     const last = groups[groups.length - 1];
-    groups.splice(groups.length - 1);
+    groups.splice(groups.length - 1, 1);
     last.artikels.forEach((i) => ids.push(i.id));
     if (ids.length === 0) {
       this.fetchArtikelUsageFromServer(groups);
@@ -113,8 +130,12 @@ export class ArtikelsListComponent implements OnInit {
     return <GruppExt> artikel;
   }
 
+  private toFlikExt(flik: Flik): FlikExt {
+    return <FlikExt> flik;
+  }
+
   removeGrupp(flik: Flik, grupp: GruppExt) {
-    flik.grupps.splice(flik.grupps.indexOf(grupp));
+    flik.grupps.splice(flik.grupps.indexOf(grupp), 1);
   }
 
   toFlikExts(fliks: Array<Flik>): FlikExt[] {
@@ -122,9 +143,8 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   removeFlik(flik: FlikExt) {
-    this.fliks.splice(this.fliks.indexOf(flik));
+    this.fliks.splice(this.fliks.indexOf(flik), 1);
   }
-
 }
 
 class FlikExt extends Flik {

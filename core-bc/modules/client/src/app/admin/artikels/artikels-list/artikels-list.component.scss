@@ -21,3 +21,9 @@
   flex: 0 0 100px;
 }
 
+.fliks {
+  justify-content: flex-start !important;
+  md-grid-tile {
+    text-align: left;
+  }
+}

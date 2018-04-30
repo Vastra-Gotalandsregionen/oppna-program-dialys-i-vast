@@ -114,8 +114,8 @@ export class PatientAddRequisitionComponent implements OnInit {
   onItemSelect(rad) {
     var index: number = this.selectedArtiklar.indexOf(rad);
     if (index != -1) {
-      this.pd.pdArtikels.splice(index);
-      this.selectedArtiklar.splice(index);
+      this.pd.pdArtikels.splice(index, 1);
+      this.selectedArtiklar.splice(index, 1);
     } else {
       this.selectedArtiklar.push(rad);
       // let pdArtikel: PDArtikel = new PDArtikel();
