@@ -13,30 +13,41 @@
 
   <mat-expansion-panel *ngFor="let flik of toFlikExts(fliks)">
     <mat-expansion-panel-header>
-      {{flik.titel}} {{flik.id}}
+      {{flik.titel}} {{flik.pdArtikelsCount ? ('(' + flik.pdArtikelsCount + ' beställningar)') : ('')}}
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
 
-      <mat-grid-list cols="3" rowHeight="10:1">
-        <mat-grid-tile style="text-align: left;">
-          <input [(ngModel)]="flik.titel" placeholder="Titel" type="text" [maxlength]="20" matInput>
-        </mat-grid-tile>
-        <mat-grid-tile><mat-checkbox [(ngModel)]="flik.aktiv">Aktiv</mat-checkbox></mat-grid-tile>
-        <mat-grid-tile><button mat-button *ngIf="flik.removeable" (click)="removeFlik(flik)">
+      <mat-toolbar class="action-toolbar">
+        <mat-input-container>
+          <input [(ngModel)]="flik.titel" placeholder="Fliktitel" type="text" [maxlength]="20" matInput>
+        </mat-input-container>
+        <div class="action-toolbar-spacer"></div>
+        <mat-checkbox [(ngModel)]="flik.aktiv">Aktiv</mat-checkbox>
+        <div *ngIf="flik.removeable" class="action-toolbar-spacer"></div>
+        <button mat-button *ngIf="flik.removeable" (click)="removeFlik(flik)">
           <mat-icon>delete</mat-icon>
-        </button></mat-grid-tile>
-      </mat-grid-list>
+        </button>
+        <div class="action-toolbar-spacer"></div>
+        <button mat-button (click)="createNewGrupp(flik)" matTooltip="Lägg till ny grupp">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-toolbar>
 
       <div>
         <ul>
           <li *ngFor="let grupp of toGruppExts(flik.grupps)">
-            <h3>
-              <input [(ngModel)]="grupp.titel" type="text" [maxlength]="20" matInput> {{grupp.id}}
+            <mat-toolbar class="action-toolbar">
+              <mat-input-container>
+                <input [(ngModel)]="grupp.titel" type="text" [maxlength]="20" matInput placeholder="Grupptitel">
+              </mat-input-container>
               <button mat-button *ngIf="grupp.removeable" (click)="removeGrupp(flik, grupp)">
                 <mat-icon>delete</mat-icon>
               </button>
-            </h3>
+              <button mat-button (click)="createNewArtikel(grupp)" matTooltip="Lägg till ny artikel">
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-toolbar>
 
             <mat-table #table [dataSource]="toArtikelExts(grupp.artikels)">
 
@@ -93,8 +104,7 @@
                 *matRowDef="let row; columns: ['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount', 'aktiv'];"></mat-row>
 
             </mat-table>
-
-
+            <br/>
           </li>
         </ul>
       </div>

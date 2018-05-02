@@ -4,7 +4,7 @@ import {Grupp} from "./Grupp";
 import {FlikRot} from "./FlikRot";
 
 export class Flik {
-  grupps: Array<Grupp>;
+  grupps: Array<Grupp> = [];
   id: number;
   ordning: number;
   titel: string;

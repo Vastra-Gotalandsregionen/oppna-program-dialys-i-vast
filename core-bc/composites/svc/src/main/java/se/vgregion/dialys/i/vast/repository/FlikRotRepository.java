@@ -2,6 +2,7 @@ package se.vgregion.dialys.i.vast.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import se.vgregion.dialys.i.vast.jpa.requisitions.FlikRot;
 
 /*import se.vgregion.dialys.i.vast.jpa.requisitions.Ansvarig;*/
@@ -9,7 +10,7 @@ import se.vgregion.dialys.i.vast.jpa.requisitions.FlikRot;
 /**
  * @author Claes Lundahl
  */
-public interface FlikRotRepository extends JpaRepository<FlikRot, Integer> {
+public interface FlikRotRepository extends JpaRepository<FlikRot, String> {
 
     /*@Override
     @Query("select distinct f from Flik f " +
@@ -29,8 +30,8 @@ public interface FlikRotRepository extends JpaRepository<FlikRot, Integer> {
             "left join fetch fr.fliks f " +
             "left join fetch f.grupps gs " +
             "left join fetch gs.artikels " +
-            "where fr.id = 0 " +
+            "where fr.id = :typ " +
             "order by f.ordning")
-    FlikRot fetchDefault();
+    FlikRot fetch(@Param("typ") String typ);
 
 }

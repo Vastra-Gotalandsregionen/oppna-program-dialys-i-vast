@@ -50,7 +50,7 @@ public class Flik implements Serializable {
     @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "flikrotid", foreignKey = @ForeignKey(name = "fk_flik_flikrot"))
-    private FlikRot flikRot = new FlikRot(0);
+    private FlikRot flikRot = new FlikRot("PD");
 
     public Flik() {
 

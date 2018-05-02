@@ -28,9 +28,9 @@ public class FlikRotController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "default", method = RequestMethod.GET)
-    public FlikRot getDefault() {
-        return flikRotRepository.fetchDefault();
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public FlikRot get(@PathVariable("id") String id) {
+        return flikRotRepository.fetch(id);
     }
 
     //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")

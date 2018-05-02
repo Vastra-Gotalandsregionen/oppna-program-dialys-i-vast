@@ -64,8 +64,10 @@ public class PostDeployWork {
     }
 
     private static void putValueIntoFlikRotAndKeysForThat() {
-        target.execute("insert into flikrot values (0)");
-        target.execute("update flik set flikrotid = 0");
+        target.execute("insert into flikrot values ('PD')");
+        target.execute("insert into flikrot values ('HD')");
+        target.execute("update flik set flikrotid = 'PD' where typ='PD'");
+        target.execute("update flik set flikrotid = 'HD' where typ='HD'");
         target.execute("update artikel set aktiv = true");
         target.commit();
     }

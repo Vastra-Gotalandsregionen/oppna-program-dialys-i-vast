@@ -4,7 +4,7 @@ import {Flik} from "./Flik";
 import {Artikel} from "./Artikel";
 
 export class Grupp {
-  artikels: Array<Artikel>;
+  artikels: Array<Artikel> = [];
   flik: Flik;
   flikID: number;
   id: number;

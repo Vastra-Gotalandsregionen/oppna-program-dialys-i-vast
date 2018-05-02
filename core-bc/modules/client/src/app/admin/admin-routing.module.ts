@@ -24,7 +24,7 @@ const routes: Routes = [
         loadChildren: './mottagnings/mottagnings.module#MottagningsModule'
       },
       {
-        path: 'artikels',
+        path: 'artikels/:typ',
         canActivate: [AdminGuard],
         loadChildren: './artikels/artikels.module#ArtikelsModule'
       },

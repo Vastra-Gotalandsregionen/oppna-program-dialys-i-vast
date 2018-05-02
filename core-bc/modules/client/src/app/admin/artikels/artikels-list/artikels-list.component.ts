@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {JwtHttp} from "../../../core/jwt-http";
 import {Flik} from "../../../model/Flik";
 import {Grupp} from "../../../model/Grupp";
 import {Artikel} from "../../../model/Artikel";
 import {FlikRot} from "../../../model/FlikRot";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-artikels-list',
@@ -12,21 +13,26 @@ import {FlikRot} from "../../../model/FlikRot";
 })
 export class ArtikelsListComponent implements OnInit {
 
-  constructor(private http: JwtHttp) {
+  constructor(protected route: ActivatedRoute, private http: JwtHttp, private changeDetectorRefs: ChangeDetectorRef) {
   }
 
   fliks: Array<Flik>;
 
   flikRot: FlikRot;
 
+  typ: string;
+
   public columns = ['name'];
 
   ngOnInit() {
-    this.fetchDataFromServer();
+    this.route.params.subscribe(params => {
+      this.typ = params.typ;
+      this.fetchDataFromServer();
+    });
   }
 
   fetchDataFromServer() {
-    this.http.get('/api/flikrot/default').map(response => response.json()).subscribe(
+    this.http.get('/api/flikrot/' + this.typ).map(response => response.json()).subscribe(
       (flikRot: FlikRot) => {
         this.flikRot = flikRot;
         this.fliks = flikRot.fliks;
@@ -103,7 +109,9 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   createNewFlik() {
-    this.fliks.unshift(new Flik());
+    var flik: FlikExt = new FlikExt();
+    flik.removeable = true;
+    this.fliks.unshift(flik);
   }
 
   saveToServerSide() {
@@ -144,6 +152,22 @@ export class ArtikelsListComponent implements OnInit {
 
   removeFlik(flik: FlikExt) {
     this.fliks.splice(this.fliks.indexOf(flik), 1);
+  }
+
+  createNewGrupp(flik: FlikExt) {
+    var grupp:GruppExt = new GruppExt();
+    grupp.removeable = true;
+    flik.grupps.unshift(grupp);
+  }
+
+  createNewArtikel(grupp: GruppExt) {
+    const artikels = grupp.artikels;
+    var artikel: ArtikelExt = new ArtikelExt();
+    artikel.editable = true;
+    //console.log("createNewArtikel " + grupp.artikels.length);
+    artikels.unshift(artikel);
+    grupp.artikels = artikels;
+    this.changeDetectorRefs.detectChanges();
   }
 }
 

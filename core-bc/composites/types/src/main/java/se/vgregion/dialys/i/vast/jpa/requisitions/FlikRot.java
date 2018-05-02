@@ -21,7 +21,7 @@ public class FlikRot implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public FlikRot(Integer id) {
+    public FlikRot(String id) {
         this();
         this.id = id;
     }
@@ -33,16 +33,16 @@ public class FlikRot implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private String id;
 
     @OneToMany(mappedBy = "flikRot", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Flik> fliks = new HashSet<>();
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
