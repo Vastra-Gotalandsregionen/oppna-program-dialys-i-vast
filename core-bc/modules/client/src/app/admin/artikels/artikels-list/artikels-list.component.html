@@ -71,9 +71,7 @@
               <ng-container matColumnDef="artNr">
                 <mat-header-cell *matHeaderCellDef> ArtNr</mat-header-cell>
                 <mat-cell *matCellDef="let artikel">
-                  <mat-input-container *ngIf="artikel.editable">
-                    <input [(ngModel)]="artikel.artNr" type="text" [maxlength]="20" matInput *ngIf="artikel.editable">
-                  </mat-input-container>
+                  <input [(ngModel)]="artikel.artNr" type="text" [maxlength]="20" matInput *ngIf="artikel.editable">
                   <span *ngIf="!artikel.editable">{{artikel.artNr}}</span>
                 </mat-cell>
               </ng-container>
