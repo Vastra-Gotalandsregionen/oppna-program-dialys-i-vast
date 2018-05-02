@@ -107,7 +107,7 @@ export class PatientAddOrderComponent implements OnInit {
       console.log("saveToServer callback - end");
       console.log(orderModel.form);
       console.log('saved' + JSON.stringify(orderModel.value))
-      this.router.navigate(['../../'], {relativeTo: this.route})
+      this.router.navigate(['/patienter', this.id])
     });
 
 
@@ -123,3 +123,4 @@ export class PatientAddOrderComponent implements OnInit {
 export class PDArtikelRow extends PDArtikel {
   bestPdRow: BestPDRad;
 }
+
