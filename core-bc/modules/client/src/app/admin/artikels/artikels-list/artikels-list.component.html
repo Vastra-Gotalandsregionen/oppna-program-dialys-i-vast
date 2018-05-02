@@ -49,7 +49,7 @@
               </button>
             </mat-toolbar>
 
-            <mat-table #table [dataSource]="toArtikelExts(grupp.artikels)">
+            <mat-table #table [dataSource]="toArtikelExtsModel(grupp.artikels)">
 
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
@@ -59,7 +59,9 @@
               <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef> Namn</mat-header-cell>
                 <mat-cell *matCellDef="let artikel">
-                  <input [(ngModel)]="artikel.namn" type="text" [maxlength]="50" matInput *ngIf="artikel.editable">
+                  <mat-input-container *ngIf="artikel.editable">
+                    <input required [(ngModel)]="artikel.namn" type="text" [maxlength]="50" matInput *ngIf="artikel.editable">
+                  </mat-input-container>
                   <span *ngIf="!artikel.editable">
                   {{artikel.namn}}
                 </span>
@@ -69,7 +71,9 @@
               <ng-container matColumnDef="artNr">
                 <mat-header-cell *matHeaderCellDef> ArtNr</mat-header-cell>
                 <mat-cell *matCellDef="let artikel">
-                  <input [(ngModel)]="artikel.artNr" type="text" [maxlength]="20" matInput *ngIf="artikel.editable">
+                  <mat-input-container *ngIf="artikel.editable">
+                    <input [(ngModel)]="artikel.artNr" type="text" [maxlength]="20" matInput *ngIf="artikel.editable">
+                  </mat-input-container>
                   <span *ngIf="!artikel.editable">{{artikel.artNr}}</span>
                 </mat-cell>
               </ng-container>
@@ -92,16 +96,25 @@
 
                 <mat-cell *matCellDef="let artikel">
                   <mat-checkbox [(ngModel)]="artikel.aktiv"></mat-checkbox>
-                  <!--<mat-icon *ngIf="artikel.aktiv && !artikel.editable">check_circle</mat-icon>
-                  <mat-icon *ngIf="!artikel.aktiv && !artikel.editable">block</mat-icon>-->
+                </mat-cell>
+
+              </ng-container>
+
+              <ng-container matColumnDef="delete">
+                <mat-header-cell *matHeaderCellDef>Radera</mat-header-cell>
+
+                <mat-cell *matCellDef="let artikel">
+                  <button *ngIf="artikel.editable" mat-button (click)="deleteArtikel(grupp, artikel)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
                 </mat-cell>
 
               </ng-container>
 
               <mat-header-row
-                *matHeaderRowDef="['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount', 'aktiv']"></mat-header-row>
+                *matHeaderRowDef="['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount', 'aktiv', 'delete']"></mat-header-row>
               <mat-row
-                *matRowDef="let row; columns: ['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount', 'aktiv'];"></mat-row>
+                *matRowDef="let row; columns: ['id', 'name', 'artNr', 'storlek', 'pdArtikelsCount', 'aktiv', 'delete'];"></mat-row>
 
             </mat-table>
             <br/>

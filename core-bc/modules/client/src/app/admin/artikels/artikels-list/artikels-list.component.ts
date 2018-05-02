@@ -5,6 +5,7 @@ import {Grupp} from "../../../model/Grupp";
 import {Artikel} from "../../../model/Artikel";
 import {FlikRot} from "../../../model/FlikRot";
 import {ActivatedRoute} from "@angular/router";
+import {MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'app-artikels-list',
@@ -164,10 +165,17 @@ export class ArtikelsListComponent implements OnInit {
     const artikels = grupp.artikels;
     var artikel: ArtikelExt = new ArtikelExt();
     artikel.editable = true;
-    //console.log("createNewArtikel " + grupp.artikels.length);
     artikels.unshift(artikel);
     grupp.artikels = artikels;
     this.changeDetectorRefs.detectChanges();
+  }
+
+  deleteArtikel(grupp: GruppExt, artikel) {
+    grupp.artikels.splice(grupp.artikels.indexOf(artikel), 1);
+  }
+
+  toArtikelExtsModel(artikels: Array<Artikel>) : MatTableDataSource<ArtikelExt> {
+    return new MatTableDataSource<ArtikelExt>(this.toArtikelExts(artikels));
   }
 }
 

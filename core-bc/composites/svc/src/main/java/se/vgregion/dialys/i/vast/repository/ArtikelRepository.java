@@ -15,6 +15,6 @@ public interface ArtikelRepository extends JpaRepository<Artikel, Integer> {
     " join art.pdArtikels pda" + " where :pdid = pda.pdid" + " and art.namn NOT like '%UTGÅTT%'")
     List<Artikel> getArtikelsForRekvisition(@Param("pdid") Integer pdid);*/
 
-    @Query("select pdart from PDArtikel pdart where :pdid = pdart.pdid")
+    @Query("select pdart from PDArtikel pdart where :pdid = pdart.pdid and pdart.artikel.aktiv = true")
     List<PDArtikel> getPdArtikelsForRekvis(@Param("pdid") Integer pdid);
 }

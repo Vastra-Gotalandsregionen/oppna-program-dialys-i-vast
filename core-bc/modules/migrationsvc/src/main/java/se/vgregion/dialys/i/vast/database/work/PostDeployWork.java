@@ -69,6 +69,7 @@ public class PostDeployWork {
         target.execute("update flik set flikrotid = 'PD' where typ='PD'");
         target.execute("update flik set flikrotid = 'HD' where typ='HD'");
         target.execute("update artikel set aktiv = true");
+        target.execute("update artikel set aktiv = false where namn like '(UTGÅTT)%'");
         target.commit();
     }
 
