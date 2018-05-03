@@ -14,7 +14,6 @@ export class MottagningsDialogComponent {
   constructor(@Optional() dialogRef: MatDialogRef<MottagningsDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Mottagning) {
     this.dialogRef = dialogRef;
-    console.log("data", data);
   }
 
 }
