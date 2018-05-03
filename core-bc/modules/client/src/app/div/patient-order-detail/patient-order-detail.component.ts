@@ -19,34 +19,33 @@ export class PatientOrderDetailComponent implements OnInit {
   rekvisDatum: Date;
   rekvisId: string;
   id: string;
-  gata: string;
-  postNummer: string;
-  postOrt: string;
   fornamn: string;
   efternamn: string;
-  bestallningsRader: BestRad[];
   dataSources = new MatTableDataSource<BestRad>();
   displayedColumns = ['artikel', 'mangd', 'pdartikel', 'antal'];
   constructor(private route:ActivatedRoute, protected http: JwtHttp) {}
 
   ngOnInit() {
     this.bestallningsId = this.route.snapshot.params['id'];
-    this.pnr = this.route.snapshot.queryParams['persnr'];
     this.rekvisDatum = this.route.snapshot.queryParams['rekvisDatum'];
     this.rekvisId = this.route.snapshot.queryParams['rekvisitionid'];
     this.id = this.route.snapshot.queryParams['patId'];
-    this.gata = this.route.snapshot.queryParams['gatuadress'];
-    this.postOrt = this.route.snapshot.queryParams['postort'];
-    this.postNummer = this.route.snapshot.queryParams['postnummer'];
-    this.fornamn = this.route.snapshot.queryParams['namn'];
-    this.efternamn = this.route.snapshot.queryParams['efternamn'];
-
 
 
     const $data = this.http.get('/api/bestallning/' + this.bestallningsId).map(response => response.json());
 
     $data.subscribe((data: BestRad[]) => {
       this.dataSources.data = data;
+      if (this.id) {
+
+        const $data2 = this.http.get('/api/patient/' + this.id).map(response => response.json());
+
+        $data2.subscribe((data: Patient) => {
+          this.pnr = data.pnr;
+          this.fornamn = data.fornamn;
+          this.efternamn = data.efternamn;
+        });
+      }
       //this.bestallningsRader = data;
     });
   }

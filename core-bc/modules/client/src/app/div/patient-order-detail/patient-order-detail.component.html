@@ -43,95 +43,15 @@
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Rekvisitionsnr:</div>
                 <div class="dialys-details-item-data">
-                 {{rekvisId}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col c6">
-          <div class="col-inner">
-
-            <div class="dialys-details">
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Personnr:</div>
-                <div class="dialys-details-item-data">
-                  {{pnr}}
-                </div>
-              </div>
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Fonamn:</div>
-                <div class="dialys-details-item-data">
-                  {{fornamn}}
-                </div>
-              </div>
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Efternamn:</div>
-                <div class="dialys-details-item-data">
-                  {{efternamn}}
-                </div>
-              </div>
-
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Rekvisitionsnr:</div>
-                <div class="dialys-details-item-data">
                   {{rekvisId}}
                 </div>
               </div>
-
             </div>
-
-          </div>
-        </div>
-        <div class="col c6">
-          <div class="col-inner">
-
-            <div class="dialys-details">
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Gatuadress:</div>
-                <div class="dialys-details-item-data">
-                  {{gata}}
-                </div>
-              </div>
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Postort:</div>
-                <div class="dialys-details-item-data">
-                  {{postOrt}}
-                </div>
-              </div>
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Postnummer:</div>
-                <div class="dialys-details-item-data">
-                  {{postNummer}}
-                </div>
-              </div>
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Rekvisitionsdatum:</div>
-                <div class="dialys-details-item-data">
-                  {{rekvisDatum}}
-                </div>
-              </div>
-
-            </div>
-
           </div>
         </div>
       </div>
 
-
-
-
-
-
+      <app-patient-details patientId={{id}}></app-patient-details>
 
       <div id="bastallningsTableWrap">
         <mat-table #table dense [dataSource]="dataSources">
