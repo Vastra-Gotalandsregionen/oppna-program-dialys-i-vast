@@ -148,11 +148,8 @@
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
                 <mat-cell *matCellDef="let bestInfo"> <a routerLink="order/{{bestInfo.id}}"
-                                                         [queryParams]="{persnr:data.pnr, rekvisitionid:dat.id,
-                                                         rekvisDatum:dat.datum | date: 'yyyy-MM-dd' , patId: id,
-                                                          gatuadress: data.adress, postnummer: data.postNr,
-                                                          postort: data.postOrt, namn: data.fornamn,
-                                                          efternamn: data.efternamn}">
+                                                         [queryParams]="{patId:data.id, rekvisitionid:dat.id,
+                                                         rekvisDatum:dat.datum | date: 'yyyy-MM-dd'}">
                                                       {{bestInfo.id}}</a>
                 </mat-cell>
               </ng-container>
