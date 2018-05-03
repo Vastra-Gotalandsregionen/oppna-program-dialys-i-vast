@@ -5,7 +5,7 @@ import {RequestOptions, URLSearchParams} from '@angular/http';
 import {Patient} from '../../model/Patient';
 import {RestResponse} from '../../model/rest-response';
 import {Observable} from 'rxjs/Observable';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../core/auth/auth.service';
 import {JwtHttp} from '../../core/jwt-http';
 import {MatDialog, MatSnackBar} from "@angular/material";
@@ -25,6 +25,7 @@ export class ApkComponent implements OnInit {
   onlyActiveDatasCtrl: FormControl;
   status: string = 'Aktiv';
 
+  returnurl:string;
   query: string;
   page = 0;
   selectedPage = 1;
@@ -40,7 +41,7 @@ export class ApkComponent implements OnInit {
               public authService: AuthService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog,
-              private stateService: StateService) {
+              private stateService: StateService, private router: Router) {
 
     this.location = location;
     this.stateCtrl = new FormControl();
@@ -49,6 +50,7 @@ export class ApkComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.returnurl = this.router.url;
     this.route.queryParams
       .subscribe(params => {
 

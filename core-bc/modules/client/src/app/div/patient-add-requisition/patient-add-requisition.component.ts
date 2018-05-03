@@ -1,5 +1,5 @@
 import {Component, Input, NgModule, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
 import {JwtHttp} from "../../core/jwt-http";
@@ -10,6 +10,8 @@ import {Grupp} from "../../model/Grupp";
 import {Artikel} from "../../model/Artikel";
 import {MatSnackBar} from "@angular/material";
 import {RequisitionEditComponent} from "../requisition-edit/requisition-edit.component";
+import {until} from "selenium-webdriver";
+import elementIsSelected = until.elementIsSelected;
 
 @Component({
   selector: 'app-apk-detail',
@@ -23,6 +25,7 @@ export class PatientAddRequisitionComponent implements OnInit {
   id: string;
   patient: Patient;
   latestPd: Pd;
+  returnurl: string;
   displayedColumns = ['namn', 'storlek', 'artNr', 'ordination', 'maxantal'];
 
   @Input()
@@ -40,10 +43,11 @@ export class PatientAddRequisitionComponent implements OnInit {
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
               protected authService: AuthService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar, private router:Router) {
   }
 
   ngOnInit() {
+    this.returnurl = this.route.snapshot.queryParams['returnUrl'];
     this.route.params.subscribe(params => {
       this.id = params.id;
 
@@ -139,6 +143,17 @@ export class PatientAddRequisitionComponent implements OnInit {
       console.log("saveToServer callback - end");
     });
     console.log("saveToServer end");
+  }
+
+  avbryt(){
+    if (this.returnurl)
+    {
+      this.router.navigateByUrl(this.returnurl);
+    }
+    else
+    {
+      this.router.navigate(['/patienter', this.id])
+    }
   }
 
 }

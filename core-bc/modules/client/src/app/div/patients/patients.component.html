@@ -104,7 +104,8 @@
               <span>Ny beställning</span>
             </button>
 
-            <button mat-menu-item routerLink="{{patient.id}}/add-requisition" *ngIf="userHasEditPermission(patient) && authService.getSjukskoterska()">
+            <button mat-menu-item routerLink="{{patient.id}}/add-requisition" [queryParams]="{returnUrl:returnurl}"
+                    *ngIf="userHasEditPermission(patient) && authService.getSjukskoterska()">
               <mat-icon>content_paste</mat-icon>
               <span>Ny rekvisition</span>
             </button>
