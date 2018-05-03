@@ -6,6 +6,7 @@ import {MatAccordion, MatExpansionModule} from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {SharedModule} from "../../shared/shared.module";
 import { GruppMoveComponent } from './grupp-move/grupp-move.component';
+import { ArtikelMoveComponent } from './artikel-move/artikel-move.component';
 
 @NgModule({
   imports: [
@@ -14,8 +15,8 @@ import { GruppMoveComponent } from './grupp-move/grupp-move.component';
     SharedModule,
     FlexLayoutModule
   ],
-  declarations: [ArtikelsListComponent, GruppMoveComponent],
-  entryComponents: [GruppMoveComponent],
+  declarations: [ArtikelsListComponent, GruppMoveComponent, ArtikelMoveComponent],
+  entryComponents: [GruppMoveComponent, ArtikelMoveComponent],
   schemas: [
     MatAccordion,
     MatExpansionModule

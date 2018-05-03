@@ -39,7 +39,7 @@ public class Grupp implements Serializable {
     @Column(name = "Ordning")
     private Integer ordning;
 
-    @OneToMany(mappedBy = "grupp", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "grupp", cascade = CascadeType.ALL, orphanRemoval = false)
     private Set<Artikel> artikels;
 
     @JsonIgnore

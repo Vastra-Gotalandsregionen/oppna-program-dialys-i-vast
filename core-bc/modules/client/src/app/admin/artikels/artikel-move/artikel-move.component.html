@@ -1,0 +1,38 @@
+<h1 mat-dialog-title="">
+  Flytta artikel '{{data.item2move.titel}}' {{(data.item2move.id)?('#'+data.item2move.id):'-'}}
+</h1>
+
+<div class="confirm-dialog">
+
+  <div mat-dialog-content>
+    <div class="dialys-form-field">
+    </div>
+
+    <div>
+      Välj grupp som artikeln ska hamna i:
+    </div>
+
+    <ol>
+      <li *ngFor="let flik of data.flikRot.fliks">
+        <div>{{flik.titel}}</div>
+        <ol>
+          <li *ngFor="let grupp of flik.grupps">
+            <a *ngIf="grupp.artikels.indexOf(data.item2move) == -1"
+               (click)="data.moveArtikel(data.item2move, data.previousGrupp, grupp)">
+              '{{grupp.titel}}'
+            </a>
+            <span *ngIf="grupp.artikels.indexOf(data.item2move) > -1">
+              '{{grupp.titel}}' (nuvarande plats)
+            </span>
+          </li>
+        </ol>
+
+      </li>
+    </ol>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-default" (click)="dialogRef.close(null)">Avbryt</button>
+  </div>
+</div>
