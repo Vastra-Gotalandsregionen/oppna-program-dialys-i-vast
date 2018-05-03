@@ -75,7 +75,7 @@
         <mat-panel-description *ngIf="giltigRekvisitionFinns">
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
-            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}  ({{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}}
+            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}  <!--({{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}}-->
           </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -137,7 +137,7 @@
             <mat-panel-description>
               <mat-icon>add_shopping_cart</mat-icon>
               <span>
-                {{panelOpenState[i] ? 'Dölj beställningar' : 'Visa beställningar'}}  ({{dat.bestInfos.length}})
+                {{panelOpenState[i] ? 'Dölj beställningar' : 'Visa beställningar'}}  <!--({{dat.bestInfos.length}})-->
               </span>
             </mat-panel-description>
           </mat-expansion-panel-header>
