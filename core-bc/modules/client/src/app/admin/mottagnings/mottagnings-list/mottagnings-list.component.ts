@@ -30,7 +30,6 @@ export class MottagningsListComponent implements OnInit {
       .subscribe(
         (mottagnings: any) => {
           this.mottagnings = mottagnings;
-          console.log("got data ", this.mottagnings);
           var url: string = '/api/generic/counts/Mottagning/users/iids/';
           var ids = '';
           this.mottagnings.forEach((i) => ids += 'i' + i.id);

@@ -5,7 +5,8 @@ import {Grupp} from "../../../model/Grupp";
 import {Artikel} from "../../../model/Artikel";
 import {FlikRot} from "../../../model/FlikRot";
 import {ActivatedRoute} from "@angular/router";
-import {MatTableDataSource} from "@angular/material";
+import {MatDialog, MatDialogRef, MatTableDataSource} from "@angular/material";
+import {GruppMoveComponent} from "../grupp-move/grupp-move.component";
 
 @Component({
   selector: 'app-artikels-list',
@@ -14,7 +15,10 @@ import {MatTableDataSource} from "@angular/material";
 })
 export class ArtikelsListComponent implements OnInit {
 
-  constructor(protected route: ActivatedRoute, private http: JwtHttp, private changeDetectorRefs: ChangeDetectorRef) {
+  constructor(protected route: ActivatedRoute,
+              private http: JwtHttp,
+              private changeDetectorRefs: ChangeDetectorRef,
+              private dialog: MatDialog) {
   }
 
   fliks: Array<Flik>;
@@ -156,7 +160,7 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   createNewGrupp(flik: FlikExt) {
-    var grupp:GruppExt = new GruppExt();
+    var grupp: GruppExt = new GruppExt();
     grupp.removeable = true;
     flik.grupps.unshift(grupp);
   }
@@ -174,9 +178,37 @@ export class ArtikelsListComponent implements OnInit {
     grupp.artikels.splice(grupp.artikels.indexOf(artikel), 1);
   }
 
-  toArtikelExtsModel(artikels: Array<Artikel>) : MatTableDataSource<ArtikelExt> {
+  toArtikelExtsModel(artikels: Array<Artikel>): MatTableDataSource<ArtikelExt> {
     return new MatTableDataSource<ArtikelExt>(this.toArtikelExts(artikels));
   }
+
+  // dialogRef:MatDialogRef<GruppMoveComponent>;
+
+  openMoveGruppDialog(previousFlik: Flik, grupp: Grupp) {
+    let dialogRef = this.dialog.open(GruppMoveComponent, {
+      data: {
+        flikRot: this.flikRot,
+        item2move: grupp,
+        previousFlik: previousFlik,
+        moveGrupp(that: Grupp, from: Flik, to: Flik) {
+          from.grupps.splice(from.grupps.indexOf(that), 1);
+          to.grupps.push(that);
+          dialogRef.close(null);
+        }
+      },
+      panelClass: 'apk-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        console.log(result);
+        result.previousRot.grupps.splice(
+          result.previousFlik.grupps.indexOf(result.item2move), 1
+        );
+      }
+    });
+  }
+
 }
 
 class FlikExt extends Flik {

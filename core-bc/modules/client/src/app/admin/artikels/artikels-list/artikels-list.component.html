@@ -47,6 +47,9 @@
               <button mat-button (click)="createNewArtikel(grupp)" matTooltip="Lägg till ny artikel">
                 <mat-icon>add</mat-icon>
               </button>
+              <button mat-button (click)="openMoveGruppDialog(flik, grupp)" matTooltip="Flytta grupp">
+                <mat-icon>shuffle</mat-icon>
+              </button>
             </mat-toolbar>
 
             <mat-table #table [dataSource]="toArtikelExtsModel(grupp.artikels)">
