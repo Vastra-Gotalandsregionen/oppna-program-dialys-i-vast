@@ -29,136 +29,28 @@
 
     <mat-card-content>
       <div class="row">
-      <div class="col c6">
-        <div class="col-inner">
-          <div class="dialys-details">
-
-            <div class="dialys-details-item">
-              <div class="dialys-details-item-label">Personnr:</div>
-              <div class="dialys-details-item-data">
-                {{data.pnr}}
-              </div>
-            </div>
-
-            <div class="dialys-details-item">
-              <div class="dialys-details-item-label">Namn:</div>
-              <div class="dialys-details-item-data">
-                {{data.fornamn}}
-              </div>
-            </div>
-
-            <div class="dialys-details-item">
-              <div class="dialys-details-item-label">Efternamn:</div>
-              <div class="dialys-details-item-data">
-                {{data.efternamn}}
-              </div>
-            </div>
-            <div class="dialys-details-item">
-              <div class="dialys-details-item-label">Epost:</div>
-              <div class="dialys-details-item-data">
-                {{data.epost}}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="col c6">
-        <div class="col-inner">
-          <div class="dialys-details">
-
-            <div class="dialys-details-item">
-              <div class="dialys-details-item-label">Gatuadress:</div>
-              <div class="dialys-details-item-data">
-                {{data.adress}}
-              </div>
-            </div>
-
-            <div class="dialys-details-item">
-              <div class="dialys-details-item-label">Postadress:</div>
-              <div class="dialys-details-item-data">
-                {{data.postOrt}}
-              </div>
-            </div>
-
-            <div class="dialys-details-item">
-              <div class="dialys-details-item-label">Telefon:</div>
-              <div class="dialys-details-item-data">
-                {{data.telefon}}
-              </div>
-            </div>
-            <div class="dialys-details-item">
-              <div class="dialys-details-item-label">Mobil:</div>
-              <div class="dialys-details-item-data">
-                {{data.mobil}}
-              </div>
-            </div>
-
-
-
-
-          </div>
-        </div>
-      </div>
-    </div>
-      <div class="row">
         <div class="col c6">
           <div class="col-inner">
             <div class="dialys-details">
-
               <div class="dialys-details-item">
-                <div class="dialys-details-item-label">TF Gatuadress:</div>
+                <div class="dialys-details-item-label">Förnamn:</div>
                 <div class="dialys-details-item-data">
-                  {{data.tempAdress}}
+                  {{data.fornamn}}
                 </div>
               </div>
-
               <div class="dialys-details-item">
-                <div class="dialys-details-item-label">TF postadress:</div>
+                <div class="dialys-details-item-label">Efternamn:</div>
                 <div class="dialys-details-item-data">
-                  {{data.tempPostOrt}}
+                  {{data.efternamn}}
                 </div>
               </div>
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">TF postnummer:</div>
-                <div class="dialys-details-item-data">
-                  {{data.tempPostNr}}
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
-        <div class="col c6">
-          <div class="col-inner">
-            <div class="dialys-details">
 
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Ombud för anrop:</div>
-                <div class="dialys-details-item-data">
-                  {{data.avropsOmbud}}
-                </div>
-              </div>
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Ombud för leveransmottagning:</div>
-                <div class="dialys-details-item-data">
-                  {{data.leveransMottagningsOmbud}}
-                </div>
-              </div>
-
-              <div class="dialys-details-item">
-                <div class="dialys-details-item-label">Övrig information:</div>
-                <div class="dialys-details-item-data">
-                  {{data.ovrigt}}
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
       </div>
+
+      <app-patient-details patientId={{id}}></app-patient-details>
 
     </mat-card-content>
   </mat-card>
