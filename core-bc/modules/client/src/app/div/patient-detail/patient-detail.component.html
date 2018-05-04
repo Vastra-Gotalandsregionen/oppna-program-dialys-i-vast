@@ -11,11 +11,11 @@
       <mat-icon>edit</mat-icon>
     </a>
 
-    <a class="action-toolbar-item" mat-fab routerLink="add-order" matTooltip="Ny beställning"
-       [disabled]='!giltigRekvisitionFinns'
+    <button class="action-toolbar-item" mat-fab routerLink="add-order" matTooltip="Ny beställning"
+       [disabled]="!giltigRekvisitionFinns"
        *ngIf="userHasEditPermission(data)">
       <mat-icon>add_shopping_cart</mat-icon>
-    </a>
+    </button>
 
     <a class="action-toolbar-item" mat-fab routerLink="add-requisition" matTooltip="Ny rekvisition"
        *ngIf="userHasEditPermission(data) && this.authService.getSjukskoterska()">
