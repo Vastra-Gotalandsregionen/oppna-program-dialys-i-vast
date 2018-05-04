@@ -35,7 +35,7 @@ public class FlikRot implements Serializable {
     @Column(name = "id")
     private String id;
 
-    @OneToMany(mappedBy = "flikRot", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "flikRot", cascade = CascadeType.ALL, orphanRemoval = false)
     private Set<Flik> fliks = new HashSet<>();
 
     public String getId() {

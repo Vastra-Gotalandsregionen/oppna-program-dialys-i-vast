@@ -5,8 +5,9 @@ import {Grupp} from "../../../model/Grupp";
 import {Artikel} from "../../../model/Artikel";
 import {FlikRot} from "../../../model/FlikRot";
 import {ActivatedRoute} from "@angular/router";
-import {MatDialog, MatDialogRef, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatTableDataSource} from "@angular/material";
 import {GruppMoveComponent} from "../grupp-move/grupp-move.component";
+import {ArtikelMoveComponent} from "../artikel-move/artikel-move.component";
 
 @Component({
   selector: 'app-artikels-list',
@@ -200,15 +201,39 @@ export class ArtikelsListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null) {
+      /*if (result != null) {
+        console.log(result);
+        result.previousRot.grupps.splice(
+          //result.previousFlik.grupps.indexOf(result.item2move), 1
+        );
+      }*/
+    });
+  }
+
+  openMoveArtikelDialog(grupp: GruppExt, artikel: ArtikelExt) {
+    let dialogRef = this.dialog.open(ArtikelMoveComponent, {
+      data: {
+        flikRot: this.flikRot,
+        item2move: artikel,
+        previousGrupp: grupp,
+        moveArtikel(that: Artikel, from: Grupp, to: Grupp) {
+          from.artikels.splice(from.artikels.indexOf(that), 1);
+          to.artikels.push(that);
+          dialogRef.close(null);
+        }
+      },
+      panelClass: 'apk-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      /*if (result != null) {
         console.log(result);
         result.previousRot.grupps.splice(
           result.previousFlik.grupps.indexOf(result.item2move), 1
         );
-      }
+      }*/
     });
   }
-
 }
 
 class FlikExt extends Flik {

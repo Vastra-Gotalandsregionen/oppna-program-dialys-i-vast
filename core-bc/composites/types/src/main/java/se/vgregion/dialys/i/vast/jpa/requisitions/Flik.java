@@ -44,7 +44,7 @@ public class Flik implements Serializable {
     private Boolean aktiv;
 
     //@JsonIgnore
-    @OneToMany(mappedBy = "flik", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "flik", cascade = CascadeType.ALL, orphanRemoval = false)
     private Set<Grupp> grupps;
 
     @JsonIgnore
