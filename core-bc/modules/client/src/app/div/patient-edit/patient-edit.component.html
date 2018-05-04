@@ -79,6 +79,12 @@
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
+              <mat-checkbox [(ngModel)]="patient.leveransPaminnelse">Påminnelse för patient</mat-checkbox>
+            </div>
+          </div>
+
+          <div class="dialys-form-field-ctn">
+            <div class="dialys-form-field">
               <h3 #mottagningsHead>Mottagningar </h3>
               <div class="form-element" *ngFor="let mottagning of mottagnings">
                 <mat-checkbox [checked]="doesPatientHaveMottagning(mottagning)"
@@ -326,11 +332,6 @@
             </div>
           </div>
 
-          <div class="dialys-form-field-ctn">
-            <div class="dialys-form-field">
-              <mat-checkbox [(ngModel)]="patient.leveransPaminnelse">Påminnelse för patient</mat-checkbox>
-            </div>
-          </div>
 
         </div>
       </div>
