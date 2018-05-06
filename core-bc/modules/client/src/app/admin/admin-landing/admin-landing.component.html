@@ -29,19 +29,19 @@
         </a>
       </mat-list-item>
 
-      <mat-list-item *ngIf="admin">
-        <a routerLink="../artikels/PD" routerLinkActive="false">
+      <mat-list-item *ngFor="let flikRot of flikRots">
+        <a routerLink="../artikels/{{flikRot.id}}" routerLinkActive="false">
           <mat-icon>shop</mat-icon>
-          <span class="nav-label">PD-Artiklar</span>
+          <span class="nav-label">{{flikRot.id}}-Artiklar</span>
         </a>
       </mat-list-item>
 
-      <mat-list-item *ngIf="admin">
+      <!--<mat-list-item *ngIf="admin">
         <a routerLink="../artikels/HD" routerLinkActive="false">
           <mat-icon>shop</mat-icon>
           <span class="nav-label">HD-Artiklar</span>
         </a>
-      </mat-list-item>
+      </mat-list-item>-->
     </mat-list>
 
   </mat-card-content>

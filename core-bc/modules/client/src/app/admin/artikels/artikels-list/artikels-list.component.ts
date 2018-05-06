@@ -46,11 +46,26 @@ export class ArtikelsListComponent implements OnInit {
         const groups: Grupp[] = [];
         this.fliks.forEach(f => f.grupps.forEach(g => groups.push(g)));
         this.fetchArtikelUsageFromServer(groups);
-        this.startFetchGruppsArtikelUsageFromServer();
-        this.fetchFliksArtikelUsageFromServer(this.fliks);
       }
     );
   }
+
+
+  sumArtikelUsageIntoFlikAndGroup() {
+    this.flikRot.fliks.forEach(f => {
+      var flikSum = 0;
+      f.grupps.forEach(g => {
+        var gruppSum = 0;
+        g.artikels.forEach(a => {
+          gruppSum += this.toArtikelExt(a).pdArtikelsCount;
+        });
+        flikSum += gruppSum;
+        this.toGroupExt(g).pdArtikelsCount = gruppSum;
+      });
+      this.toFlikExt(f).pdArtikelsCount = flikSum;
+    });
+  }
+
 
   startFetchGruppsArtikelUsageFromServer() {
     const groups: Grupp[] = [];
@@ -90,13 +105,17 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   fetchArtikelUsageFromServer(groups: Grupp[]) {
-    if (groups.length === 0) return;
+    if (groups.length === 0) {
+      this.sumArtikelUsageIntoFlikAndGroup();
+      return;
+    }
     var ids: number[] = [];
     const last = groups[groups.length - 1];
     groups.splice(groups.length - 1, 1);
     last.artikels.forEach((i) => ids.push(i.id));
     if (ids.length === 0) {
       this.fetchArtikelUsageFromServer(groups);
+      this.sumArtikelUsageIntoFlikAndGroup();
       return;
     }
     var url = '/api/generic/counts/Artikel/pdArtikels/iids/' + ids;
@@ -183,8 +202,6 @@ export class ArtikelsListComponent implements OnInit {
     return new MatTableDataSource<ArtikelExt>(this.toArtikelExts(artikels));
   }
 
-  // dialogRef:MatDialogRef<GruppMoveComponent>;
-
   openMoveGruppDialog(previousFlik: Flik, grupp: Grupp) {
     let dialogRef = this.dialog.open(GruppMoveComponent, {
       data: {
@@ -194,19 +211,11 @@ export class ArtikelsListComponent implements OnInit {
         moveGrupp(that: Grupp, from: Flik, to: Flik) {
           from.grupps.splice(from.grupps.indexOf(that), 1);
           to.grupps.push(that);
+          this.sumArtikelUsageIntoFlikAndGroup();
           dialogRef.close(null);
         }
       },
       panelClass: 'apk-dialog'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      /*if (result != null) {
-        console.log(result);
-        result.previousRot.grupps.splice(
-          //result.previousFlik.grupps.indexOf(result.item2move), 1
-        );
-      }*/
     });
   }
 
@@ -219,19 +228,11 @@ export class ArtikelsListComponent implements OnInit {
         moveArtikel(that: Artikel, from: Grupp, to: Grupp) {
           from.artikels.splice(from.artikels.indexOf(that), 1);
           to.artikels.push(that);
+          this.sumArtikelUsageIntoFlikAndGroup();
           dialogRef.close(null);
         }
       },
       panelClass: 'apk-dialog'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      /*if (result != null) {
-        console.log(result);
-        result.previousRot.grupps.splice(
-          result.previousFlik.grupps.indexOf(result.item2move), 1
-        );
-      }*/
     });
   }
 }

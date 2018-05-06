@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StateService} from '../core/state/state.service';
 import {AuthService} from '../core/auth/auth.service';
 
@@ -10,7 +10,8 @@ import {AuthService} from '../core/auth/auth.service';
 export class AdminComponent implements OnInit {
 
   constructor(private authService: AuthService,
-              private stateService: StateService) {}
+              private stateService: StateService) {
+  }
 
   ngOnInit() {
   }
@@ -23,7 +24,7 @@ export class AdminComponent implements OnInit {
     return this.authService.getLoggedInUserId() ? true : false;
   }
 
-  get sidebarOpen():boolean {
+  get sidebarOpen(): boolean {
     return this.stateService.showSidenav;
   }
 
