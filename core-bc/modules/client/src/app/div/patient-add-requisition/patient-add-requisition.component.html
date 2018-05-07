@@ -59,10 +59,10 @@
       <app-patient-details patientId={{patient.id}}></app-patient-details>
 
       <mat-tab-group dynamicHeight="true" [@.disabled]="true">
-        <mat-tab label="{{flik.titel.trim()}}" *ngFor="let flik of fliks">
+        <mat-tab label="{{flik.titel.trim()}} ({{flik.artikelCount}})" *ngFor="let flik of asFlikReqs(fliks)">
 
           <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true">
-            <mat-tab *ngFor="let grupp of flik.grupps" label="{{grupp.titel}}">
+            <mat-tab *ngFor="let grupp of asGruppReqs(flik.grupps)" label="{{grupp.titel}} ({{grupp.artikelCount}})">
 
               <mat-table #table dense [dataSource]="grupp.artikels">
                 <ng-container matColumnDef="namn">

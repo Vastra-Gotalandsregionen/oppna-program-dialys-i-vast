@@ -38,7 +38,7 @@ export class PatientAddRequisitionComponent implements OnInit {
 
   pd: Pd = new Pd();
 
-  private fliks: Array<Flik>;
+  public fliks: Array<Flik>;
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
@@ -61,7 +61,6 @@ export class PatientAddRequisitionComponent implements OnInit {
 
           Patient.init(this.pd.patient);
           this.pd.patient.sortPds();
-          // this.pd.patient.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
 
           var pdArtikelsByArtikelKey: Map<number, PDArtikel> = new Map();
           if (this.pd.patient.pds.length > 0) {
@@ -72,8 +71,6 @@ export class PatientAddRequisitionComponent implements OnInit {
           this.latestPd.pdArtikels.forEach((pdArtikel: PDArtikel) => {
             pdArtikelsByArtikelKey.set(pdArtikel.artikel.id, pdArtikel);
           });
-
-          console.log("latestPd", this.latestPd);
 
           // So that the latest and current pd will be at position 0 in the list. 'datum' might be changed to 'giltig'?
           this.pd.datum = new Date();
@@ -100,11 +97,31 @@ export class PatientAddRequisitionComponent implements OnInit {
               });
 
             });
+            this.putArtikelCountIntoTreeNodes();
           });
 
         });
       }
     });
+  }
+
+  putArtikelCountIntoTreeNodes() {
+    this.asFlikReqs(this.fliks).forEach(
+      flik=> {
+        var sum = 0;
+        this.asGruppReqs(flik.grupps).forEach(
+          grupp => {
+            var gruppSum = 0;
+            grupp.artikels.forEach(artikel => {
+              if (this.selectedArtiklar.indexOf(artikel) > -1) gruppSum++;
+            });
+            grupp.artikelCount = gruppSum;
+            sum += gruppSum;
+          }
+        );
+        flik.artikelCount = sum;
+      }
+    );
   }
 
   protected getId() {
@@ -127,6 +144,7 @@ export class PatientAddRequisitionComponent implements OnInit {
       pdArtikel.artikel = rad;
       this.pd.pdArtikels.push(pdArtikel);
     }
+    this.putArtikelCountIntoTreeNodes();
   }
 
   saveToServer() {
@@ -156,4 +174,37 @@ export class PatientAddRequisitionComponent implements OnInit {
     }
   }
 
+  asGruppReqs(grupps: Array<Grupp>): GruppReq[] {
+    return <GruppReq[]> grupps;
+  }
+
+  asFlikReqs(fliks: Array<Flik>): FlikReq[] {
+    return <FlikReq[]> fliks;
+  }
 }
+
+
+export class FlikReq extends Flik {
+  artikelCount: number;
+
+  public static asFlikReq(flik: Flik): FlikReq {
+    return <FlikReq> flik;
+  }
+
+  public static asFlikReqs(fliks: Flik[]): FlikReq[] {
+    return <FlikReq[]> fliks;
+  }
+
+}
+
+export class GruppReq extends Grupp {
+  artikelCount: number;
+}
+
+
+
+/*
+class ArtikelReq extends Artikel {
+  editable: boolean = false;
+  pdArtikelsCount: number;
+}*/
