@@ -102,17 +102,30 @@
               </ng-container>
 
               <ng-container matColumnDef="delete">
-                <mat-header-cell *matHeaderCellDef>Radera</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Verktyg</mat-header-cell>
 
                 <mat-cell *matCellDef="let artikel">
-                  <button *ngIf="artikel.editable" mat-button (click)="deleteArtikel(grupp, artikel)">
+
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+
+                  <mat-menu #menu="matMenu">
+                    <button *ngIf="artikel.editable" mat-button (click)="deleteArtikel(grupp, artikel)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-button (click)="openMoveArtikelDialog(grupp, artikel)" matTooltip="Flytta artikel">
+                      <mat-icon>shuffle</mat-icon>
+                    </button>
+                  </mat-menu>
+
+                  <!--<button *ngIf="artikel.editable" mat-button (click)="deleteArtikel(grupp, artikel)">
                     <mat-icon>delete</mat-icon>
-                  </button>
+                  </button>-->
 
-
-                  <button mat-button (click)="openMoveArtikelDialog(grupp, artikel)" matTooltip="Flytta artikel">
+<!--                  <button mat-button (click)="openMoveArtikelDialog(grupp, artikel)" matTooltip="Flytta artikel">
                     <mat-icon>shuffle</mat-icon>
-                  </button>
+                  </button>-->
                 </mat-cell>
 
               </ng-container>
