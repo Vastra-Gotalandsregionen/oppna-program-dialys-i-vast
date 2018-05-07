@@ -17,6 +17,7 @@ export class PatientDetailComponent implements OnInit {
 
   headerdata: Pd;
   giltigRekvisitionFinns: boolean;
+  pausadPatient: boolean;
   pdRekviser: Pd[];
   hdRekviser: Pd[];
   id: string;
@@ -50,6 +51,7 @@ export class PatientDetailComponent implements OnInit {
           Patient.init(this.data);
           this.data.sortPds();
           this.patTyp = data.typ;
+          this.pausadPatient = data.status.trim().toLowerCase() != 'aktiv'
           if (this.patTyp == 'PD')
           {
             this.pdRekviser = data.pds.filter(item => item.typ == 'PD')

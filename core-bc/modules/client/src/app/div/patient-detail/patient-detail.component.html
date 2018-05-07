@@ -12,7 +12,7 @@
     </a>
 
     <button class="action-toolbar-item" mat-fab routerLink="add-order" matTooltip="Ny beställning"
-       [disabled]="!giltigRekvisitionFinns"
+       [disabled]="!giltigRekvisitionFinns || pausadPatient"
        *ngIf="userHasEditPermission(data)">
       <mat-icon>add_shopping_cart</mat-icon>
     </button>
@@ -62,8 +62,9 @@
     <mat-expansion-panel class="dialys-requisition-panel dialys-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
 
       <mat-expansion-panel-header >
-        <mat-panel-title *ngIf="!giltigRekvisitionFinns"><mat-icon>report_problem</mat-icon>
-        <span class="">Det finns ingen giltig rekvisition för den här patienten.</span> </mat-panel-title>
+        <mat-panel-title *ngIf="!giltigRekvisitionFinns"><mat-icon class="alert-danger">report_problem</mat-icon>
+        <span class="alert-danger">Patienten är en {{data.typ == 'HD' ? 'HD' : 'PD'}} patient men det finns ingen giltig {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition för den här patienten. En ny
+        {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition behöver skapas.</span> </mat-panel-title>
 
         <mat-panel-title *ngIf="giltigRekvisitionFinns">
           <mat-icon>content_paste</mat-icon>
