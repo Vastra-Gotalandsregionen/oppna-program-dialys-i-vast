@@ -82,7 +82,11 @@ export class PatientEditComponent implements OnInit {
           .afterDismissed().subscribe(() => {
           if (!this.patient.id) {
             this.patient.id = updated.id;
-            this.router.navigate(['/patienter/' + updated.id + '/edit']);
+            this.router.navigate(['/patienter/', this.patient.id]);
+          }
+          else
+          {
+            this.router.navigate(['/patienter' , this.patient.id]);
           }
         });
       }
