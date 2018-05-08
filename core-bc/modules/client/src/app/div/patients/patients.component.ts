@@ -31,6 +31,9 @@ export class ApkComponent implements OnInit {
   selectedPage = 1;
   totalPagesArr: Array<number>;
   location: Location;
+  pdRekviser: Pd[];
+  hdRekviser: Pd[];
+  patTyp: string;
 
   response: RestResponse<Patient>;
   sort: { field: string, ascending: boolean };
@@ -248,6 +251,23 @@ export class ApkComponent implements OnInit {
 
   userHasEditPermission(data: Patient) {
     return this.authService.userHasDataEditPermission(data);
+  }
+
+  patientHarRekvisition(patient: Patient):boolean
+  {
+    Patient.init(patient);
+    patient.sortPds();
+    this.patTyp = patient.typ;
+    if (this.patTyp == 'PD')
+    {
+      this.pdRekviser = patient.pds.filter(item => item.typ == 'PD')
+      return this.pdRekviser.length != 0 ? true : false;
+    }
+    else if(this.patTyp == 'HD')
+    {
+      this.hdRekviser = patient.pds.filter(item => item.typ == 'HD')
+      return this.hdRekviser.length != 0 ? true : false;
+    }
   }
 
   get loggedIn() {
