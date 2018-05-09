@@ -99,7 +99,7 @@
               <span>Visa patientinfo</span>
             </button>
 
-            <button mat-menu-item routerLink="{{patient.id}}/add-order" *ngIf="userHasEditPermission(patient)" [disabled]="!patientHarRekvisition(patient)">
+            <button mat-menu-item routerLink="{{patient.id}}/add-order" *ngIf="userHasEditPermission(patient)" [disabled]="!patientHarRekvisition(patient) || patient.status != 'Aktiv'">
               <mat-icon>add_shopping_cart</mat-icon>
               <span>Ny beställning</span>
             </button>

@@ -203,7 +203,7 @@
 
   <br/>
 
-  <mat-checkbox class="" [checked]="showOldRequisitions" (change)="showOldRequisitions = $event.checked">
+  <mat-checkbox *ngIf="giltigRekvisitionFinns" class="" [checked]="showOldRequisitions" (change)="showOldRequisitions = $event.checked">
     Visa gamla rekvisitioner
   </mat-checkbox>
 
