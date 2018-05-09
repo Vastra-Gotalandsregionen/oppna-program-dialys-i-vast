@@ -2,7 +2,7 @@
 
   <mat-toolbar class="action-toolbar">
     <h1>
-       Ny beställning: {{data.pnr}}
+       Ny beställning: {{data.pnr}} ({{data.typ}})
     </h1>
     <div class="action-toolbar-spacer"></div>
     <app-back-button class="action-toolbar-item"></app-back-button>
@@ -80,6 +80,7 @@
                 <mat-cell *matCellDef="let rad">
                   <mat-form-field class="order-row-amount">
                     <input  type="number" placeholder="" [(ngModel)]="rad.bestPdRow.antal"
+                            [disabled]="!rad.artikel.aktiv"
                             name="antalfp"
                             #antalfield="ngModel"
                             matInput>

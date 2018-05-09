@@ -60,18 +60,15 @@ export class PatientAddRequisitionComponent implements OnInit {
         this.latestPd = new Pd();
         this.pd.typ = this.patient.typ;
       }
-      this.editable = true;
+      this.editable = this.authService.getSjukskoterska();
     } else {
       this.latestPd = incomingPd;
       this.pd.id = incomingPd.id;
       this.pd.typ = incomingPd.typ;
-      this.editable = (this.latestPd.bestInfos === null || this.latestPd.bestInfos.length === 0) && this.pd.typ === this.patient.typ;
-      /*console.log('editable', this.editable);
-      console.log('this.latestPd.bestInfos === null', (this.latestPd.bestInfos === null));
-      console.log('this.latestPd.bestInfos.length === 0', (this.latestPd.bestInfos.length === 0));
-      console.log('this.pd.typ  === this.patient.typ', (this.pd.typ  === this.patient.typ));
-      console.log('this.latestPd.bestInfos', this.latestPd.bestInfos);
-      console.log('this.latestPd.bestInfos.length', this.latestPd.bestInfos.length);*/
+      this.editable = (
+          (this.latestPd.bestInfos === null || this.latestPd.bestInfos.length === 0) && this.pd.typ === this.patient.typ
+        )
+        && this.authService.getSjukskoterska();
     }
 
     var pdArtikelsByArtikelKey: Map<number, PDArtikel> = new Map();

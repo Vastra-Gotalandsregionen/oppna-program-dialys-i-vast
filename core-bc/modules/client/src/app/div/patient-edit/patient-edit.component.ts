@@ -1,9 +1,10 @@
-import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
 import {Patient} from "../../model/Patient";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JwtHttp} from "../../core/jwt-http";
 import {Mottagning} from "../../model/Mottagning";
-import {MatSnackBar} from "@angular/material";
+import {MatCheckbox, MatRadioButton, MatRadioGroup, MatSelect, MatSnackBar} from "@angular/material";
+import {AuthService} from "../../core/auth/auth.service";
 
 @Component({
   selector: 'app-patient-edit',
@@ -16,26 +17,56 @@ export class PatientEditComponent implements OnInit {
 
   @Input() mottagnings: Array<Mottagning> = [];
 
-  @ViewChild('pnrInput') pnrInput: ElementRef;
-
   @ViewChild('mottagningsHead') mottagningsHead: ElementRef;
 
+  // 1
+  @ViewChild('pnrInput') pnrInput: ElementRef;
   @ViewChild('fornamnInput') fornamnInput: ElementRef;
-
   @ViewChild('efternamnInput') efternamnInput: ElementRef;
 
+  // 2
+  @ViewChild('typInput') typInput: ElementRef;
+  @ViewChild('leveransPaminnelseInput') leveransPaminnelseInput: ElementRef;
+  @ViewChildren('mottagningInputs') mottagningInputs: QueryList<MatCheckbox>;
 
+  // 3
   @ViewChild('adressInput') adressInput: ElementRef;
-
   @ViewChild('postNrInput') postNrInput: ElementRef;
-
   @ViewChild('postOrtInput') postOrtInput: ElementRef;
+  @ViewChild('portkodInput') portkodInput: ElementRef;
 
+  // 4
+  @ViewChildren('tempAdressFrom') tempAdressFrom: ElementRef;
+  @ViewChildren('tempAdressTomInput') tempAdressTomInput: ElementRef;
+  @ViewChildren('tempAdress') tempAdress: ElementRef;
+  @ViewChildren('tempPostNr') tempPostNr: ElementRef;
+  @ViewChildren('tempPostOrt') tempPostOrt: ElementRef;
+
+  // 5
   @ViewChild('telefonInput') telefonInput: ElementRef;
+  @ViewChild('mobilInput') mobilInput: ElementRef;
+  @ViewChild('epostInput') epostInput: ElementRef;
+
+  // 6
+  @ViewChild('utdelDagInput') utdelDagInput: ElementRef;
+  @ViewChild('utdelTextInput') utdelTextInput: ElementRef;
+  @ViewChild('utdelVeckaInput') utdelVeckaInput: ElementRef;
+
+  // 7
+  @ViewChildren('avropsOmbudInput') avropsOmbudInput: ElementRef;
+  @ViewChildren('leveransMottagningsOmbudInput') leveransMottagningsOmbudInput: ElementRef;
+
+  // 8
+  @ViewChildren('ovrigtInput') ovrigtInput: ElementRef;
+
+  // 9
+  @ViewChildren('statusInput') statusInput
+
 
   constructor(private route: ActivatedRoute,
               private http: JwtHttp,
               private router: Router,
+              public authService: AuthService,
               private snackBar: MatSnackBar) {
 
   }
@@ -68,7 +99,6 @@ export class PatientEditComponent implements OnInit {
       .subscribe((incommingMottagnings: Array<Mottagning>) => {
         this.mottagnings = incommingMottagnings;
       });
-
   }
 
   saveToServerSide() {
@@ -84,9 +114,8 @@ export class PatientEditComponent implements OnInit {
             this.patient.id = updated.id;
             this.router.navigate(['/patienter/', this.patient.id]);
           }
-          else
-          {
-            this.router.navigate(['/patienter' , this.patient.id]);
+          else {
+            this.router.navigate(['/patienter', this.patient.id]);
           }
         });
       }
@@ -132,7 +161,7 @@ export class PatientEditComponent implements OnInit {
 
   private abortShowErrorAndFocus(personnummerMåsteVaraIfylld: string, nativeElement: any) {
     this.snackBar.open(personnummerMåsteVaraIfylld, null, {duration: 3000});
-    setTimeout( () => {
+    setTimeout(() => {
       const domNode: HTMLElement = nativeElement;
       if (domNode.scrollIntoView)
         domNode.scrollIntoView();
@@ -141,17 +170,11 @@ export class PatientEditComponent implements OnInit {
     }, 3000);
   }
 
-  /*private abortSave(andShowThis: string) {
-    setTimeout( () => {
-      this.pnrInput.nativeElement.focus();
-    }, 3000);
-  }*/
-
   public onMottagningChecked(item: Mottagning) {
     var index: number = -1;
     var i: number = 0;
     for (const mottagning of this.patient.mottagnings) {
-      if (mottagning.id === item.id){
+      if (mottagning.id === item.id) {
         index = i;
         break;
       }

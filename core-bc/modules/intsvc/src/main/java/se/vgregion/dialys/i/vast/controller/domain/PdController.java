@@ -48,6 +48,7 @@ public class PdController {
                 if (previous != null) {
                     pd.setErsatter(previous.getId());
                 }
+                pd.getPdArtikels().forEach(a -> a.setId(null));
             } else {
                 System.out.println("before getOne");
                 Pd fromDb = get(pd.getId());
