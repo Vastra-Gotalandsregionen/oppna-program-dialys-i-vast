@@ -14,7 +14,8 @@
     <button class="action-toolbar-item" mat-fab routerLink="add-order" matTooltip="Ny beställning"
        [disabled]="!giltigRekvisitionFinns || pausadPatient"
        *ngIf="userHasEditPermission(data)">
-      <mat-icon>add_shopping_cart</mat-icon>
+      <mat-icon *ngIf="!giltigRekvisitionFinns" color="warn" matTooltip="Finns ingen giltig rekvisition">add_shopping_cart</mat-icon>
+      <mat-icon *ngIf="giltigRekvisitionFinns">add_shopping_cart</mat-icon>
     </button>
 
     <a class="action-toolbar-item" mat-fab routerLink="add-requisition" matTooltip="Ny rekvisition"
