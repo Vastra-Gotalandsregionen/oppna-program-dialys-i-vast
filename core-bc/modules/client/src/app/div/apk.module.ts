@@ -10,6 +10,7 @@ import { PatientOrderDetailComponent } from './patient-order-detail/patient-orde
 import { RequisitionEditComponent } from './requisition-edit/requisition-edit.component';
 import { FlexLayoutModule} from "@angular/flex-layout";
 import {PatientDetailComponent} from "./patient-detail/patient-detail.component";
+import { PatientAddRequisitionSaveDialogComponent } from './patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component';
 
 @NgModule({
   imports: [
@@ -25,10 +26,12 @@ import {PatientDetailComponent} from "./patient-detail/patient-detail.component"
     PatientDetailComponent,
     PatientEditComponent,
     PatientOrderDetailComponent,
-    RequisitionEditComponent
+    RequisitionEditComponent,
+    PatientAddRequisitionSaveDialogComponent
   ],
   providers: [
     UserHasDataPermissionGuard
-  ]
+  ],
+  entryComponents: [PatientAddRequisitionSaveDialogComponent]
 })
 export class ApkModule { }

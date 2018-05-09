@@ -149,9 +149,6 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   toArtikelExts(artikels: Array<Artikel>): ArtikelExt[] {
-    /*artikels.forEach(artikel => {
-      artikel['prototype'] = new Artikel();
-    });*/
     return <ArtikelExt[]> artikels;
   }
 

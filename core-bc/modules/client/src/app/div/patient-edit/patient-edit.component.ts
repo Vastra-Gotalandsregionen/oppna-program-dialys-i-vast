@@ -3,7 +3,7 @@ import {Patient} from "../../model/Patient";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JwtHttp} from "../../core/jwt-http";
 import {Mottagning} from "../../model/Mottagning";
-import {MatCheckbox, MatRadioButton, MatRadioGroup, MatSelect, MatSnackBar} from "@angular/material";
+import {MatCheckbox, MatSnackBar} from "@angular/material";
 import {AuthService} from "../../core/auth/auth.service";
 
 @Component({
