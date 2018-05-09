@@ -57,7 +57,7 @@ public class Pd implements Serializable {
     @OneToMany(mappedBy = "pd")
     private Set<BestInfo> bestInfos;
 
-    @OneToMany(mappedBy = "pd", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pd", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PDArtikel> pdArtikels;
 
     @JsonIgnore
