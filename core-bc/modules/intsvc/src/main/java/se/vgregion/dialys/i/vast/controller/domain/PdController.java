@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Pd;
-import se.vgregion.dialys.i.vast.repository.ArtikelRepository;
 import se.vgregion.dialys.i.vast.repository.PdRepository;
+import se.vgregion.dialys.i.vast.service.PatientFinder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class PdController {
     private PdRepository pdRepository;
 
     @Autowired
-    private ArtikelRepository artikelRepository;
+    private PatientFinder patientFinder;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Pd> getPds() {
@@ -34,10 +34,26 @@ public class PdController {
     //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
     @Transactional
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<Pd> savePd(@RequestBody Pd pd) {
+    public ResponseEntity<Pd> save(@RequestBody Pd pd) {
+        int i = 0;
         for (PDArtikel pdArtikel : pd.getPdArtikels()) {
             pdArtikel.setPd(pd);
+            System.out.println(i + ": " + pdArtikel.getId() + " = " + pdArtikel);
             // Todo: Check if this is really the way to do this.
+        }
+        try {
+            if (pd.getId() == null) {
+                System.out.println("before getLatestPd");
+                Pd previous = patientFinder.getLatestPd(pd.getPatient());
+                if (previous != null) {
+                    pd.setErsatter(previous.getId());
+                }
+            } else {
+                System.out.println("before getOne");
+                Pd fromDb = get(pd.getId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return ResponseEntity.ok(pdRepository.save(pd));
     }
@@ -52,7 +68,7 @@ public class PdController {
 
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Pd getPatient(@PathVariable("id") Integer id) {
+    public Pd get(@PathVariable("id") Integer id) {
         Pd user = pdRepository.findOne(id);
         return user;
     }

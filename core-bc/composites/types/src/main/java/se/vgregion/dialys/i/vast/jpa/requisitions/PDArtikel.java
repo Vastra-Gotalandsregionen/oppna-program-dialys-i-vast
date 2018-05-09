@@ -93,10 +93,22 @@ public class PDArtikel implements Serializable {
 
         PDArtikel pdArtikel = (PDArtikel) o;
 
-        if (id != null ? !id.equals(pdArtikel.id) : pdArtikel.id != null) return false;
+        return equals(pdArtikel.pdid, pdid) && equals(pdArtikel.artikelID, artikelID);
+
+        /*if (id != null ? !id.equals(pdArtikel.id) : pdArtikel.id != null) return false;
         if (pdid != null ? !pdid.equals(pdArtikel.pdid) : pdArtikel.pdid != null) return false;
         if (artikelID != null ? !artikelID.equals(pdArtikel.artikelID) : pdArtikel.artikelID != null) return false;
-        return artikel != null ? artikel.equals(pdArtikel.artikel) : pdArtikel.artikel == null;
+        return artikel != null ? artikel.equals(pdArtikel.artikel) : pdArtikel.artikel == null;*/
+    }
+
+    private boolean equals(Object o1, Object o2) {
+        if (o1 == o2) {
+            return true;
+        }
+        if (o1 == null || o2 == null) {
+            return false;
+        }
+        return o1.equals(o2);
     }
 
     @Override

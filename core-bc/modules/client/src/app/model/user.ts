@@ -15,7 +15,7 @@ export class User {
 
   name: string;
   passWord: string;
-  typ: string;
+  /*typ: string;*/
 
   sjukskoterska: boolean;
   admin: boolean;

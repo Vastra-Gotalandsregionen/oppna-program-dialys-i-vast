@@ -1,4 +1,4 @@
-import {Component, Input, NgModule, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
@@ -10,8 +10,7 @@ import {Grupp} from "../../model/Grupp";
 import {Artikel} from "../../model/Artikel";
 import {MatSnackBar} from "@angular/material";
 import {RequisitionEditComponent} from "../requisition-edit/requisition-edit.component";
-import {until} from "selenium-webdriver";
-import elementIsSelected = until.elementIsSelected;
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-apk-detail',
@@ -26,6 +25,8 @@ export class PatientAddRequisitionComponent implements OnInit {
   patient: Patient;
   latestPd: Pd;
   returnurl: string;
+  @Input()
+  editable: boolean = false;
   displayedColumns = ['namn', 'storlek', 'artNr', 'ordination', 'maxantal'];
 
   @Input()
@@ -42,64 +43,98 @@ export class PatientAddRequisitionComponent implements OnInit {
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
-              protected authService: AuthService,
-              private snackBar: MatSnackBar, private router:Router) {
+              protected authService: AuthService, private location: Location,
+              private snackBar: MatSnackBar, private router: Router) {
+  }
+
+  load(patient: Patient, incomingPd: Pd) {
+    this.patient = patient;
+    this.pd.patient = patient;
+
+    Patient.init(this.pd.patient);
+    if (!incomingPd) {
+      this.pd.patient.sortPds();
+      if (this.pd.patient.pds.length > 0 && this.pd.patient.pds[0].typ === patient.typ) {
+        this.latestPd = this.patient.pds[0];
+      } else {
+        this.latestPd = new Pd();
+        this.pd.typ = this.patient.typ;
+      }
+      this.editable = true;
+    } else {
+      this.latestPd = incomingPd;
+      this.pd.id = incomingPd.id;
+      this.pd.typ = incomingPd.typ;
+      this.editable = (this.latestPd.bestInfos === null || this.latestPd.bestInfos.length === 0) && this.pd.typ === this.patient.typ;
+      /*console.log('editable', this.editable);
+      console.log('this.latestPd.bestInfos === null', (this.latestPd.bestInfos === null));
+      console.log('this.latestPd.bestInfos.length === 0', (this.latestPd.bestInfos.length === 0));
+      console.log('this.pd.typ  === this.patient.typ', (this.pd.typ  === this.patient.typ));
+      console.log('this.latestPd.bestInfos', this.latestPd.bestInfos);
+      console.log('this.latestPd.bestInfos.length', this.latestPd.bestInfos.length);*/
+    }
+
+    var pdArtikelsByArtikelKey: Map<number, PDArtikel> = new Map();
+
+    this.latestPd.pdArtikels.forEach((pdArtikel: PDArtikel) => {
+      pdArtikelsByArtikelKey.set(pdArtikel.artikel.id, pdArtikel);
+    });
+
+    // So that the latest and current pd will be at position 0 in the list. 'datum' might be changed to 'giltig'?
+    this.pd.datum = new Date();
+
+    const $fliks = this.http.get('/api/flik?typ=' + this.patient.typ)
+      .map(response => response.json())
+      .share();
+    $fliks.subscribe((fliks: Array<Flik>) => {
+      this.fliks = fliks;
+      this.fliks.forEach((flik: Flik) => {
+        flik.grupps.forEach((grupp: Grupp) => {
+          grupp.artikels.sort((a: Artikel, b: Artikel) => (a.namn > b.namn ? 1 : -1));
+          grupp.artikels.forEach((artikel: Artikel) => {
+            //var pdArtikel = new PDArtikel();
+            var pdArtikel = (pdArtikelsByArtikelKey.has(artikel.id)) ? pdArtikelsByArtikelKey.get(artikel.id) : new PDArtikel();
+            /*if (this.pd.id) {
+              console.log('existing pdArtikel', pdArtikel);
+            }*/
+            // if (!pdArtikel) throw new Error('pdArtikel must have a value');
+            pdArtikel.artikel = artikel;
+            this.artikelToPdArtikels.set(artikel, pdArtikel);
+            if (pdArtikelsByArtikelKey.has(artikel.id)) {
+              pdArtikel.artikel = artikel;
+              this.selectedArtiklar.push(artikel);
+              this.pd.pdArtikels.push(pdArtikel);
+              pdArtikel.maxantal = pdArtikelsByArtikelKey.get(artikel.id).maxantal;
+            }
+          });
+        });
+
+      });
+      this.putArtikelCountIntoTreeNodes();
+    });
+
+
   }
 
   ngOnInit() {
     this.returnurl = this.route.snapshot.queryParams['returnUrl'];
     this.route.params.subscribe(params => {
-      this.id = params.id;
+      this.id = params.id; // Patient-id
+      const editId = params.editId;
 
       if (this.id) {
         const $patientRpc = this.http.get('/api/patient/' + this.id)
           .map(response => response.json())
           .share();
         $patientRpc.subscribe((patient: Patient) => {
-          this.patient = patient;
-          this.pd.patient = patient;
-
-          Patient.init(this.pd.patient);
-          this.pd.patient.sortPds();
-
-          var pdArtikelsByArtikelKey: Map<number, PDArtikel> = new Map();
-          if (this.pd.patient.pds.length > 0) {
-            this.latestPd = this.patient.pds[0];
-          } else {
-            this.latestPd = new Pd();
-          }
-          this.latestPd.pdArtikels.forEach((pdArtikel: PDArtikel) => {
-            pdArtikelsByArtikelKey.set(pdArtikel.artikel.id, pdArtikel);
-          });
-
-          // So that the latest and current pd will be at position 0 in the list. 'datum' might be changed to 'giltig'?
-          this.pd.datum = new Date();
-
-          const $fliks = this.http.get('/api/flik?typ=' + this.patient.typ)
-            .map(response => response.json())
-            .share();
-          $fliks.subscribe((patient: Array<Flik>) => {
-            this.fliks = patient;
-            this.fliks.forEach((flik: Flik) => {
-              flik.grupps.forEach((grupp: Grupp) => {
-                grupp.artikels.sort((a: Artikel, b: Artikel) => (a.namn > b.namn ? 1 : -1));
-                grupp.artikels.forEach((artikel: Artikel) => {
-                  var pdArtikel = new PDArtikel();
-                  pdArtikel.artikel = artikel;
-                  this.artikelToPdArtikels.set(artikel, pdArtikel);
-                  if (pdArtikelsByArtikelKey.has(artikel.id)) {
-                    pdArtikel.artikel = artikel;
-                    this.selectedArtiklar.push(artikel);
-                    this.pd.pdArtikels.push(pdArtikel);
-                    pdArtikel.maxantal = pdArtikelsByArtikelKey.get(artikel.id).maxantal;
-                  }
-                });
-              });
-
+          if (editId) {
+            this.http.get('/api/pd/' + editId).map(response => response.json())
+              .share().subscribe((pd: Pd) => {
+              this.load(patient, pd);
             });
-            this.putArtikelCountIntoTreeNodes();
-          });
-
+          } else {
+            this.load(patient, null);
+          }
         });
       }
     });
@@ -107,7 +142,7 @@ export class PatientAddRequisitionComponent implements OnInit {
 
   putArtikelCountIntoTreeNodes() {
     this.asFlikReqs(this.fliks).forEach(
-      flik=> {
+      flik => {
         var sum = 0;
         this.asGruppReqs(flik.grupps).forEach(
           grupp => {
@@ -148,28 +183,30 @@ export class PatientAddRequisitionComponent implements OnInit {
   }
 
   saveToServer() {
-    console.log("saveToServer start");
+    // console.log("saveToServer start");
     this.saving = true;
+    if (!this.pd.typ)
+      this.pd.typ = this.patient.typ;
     const $data = this.http.put('/api/pd/', this.pd)
       .map(response => response.json())
       .share();
-    $data.subscribe((patient: Pd) => {
-      console.log("saveToServer callback");
+    $data.subscribe((pd: Pd) => {
+      // console.log("saveToServer callback");
       //this.pd = patient;
-      this.snackBar.open('Lyckades spara!', null, {duration: 3000});
+      this.snackBar.open('Lyckades spara!', null, {duration: 3000}).afterDismissed().subscribe(() => {
+        this.location.back();
+      });
       this.saving = false;
-      console.log("saveToServer callback - end");
+      // console.log("saveToServer callback - end");
     });
-    console.log("saveToServer end");
+    // console.log("saveToServer end");
   }
 
-  avbryt(){
-    if (this.returnurl)
-    {
+  avbryt() {
+    if (this.returnurl) {
       this.router.navigateByUrl(this.returnurl);
     }
-    else
-    {
+    else {
       this.router.navigate(['/patienter', this.id])
     }
   }
@@ -200,7 +237,6 @@ export class FlikReq extends Flik {
 export class GruppReq extends Grupp {
   artikelCount: number;
 }
-
 
 
 /*

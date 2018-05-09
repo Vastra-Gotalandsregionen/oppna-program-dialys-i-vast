@@ -21,15 +21,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "PD")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Pd.findAll", query = "SELECT p FROM Pd p")
-    , @NamedQuery(name = "Pd.findById", query = "SELECT p FROM Pd p WHERE p.id = :id")
-    , @NamedQuery(name = "Pd.findByPatientID", query = "SELECT p FROM Pd p WHERE p.patientID = :patientID")
-    , @NamedQuery(name = "Pd.findByDatum", query = "SELECT p FROM Pd p WHERE p.datum = :datum")
-    , @NamedQuery(name = "Pd.findByErsatter", query = "SELECT p FROM Pd p WHERE p.ersatter = :ersatter")
-    , @NamedQuery(name = "Pd.findByGiltighet", query = "SELECT p FROM Pd p WHERE p.giltighet = :giltighet")
-    , @NamedQuery(name = "Pd.findBySskID", query = "SELECT p FROM Pd p WHERE p.sskID = :sskID")
-    , @NamedQuery(name = "Pd.findByLas", query = "SELECT p FROM Pd p WHERE p.las = :las")})
 public class Pd implements Serializable {
 
     private static final long serialVersionUID = 1L;

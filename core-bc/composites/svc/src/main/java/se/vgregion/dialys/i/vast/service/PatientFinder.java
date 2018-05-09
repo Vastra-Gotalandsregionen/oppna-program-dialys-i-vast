@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Pd;
@@ -14,6 +15,7 @@ import se.vgregion.dialys.i.vast.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -192,6 +194,26 @@ public class PatientFinder {
         System.out.println(typedQuery);
 
         return asPage;
+    }
+
+
+    @Transactional
+    public Pd getLatestPd(Patient forThat) {
+        String sql = "SELECT p FROM " +
+                Pd.class.getSimpleName() +
+                " p where p.typ = '" +
+                forThat.getTyp() +
+                "' and p.patient = ?1 order by p.datum desc";
+
+        Query query = entityManager.createQuery(sql);
+        query.setFirstResult(0);
+        query.setMaxResults(1);
+        query.setParameter(1, forThat);
+        List result = query.getResultList();
+        if (result.isEmpty()) {
+            return null;
+        }
+        return (Pd) result.get(0);
     }
 
 }

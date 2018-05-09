@@ -2,7 +2,7 @@
 
   <mat-toolbar class="action-toolbar">
     <h1>
-      Patient: {{data.pnr}}
+      Patient: {{data.pnr}} ({{data.typ}})
     </h1>
     <div class="action-toolbar-spacer"></div>
     <!--<app-back-button class="action-toolbar-item"></app-back-button>-->
@@ -12,8 +12,8 @@
     </a>
 
     <button class="action-toolbar-item" mat-fab routerLink="add-order" matTooltip="Ny beställning"
-       [disabled]="!giltigRekvisitionFinns || pausadPatient"
-       *ngIf="userHasEditPermission(data)">
+            [disabled]="!giltigRekvisitionFinns || pausadPatient"
+            *ngIf="userHasEditPermission(data)">
       <mat-icon>add_shopping_cart</mat-icon>
     </button>
 
@@ -59,39 +59,47 @@
   <h4>Rekvisitioner: </h4>
   <mat-accordion>
 
-    <mat-expansion-panel class="dialys-requisition-panel dialys-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
+    <mat-expansion-panel class="dialys-requisition-panel dialys-requisition-panel-main" hideToggle="true"
+                         (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
 
-      <mat-expansion-panel-header >
-        <mat-panel-title *ngIf="!giltigRekvisitionFinns"><mat-icon class="alert-danger">report_problem</mat-icon>
-        <span class="alert-danger">Patienten är en {{data.typ == 'HD' ? 'HD' : 'PD'}} patient men det finns ingen giltig {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition för den här patienten. En ny
-        {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition behöver skapas.</span> </mat-panel-title>
+      <mat-expansion-panel-header>
+        <mat-panel-title *ngIf="!giltigRekvisitionFinns">
+          <mat-icon class="alert-danger">report_problem</mat-icon>
+          <span class="alert-danger">Patienten är en {{data.typ == 'HD' ? 'HD' : 'PD'}} patient men det finns ingen giltig {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition för den här patienten. En ny
+        {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition behöver skapas.</span></mat-panel-title>
 
         <mat-panel-title *ngIf="giltigRekvisitionFinns">
           <mat-icon>content_paste</mat-icon>
           <span class="title-name">Rekvisition {{headerdata.id}}</span>
           <span class="title-date">{{headerdata.datum | date: 'yyyy-MM-dd'}}</span>
           <span class="title-type">{{headerdata.typ}}</span>
-          <span class="title-orders">{{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}} beställningar</span>
+          <span
+            class="title-orders">{{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}} beställningar</span>
         </mat-panel-title>
         <mat-panel-description *ngIf="giltigRekvisitionFinns">
+          <mat-icon routerLink="/patienter/{{data.id}}/requisition/{{headerdata.id}}">open_in_browser</mat-icon>
+          &nbsp;
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
-            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}  <!--({{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}}-->
+            {{panelMainOpenState ? 'Dölj beställningar' : 'Visa beställningar'}}
+            <!--({{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}}-->
           </span>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div *ngIf="giltigRekvisitionFinns">
         <mat-table #table [dataSource]="dataSource1">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
-            <mat-cell *matCellDef="let bestInfo"> <a routerLink="order/{{bestInfo.id}}"
-                                                     [queryParams]="{patId:data.id, rekvisitionid:data.pds[0].id,
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let bestInfo"><a routerLink="order/{{bestInfo.id}}"
+                                                    [queryParams]="{patId:data.id, rekvisitionid:data.pds[0].id,
                                                      rekvisDatum:data.pds[0].datum | date: 'yyyy-MM-dd'
                                                      }">{{bestInfo.id}}</a></mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="datum">
-            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningdatum</span></mat-header-cell>
+            <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningdatum</span>
+            </mat-header-cell>
             <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
           </ng-container>
 
@@ -126,7 +134,8 @@
         <!--
         dat.bestInfos == null
         -->
-        <mat-expansion-panel class="dialys-requisition-panel " hideToggle="true" (opened)="panelOpenState[i] = true" (closed)="panelOpenState[i] = false">
+        <mat-expansion-panel class="dialys-requisition-panel " hideToggle="true" (opened)="panelOpenState[i] = true"
+                             (closed)="panelOpenState[i] = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>content_paste</mat-icon>
@@ -136,6 +145,8 @@
               <span class="title-orders">{{dat.bestInfos != null ? dat.bestInfos.length : '0'}} beställningar</span>
             </mat-panel-title>
             <mat-panel-description>
+              <mat-icon routerLink="/patienter/{{data.id}}/requisition/{{dat.id}}">open_in_browser</mat-icon>
+              &nbsp;
               <mat-icon>add_shopping_cart</mat-icon>
               <span>
                 {{panelOpenState[i] ? 'Dölj beställningar' : 'Visa beställningar'}}  <!--({{dat.bestInfos.length}})-->
@@ -147,16 +158,18 @@
             <mat-table #table dense [dataSource]="dat.bestInfos">
 
               <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span></mat-header-cell>
-                <mat-cell *matCellDef="let bestInfo"> <a routerLink="order/{{bestInfo.id}}"
-                                                         [queryParams]="{patId:data.id, rekvisitionid:dat.id,
+                <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställnings-ID</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let bestInfo"><a routerLink="order/{{bestInfo.id}}"
+                                                        [queryParams]="{patId:data.id, rekvisitionid:dat.id,
                                                          rekvisDatum:dat.datum | date: 'yyyy-MM-dd'}">
-                                                      {{bestInfo.id}}</a>
+                  {{bestInfo.id}}</a>
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="datum">
-                <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Beställningsdatum</span>
+                <mat-header-cell *matHeaderCellDef><span
+                  style="font-size:16px;font-weight:bold">Beställningsdatum</span>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
               </ng-container>

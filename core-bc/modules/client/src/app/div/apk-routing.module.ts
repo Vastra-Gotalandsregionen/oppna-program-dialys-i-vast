@@ -22,11 +22,12 @@ const routes: Routes = [
       {
         path: ':id/order/:id',
         component: PatientOrderDetailComponent
-      },
-      {
+      }, {
         path: ':id/add-requisition',
         component: PatientAddRequisitionComponent
-        //canDeactivate: [FormChangedGuard]
+      }, {
+        path: ':id/requisition/:editId',
+        component: PatientAddRequisitionComponent
       }, {
         path: ':id/add-order',
         component: PatientAddOrderComponent
