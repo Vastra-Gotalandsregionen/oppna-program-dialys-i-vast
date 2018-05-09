@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Response} from '@angular/http';
 import {Router} from '@angular/router';
 import {ErrorHandler} from '../../../shared/error-handler';
@@ -8,7 +8,7 @@ import {AuthService} from '../../../core/auth/auth.service';
 
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
-import {MatTableDataSource} from "@angular/material";
+import {MatPaginator, MatTableDataSource} from "@angular/material";
 
 
 @Component({
@@ -21,6 +21,7 @@ export class UsersListComponent implements OnInit {
   users: User[];
   dataSources = new MatTableDataSource<User>();
   displayedColumns = ['anvandare', 'namn', 'behorighet','redigera'];
+  @ViewChild('page1') page1 : MatPaginator;
 
   //usersWithoutData: string[] = [];
 
@@ -39,7 +40,10 @@ export class UsersListComponent implements OnInit {
   private updateUsers() {
     this.http.get('/api/user').map<Response, User[]>(response => response.json())
       .subscribe(
-        users => this.dataSources.data = users
+        users => {
+          this.dataSources.data = users;
+          this.dataSources.paginator = this.page1;
+        }
       );
   }
 
