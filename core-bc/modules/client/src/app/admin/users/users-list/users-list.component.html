@@ -10,40 +10,34 @@
 <mat-card>
 
   <mat-card-content>
+    <mat-table #table [dataSource]="dataSources">
+      <ng-container matColumnDef="anvandare">
+        <mat-header-cell *matHeaderCellDef>Användarnamn</mat-header-cell>
+        <mat-cell *matCellDef="let rad">{{rad.userName}}</mat-cell>
+      </ng-container>
 
-    <table class="apk-table users-table">
-      <thead>
-      <tr>
-        <th class="row-id">Andvändarnamn</th>
-        <th class="row-first-name">Namn</th>
-<!--        <th class="row-last-name">Efternamn</th>
-        <th class="row-email">E-post</th>-->
-        <th class="row-permissions">Behörighet</th>
-        <th class="row-menu"></th>
-      </tr>
-      </thead>
+      <ng-container matColumnDef="namn">
+        <mat-header-cell *matHeaderCellDef>Namn</mat-header-cell>
+        <mat-cell *matCellDef="let rad">{{rad.name}}</mat-cell>
+      </ng-container>
 
-      <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{user.userName}}</td>
-        <td>{{user.name}}</td>
-        <!--<td>{{user.lastName}}</td>
-        <td>{{user.mail}}</td>-->
-        <td>
-          <mat-chip-list>
-            <mat-chip style="color: blue;" *ngIf="user.admin">A</mat-chip>
-            <mat-chip style="color: red;" *ngIf="user.sjukskoterska">S</mat-chip>
-            <mat-chip style="color: green;" *ngIf="user.pharmaceut">P</mat-chip>
-          </mat-chip-list>
+     <ng-container matColumnDef="behorighet">
+        <mat-header-cell *matHeaderCellDef>Behörighet</mat-header-cell>
+        <mat-cell *matCellDef="let rad"><mat-chip-list>
+          <mat-chip style="color: blue;" *ngIf="rad.admin">A</mat-chip>
+          <mat-chip style="color: red;" *ngIf="rad.sjukskoterska">S</mat-chip>
+          <mat-chip style="color: green;" *ngIf="rad.pharmaceut">P</mat-chip>
+        </mat-chip-list></mat-cell>
+      </ng-container>
 
-        </td>
-
-        <td>
+      <ng-container matColumnDef="redigera">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let rad">
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="{{user.userName}}/edit">
+            <button mat-menu-item routerLink="{{rad.userName}}/edit">
               <mat-icon>edit</mat-icon>
               <span>Redigera</span>
             </button>
@@ -53,13 +47,12 @@
               <span>Uppträd som</span>
             </button>
           </mat-menu>
+        </mat-cell>
+      </ng-container>
 
-        </td>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-      </tr>
-      </tbody>
-
-    </table>
-
+    </mat-table>
   </mat-card-content>
 </mat-card>

@@ -8,6 +8,8 @@ import {AuthService} from '../../../core/auth/auth.service';
 
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
+import {MatTableDataSource} from "@angular/material";
+
 
 @Component({
   selector: 'app-users-list',
@@ -17,6 +19,8 @@ import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dia
 export class UsersListComponent implements OnInit {
 
   users: User[];
+  dataSources = new MatTableDataSource<User>();
+  displayedColumns = ['anvandare', 'namn', 'behorighet','redigera'];
 
   //usersWithoutData: string[] = [];
 
@@ -35,7 +39,7 @@ export class UsersListComponent implements OnInit {
   private updateUsers() {
     this.http.get('/api/user').map<Response, User[]>(response => response.json())
       .subscribe(
-        users => this.users = users
+        users => this.dataSources.data = users
       );
   }
 
