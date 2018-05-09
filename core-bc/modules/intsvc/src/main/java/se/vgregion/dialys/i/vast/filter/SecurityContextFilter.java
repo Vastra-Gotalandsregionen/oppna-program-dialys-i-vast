@@ -42,7 +42,7 @@ public class SecurityContextFilter implements Filter {
             DecodedJWT jwt;
             try {
                 jwt = JwtUtil.verify(jwtToken);
-                System.out.println("jwt.getToken(): " + jwt.getToken());
+                // System.out.println("jwt.getToken(): " + jwt.getToken());
             } catch (Exception e) {
                 httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;

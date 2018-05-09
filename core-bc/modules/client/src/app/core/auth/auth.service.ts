@@ -140,11 +140,11 @@ export class AuthService {
   }
 
   userHasDataEditPermission(data: Patient) {
-    if (this.isAdmin()) {
+    if (this.getSjukskoterska() || this.getPharmaceut()) {
       return true;
     }
 
-    const token = this.getToken();
+    // const token = this.getToken();
     /*if (token && token.prodn1s) {
       return token.prodn1s.indexOf(data.prodn1.id) > -1;
     }*/

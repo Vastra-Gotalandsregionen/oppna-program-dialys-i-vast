@@ -2,7 +2,7 @@
   <requisition-edit></requisition-edit>
   <mat-toolbar class="action-toolbar">
     <h1>
-      Ny rekvisition: {{patient.pnr}}
+      {{latestPd.id ? 'Rekvisition' : 'Ny rekvisition'}}: {{patient.pnr}} ({{pd.typ}})
     </h1>
     <div class="action-toolbar-spacer"></div>
 
@@ -48,7 +48,7 @@
                   -
                 </div>
                 <div class="dialys-details-item-data" *ngIf="pd.patient.pds.length > 0">
-                    {{pd.patient.pds[0].id}} med datum {{pd.patient.pds[0].datum | date: 'yyyy-MM-dd'}}
+                  {{pd.patient.pds[0].id}} med datum {{pd.patient.pds[0].datum | date: 'yyyy-MM-dd'}}
                 </div>
               </div>
             </div>
@@ -85,18 +85,22 @@
                 <ng-container matColumnDef="ordination">
                   <mat-header-cell *matHeaderCellDef>Ordination</mat-header-cell>
                   <mat-cell *matCellDef="let rad">
-                    <mat-checkbox [value]="selectedArtiklar.indexOf(rad)!=-1"
+                    <mat-checkbox [value]="selectedArtiklar.indexOf(rad) != -1" *ngIf="editable"
                                   [checked]="selectedArtiklar.indexOf(rad) != -1" (change)="onItemSelect(rad)">
                     </mat-checkbox>
+                    <mat-icon *ngIf="!editable && selectedArtiklar.indexOf(rad) != -1">checked</mat-icon>
                   </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="maxantal">
                   <mat-header-cell *matHeaderCellDef>Maxantal frp</mat-header-cell>
                   <mat-cell *matCellDef="let rad">
-                    <mat-input-container>
+                    <mat-input-container *ngIf="editable">
                       <input id="name" [(ngModel)]="artikelToPdArtikels.get(rad).maxantal" type="number" matInput>
                     </mat-input-container>
+                    <div *ngIf="!editable">
+                      {{artikelToPdArtikels.get(rad).maxantal}}
+                    </div>
                   </mat-cell>
                 </ng-container>
 
@@ -113,7 +117,7 @@
       </mat-tab-group>
 
       <div class="btn-container">
-        <button type="submit" mat-raised-button class="btn" (click)="saveToServer()" [disabled]="saving">
+        <button type="submit" mat-raised-button class="btn" (click)="saveToServer()" [disabled]="saving || !editable">
           Spara rekvisition
         </button> &nbsp;
         <button type="submit" mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;

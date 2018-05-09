@@ -64,10 +64,8 @@ export class UserFormComponent implements OnInit {
           this.buildForm();
         });
     } else {
-      console.log('did not find: ' + this.userName);
       this.user = new User();
-      //this.user.role = 'USER';
-      this.user.typ = 'PD';
+      /*this.user.typ = 'PD';*/
       const mottagnings$ = this.http.get('/api/mottagning/')
         .map<Response, Array<Mottagning>>(response => response.json());
       mottagnings$.subscribe((mottagnings) => this.mottagnings = mottagnings);
@@ -76,7 +74,6 @@ export class UserFormComponent implements OnInit {
   }
 
   private buildForm() {
-
     this.userForm = this.formBuilder.group({
       'userName': [{value: this.user.userName, disabled: false}, [Validators.required]],
       'name': [{value: this.user.name, disabled: false}, []],

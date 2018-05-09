@@ -19,13 +19,6 @@ import java.util.Set;
 @Entity
 @Table(name = "Users")
 @XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "Users.findAll", query = "SELECT u FROM User u")
-        , @NamedQuery(name = "Users.findById", query = "SELECT u FROM User u WHERE u.userName = :userName")
-        , @NamedQuery(name = "Users.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName")
-        , @NamedQuery(name = "Users.findByPassWord", query = "SELECT u FROM User u WHERE u.passWord = :passWord")
-        , @NamedQuery(name = "Users.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
-        , @NamedQuery(name = "Users.findByTyp", query = "SELECT u FROM User u WHERE u.typ = :typ")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,9 +40,9 @@ public class User implements Serializable {
     @Column(name = "Name")
     private String name;
 
-    @Size(max = 2)
+    /*@Size(max = 2)
     @Column(name = "Typ")
-    private String typ;
+    private String typ;*/
 
     @Column(name = "sjukskoterska")
     private Boolean sjukskoterska;
@@ -111,13 +104,13 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getTyp() {
+    /*public String getTyp() {
         return typ;
     }
 
     public void setTyp(String typ) {
         this.typ = typ;
-    }
+    }*/
 
     @Override
     public int hashCode() {

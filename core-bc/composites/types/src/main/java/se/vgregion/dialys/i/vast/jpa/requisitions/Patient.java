@@ -36,7 +36,7 @@ public class Patient implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 12)
-    @Column(name = "Pnr")
+    @Column(name = "Pnr", unique = true)
     private String pnr;
 
     @Basic(optional = false)

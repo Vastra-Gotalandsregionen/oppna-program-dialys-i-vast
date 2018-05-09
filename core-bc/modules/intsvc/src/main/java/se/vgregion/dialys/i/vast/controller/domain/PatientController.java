@@ -98,7 +98,7 @@ public class PatientController {
                               @RequestParam(value = "asc", required = false) boolean asc,
                               @RequestHeader(value = "Authorization") String authorization) throws JsonProcessingException {
 
-        System.out.println("Authorization: " + authorization);
+        // System.out.println("Authorization: " + authorization);
 
         Pageable pageable = makePageable(page, sort, asc);
 
