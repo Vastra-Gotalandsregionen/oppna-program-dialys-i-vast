@@ -100,7 +100,9 @@ public class PatientController {
                               @RequestParam(value = "asc", required = false) boolean asc,
                               @RequestHeader(value = "Authorization") String authorization) throws JsonProcessingException {
 
-        // System.out.println("Authorization: " + authorization);
+        if (query == null || query.trim().isEmpty()) {
+            return "[]";
+        }
 
         Pageable pageable = makePageable(page, sort, asc);
 
@@ -135,6 +137,9 @@ public class PatientController {
     @RequestMapping(value = "pnr/{pnr}", method = RequestMethod.GET)
     public Patient getPatientByPnr(@PathVariable("pnr") String pnr) {
         Patient user = patientRepository.findByPnr(pnr);
+        if (user == null) {
+            return new Patient();
+        }
         return user;
     }
 

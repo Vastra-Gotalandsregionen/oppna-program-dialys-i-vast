@@ -201,7 +201,7 @@ export class PatientEditComponent implements OnInit {
       return;
     this.http.get('/api/patient/pnr/' + this.patient.pnr, this.patient.pnr).map(response => response.json()).subscribe(
       (p: Patient) => {
-        if (p) {
+        if (p.id) {
           this.abortShowErrorAndFocus("Personnummer finns redan!", this.pnrInput);
         }
       }
