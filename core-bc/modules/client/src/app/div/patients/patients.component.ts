@@ -87,13 +87,15 @@ export class ApkComponent implements OnInit {
 
         this.fetchDatas();
 
-        this.stateCtrl.valueChanges
+        /*this.stateCtrl.valueChanges
           .skip(1) // Skip on init
           .debounceTime(50) // Primarily to avoid many requests if user presses and holds backspace button.
           .subscribe(query => {
             this.query = query;
             this.updateState();
-          });
+          });*/
+
+
 
         /*this.onlyActiveDatasCtrl.valueChanges
           .skip(1) // Skip on init
@@ -112,7 +114,12 @@ export class ApkComponent implements OnInit {
 */
 
       });
+  }
 
+  public filterTextChange(event) {
+    if(event.keyCode == 13) {
+      this.updateState();
+    }
   }
 
   public updateState() {

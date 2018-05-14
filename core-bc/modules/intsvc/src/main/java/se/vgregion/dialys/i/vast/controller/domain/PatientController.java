@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import se.vgregion.dialys.i.vast.jpa.SearchLog;
 import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
 import se.vgregion.dialys.i.vast.jpa.requisitions.BestPDRad;
 import se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
 import se.vgregion.dialys.i.vast.repository.PatientRepository;
+import se.vgregion.dialys.i.vast.repository.SearchLogRepository;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
 
@@ -24,10 +26,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/patient")
@@ -87,6 +86,9 @@ public class PatientController {
     @Autowired
     PatientFinder patientFinder;
 
+    @Autowired
+    SearchLogRepository searchLogRepository;
+
     @PreAuthorize("@authService.isLoggedIn(authentication)")
     @RequestMapping(value = "filter", method = RequestMethod.GET)
     @Transactional
@@ -102,7 +104,16 @@ public class PatientController {
 
         Pageable pageable = makePageable(page, sort, asc);
 
-        return objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status));
+        String result = objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status));
+
+        SearchLog log = new SearchLog();
+        log.setDate(new Date());
+        log.setUserName(userName);
+        log.setResult(result);
+        log.setFilter(query);
+        searchLogRepository.save(log);
+
+        return result;
     }
 
     @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
@@ -117,6 +128,13 @@ public class PatientController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Patient getPatient(@PathVariable("id") Integer id) {
         Patient user = patientRepository.findOne(id);
+        return user;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "pnr/{pnr}", method = RequestMethod.GET)
+    public Patient getPatientByPnr(@PathVariable("pnr") String pnr) {
+        Patient user = patientRepository.findByPnr(pnr);
         return user;
     }
 

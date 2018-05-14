@@ -15,8 +15,8 @@
     <mat-toolbar class="action-toolbar">
 
       <mat-input-container class="action-toolbar-item" (keydown)="$event.stopPropagation();">
-        <input matInput placeholder="Skriv in personnummer eller för/efter-namn för att filtrera listan nedan."
-               [formControl]="stateCtrl" [(ngModel)]="query">
+        <input matInput placeholder="Skriv in personnummer eller för/efter-namn för att filtrera listan nedan & tryck enter."
+               [formControl]="stateCtrl" [(ngModel)]="query" (keydown)="filterTextChange($event)">
       </mat-input-container>
 
       <mat-select [(value)]="status" placeholder="Status" (change)="updateState()">

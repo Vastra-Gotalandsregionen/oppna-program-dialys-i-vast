@@ -196,4 +196,16 @@ export class PatientEditComponent implements OnInit {
     return false;
   }
 
+  public checkPnrDuplicate() {
+    if (this.patient.id)
+      return;
+    this.http.get('/api/patient/pnr/' + this.patient.pnr, this.patient.pnr).map(response => response.json()).subscribe(
+      (p: Patient) => {
+        if (p) {
+          this.abortShowErrorAndFocus("Personnummer finns redan!", this.pnrInput);
+        }
+      }
+    );
+  }
+
 }

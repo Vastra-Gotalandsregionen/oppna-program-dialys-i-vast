@@ -191,7 +191,7 @@ public class PatientFinder {
 
         Page<T> asPage = new PageImpl<T>(typedQuery.getResultList(), pageable, count);
 
-        System.out.println(typedQuery);
+
 
         return asPage;
     }

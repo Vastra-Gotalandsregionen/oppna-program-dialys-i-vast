@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Patrik Björk
@@ -24,5 +25,7 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
             "left join fetch part.artikel art " +
             "where :id = p.id ")
     Patient findOne(@Param("id") Integer id);
+
+    Patient findByPnr(String pnr);
 
 }
