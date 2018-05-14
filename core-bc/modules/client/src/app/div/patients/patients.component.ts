@@ -155,7 +155,7 @@ export class ApkComponent implements OnInit {
   }
 
   private handleResponse(response) {
-    //console.log('handleResponse', response)
+    console.log('handleResponse', JSON.stringify(response));
     response.content.forEach((p: Patient) => {
       p.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
       // Sort it backwards so that u will get the current pd first.

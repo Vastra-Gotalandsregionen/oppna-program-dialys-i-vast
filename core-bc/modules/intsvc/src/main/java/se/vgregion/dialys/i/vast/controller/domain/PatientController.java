@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -100,13 +101,15 @@ public class PatientController {
                               @RequestParam(value = "asc", required = false) boolean asc,
                               @RequestHeader(value = "Authorization") String authorization) throws JsonProcessingException {
 
-        if (query == null || query.trim().isEmpty()) {
-            return "[]";
-        }
-
         Pageable pageable = makePageable(page, sort, asc);
 
+        if (query == null || query.trim().isEmpty()) {
+            return objectMapper.writeValueAsString(new PageImpl(new ArrayList(), pageable, 0l));
+        }
+
         String result = objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status));
+
+
 
         SearchLog log = new SearchLog();
         log.setDate(new Date());
