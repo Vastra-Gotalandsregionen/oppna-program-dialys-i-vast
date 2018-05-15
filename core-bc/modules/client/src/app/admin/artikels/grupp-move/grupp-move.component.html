@@ -13,8 +13,12 @@
     <ol class="article-list article-list-1">
       <li *ngFor="let flik of data.flikRot.fliks">
         <a *ngIf="flik.grupps.indexOf(data.item2move) == -1"
-           (click)="data.moveGrupp(data.item2move, data.previousFlik, flik)">'{{flik.titel}}'</a>
-        <span *ngIf="flik.grupps.indexOf(data.item2move) > -1" class="selected">'{{flik.titel}}'</span>
+           (click)="data.moveGrupp(data.item2move, data.previousFlik, flik)">
+           '{{flik.titel}}'
+         </a>
+        <span *ngIf="flik.grupps.indexOf(data.item2move) > -1" class="selected">
+          '{{flik.titel}}'
+        </span>
       </li>
     </ol>
 

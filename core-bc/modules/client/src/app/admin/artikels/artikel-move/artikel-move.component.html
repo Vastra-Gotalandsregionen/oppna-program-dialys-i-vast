@@ -14,7 +14,7 @@
 
     <ol class="article-list article-list-1">
       <li *ngFor="let flik of data.flikRot.fliks">
-        <span class="fli-title">{{flik.titel}}</span>
+        <span class="flik-title">{{flik.titel}}</span>
         <ol class="article-list article-list-2">
           <li *ngFor="let grupp of flik.grupps">
             <a *ngIf="grupp.artikels.indexOf(data.item2move) == -1"
