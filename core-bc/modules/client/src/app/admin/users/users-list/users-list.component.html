@@ -8,6 +8,12 @@
 </mat-toolbar>
 
 <mat-card>
+  <div  fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-icon color="primary">search</mat-icon>
+    <mat-form-field fxFlex="20%" >
+     <input matInput type="text" placeholder="Sök" (keyup)="doSearch($event.target.value)">
+    </mat-form-field>
+  </div>
 
   <mat-card-content>
     <mat-table #table [dataSource]="dataSources">

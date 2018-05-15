@@ -5,11 +5,13 @@ import {UsersRoutingModule} from './users-routing.module';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 @NgModule({
   imports: [
     SharedModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    FlexLayoutModule
   ],
   declarations: [UsersListComponent, UserEditComponent, UserCreateComponent, UserFormComponent]
 })

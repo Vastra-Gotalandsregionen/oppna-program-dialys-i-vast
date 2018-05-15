@@ -36,7 +36,9 @@ export class UsersListComponent implements OnInit {
     /*this.http.get('/api/data/users').map<Response, string[]>(response => response.json())
     .subscribe(value => this.usersWithoutData = value);*/
   }
-
+  doSearch(filterval: string){
+    this.dataSources.filter = filterval;
+  }
   private updateUsers() {
     this.http.get('/api/user').map<Response, User[]>(response => response.json())
       .subscribe(
