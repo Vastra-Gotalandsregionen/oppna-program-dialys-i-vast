@@ -11,11 +11,12 @@
       <mat-icon>edit</mat-icon>
     </a>
 
-    <button class="action-toolbar-item" mat-fab routerLink="add-order" matTooltip="Ny beställning"
+    <button class="action-toolbar-item"
+      [ngClass]="{'disabled' : (!giltigRekvisitionFinns || pausadPatient) }"
+      mat-fab routerLink="add-order" matTooltip="Ny beställning"
        [disabled]="!giltigRekvisitionFinns || pausadPatient"
        *ngIf="userHasEditPermission(data)">
-      <mat-icon *ngIf="!giltigRekvisitionFinns" color="warn" matTooltip="Finns ingen giltig rekvisition">add_shopping_cart</mat-icon>
-      <mat-icon *ngIf="giltigRekvisitionFinns">add_shopping_cart</mat-icon>
+      <mat-icon>add_shopping_cart</mat-icon>
     </button>
 
     <a class="action-toolbar-item" mat-fab routerLink="add-requisition" matTooltip="Ny rekvisition"
@@ -58,16 +59,21 @@
 
 
   <h4>Rekvisitioner: </h4>
-  <mat-accordion>
+
+  <div *ngIf="!giltigRekvisitionFinns" class="alert alert-danger">
+    <mat-icon>report_problem</mat-icon>
+    <span class="alert-text">
+      Patienten är en {{data.typ == 'HD' ? 'HD' : 'PD'}} patient men det finns ingen giltig {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition för den här patienten. En ny {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition behöver skapas.
+    </span>
+  </div>
+
+  <mat-accordion *ngIf="giltigRekvisitionFinns || showOldRequisitions">
 
     <mat-expansion-panel class="dialys-requisition-panel dialys-requisition-panel-main" hideToggle="true" (opened)="panelMainOpenState = true" (closed)="panelMainOpenState = false">
 
-      <mat-expansion-panel-header >
-        <mat-panel-title *ngIf="!giltigRekvisitionFinns"><mat-icon class="alert-danger">report_problem</mat-icon>
-        <span class="alert-danger">Patienten är en {{data.typ == 'HD' ? 'HD' : 'PD'}} patient men det finns ingen giltig {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition för den här patienten. En ny
-        {{data.typ == 'HD' ? 'HD' : 'PD'}} rekvisition behöver skapas.</span> </mat-panel-title>
+      <mat-expansion-panel-header>
 
-        <mat-panel-title *ngIf="giltigRekvisitionFinns">
+        <mat-panel-title>
           <mat-icon>content_paste</mat-icon>
           <span class="title-name">Rekvisition {{headerdata.id}}</span>
           <span class="title-date">{{headerdata.datum | date: 'yyyy-MM-dd'}}</span>

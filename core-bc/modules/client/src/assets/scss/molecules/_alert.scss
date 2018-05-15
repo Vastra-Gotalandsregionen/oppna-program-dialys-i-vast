@@ -3,6 +3,16 @@
   margin-bottom: 20px;
   border: 1px solid transparent;
   @include border-radius(4px);
+
+  .mat-icon {
+    float: left;
+  }
+
+  .alert-text {
+    display: inline-block;
+    margin-left: 20px;
+  }
+
 }
 
 .alert-danger {
