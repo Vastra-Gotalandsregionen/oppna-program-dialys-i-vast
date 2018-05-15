@@ -15,11 +15,11 @@ import {Pd} from "../../model/Pd";
 import {BestInfo} from "../../model/BestInfo";
 
 @Component({
-  selector: 'app-apk',
+  selector: 'app-dialys',
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.css']
 })
-export class ApkComponent implements OnInit {
+export class PatientsComponent implements OnInit {
 
   stateCtrl: FormControl;
   onlyActiveDatasCtrl: FormControl;

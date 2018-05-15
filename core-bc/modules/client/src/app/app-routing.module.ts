@@ -13,7 +13,7 @@ const routes: Routes = [
       },
       {
         path: 'patienter',
-        loadChildren: './div/apk.module#ApkModule',
+        loadChildren: './div/dialys.module#DialysModule',
         canActivate: [UserLoggedInGuard]
       },
       {

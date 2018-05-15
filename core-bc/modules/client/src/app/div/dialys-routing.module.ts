@@ -1,4 +1,4 @@
-import {ApkComponent} from './patients/patients.component';
+import {PatientsComponent} from './patients/patients.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PatientAddOrderComponent} from './patient-add-order/patient-add-order.component';
@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ApkComponent
+        component: PatientsComponent
       },
       {
         path: ':id',
@@ -35,10 +35,7 @@ const routes: Routes = [
       }, {
         path: ':id/edit',
         component: PatientEditComponent
-      },/* {
-        path: '/patienter',
-        component: ApkComponent
-      },*/ {
+      }, {
         path: '/patienter/:id',
         component: PatientDetailComponent
       }, {
@@ -54,5 +51,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ApkRoutingModule {
+export class DialysRoutingModule {
 }

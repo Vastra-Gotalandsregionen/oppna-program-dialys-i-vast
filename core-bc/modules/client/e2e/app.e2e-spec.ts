@@ -1,10 +1,10 @@
-import { ApkClientPage } from './app.po';
+import { DialysClientPage } from './app.po';
 
-describe('apk-client App', () => {
-  let page: ApkClientPage;
+describe('dialys-client App', () => {
+  let page: DialysClientPage;
 
   beforeEach(() => {
-    page = new ApkClientPage();
+    page = new DialysClientPage();
   });
 
   it('should display message saying app works', () => {

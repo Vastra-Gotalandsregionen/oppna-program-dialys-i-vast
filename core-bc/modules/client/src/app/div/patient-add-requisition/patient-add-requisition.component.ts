@@ -15,7 +15,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PatientAddRequisitionSaveDialogComponent} from "../patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component";
 
 @Component({
-  selector: 'app-apk-detail',
+  selector: 'app-dialys-detail',
   templateUrl: './patient-add-requisition.component.html',
   styleUrls: ['./patient-add-requisition.component.css'],
 })
