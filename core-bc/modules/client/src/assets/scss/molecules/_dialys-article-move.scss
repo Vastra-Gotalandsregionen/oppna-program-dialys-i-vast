@@ -1,0 +1,58 @@
+.dialys-article-move {
+
+  max-width: 500px;
+
+
+  .article-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+
+    &.article-list-1 {
+      margin: 20px 0;
+    }
+
+    &.article-list-2 {
+      margin: 0 0 0 20px;
+    }
+
+    li {
+      margin: 0;
+      padding: 1px 0;
+
+      a,
+      .selected,
+      .flik-title {
+        display: block;
+        padding: 10px 10px;
+      }
+
+      a {
+        background: transparent;
+        color: #333;
+        text-decoration: none;
+
+        &:hover {
+          background: $vgr-orange;
+          color: white;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+
+      .selected {
+        background: $vgr-orange;
+        color: white;
+      }
+
+      .flik-title {
+        background: transparent;
+        color: #333;
+      }
+
+    }
+
+  }
+
+}
