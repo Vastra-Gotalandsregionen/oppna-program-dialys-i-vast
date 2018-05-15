@@ -29,7 +29,7 @@
             <div class="dialys-form-field">
               <mat-input-container>
                 <input id="name" #pnrInput required [(ngModel)]="patient.pnr" placeholder="Personnummer" type="text"
-                       matInput [disabled]="!authService.getSjukskoterska()">
+                       matInput [disabled]="!authService.getSjukskoterska()" (change)="checkPnrDuplicate()">
               </mat-input-container>
             </div>
             <mat-icon class="dialys-form-field-help" matTooltip="Hjälptext här.">help</mat-icon>
@@ -38,7 +38,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input required #fornamnInput id="fornamn" [(ngModel)]="patient.fornamn" placeholder="Förnamn" type="text"
+                <input required #fornamnInput id="fornamn" [(ngModel)]="patient.fornamn" placeholder="Förnamn"
+                       type="text"
                        matInput [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -47,7 +48,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input required #efternamnInput id="efternamn" [(ngModel)]="patient.efternamn" placeholder="Efternamn" type="text"
+                <input required #efternamnInput id="efternamn" [(ngModel)]="patient.efternamn" placeholder="Efternamn"
+                       type="text"
                        matInput [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -81,7 +83,8 @@
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
-              <mat-checkbox #leveransPaminnelseInput [(ngModel)]="patient.leveransPaminnelse" [disabled]="!authService.getSjukskoterska()">
+              <mat-checkbox #leveransPaminnelseInput [(ngModel)]="patient.leveransPaminnelse"
+                            [disabled]="!authService.getSjukskoterska()">
                 Påminnelse för patient
               </mat-checkbox>
             </div>
@@ -120,7 +123,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #adressInput required id="gatuAdress" [(ngModel)]="patient.adress" placeholder="Gatuadress" type="text" matInput
+                <input #adressInput required id="gatuAdress" [(ngModel)]="patient.adress" placeholder="Gatuadress"
+                       type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -129,7 +133,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #postNrInput required id="postNr" [(ngModel)]="patient.postNr" placeholder="Postnummer" type="text" matInput
+                <input #postNrInput required id="postNr" [(ngModel)]="patient.postNr" placeholder="Postnummer"
+                       type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -138,7 +143,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #postOrtInput required id="postOrt" [(ngModel)]="patient.postOrt" placeholder="Postort" type="text" matInput
+                <input #postOrtInput required id="postOrt" [(ngModel)]="patient.postOrt" placeholder="Postort"
+                       type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -147,7 +153,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #portkodInput id="portkod" [(ngModel)]="patient.portkod" placeholder="Portkod" type="text" matInput
+                <input #portkodInput id="portkod" [(ngModel)]="patient.portkod" placeholder="Portkod" type="text"
+                       matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -156,7 +163,6 @@
         </div>
       </div>
     </div>
-
 
 
     <div class="row">
@@ -202,7 +208,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #tempAdress id="tempGatuAdress" [(ngModel)]="patient.tempAdress" placeholder="Gatuadress" type="text" matInput
+                <input #tempAdress id="tempGatuAdress" [(ngModel)]="patient.tempAdress" placeholder="Gatuadress"
+                       type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -211,7 +218,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #tempPostNr required id="tempPostNr" [(ngModel)]="patient.tempPostNr" placeholder="Postnummer" type="text" matInput
+                <input #tempPostNr required id="tempPostNr" [(ngModel)]="patient.tempPostNr" placeholder="Postnummer"
+                       type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -220,7 +228,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #tempPostOrt required id="tempPostOrt" [(ngModel)]="patient.tempPostOrt" placeholder="Postort" type="text" matInput
+                <input #tempPostOrt required id="tempPostOrt" [(ngModel)]="patient.tempPostOrt" placeholder="Postort"
+                       type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -229,11 +238,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
 
 
     <div class="row">
@@ -251,7 +255,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #telefonInput required id="telefon" [(ngModel)]="patient.telefon" placeholder="Telefonnummer" type="text" matInput
+                <input #telefonInput required id="telefon" [(ngModel)]="patient.telefon" placeholder="Telefonnummer"
+                       type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
             </div>
@@ -312,7 +317,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #utdelTextInput id="utdelText" [(ngModel)]="patient.utdelText" placeholder="Utdelningstid" type="text"
+                <input #utdelTextInput id="utdelText" [(ngModel)]="patient.utdelText" placeholder="Utdelningstid"
+                       type="text"
                        matInput>
               </mat-input-container>
             </div>
@@ -323,9 +329,12 @@
 
               <mat-radio-group #utdelVeckaInput [(ngModel)]="patient.utdelVecka">
                 <mat-label>Utdelningsvecka:</mat-label>
-                <mat-radio-button>Ingen uppgift</mat-radio-button> |
-                <mat-radio-button value="Jämn">Jämn</mat-radio-button> |
-                <mat-radio-button value="Ojämn">Ojämn</mat-radio-button> |
+                <mat-radio-button>Ingen uppgift</mat-radio-button>
+                |
+                <mat-radio-button value="Jämn">Jämn</mat-radio-button>
+                |
+                <mat-radio-button value="Ojämn">Ojämn</mat-radio-button>
+                |
                 <mat-radio-button value="Varje">Varje</mat-radio-button>
               </mat-radio-group>
 
@@ -361,7 +370,8 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #leveransMottagningsOmbudInput [(ngModel)]="patient.leveransMottagningsOmbud" placeholder="Ombud för leveransmottagning"
+                <input #leveransMottagningsOmbudInput [(ngModel)]="patient.leveransMottagningsOmbud"
+                       placeholder="Ombud för leveransmottagning"
                        type="text" matInput>
               </mat-input-container>
             </div>
@@ -410,7 +420,8 @@
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
-              <mat-select #statusInput [(value)]="patient.status" placeholder="Status" [disabled]="!authService.getSjukskoterska()">
+              <mat-select #statusInput [(value)]="patient.status" placeholder="Status"
+                          [disabled]="!authService.getSjukskoterska()">
                 <mat-option value="Aktiv">Aktiv</mat-option>
                 <mat-option value="Pausad">Pausad</mat-option>
                 <mat-option value="Avslutad">Avslutad</mat-option>

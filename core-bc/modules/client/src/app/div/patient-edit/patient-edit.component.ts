@@ -3,7 +3,7 @@ import {Patient} from "../../model/Patient";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JwtHttp} from "../../core/jwt-http";
 import {Mottagning} from "../../model/Mottagning";
-import {MatCheckbox, MatRadioButton, MatRadioGroup, MatSelect, MatSnackBar} from "@angular/material";
+import {MatCheckbox, MatSnackBar} from "@angular/material";
 import {AuthService} from "../../core/auth/auth.service";
 
 @Component({
@@ -194,6 +194,18 @@ export class PatientEditComponent implements OnInit {
       if (mottagning.id === item.id) return true;
     }
     return false;
+  }
+
+  public checkPnrDuplicate() {
+    if (this.patient.id)
+      return;
+    this.http.get('/api/patient/pnr/' + this.patient.pnr, this.patient.pnr).map(response => response.json()).subscribe(
+      (p: Patient) => {
+        if (p.id) {
+          this.abortShowErrorAndFocus("Personnummer finns redan!", this.pnrInput);
+        }
+      }
+    );
   }
 
 }

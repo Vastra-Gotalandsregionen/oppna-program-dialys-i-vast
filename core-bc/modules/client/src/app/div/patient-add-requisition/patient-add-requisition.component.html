@@ -2,7 +2,7 @@
   <requisition-edit></requisition-edit>
   <mat-toolbar class="action-toolbar">
     <h1>
-      {{latestPd.id ? 'Rekvisition' : 'Ny rekvisition'}}: {{patient.pnr}} ({{pd.typ}})
+      {{pd.id ? 'Rekvisition' : 'Ny rekvisition'}}: {{patient.pnr}} ({{pd.typ}})
     </h1>
     <div class="action-toolbar-spacer"></div>
 
@@ -96,7 +96,8 @@
                   <mat-header-cell *matHeaderCellDef>Maxantal frp</mat-header-cell>
                   <mat-cell *matCellDef="let rad">
                     <mat-input-container *ngIf="editable">
-                      <input id="name" [(ngModel)]="artikelToPdArtikels.get(rad).maxantal" type="number" matInput>
+                      <input id="name" [(ngModel)]="artikelToPdArtikels.get(rad).maxantal" type="number" matInput
+                             [disabled]="selectedArtiklar.indexOf(rad) === -1" [required]="selectedArtiklar.indexOf(rad) != -1">
                     </mat-input-container>
                     <div *ngIf="!editable">
                       {{artikelToPdArtikels.get(rad).maxantal}}

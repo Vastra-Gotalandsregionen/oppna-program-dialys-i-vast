@@ -11,6 +11,8 @@ import {Artikel} from "../../model/Artikel";
 import {MatSnackBar} from "@angular/material";
 import {RequisitionEditComponent} from "../requisition-edit/requisition-edit.component";
 import {Location} from "@angular/common";
+import {MatDialog} from "@angular/material/dialog";
+import {PatientAddRequisitionSaveDialogComponent} from "../patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component";
 
 @Component({
   selector: 'app-apk-detail',
@@ -44,7 +46,8 @@ export class PatientAddRequisitionComponent implements OnInit {
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
               protected authService: AuthService, private location: Location,
-              private snackBar: MatSnackBar, private router: Router) {
+              private snackBar: MatSnackBar, private router: Router,
+              private dialog: MatDialog) {
   }
 
   load(patient: Patient, incomingPd: Pd) {
@@ -160,9 +163,9 @@ export class PatientAddRequisitionComponent implements OnInit {
     return this.id;
   }
 
-  userHasEditPermission(patient: Patient) {
+  /*userHasEditPermission(patient: Patient) {
     return this.authService.userHasDataEditPermission(patient);
-  }
+  }*/
 
   onItemSelect(rad) {
     var index: number = this.selectedArtiklar.indexOf(rad);
@@ -171,7 +174,6 @@ export class PatientAddRequisitionComponent implements OnInit {
       this.selectedArtiklar.splice(index, 1);
     } else {
       this.selectedArtiklar.push(rad);
-      // let pdArtikel: PDArtikel = new PDArtikel();
       let pdArtikel: PDArtikel = this.artikelToPdArtikels.get(rad);
       pdArtikel.artikel = rad;
       this.pd.pdArtikels.push(pdArtikel);
@@ -180,7 +182,11 @@ export class PatientAddRequisitionComponent implements OnInit {
   }
 
   saveToServer() {
-    // console.log("saveToServer start");
+    const noMaxs = this.getPdArtikelsWithNoMax();
+    if (noMaxs.length > 0) {
+      this.openCorrectSaveData();
+      return;
+    }
     this.saving = true;
     if (!this.pd.typ)
       this.pd.typ = this.patient.typ;
@@ -188,15 +194,19 @@ export class PatientAddRequisitionComponent implements OnInit {
       .map(response => response.json())
       .share();
     $data.subscribe((pd: Pd) => {
-      // console.log("saveToServer callback");
-      //this.pd = patient;
       this.snackBar.open('Lyckades spara!', null, {duration: 3000}).afterDismissed().subscribe(() => {
         this.location.back();
       });
       this.saving = false;
-      // console.log("saveToServer callback - end");
     });
-    // console.log("saveToServer end");
+  }
+
+  getPdArtikelsWithNoMax(): PDArtikel[] {
+    const result: PDArtikel[] = [];
+    this.pd.pdArtikels.forEach((pda: PDArtikel, i, array) => {
+      if (!pda.maxantal || pda.maxantal < 1) result.push(pda);
+    });
+    return result;
   }
 
   avbryt() {
@@ -215,6 +225,21 @@ export class PatientAddRequisitionComponent implements OnInit {
   asFlikReqs(fliks: Array<Flik>): FlikReq[] {
     return <FlikReq[]> fliks;
   }
+
+  openCorrectSaveData() {
+    const p: PatientAddRequisitionComponent = this;
+    let dialogRef = this.dialog.open(PatientAddRequisitionSaveDialogComponent, {
+      data: {
+        pdArtikels: this.getPdArtikelsWithNoMax(),
+        parent: p,
+        save() {
+          this.parent.saveToServerSide();
+        }
+      },
+      panelClass: 'apk-dialog'
+    });
+  }
+
 }
 
 
@@ -228,6 +253,7 @@ export class FlikReq extends Flik {
   public static asFlikReqs(fliks: Flik[]): FlikReq[] {
     return <FlikReq[]> fliks;
   }
+
 
 }
 
