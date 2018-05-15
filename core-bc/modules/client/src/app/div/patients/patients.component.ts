@@ -292,7 +292,7 @@ export class ApkComponent implements OnInit {
         text: 'Är du säker att du vill ta bort vald arbetsplatskod?',
         confirmButtonText: 'Ta bort'
       },
-      panelClass: 'apk-dialog'
+      panelClass: 'dialys-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {

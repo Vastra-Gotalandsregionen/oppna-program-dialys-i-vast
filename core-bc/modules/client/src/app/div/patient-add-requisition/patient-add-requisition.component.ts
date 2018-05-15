@@ -236,7 +236,7 @@ export class PatientAddRequisitionComponent implements OnInit {
           this.parent.saveToServerSide();
         }
       },
-      panelClass: 'apk-dialog'
+      panelClass: 'dialys-dialog'
     });
   }
 

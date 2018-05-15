@@ -55,7 +55,7 @@ export class MottagningsListComponent implements OnInit {
         text: 'Är du säker att du vill ta bort ' + mottagning.namn + '?',
         confirmButtonText: 'Ta bort'
       },
-      panelClass: 'apk-dialog'
+      panelClass: 'dialys-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -73,7 +73,7 @@ export class MottagningsListComponent implements OnInit {
     mottagning = Object.assign({}, mottagning);
     let dialogRef = this.dialog.open(MottagningsDialogComponent, {
       data: mottagning,
-      panelClass: 'apk-dialog'
+      panelClass: 'dialys-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
