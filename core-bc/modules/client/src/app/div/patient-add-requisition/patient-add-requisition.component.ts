@@ -59,6 +59,7 @@ export class PatientAddRequisitionComponent implements OnInit {
       this.pd.patient.sortPds();
       if (this.pd.patient.pds.length > 0 && this.pd.patient.pds[0].typ === patient.typ) {
         this.latestPd = this.patient.pds[0];
+        this.pd.typ = this.patient.typ;
       } else {
         this.latestPd = new Pd();
         this.pd.typ = this.patient.typ;
@@ -67,7 +68,7 @@ export class PatientAddRequisitionComponent implements OnInit {
     } else {
       this.latestPd = incomingPd;
       this.pd.id = incomingPd.id;
-      this.pd.typ = incomingPd.typ;
+      this.pd.typ = this.patient.typ;
       this.editable = (
           (this.latestPd.bestInfos === null || this.latestPd.bestInfos.length === 0) && this.pd.typ === this.patient.typ
         )
@@ -227,16 +228,18 @@ export class PatientAddRequisitionComponent implements OnInit {
   }
 
   openCorrectSaveData() {
-    const p: PatientAddRequisitionComponent = this;
+    //const p: PatientAddRequisitionComponent = this;
     let dialogRef = this.dialog.open(PatientAddRequisitionSaveDialogComponent, {
       data: {
         pdArtikels: this.getPdArtikelsWithNoMax(),
-        parent: p,
-        save() {
-          this.parent.saveToServerSide();
-        }
       },
       panelClass: 'dialys-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        this.saveToServer();
+      }
     });
   }
 
