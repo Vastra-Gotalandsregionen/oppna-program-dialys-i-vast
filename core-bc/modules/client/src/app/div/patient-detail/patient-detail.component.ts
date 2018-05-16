@@ -24,6 +24,7 @@ export class PatientDetailComponent implements OnInit {
   patTyp: string;
   data: Patient;
   showOldRequisitions: boolean;
+  gamlarekvisfinns: boolean;
   dataSource1 = new MatTableDataSource<BestInfo>();
   displayedColumns = ['id', 'datum', 'utskrivare', 'levdatum'];
   panelOpenState: Number[] = [];
@@ -61,7 +62,14 @@ export class PatientDetailComponent implements OnInit {
               setTimeout(() => this.dataSource1.paginator = this.page1);
               this.dataSource1.data = this.pdRekviser[0].bestInfos;
               this.headerdata = this.pdRekviser[0];
-              this.data.pds = this.data.pds.filter(item => item.id != this.pdRekviser[0].id)
+              if(this.data.pds.length > 1){
+                this.data.pds = this.data.pds.filter(item => item.id != this.pdRekviser[0].id);
+                this.gamlarekvisfinns = true;
+              }
+              else
+              {
+                this.gamlarekvisfinns = false;
+              }
             }
             else
             {
@@ -77,14 +85,23 @@ export class PatientDetailComponent implements OnInit {
               setTimeout(() => this.dataSource1.paginator = this.page1);
               this.dataSource1.data = this.hdRekviser[0].bestInfos;
               this.headerdata = this.hdRekviser[0];
-              this.data.pds = this.data.pds.filter(item => item.id != this.hdRekviser[0].id)
+              if(this.data.pds.length > 1){
+                this.data.pds = this.data.pds.filter(item => item.id != this.hdRekviser[0].id)
+                this.gamlarekvisfinns = true;
+              }
+              else
+              {
+                this.gamlarekvisfinns = false;
+              }
             }
             else
             {
               this.giltigRekvisitionFinns = false;
             }
           }
-        });
+
+        }
+        );
       }
     });
   }
