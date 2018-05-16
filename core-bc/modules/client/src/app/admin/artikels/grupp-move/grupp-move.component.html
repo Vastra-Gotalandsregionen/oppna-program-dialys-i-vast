@@ -2,21 +2,23 @@
   Flytta grupp '{{data.item2move.titel}}' {{(data.item2move.id)?('#'+data.item2move.id):'-'}}
 </h1>
 
-<div class="confirm-dialog">
+<div class="dialys-article-move">
 
   <div mat-dialog-content>
-    <div class="dialys-form-field">
-    </div>
 
     <div>
       Välj flik som gruppen ska hamna i:
     </div>
 
-    <ol>
+    <ol class="article-list article-list-1">
       <li *ngFor="let flik of data.flikRot.fliks">
         <a *ngIf="flik.grupps.indexOf(data.item2move) == -1"
-           (click)="data.moveGrupp(data.item2move, data.previousFlik, flik)">'{{flik.titel}}'</a>
-        <span *ngIf="flik.grupps.indexOf(data.item2move) > -1">'{{flik.titel}}'</span>
+           (click)="data.moveGrupp(data.item2move, data.previousFlik, flik)">
+           '{{flik.titel}}'
+         </a>
+        <span *ngIf="flik.grupps.indexOf(data.item2move) > -1" class="selected">
+          '{{flik.titel}}'
+        </span>
       </li>
     </ol>
 

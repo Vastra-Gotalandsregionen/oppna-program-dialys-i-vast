@@ -25,7 +25,7 @@ export class AppComponent {
     const dialogConfig:MatDialogConfig = {
       disableClose: false,
       hasBackdrop: true,
-      panelClass: 'apk-dialog'
+      panelClass: 'dialys-dialog'
     };
 
     const dialogRef: MatDialogRef<LoginDialogComponent> = this.dialog.open(LoginDialogComponent, dialogConfig);

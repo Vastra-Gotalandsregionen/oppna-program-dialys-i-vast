@@ -96,7 +96,8 @@
                   <mat-header-cell *matHeaderCellDef>Maxantal frp</mat-header-cell>
                   <mat-cell *matCellDef="let rad">
                     <mat-input-container *ngIf="editable">
-                      <input id="name" [(ngModel)]="artikelToPdArtikels.get(rad).maxantal" type="number" matInput
+                      <input id="name" [(ngModel)]="artikelToPdArtikels.get(rad).maxantal" type="number"
+                             matInput="2147483647" min="0"
                              [disabled]="selectedArtiklar.indexOf(rad) === -1" [required]="selectedArtiklar.indexOf(rad) != -1">
                     </mat-input-container>
                     <div *ngIf="!editable">

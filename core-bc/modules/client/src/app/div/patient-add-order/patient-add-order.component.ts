@@ -15,7 +15,7 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {Util} from "../../core/util/util";
 
 @Component({
-  selector: 'app-apk-detail',
+  selector: 'app-dialys-detail',
   templateUrl: './patient-add-order.component.html',
   styleUrls: ['./patient-add-order.component.css']
 })
@@ -123,4 +123,3 @@ export class PatientAddOrderComponent implements OnInit {
 export class PDArtikelRow extends PDArtikel {
   bestPdRow: BestPDRad;
 }
-

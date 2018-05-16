@@ -9,7 +9,7 @@
 </mat-toolbar>
 
 
-<mat-accordion multi="true" ngClass="fliks">
+<mat-accordion multi="true" ngClass="fliks dialys-articles">
 
   <mat-expansion-panel *ngFor="let flik of toFlikExts(fliks)">
     <mat-expansion-panel-header>
@@ -35,7 +35,7 @@
       </mat-toolbar>
 
       <div>
-        <ul>
+        <ul class="dialys-article-groups">
           <li *ngFor="let grupp of toGruppExts(flik.grupps)">
             <mat-toolbar class="action-toolbar">
               <mat-input-container>
@@ -52,7 +52,7 @@
               </button>
             </mat-toolbar>
 
-            <mat-table #table [dataSource]="toArtikelExtsModel(grupp.artikels)">
+            <mat-table #table [dataSource]="toArtikelExtsModel(grupp.artikels)" class="dialys-article-table">
 
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
@@ -112,10 +112,10 @@
 
                   <mat-menu #menu="matMenu">
                     <button *ngIf="artikel.editable" mat-button (click)="deleteArtikel(grupp, artikel)">
-                      <mat-icon>delete</mat-icon>
+                      <mat-icon>delete</mat-icon> Ta bort
                     </button>
                     <button mat-button (click)="openMoveArtikelDialog(grupp, artikel)" matTooltip="Flytta artikel">
-                      <mat-icon>shuffle</mat-icon>
+                      <mat-icon>shuffle</mat-icon> Flytta
                     </button>
                   </mat-menu>
 

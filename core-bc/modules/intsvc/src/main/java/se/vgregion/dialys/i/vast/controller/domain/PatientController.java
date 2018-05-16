@@ -109,8 +109,6 @@ public class PatientController {
 
         String result = objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status));
 
-
-
         SearchLog log = new SearchLog();
         log.setDate(new Date());
         log.setUserName(userName);

@@ -9,7 +9,7 @@ import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {BestRad} from "../../model/BestRad";
 
 @Component({
-  selector: 'app-apk-detail',
+  selector: 'app-dialys-detail',
   templateUrl: './patient-detail.component.html',
   styleUrls: ['./patient-detail.component.css']
 })

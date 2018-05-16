@@ -212,7 +212,7 @@ export class ArtikelsListComponent implements OnInit {
           dialogRef.close(null);
         }
       },
-      panelClass: 'apk-dialog'
+      panelClass: 'dialys-dialog'
     });
   }
 
@@ -229,7 +229,7 @@ export class ArtikelsListComponent implements OnInit {
           dialogRef.close(null);
         }
       },
-      panelClass: 'apk-dialog'
+      panelClass: 'dialys-dialog'
     });
   }
 }

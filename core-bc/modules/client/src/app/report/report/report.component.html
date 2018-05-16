@@ -5,34 +5,34 @@
   <div class="action-toolbar-spacer"></div>
 </mat-toolbar>
 
-<mat-card class="apk-reports">
+<mat-card class="dialys-reports">
 
   <mat-card-content>
 
-    <div class="apk-reports-item-wrap">
-      <div class="apk-reports-item">
+    <div class="dialys-reports-item-wrap">
+      <div class="dialys-reports-item">
         <mat-icon>file_download</mat-icon>
-        <span class="apk-reports-item-label">Alla dialys-i-vast som gäller tillsvidare</span>
+        <span class="dialys-reports-item-label">Alla dialys-i-vast som gäller tillsvidare</span>
       </div>
       <button [ladda]="validWithoutEndDateReport.isLoading" (click)="generateValidWithoutEndDateReport()" data-size="s" data-color="blue" data-style="expand-right">Hämta rapport</button>
     </div>
 
-    <div class="apk-reports-item-wrap">
-      <div class="apk-reports-item">
+    <div class="dialys-reports-item-wrap">
+      <div class="dialys-reports-item">
         <mat-icon>file_download</mat-icon>
-        <span class="apk-reports-item-label">Alla dialys-i-vast som gäller med slutdatum</span>
+        <span class="dialys-reports-item-label">Alla dialys-i-vast som gäller med slutdatum</span>
       </div>
       <button [ladda]="validWithEndDateReport.isLoading" (click)="generateValidWithEndDateReport()" data-size="s" data-color="blue" data-style="expand-right">Hämta rapport</button>
     </div>
 
-    <div class="apk-reports-item-wrap">
-      <div class="apk-reports-item">
+    <div class="dialys-reports-item-wrap">
+      <div class="dialys-reports-item">
         <mat-icon>file_download</mat-icon>
-        <span class="apk-reports-item-label">Uppdaterade dialys-i-vast mellan</span>
+        <span class="dialys-reports-item-label">Uppdaterade dialys-i-vast mellan</span>
         <mat-input-container class="date">
           <input matInput placeholder="Datum" [formControl]="fromDate" />
         </mat-input-container>
-        <span class="apk-reports-item-label">och</span>
+        <span class="dialys-reports-item-label">och</span>
         <mat-input-container class="date">
           <input matInput placeholder="Datum" [formControl]="toDate" />
         </mat-input-container>
@@ -40,10 +40,10 @@
       <button [ladda]="updatedBetweenDatesReport.isLoading" (click)="generateUpdatedBetweenDatesReport()" data-size="s" data-color="blue" data-style="expand-right">Hämta rapport</button>
     </div>
 
-    <div class="apk-reports-item-wrap">
-      <div class="apk-reports-item">
+    <div class="dialys-reports-item-wrap">
+      <div class="dialys-reports-item">
         <mat-icon>file_download</mat-icon>
-        <span class="apk-reports-item-label">Alla dialys-i-vast med raderad Concise SumNivå 1</span>
+        <span class="dialys-reports-item-label">Alla dialys-i-vast med raderad Concise SumNivå 1</span>
       </div>
       <button [ladda]="withDeletedProdn1.isLoading" (click)="generateWithDeletedProdn1Report()" data-size="s" data-color="blue" data-style="expand-right">Hämta rapport</button>
     </div>

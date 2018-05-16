@@ -83,4 +83,4 @@ import {
 
 
 })
-export class ApkMaterialModule { }
+export class DialysMaterialModule { }

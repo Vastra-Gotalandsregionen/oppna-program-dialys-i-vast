@@ -38,7 +38,17 @@
       background: #dfdfdf;
       color: #333;
     }
-    
+
+    &.disabled {
+      background: #dfdfdf;
+      color: #999;
+
+      .mat-icon.mat-warn {
+        color: #999;
+      }
+    }
+
+
   }
 
 

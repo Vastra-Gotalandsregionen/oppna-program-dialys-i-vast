@@ -15,11 +15,11 @@ import {Pd} from "../../model/Pd";
 import {BestInfo} from "../../model/BestInfo";
 
 @Component({
-  selector: 'app-apk',
+  selector: 'app-dialys',
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.css']
 })
-export class ApkComponent implements OnInit {
+export class PatientsComponent implements OnInit {
 
   stateCtrl: FormControl;
   onlyActiveDatasCtrl: FormControl;
@@ -292,7 +292,7 @@ export class ApkComponent implements OnInit {
         text: 'Är du säker att du vill ta bort vald arbetsplatskod?',
         confirmButtonText: 'Ta bort'
       },
-      panelClass: 'apk-dialog'
+      panelClass: 'dialys-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {

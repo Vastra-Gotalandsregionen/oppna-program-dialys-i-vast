@@ -1,0 +1,55 @@
+.dialys-articles {
+
+  justify-content: flex-start !important;
+
+  md-grid-tile {
+    text-align: left;
+  }
+
+  ul.dialys-article-groups {
+
+    > li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .dialys-article-table {
+    padding: 0 0 0 30px;
+  }
+
+
+  .mat-column-id {
+    flex: 0 0 70px;
+  }
+
+  .mat-column-name {
+    flex: 0 0 350px;
+  }
+
+  .mat-column-artNr {
+    flex: 0 0 100px;
+  /*  input {
+      flex: 0 0 50px;
+    }*/
+  }
+
+  .mat-column-storlek {
+    flex: 0 0 100px;
+  }
+
+  .aktiv {
+    flex: 0 0 50px;
+  }
+
+
+
+
+  .action-toolbar>* {
+    // padding-left: 5px;
+    // padding-right: 5px;
+  }
+
+
+}

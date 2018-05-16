@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class ApkClientPage {
+export class DialysClientPage {
   navigateTo() {
     return browser.get('/');
   }
