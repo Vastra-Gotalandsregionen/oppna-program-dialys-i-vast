@@ -200,6 +200,7 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   openMoveGruppDialog(previousFlik: Flik, grupp: Grupp) {
+    const parent = this;
     let dialogRef = this.dialog.open(GruppMoveComponent, {
       data: {
         flikRot: this.flikRot,
@@ -208,7 +209,7 @@ export class ArtikelsListComponent implements OnInit {
         moveGrupp(that: Grupp, from: Flik, to: Flik) {
           from.grupps.splice(from.grupps.indexOf(that), 1);
           to.grupps.push(that);
-          this.sumArtikelUsageIntoFlikAndGroup();
+          parent.sumArtikelUsageIntoFlikAndGroup();
           dialogRef.close(null);
         }
       },
