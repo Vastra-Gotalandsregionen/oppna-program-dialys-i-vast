@@ -61,8 +61,10 @@ export class ArtikelsListComponent implements OnInit {
         });
         flikSum += gruppSum;
         this.toGroupExt(g).pdArtikelsCount = gruppSum;
+        this.toGroupExt(g).removeable = gruppSum === 0;
       });
       this.toFlikExt(f).pdArtikelsCount = flikSum;
+      this.toFlikExt(f).removeable = flikSum === 0;
     });
   }
 
@@ -130,7 +132,9 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   toArtikelExt(artikel: Artikel): ArtikelExt {
-    return <ArtikelExt> artikel;
+    const r = <ArtikelExt> artikel;
+    if (!r.pdArtikelsCount) r.pdArtikelsCount = 0;
+    return r;
   }
 
   createNewFlik() {
@@ -157,7 +161,9 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   private toGroupExt(artikel: Grupp): GruppExt {
-    return <GruppExt> artikel;
+    const r = <GruppExt> artikel;
+    if (!r.pdArtikelsCount) r.pdArtikelsCount = 0;
+    return r;
   }
 
   private toFlikExt(flik: Flik): FlikExt {
@@ -189,6 +195,7 @@ export class ArtikelsListComponent implements OnInit {
     artikels.unshift(artikel);
     grupp.artikels = artikels;
     this.changeDetectorRefs.detectChanges();
+    this.sumArtikelUsageIntoFlikAndGroup();
   }
 
   deleteArtikel(grupp: GruppExt, artikel) {
