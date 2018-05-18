@@ -62,28 +62,23 @@
               <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef> Namn</mat-header-cell>
                 <mat-cell *matCellDef="let artikel">
-                  <mat-input-container *ngIf="artikel.editable">
-                    <input required [(ngModel)]="artikel.namn" type="text" [maxlength]="50" matInput *ngIf="artikel.editable">
-                  </mat-input-container>
-                  <span *ngIf="!artikel.editable">
+                  <span>
                   {{artikel.namn}}
-                </span>
+                  </span>
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="artNr">
                 <mat-header-cell *matHeaderCellDef> ArtNr</mat-header-cell>
                 <mat-cell *matCellDef="let artikel">
-                  <input [(ngModel)]="artikel.artNr" type="text" [maxlength]="20" matInput *ngIf="artikel.editable">
-                  <span *ngIf="!artikel.editable">{{artikel.artNr}}</span>
+                  <span>{{artikel.artNr}}</span>
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="storlek">
                 <mat-header-cell *matHeaderCellDef> Storlek</mat-header-cell>
                 <mat-cell *matCellDef="let artikel">
-                  <input [(ngModel)]="artikel.storlek" type="text" [maxlength]="20" matInput *ngIf="artikel.editable">
-                  <span *ngIf="!artikel.editable">{{artikel.storlek}}</span>
+                  <span>{{artikel.storlek}}</span>
                 </mat-cell>
               </ng-container>
 
@@ -111,21 +106,25 @@
                   </button>
 
                   <mat-menu #menu="matMenu">
-                    <button *ngIf="artikel.editable" mat-button (click)="deleteArtikel(grupp, artikel)">
-                      <mat-icon>delete</mat-icon> Ta bort
-                    </button>
-                    <button mat-button (click)="openMoveArtikelDialog(grupp, artikel)" matTooltip="Flytta artikel">
-                      <mat-icon>shuffle</mat-icon> Flytta
-                    </button>
+                    <div>
+                      <button *ngIf="artikel.editable" mat-button (click)="deleteArtikel(grupp, artikel)">
+                        <mat-icon>delete</mat-icon>
+                        Ta bort
+                      </button>
+                    </div>
+                    <div>
+                      <button mat-button (click)="openMoveArtikelDialog(grupp, artikel)" matTooltip="Flytta artikel">
+                        <mat-icon>shuffle</mat-icon>
+                        Flytta
+                      </button>
+                    </div>
+                    <div>
+                      <button *ngIf="artikel.editable" mat-button (click)="openEditDialog(toArtikelExt(artikel))">
+                        <mat-icon>edit</mat-icon>
+                        Ändra
+                      </button>
+                    </div>
                   </mat-menu>
-
-                  <!--<button *ngIf="artikel.editable" mat-button (click)="deleteArtikel(grupp, artikel)">
-                    <mat-icon>delete</mat-icon>
-                  </button>-->
-
-<!--                  <button mat-button (click)="openMoveArtikelDialog(grupp, artikel)" matTooltip="Flytta artikel">
-                    <mat-icon>shuffle</mat-icon>
-                  </button>-->
                 </mat-cell>
 
               </ng-container>

@@ -218,7 +218,7 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #tempPostNr required id="tempPostNr" [(ngModel)]="patient.tempPostNr" placeholder="Postnummer"
+                <input #tempPostNr id="tempPostNr" [(ngModel)]="patient.tempPostNr" placeholder="Postnummer"
                        type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>
@@ -228,7 +228,7 @@
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
-                <input #tempPostOrt required id="tempPostOrt" [(ngModel)]="patient.tempPostOrt" placeholder="Postort"
+                <input #tempPostOrt id="tempPostOrt" [(ngModel)]="patient.tempPostOrt" placeholder="Postort"
                        type="text" matInput
                        [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
               </mat-input-container>

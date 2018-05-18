@@ -8,6 +8,7 @@ import {ActivatedRoute} from "@angular/router";
 import {MatDialog, MatTableDataSource} from "@angular/material";
 import {GruppMoveComponent} from "../grupp-move/grupp-move.component";
 import {ArtikelMoveComponent} from "../artikel-move/artikel-move.component";
+import {ArtikelEditComponent} from "../artikel-edit/artikel-edit.component";
 
 @Component({
   selector: 'app-artikels-list',
@@ -61,8 +62,10 @@ export class ArtikelsListComponent implements OnInit {
         });
         flikSum += gruppSum;
         this.toGroupExt(g).pdArtikelsCount = gruppSum;
+        this.toGroupExt(g).removeable = gruppSum === 0;
       });
       this.toFlikExt(f).pdArtikelsCount = flikSum;
+      this.toFlikExt(f).removeable = flikSum === 0;
     });
   }
 
@@ -130,7 +133,9 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   toArtikelExt(artikel: Artikel): ArtikelExt {
-    return <ArtikelExt> artikel;
+    const r = <ArtikelExt> artikel;
+    if (!r.pdArtikelsCount) r.pdArtikelsCount = 0;
+    return r;
   }
 
   createNewFlik() {
@@ -157,7 +162,9 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   private toGroupExt(artikel: Grupp): GruppExt {
-    return <GruppExt> artikel;
+    const r = <GruppExt> artikel;
+    if (!r.pdArtikelsCount) r.pdArtikelsCount = 0;
+    return r;
   }
 
   private toFlikExt(flik: Flik): FlikExt {
@@ -183,12 +190,24 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   createNewArtikel(grupp: GruppExt) {
-    const artikels = grupp.artikels;
     var artikel: ArtikelExt = new ArtikelExt();
-    artikel.editable = true;
-    artikels.unshift(artikel);
-    grupp.artikels = artikels;
-    this.changeDetectorRefs.detectChanges();
+    let dialogRef = this.dialog.open(ArtikelEditComponent, {
+      data: {
+        artikel: Object.assign({}, artikel)
+      },
+      panelClass: 'dialys-dialog'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Object.assign(artikel, result);
+        const artikels = grupp.artikels;
+        artikel.editable = true;
+        artikels.unshift(artikel);
+        grupp.artikels = artikels;
+        this.changeDetectorRefs.detectChanges();
+        this.sumArtikelUsageIntoFlikAndGroup();
+      }
+    });
   }
 
   deleteArtikel(grupp: GruppExt, artikel) {
@@ -199,7 +218,24 @@ export class ArtikelsListComponent implements OnInit {
     return new MatTableDataSource<ArtikelExt>(this.toArtikelExts(artikels));
   }
 
+  openEditDialog(artikel: ArtikelExt) {
+    let dialogRef = this.dialog.open(ArtikelEditComponent, {
+      data: {
+        artikel: Object.assign({}, artikel)
+      },
+      panelClass: 'dialys-dialog'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Object.assign(artikel, result);
+      }
+    });
+  }
+
+
+
   openMoveGruppDialog(previousFlik: Flik, grupp: Grupp) {
+    const parent = this;
     let dialogRef = this.dialog.open(GruppMoveComponent, {
       data: {
         flikRot: this.flikRot,
@@ -208,7 +244,7 @@ export class ArtikelsListComponent implements OnInit {
         moveGrupp(that: Grupp, from: Flik, to: Flik) {
           from.grupps.splice(from.grupps.indexOf(that), 1);
           to.grupps.push(that);
-          this.sumArtikelUsageIntoFlikAndGroup();
+          parent.sumArtikelUsageIntoFlikAndGroup();
           dialogRef.close(null);
         }
       },
@@ -217,6 +253,7 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   openMoveArtikelDialog(grupp: GruppExt, artikel: ArtikelExt) {
+    const parent = this;
     let dialogRef = this.dialog.open(ArtikelMoveComponent, {
       data: {
         flikRot: this.flikRot,
@@ -225,7 +262,7 @@ export class ArtikelsListComponent implements OnInit {
         moveArtikel(that: Artikel, from: Grupp, to: Grupp) {
           from.artikels.splice(from.artikels.indexOf(that), 1);
           to.artikels.push(that);
-          this.sumArtikelUsageIntoFlikAndGroup();
+          parent.sumArtikelUsageIntoFlikAndGroup();
           dialogRef.close(null);
         }
       },
