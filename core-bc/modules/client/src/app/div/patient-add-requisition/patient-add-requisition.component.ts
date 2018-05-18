@@ -9,7 +9,6 @@ import {PDArtikel} from "../../model/PDArtikel";
 import {Grupp} from "../../model/Grupp";
 import {Artikel} from "../../model/Artikel";
 import {MatSnackBar} from "@angular/material";
-import {RequisitionEditComponent} from "../requisition-edit/requisition-edit.component";
 import {Location} from "@angular/common";
 import {MatDialog} from "@angular/material/dialog";
 import {PatientAddRequisitionSaveDialogComponent} from "../patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component";
@@ -21,8 +20,6 @@ import {RequisitionDataService} from "../services/requisition-data.service";
   styleUrls: ['./patient-add-requisition.component.css'],
 })
 export class PatientAddRequisitionComponent implements OnInit {
-
-  @ViewChild(RequisitionEditComponent) requisitionEditComponent: RequisitionEditComponent;
 
   id: string;
   patient: Patient;

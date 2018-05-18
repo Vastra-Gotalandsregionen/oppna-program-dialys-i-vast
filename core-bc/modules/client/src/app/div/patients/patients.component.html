@@ -32,7 +32,7 @@
   </mat-card-title>
 
   <mat-card-content>
-    <table *ngIf="response" class="dialys-table dialys-patients-table">
+    <table *ngIf="response && response.content && response.content['length'] > 0" class="dialys-table dialys-patients-table">
       <thead>
       <tr>
         <th class="row-pnr">
@@ -123,7 +123,7 @@
 
   <mat-card-actions *ngIf="response">
 
-    <mat-toolbar class="paging-toolbar">
+    <mat-toolbar class="paging-toolbar" *ngIf="response && response.content && response.content['length'] > 0">
       <div *ngIf="response" class="search-summary">
         Visar sida {{response.number + 1}} av {{response.totalPages}}. Totalt antal: {{response.totalElements}}
       </div>

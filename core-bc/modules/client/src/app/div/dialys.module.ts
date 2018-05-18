@@ -7,7 +7,6 @@ import {SharedModule} from '../shared/shared.module';
 import {UserHasDataPermissionGuard} from './guard/user-has-data-permission.guard';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { PatientOrderDetailComponent } from './patient-order-detail/patient-order-detail.component';
-import { RequisitionEditComponent } from './requisition-edit/requisition-edit.component';
 import { FlexLayoutModule} from "@angular/flex-layout";
 import {PatientDetailComponent} from "./patient-detail/patient-detail.component";
 import { PatientAddRequisitionSaveDialogComponent } from './patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component';
@@ -28,7 +27,6 @@ import {RequisitionDataService} from "./services/requisition-data.service";
     PatientDetailComponent,
     PatientEditComponent,
     PatientOrderDetailComponent,
-    RequisitionEditComponent,
     PatientAddRequisitionSaveDialogComponent,
     RequisitionViewComponent
   ],
