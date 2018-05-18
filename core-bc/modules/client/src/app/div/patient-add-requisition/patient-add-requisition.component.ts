@@ -13,6 +13,7 @@ import {RequisitionEditComponent} from "../requisition-edit/requisition-edit.com
 import {Location} from "@angular/common";
 import {MatDialog} from "@angular/material/dialog";
 import {PatientAddRequisitionSaveDialogComponent} from "../patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component";
+import {RequisitionDataService} from "../services/requisition-data.service";
 
 @Component({
   selector: 'app-dialys-detail',
@@ -47,7 +48,8 @@ export class PatientAddRequisitionComponent implements OnInit {
               protected http: JwtHttp,
               protected authService: AuthService, private location: Location,
               private snackBar: MatSnackBar, private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              public reqdataService: RequisitionDataService) {
   }
 
   load(patient: Patient, incomingPd: Pd) {
@@ -243,6 +245,11 @@ export class PatientAddRequisitionComponent implements OnInit {
     });
   }
 
+  skrivut(){
+
+      this.reqdataService.pdsToPrint = this.pd;
+      this.router.navigate(['/patienter',this.patient.id, 'requisitionview']);
+  }
 }
 
 

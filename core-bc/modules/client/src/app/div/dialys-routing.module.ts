@@ -6,6 +6,7 @@ import {PatientAddRequisitionComponent} from './patient-add-requisition/patient-
 import {PatientEditComponent} from "./patient-edit/patient-edit.component";
 import {PatientOrderDetailComponent} from "./patient-order-detail/patient-order-detail.component";
 import {PatientDetailComponent} from "./patient-detail/patient-detail.component";
+import {RequisitionViewComponent} from "./requisition-view/requisition-view.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,9 @@ const routes: Routes = [
         path: ':id/add-requisition',
         component: PatientAddRequisitionComponent
       }, {
+        path: ':id/requisitionview',
+        component: RequisitionViewComponent
+      },{
         path: ':id/requisition/:editId',
         component: PatientAddRequisitionComponent
       }, {

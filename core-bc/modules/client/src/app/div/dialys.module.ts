@@ -11,6 +11,8 @@ import { RequisitionEditComponent } from './requisition-edit/requisition-edit.co
 import { FlexLayoutModule} from "@angular/flex-layout";
 import {PatientDetailComponent} from "./patient-detail/patient-detail.component";
 import { PatientAddRequisitionSaveDialogComponent } from './patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component';
+import { RequisitionViewComponent } from './requisition-view/requisition-view.component';
+import {RequisitionDataService} from "./services/requisition-data.service";
 
 @NgModule({
   imports: [
@@ -27,10 +29,12 @@ import { PatientAddRequisitionSaveDialogComponent } from './patient-add-requisit
     PatientEditComponent,
     PatientOrderDetailComponent,
     RequisitionEditComponent,
-    PatientAddRequisitionSaveDialogComponent
+    PatientAddRequisitionSaveDialogComponent,
+    RequisitionViewComponent
   ],
   providers: [
-    UserHasDataPermissionGuard
+    UserHasDataPermissionGuard,
+    RequisitionDataService
   ],
   entryComponents: [PatientAddRequisitionSaveDialogComponent]
 })

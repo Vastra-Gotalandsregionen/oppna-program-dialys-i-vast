@@ -53,7 +53,7 @@
 
       <app-patient-details patientId={{id}}></app-patient-details>
 
-      <div id="bastallningsTableWrap">
+      <div id="rekvisitionsTableWrap">
         <mat-table #table dense [dataSource]="dataSources">
           <ng-container matColumnDef="artikel">
             <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
@@ -82,7 +82,7 @@
 
       <div class="btn-container">
 
-        <button (click)="print('Beställning', 'bastallningsTableWrap')" mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
+        <button (click)="print('Beställning', 'rekvisitionsTableWrap')" mat-raised-button class="btn btn-secondary">Skriv ut</button> &nbsp;
 
       </div>
 
