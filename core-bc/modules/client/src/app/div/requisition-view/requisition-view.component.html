@@ -1,8 +1,8 @@
-<div>
+<div *ngIf="patientId">
 
   <mat-toolbar class="action-toolbar">
     <h1>
-      Rekvisition: {{patient.pnr}}
+      Rekvisition: {{patient?.pnr}}
     </h1>
     <div class="action-toolbar-spacer"></div>
     <app-back-button class="action-toolbar-item"></app-back-button>
@@ -19,13 +19,13 @@
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Förnamn:</div>
                 <div class="dialys-details-item-data">
-                  {{patient.fornamn}}
+                  {{patient?.fornamn}}
                 </div>
               </div>
               <div class="dialys-details-item">
                 <div class="dialys-details-item-label">Efternamn:</div>
                 <div class="dialys-details-item-data">
-                  {{patient.efternamn}}
+                  {{patient?.efternamn}}
                 </div>
               </div>
             </div>
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <app-patient-details patientId={{patient.id}}></app-patient-details>
+      <app-patient-details patientId={{patientId}}></app-patient-details>
 
       <div id="bastallningsTableWrap">
         <mat-table #table dense [dataSource]="datasource">

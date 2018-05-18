@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RequisitionDataService} from "../services/requisition-data.service";
 import {Pd} from "../../model/Pd";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {Patient} from "../../model/Patient";
 import {JwtHttp} from "../../core/jwt-http";
 import {PDArtikel} from "../../model/PDArtikel";
@@ -22,10 +22,12 @@ export class RequisitionViewComponent implements OnInit {
   pd: Pd;
   patientId: number;
   patient: Patient;
+  pdArtikels: PDArtikel[];
   datasource = new MatTableDataSource<PDArtikel>();
   displayedColumns = ['artikel', 'mangd', 'artikelnr'];
   ngOnInit() {
     this.patientId = +this.rout.snapshot.params['id'];
+    this.rout.params.subscribe((params:Params)=>{this.patientId = params['id']});
     this.pd = this.reqDataService.pdsToPrint;
     if (this.patientId) {
 
@@ -33,8 +35,9 @@ export class RequisitionViewComponent implements OnInit {
 
       $data2.subscribe((data: Patient) => {
         this.patient = data;
+        this.datasource.data = this.pd.pdArtikels;
       });
-      this.datasource.data = this.pd.pdArtikels;
+
     }
   }
   print(title: string, printNodeId: string): boolean {
