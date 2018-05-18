@@ -35,7 +35,7 @@
 
       <app-patient-details patientId={{patientId}}></app-patient-details>
 
-      <div id="bastallningsTableWrap">
+      <div id="rekvisitionsTableWrap">
         <mat-table #table dense [dataSource]="datasource">
           <ng-container matColumnDef="artikel">
             <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
@@ -59,7 +59,7 @@
 
       <div class="btn-container">
 
-        <button (click)="print('Rekvisitioner', 'bastallningsTableWrap')" mat-raised-button class="btn btn-primary">Skriv ut</button> &nbsp;
+        <button (click)="print('Rekvisitioner', 'rekvisitionsTableWrap')" mat-raised-button class="btn btn-primary">Skriv ut</button> &nbsp;
 
       </div>
 
