@@ -8,6 +8,7 @@ import {ActivatedRoute} from "@angular/router";
 import {MatDialog, MatTableDataSource} from "@angular/material";
 import {GruppMoveComponent} from "../grupp-move/grupp-move.component";
 import {ArtikelMoveComponent} from "../artikel-move/artikel-move.component";
+import {ArtikelEditComponent} from "../artikel-edit/artikel-edit.component";
 
 @Component({
   selector: 'app-artikels-list',
@@ -189,13 +190,24 @@ export class ArtikelsListComponent implements OnInit {
   }
 
   createNewArtikel(grupp: GruppExt) {
-    const artikels = grupp.artikels;
     var artikel: ArtikelExt = new ArtikelExt();
-    artikel.editable = true;
-    artikels.unshift(artikel);
-    grupp.artikels = artikels;
-    this.changeDetectorRefs.detectChanges();
-    this.sumArtikelUsageIntoFlikAndGroup();
+    let dialogRef = this.dialog.open(ArtikelEditComponent, {
+      data: {
+        artikel: Object.assign({}, artikel)
+      },
+      panelClass: 'dialys-dialog'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Object.assign(artikel, result);
+        const artikels = grupp.artikels;
+        artikel.editable = true;
+        artikels.unshift(artikel);
+        grupp.artikels = artikels;
+        this.changeDetectorRefs.detectChanges();
+        this.sumArtikelUsageIntoFlikAndGroup();
+      }
+    });
   }
 
   deleteArtikel(grupp: GruppExt, artikel) {
@@ -205,6 +217,22 @@ export class ArtikelsListComponent implements OnInit {
   toArtikelExtsModel(artikels: Array<Artikel>): MatTableDataSource<ArtikelExt> {
     return new MatTableDataSource<ArtikelExt>(this.toArtikelExts(artikels));
   }
+
+  openEditDialog(artikel: ArtikelExt) {
+    let dialogRef = this.dialog.open(ArtikelEditComponent, {
+      data: {
+        artikel: Object.assign({}, artikel)
+      },
+      panelClass: 'dialys-dialog'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Object.assign(artikel, result);
+      }
+    });
+  }
+
+
 
   openMoveGruppDialog(previousFlik: Flik, grupp: Grupp) {
     const parent = this;
