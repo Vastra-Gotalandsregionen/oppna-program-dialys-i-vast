@@ -30,22 +30,50 @@
         text-align: left;
       }
 
+      .mat-icon {
+        float: left;
+      }
+
+      .list-item-text {
+        display: inline-block;
+        float: left;
+        height: 24px;
+        line-height: 24px;
+        margin-left: 5px;
+      }
+
+      a,
+      .selected {
+        // clearfix
+        &:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+      }
+
+
       a {
         background: transparent;
         color: #222;
         text-decoration: none;
 
         &:hover {
-          background: $vgr-orange;
-          color: white;
+          // background: $vgr-orange;
+          // color: white;
           cursor: pointer;
           text-decoration: none;
         }
       }
 
       .selected {
-        background: $vgr-orange;
-        color: white;
+        // background: $vgr-orange;
+        // color: white;
+
+        .mat-icon {
+          color: $vgr-orange;
+        }
+
       }
 
       .flik-title {
