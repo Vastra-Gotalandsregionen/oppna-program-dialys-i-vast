@@ -10,16 +10,16 @@
 
 <mat-card>
 
-  <mat-card-title class="edge2edge_">
+  <mat-card-title>
 
-    <mat-toolbar class="action-toolbar">
+    <mat-toolbar class="action-toolbar patient-search-toolbar">
 
-      <mat-input-container class="action-toolbar-item" (keydown)="$event.stopPropagation();">
+      <mat-input-container class="action-toolbar-item search-input-wrap" (keydown)="$event.stopPropagation();">
         <input matInput placeholder="Skriv in personnummer eller för/efter-namn för att filtrera listan nedan & tryck enter."
                [formControl]="stateCtrl" [(ngModel)]="query" (keydown)="filterTextChange($event)">
       </mat-input-container>
 
-      <mat-select [(value)]="status" placeholder="Status" (change)="updateState()">
+      <mat-select class="status-select" [(value)]="status" placeholder="Status" (change)="updateState()">
         <mat-option value="Aktiv">Aktiv</mat-option>
         <mat-option value="Pausad">Pausad</mat-option>
         <mat-option value="Avslutad">Avslutad</mat-option>
