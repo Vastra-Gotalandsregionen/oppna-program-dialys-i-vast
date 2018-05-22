@@ -39,7 +39,7 @@
           <li *ngFor="let grupp of toGruppExts(flik.grupps)">
             <mat-toolbar class="action-toolbar">
               <mat-input-container>
-                <input [(ngModel)]="grupp.titel" type="text" [maxlength]="20" matInput placeholder="Grupptitel">
+                <input [(ngModel)]="grupp.titel" type="text" [maxlength]="20" matInput placeholder="Undergruppsnamn">
               </mat-input-container>
               <button mat-button *ngIf="grupp.removeable" (click)="removeGrupp(flik, grupp)">
                 <mat-icon>delete</mat-icon>
