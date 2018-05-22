@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import {MyDateAdapter} from "./my-date-adapter";
+import {SwedishPaginatorIntl} from "./swedish-paginator-intl";
+
 import {
   MatAutocompleteModule, MatButtonModule, MatButtonToggleModule,
   MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule, MatGridListModule, MatIconModule,
@@ -15,7 +17,9 @@ import {
   MatNativeDateModule,
   MatTabsModule,
   DateAdapter, MAT_DATE_LOCALE,
-  MatTableModule, MatPaginatorModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatPaginatorIntl
 } from '@angular/material';
 
 @NgModule({
@@ -78,6 +82,7 @@ import {
   ],
     providers: [
     {provide: DateAdapter, useClass: MyDateAdapter},
+    {provide: MatPaginatorIntl, useFactory: SwedishPaginatorIntl},
     {provide: MAT_DATE_LOCALE, useValue: 'sv-SE'}
 ]
 
