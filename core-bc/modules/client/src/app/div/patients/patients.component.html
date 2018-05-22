@@ -15,7 +15,7 @@
     <mat-toolbar class="action-toolbar patient-search-toolbar">
 
       <mat-input-container class="action-toolbar-item search-input-wrap" (keydown)="$event.stopPropagation();">
-        <input matInput placeholder="Skriv in personnummer eller för/efter-namn för att filtrera listan nedan & tryck enter."
+        <input matInput placeholder="Skriv in personnummer eller för/efter-namn och tryck enter."
                [formControl]="stateCtrl" [(ngModel)]="query" (keydown)="filterTextChange($event)">
       </mat-input-container>
 
@@ -23,6 +23,25 @@
         <mat-option value="Aktiv">Aktiv</mat-option>
         <mat-option value="Pausad">Pausad</mat-option>
         <mat-option value="Avslutad">Avslutad</mat-option>
+      </mat-select>
+
+      <mat-select class="distribution-day-select" placeholder="Utdelningsdag">
+        <mat-option value="all">Alla</mat-option>
+        <mat-option>Ingen uppgift</mat-option>
+        <mat-option value="Måndag">Måndag</mat-option>
+        <mat-option value="Tisdag">Tisdag</mat-option>
+        <mat-option value="Onsdag">Onsdag</mat-option>
+        <mat-option value="Torsdag">Torsdag</mat-option>
+        <mat-option value="Fredag">Fredag</mat-option>
+        <mat-option value="Lördag">Lördag</mat-option>
+        <mat-option value="Söndag">Söndag</mat-option>
+      </mat-select>
+
+      <mat-select class="distribution-week-select" placeholder="Utdelningsvecka">
+        <mat-option value="all">Alla</mat-option>
+        <mat-option value="Jämn">Jämn</mat-option>
+        <mat-option value="Ojämn">Ojämn</mat-option>
+        <mat-option value="Varje">Varje</mat-option>
       </mat-select>
 
       <div class="action-toolbar-spacer"></div>
@@ -52,6 +71,12 @@
         <th class="row-fornamn">
           Förnamn
         </th>
+        <th class="row-distribution-day">
+          Utdeln.dag
+        </th>
+        <th class="row-distribution-week">
+          Utdeln.vecka
+        </th>
         <th class="row-senaste-rekvisition">
           Senaste rekvisition
         </th>
@@ -78,6 +103,17 @@
             {{patient.fornamn}}
           </a>
         </td>
+
+
+        <td>
+          {{patient.utdelDag}}
+        </td>
+
+        <td>
+          {{patient.utdelVecka}}
+        </td>
+
+
         <td>
           {{patient.pds.length > 0 ? (patient.pds[0].datum | date: 'yyyy-MM-dd') : 'Ingen ännu'}}
         </td>
@@ -119,6 +155,14 @@
       </tr>
       </tbody>
     </table>
+
+    <!--
+    <div *ngIf="response && response.content && response.content['length'] == 0 && this.query == ''" class="alert alert-info">
+      Din sökning gav inga resultat.
+    </div>
+    -->
+
+
   </mat-card-content>
 
   <mat-card-actions *ngIf="response">
