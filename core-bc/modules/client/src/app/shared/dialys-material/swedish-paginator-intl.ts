@@ -21,7 +21,9 @@ export function SwedishPaginatorIntl() {
 
   paginatorIntl.itemsPerPageLabel = 'Träffar per sida:';
   paginatorIntl.nextPageLabel = 'Nästa sida';
-  paginatorIntl.previousPageLabel = 'Föregående';
+  paginatorIntl.previousPageLabel = 'Föregående sida';
+  paginatorIntl.firstPageLabel = 'Första sidan';
+  paginatorIntl.lastPageLabel = 'Sista sidan';
   paginatorIntl.getRangeLabel = swedishRangeLabel;
 
   return paginatorIntl;
