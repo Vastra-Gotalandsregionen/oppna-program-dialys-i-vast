@@ -9,7 +9,7 @@
     </div>
 
     <div>
-      Välj grupp som artikeln ska hamna i:
+      Välj undergrupp som artikeln ska hamna i:
     </div>
 
     <ol class="article-list article-list-1">
@@ -20,11 +20,11 @@
             <a *ngIf="grupp.artikels.indexOf(data.item2move) == -1"
                (click)="data.moveArtikel(data.item2move, data.previousGrupp, grupp)">
               <mat-icon>radio_button_unchecked</mat-icon>
-              <span class="list-item-text">'{{grupp.titel}}'</span>
+              <span class="list-item-text">{{grupp.titel}}</span>
             </a>
             <span *ngIf="grupp.artikels.indexOf(data.item2move) > -1" class="selected">
               <mat-icon>radio_button_checked</mat-icon>
-              <span class="list-item-text">'{{grupp.titel}}'</span>
+              <span class="list-item-text">{{grupp.titel}}</span>
             </span>
           </li>
         </ol>
