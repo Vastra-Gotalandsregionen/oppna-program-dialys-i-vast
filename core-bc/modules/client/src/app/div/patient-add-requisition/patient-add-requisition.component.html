@@ -121,9 +121,29 @@
         <button type="submit" mat-raised-button class="btn" (click)="saveToServer()" [disabled]="saving || !editable">
           Spara rekvisition
         </button> &nbsp;
-        <button type="submit" mat-raised-button class="btn btn-secondary"(click)="skrivut()">Skriv ut</button> &nbsp;
+        <button type="button" mat-raised-button class="btn btn-secondary"(click)="skrivut()">Skriv ut</button> &nbsp;
         <!-- <button routerLink="/patienter/{{id}}" mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;-->
         <button mat-raised-button class="btn btn-secondary" (click)="avbryt()">Avbryt</button> &nbsp;
+      </div>
+
+      <div id="rekvisitionsTableWrap" [hidden]=true>
+        <mat-table #table dense [dataSource]="datasource">
+          <ng-container matColumnDef="artikel">
+            <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.artikel.namn}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="mangd">
+            <mat-header-cell *matHeaderCellDef>Mängd / frp</mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.artikel.storlek}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="artikelnr">
+            <mat-header-cell *matHeaderCellDef>Artikelnr</mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.artikel.artNr}}</mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+        </mat-table>
       </div>
 
     </mat-card-content>

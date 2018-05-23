@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
@@ -8,18 +8,19 @@ import {Pd} from "../../model/Pd";
 import {PDArtikel} from "../../model/PDArtikel";
 import {Grupp} from "../../model/Grupp";
 import {Artikel} from "../../model/Artikel";
-import {MatSnackBar} from "@angular/material";
+import {MatSnackBar, MatTableDataSource} from "@angular/material";
 import {Location} from "@angular/common";
 import {MatDialog} from "@angular/material/dialog";
 import {PatientAddRequisitionSaveDialogComponent} from "../patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component";
 import {RequisitionDataService} from "../services/requisition-data.service";
+import {Util} from "../../core/util/util";
 
 @Component({
   selector: 'app-dialys-detail',
   templateUrl: './patient-add-requisition.component.html',
   styleUrls: ['./patient-add-requisition.component.css'],
 })
-export class PatientAddRequisitionComponent implements OnInit {
+export class PatientAddRequisitionComponent implements OnInit{
 
   id: string;
   patient: Patient;
@@ -29,6 +30,8 @@ export class PatientAddRequisitionComponent implements OnInit {
   editable: boolean = false;
   displayedColumns = ['namn', 'storlek', 'artNr', 'ordination', 'maxantal'];
 
+  datasource = new MatTableDataSource<PDArtikel>();
+  displayedColumns2 = ['artikel', 'mangd', 'artikelnr'];
   @Input()
   selectedArtiklar = [];
 
@@ -243,9 +246,14 @@ export class PatientAddRequisitionComponent implements OnInit {
   }
 
   skrivut(){
-
-      this.reqdataService.pdsToPrint = this.pd;
-      this.router.navigate(['/patienter',this.patient.id, 'requisitionview']);
+    this.datasource.data= this.pd.pdArtikels;
+      //this.reqdataService.pdsToPrint = this.pd;
+     // this.router.navigate(['/patienter',this.patient.id, 'requisitionview']);
+    setTimeout(()=> {this.print('Rekvistioner', 'rekvisitionsTableWrap')})
+  }
+   print(title: string, printNodeId: string): boolean {
+    let printContents = document.getElementById(printNodeId).innerHTML;
+    return Util.print(title, printContents);
   }
 }
 
