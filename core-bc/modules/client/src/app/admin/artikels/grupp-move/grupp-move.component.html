@@ -1,5 +1,5 @@
 <h1 mat-dialog-title="">
-  Flytta grupp '{{data.item2move.titel}}' {{(data.item2move.id)?('#'+data.item2move.id):'-'}}
+  Flytta undergrupp '{{data.item2move.titel}}' {{(data.item2move.id)?('#'+data.item2move.id):'-'}}
 </h1>
 
 <div class="dialys-article-move">
@@ -7,17 +7,19 @@
   <div mat-dialog-content>
 
     <div>
-      Välj flik som gruppen ska hamna i:
+      Välj grupp som undergruppen ska hamna i:
     </div>
 
     <ol class="article-list article-list-1">
       <li *ngFor="let flik of data.flikRot.fliks">
         <a *ngIf="flik.grupps.indexOf(data.item2move) == -1"
            (click)="data.moveGrupp(data.item2move, data.previousFlik, flik)">
-           '{{flik.titel}}'
+           <mat-icon>radio_button_unchecked</mat-icon>
+           <span class="list-item-text">{{flik.titel}}</span>
          </a>
         <span *ngIf="flik.grupps.indexOf(data.item2move) > -1" class="selected">
-          '{{flik.titel}}'
+          <mat-icon>radio_button_checked</mat-icon>
+          <span class="list-item-text">{{flik.titel}}</span>
         </span>
       </li>
     </ol>
@@ -25,6 +27,6 @@
   </div>
 
   <div mat-dialog-actions>
-    <button mat-button class="btn btn-default" (click)="dialogRef.close(null)">Avbryt</button>
+    <button mat-button class="btn btn-secondary" (click)="dialogRef.close(null)">Avbryt</button>
   </div>
 </div>

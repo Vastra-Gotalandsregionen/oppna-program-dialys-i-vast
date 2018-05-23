@@ -1,6 +1,6 @@
 <mat-toolbar class="action-toolbar">
   <h1>
-    Flikar, grupper och artiklar
+    Artiklar, grupper och undergrupper
   </h1>
   <div class="action-toolbar-spacer"></div>
   <a class="action-toolbar-item" mat-fab (click)="createNewFlik()" matTooltip="Lägg till ny flik">
@@ -20,7 +20,7 @@
 
       <mat-toolbar class="action-toolbar">
         <mat-input-container>
-          <input [(ngModel)]="flik.titel" placeholder="Fliktitel" type="text" [maxlength]="20" matInput>
+          <input [(ngModel)]="flik.titel" placeholder="Gruppnamn" type="text" [maxlength]="20" matInput>
         </mat-input-container>
         <div class="action-toolbar-spacer"></div>
         <mat-checkbox [(ngModel)]="flik.aktiv">Aktiv</mat-checkbox>
@@ -39,7 +39,7 @@
           <li *ngFor="let grupp of toGruppExts(flik.grupps)">
             <mat-toolbar class="action-toolbar">
               <mat-input-container>
-                <input [(ngModel)]="grupp.titel" type="text" [maxlength]="20" matInput placeholder="Grupptitel">
+                <input [(ngModel)]="grupp.titel" type="text" [maxlength]="20" matInput placeholder="Undergruppsnamn">
               </mat-input-container>
               <button mat-button *ngIf="grupp.removeable" (click)="removeGrupp(flik, grupp)">
                 <mat-icon>delete</mat-icon>
