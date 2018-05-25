@@ -25,7 +25,7 @@
         <mat-option value="Avslutad">Avslutad</mat-option>
       </mat-select>
 
-      <mat-select class="distribution-day-select" placeholder="Utdelningsdag">
+      <mat-select class="distribution-day-select" [(value)]="utdelningsDag" placeholder="Utdelningsdag" (change)="updateState()">
         <mat-option value="">Samtliga val</mat-option>
         <mat-option value="Måndag">Måndag</mat-option>
         <mat-option value="Tisdag">Tisdag</mat-option>
@@ -36,7 +36,7 @@
         <mat-option value="Söndag">Söndag</mat-option>
       </mat-select>
 
-      <mat-select class="distribution-week-select" placeholder="Utdelningsvecka">
+      <mat-select class="distribution-week-select" [(value)]="utdelningsVecka" placeholder="Utdelningsvecka" (change)="updateState()">
         <mat-option value="">Samtliga val</mat-option>
         <mat-option value="Jämn">Jämn</mat-option>
         <mat-option value="Ojämn">Ojämn</mat-option>

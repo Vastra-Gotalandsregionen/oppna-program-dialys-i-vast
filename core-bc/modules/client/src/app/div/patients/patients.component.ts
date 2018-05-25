@@ -9,7 +9,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../core/auth/auth.service';
 import {JwtHttp} from '../../core/jwt-http';
 import {MatDialog, MatSnackBar} from "@angular/material";
-import {ConfirmDialogComponent} from "../../shared/confirm-dialog/confirm-dialog.component";
 import {StateService} from '../../core/state/state.service';
 import {Pd} from "../../model/Pd";
 import {BestInfo} from "../../model/BestInfo";
@@ -25,7 +24,7 @@ export class PatientsComponent implements OnInit {
   onlyActiveDatasCtrl: FormControl;
   status: string = 'Aktiv';
 
-  returnurl:string;
+  returnurl: string;
   query: string;
   page = 0;
   selectedPage = 1;
@@ -37,6 +36,8 @@ export class PatientsComponent implements OnInit {
 
   response: RestResponse<Patient>;
   sort: { field: string, ascending: boolean };
+  utdelningsDag: string;
+  utdelningsVecka: string;
 
   constructor(private http: JwtHttp,
               location: Location,
@@ -58,6 +59,8 @@ export class PatientsComponent implements OnInit {
       .subscribe(params => {
 
         this.query = params.query;
+        this.utdelningsVecka = params.week;
+        this.utdelningsDag = params.day;
 
         if (params.page) {
           this.page = Number(params.page);
@@ -96,7 +99,6 @@ export class PatientsComponent implements OnInit {
           });*/
 
 
-
         /*this.onlyActiveDatasCtrl.valueChanges
           .skip(1) // Skip on init
           .subscribe(value => {
@@ -104,20 +106,20 @@ export class PatientsComponent implements OnInit {
             this.updateState();
           });*/
 
-/*
-        this.onlyMyDatasCtrl.valueChanges
-          .skip(1) // Skip on init
-          .subscribe(value => {
-            this.onlyMyDatas = value;
-            this.updateState();
-          });
-*/
+        /*
+                this.onlyMyDatasCtrl.valueChanges
+                  .skip(1) // Skip on init
+                  .subscribe(value => {
+                    this.onlyMyDatas = value;
+                    this.updateState();
+                  });
+        */
 
       });
   }
 
   public filterTextChange(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode == 13) {
       this.updateState();
     }
   }
@@ -127,19 +129,18 @@ export class PatientsComponent implements OnInit {
       const queryPart = (this.query ? '&query=' + this.query : '');
       const pagePart = (this.page > 0 ? '&page=' + this.page : '');
       const sortPart = (this.sort ? '&sort=' + this.sort.field + '&asc=' + this.sort.ascending : '');
-      //const onlyMyDatasPart = (this.onlyMyDatas ? `&onlyMyDatas=${this.onlyMyDatas}` : '');
-      // const onlyActiveDatasPart = (this.onlyActiveDatas ? `&onlyActiveDatas=${this.onlyActiveDatas}` : '');
       const statusPart = (this.status ? `&status=${this.status}` : '');
-
-      let fullQueryPart = queryPart + pagePart + sortPart + /*onlyMyDatasPart +*/ statusPart;
+      const utdelningsDagPart = (this.utdelningsDag ? ('&day=' + this.utdelningsDag) : '');
+      const utdelningsVeckaPart = (this.utdelningsVecka ? ('&week=' + this.utdelningsVecka) : '');
+      let fullQueryPart = queryPart + pagePart + sortPart + statusPart + utdelningsVeckaPart + utdelningsDagPart;
 
       if (fullQueryPart.startsWith('&')) {
         fullQueryPart = fullQueryPart.substring(1);
       }
 
-      this.location.replaceState('/patients', fullQueryPart);
+      this.location.replaceState('/patienter', fullQueryPart);
     } else {
-      this.location.replaceState('/patients');
+      this.location.replaceState('/patienter');
     }
 
     this.selectedPage = this.page + 1;
@@ -191,6 +192,10 @@ export class PatientsComponent implements OnInit {
       params.set('query', this.query);
     }
 
+    if (this.query) {
+      params.set('query', this.query);
+    }
+
     if (this.sort) {
       params.set('sort', this.sort.field);
       params.set('asc', this.sort.ascending + '');
@@ -200,17 +205,19 @@ export class PatientsComponent implements OnInit {
       params.set('status', this.status + '');
     }
 
-    /*if (!this.onlyMyDatas) {
-      this.onlyMyDatas = false;
-    }*/
-    /*params.set('onlyMyDatas', this.onlyMyDatas + '');
+    if (this.utdelningsDag) {
+      params.set('day', this.utdelningsDag);
+    }
 
-    console.log(' this.onlyMyDatas: ' + this.onlyMyDatas);*/
+    if (this.utdelningsVecka) {
+      params.set('week', this.utdelningsVecka);
+    }
+
     params.set("userName", this.authService.getLoggedInUserId());
 
     const requestOptions = new RequestOptions();
     requestOptions.params = params;
-    // console.log('reguestOptions: ', requestOptions);
+
     return this.http.get('/api/patient/filter', requestOptions).map(response => response.json());
   }
 
@@ -260,18 +267,15 @@ export class PatientsComponent implements OnInit {
     return this.authService.userHasDataEditPermission(data);
   }
 
-  patientHarRekvisition(patient: Patient):boolean
-  {
+  patientHarRekvisition(patient: Patient): boolean {
     Patient.init(patient);
     patient.sortPds();
     this.patTyp = patient.typ;
-    if (this.patTyp == 'PD')
-    {
+    if (this.patTyp == 'PD') {
       this.pdRekviser = patient.pds.filter(item => item.typ == 'PD')
       return this.pdRekviser.length != 0 ? true : false;
     }
-    else if(this.patTyp == 'HD')
-    {
+    else if (this.patTyp == 'HD') {
       this.hdRekviser = patient.pds.filter(item => item.typ == 'HD')
       return this.hdRekviser.length != 0 ? true : false;
     }
@@ -285,27 +289,27 @@ export class PatientsComponent implements OnInit {
     return this.authService.isAdmin() || this.authService.getAdmin();
   }
 
-/*
-  confirmDelete(data: Patient) {
-    let dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        text: 'Är du säker att du vill ta bort vald arbetsplatskod?',
-        confirmButtonText: 'Ta bort'
-      },
-      panelClass: 'dialys-dialog'
-    });
+  /*
+    confirmDelete(data: Patient) {
+      let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          text: 'Är du säker att du vill ta bort vald arbetsplatskod?',
+          confirmButtonText: 'Ta bort'
+        },
+        panelClass: 'dialys-dialog'
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'confirm') {
-        this.http.delete('/api/data/' + data.id)
-          .subscribe(response => {
-            // console.log(response);
-            this.updateState();
-            this.snackBar.open('Lyckades spara!', null, {duration: 3000});
-          });
-      }
-    });
-  }
-*/
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'confirm') {
+          this.http.delete('/api/data/' + data.id)
+            .subscribe(response => {
+              // console.log(response);
+              this.updateState();
+              this.snackBar.open('Lyckades spara!', null, {duration: 3000});
+            });
+        }
+      });
+    }
+  */
 
 }

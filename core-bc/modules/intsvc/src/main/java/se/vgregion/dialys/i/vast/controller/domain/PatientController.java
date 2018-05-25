@@ -13,12 +13,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.SearchLog;
+import se.vgregion.dialys.i.vast.jpa.ViewLog;
 import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
 import se.vgregion.dialys.i.vast.jpa.requisitions.BestPDRad;
 import se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
 import se.vgregion.dialys.i.vast.repository.PatientRepository;
 import se.vgregion.dialys.i.vast.repository.SearchLogRepository;
+import se.vgregion.dialys.i.vast.repository.ViewLogRepository;
+import se.vgregion.dialys.i.vast.service.AuthService;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
 
@@ -27,7 +30,10 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/patient")
@@ -38,24 +44,36 @@ public class PatientController {
     @Autowired
     private PatientRepository patientRepository;
 
+    @Autowired
+    private ViewLogRepository viewLogRepository;
+
+    @Autowired
+    PatientFinder patientFinder;
+
+    @Autowired
+    SearchLogRepository searchLogRepository;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @PostConstruct
     void init() {
-        //objectMapper.addMixIn(Pd.class, PdMixin.class);
         objectMapper.addMixIn(BestInfo.class, BestInfoMixin.class);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    /*@RequestMapping(value = "", method = RequestMethod.GET)
     public List<Patient> getPatients() {
         List<Patient> result = new ArrayList<>();
         patientRepository.findAll().forEach(i -> result.add(i));
         return result;
-    }
+    }*/
 
     //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<Patient> saveUser(@RequestBody Patient patient) {
+    @Transactional
+    public ResponseEntity<Patient> save(@RequestBody Patient patient) {
+        if (patient.getId() != null) {
+            Patient previousVersion = patientRepository.getOne(patient.getId());
+        }
         return ResponseEntity.ok(patientRepository.save(patient));
     }
 
@@ -84,11 +102,12 @@ public class PatientController {
         return pageable;
     }
 
-    @Autowired
-    PatientFinder patientFinder;
-
-    @Autowired
-    SearchLogRepository searchLogRepository;
+    private boolean isBlank(String s) {
+        if (s == null) {
+            return true;
+        }
+        return s.trim().equals("");
+    }
 
     @PreAuthorize("@authService.isLoggedIn(authentication)")
     @RequestMapping(value = "filter", method = RequestMethod.GET)
@@ -98,16 +117,18 @@ public class PatientController {
                               @RequestParam(value = "userName", required = false) String userName,
                               @RequestParam(value = "status", defaultValue = "Aktiv") String status,
                               @RequestParam(value = "sort", required = false) String sort,
+                              @RequestParam(value = "week", required = false) String week,
+                              @RequestParam(value = "day", required = false) String day,
                               @RequestParam(value = "asc", required = false) boolean asc,
                               @RequestHeader(value = "Authorization") String authorization) throws JsonProcessingException {
 
         Pageable pageable = makePageable(page, sort, asc);
 
-        if (query == null || query.trim().isEmpty()) {
+        if (isBlank(query) && isBlank(week) && isBlank(day)) {
             return objectMapper.writeValueAsString(new PageImpl(new ArrayList(), pageable, 0l));
         }
 
-        String result = objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status));
+        String result = objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status, week, day));
 
         SearchLog log = new SearchLog();
         log.setDate(new Date());
@@ -119,18 +140,29 @@ public class PatientController {
         return result;
     }
 
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    /*@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") Integer patientId) {
         patientRepository.delete(patientId);
 
         return ResponseEntity.ok().build();
-    }
+    }*/
+
+    @Autowired
+    AuthService authService;
 
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Patient getPatient(@PathVariable("id") Integer id) {
+    public Patient getPatient(@PathVariable("id") Integer id, @RequestHeader(value = "Authorization") String authorization) {
+        System.out.println("authorization: " + authorization);
+        // System.out.println(JwtUtil.verify(authorization).getToken());
+
         Patient user = patientRepository.findOne(id);
+
+        ViewLog viewLog = new ViewLog();
+        viewLog.setPatientId(id);
+        viewLogRepository.save(viewLog);
+
         return user;
     }
 
@@ -144,15 +176,8 @@ public class PatientController {
         return user;
     }
 
+
     public static void main(String[] args) throws IntrospectionException {
-        //Patient patient = new Patient();
-        /*BeanInfo bi = Introspector.getBeanInfo(Patient.class);
-        PropertyDescriptor[] pds = bi.getPropertyDescriptors();
-        for (PropertyDescriptor pd : pds) {
-            System.out.println(pd.getName() + ": " + pd.getPropertyType().getSimpleName().toLowerCase() + ";");
-        }*/
-        //makeForumBuilderPropertyMapping(Patient.class, "data");
-        //makeCopyDataCode(Patient.class, "formModel", "data");
         makeTypeScriptVersion(PDArtikel.class);
     }
 

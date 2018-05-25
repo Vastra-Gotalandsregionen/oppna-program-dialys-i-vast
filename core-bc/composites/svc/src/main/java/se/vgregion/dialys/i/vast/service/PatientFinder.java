@@ -39,7 +39,7 @@ public class PatientFinder {
      * @param status
      * @return
      */
-    public Page<Patient> search(String constraints, Pageable pageable, String userName, String status) {
+    public Page<Patient> search(String constraints, Pageable pageable, String userName, String status, String utdelningsVecka, String utdelningsDag) {
         long startTime = System.currentTimeMillis();
         if (constraints == null) {
             constraints = "";
@@ -70,12 +70,16 @@ public class PatientFinder {
         }
 
         sb.append(" where ");
+
         if (!conditions.isEmpty()) {
             String jpql = String.join(" or ", conditions);
             sb.append("(");
             sb.append(jpql);
             sb.append(") and ");
         }
+
+
+
 
         User user = userRepository.findOne(userName);
         boolean worksAsPharmaceut = user != null && user.getPharmaceut() != null && user.getPharmaceut();
@@ -86,9 +90,22 @@ public class PatientFinder {
             words.add(userName);
             sb.append(" and ");
         }
+
         sb.append(" p.status = ?" + i);
         i++;
         words.add(status);
+
+        if (utdelningsDag != null && !utdelningsDag.trim().equals("")) {
+            sb.append(" and p.utdelDag = ?" + i);
+            words.add(utdelningsDag);
+            i++;
+        }
+
+        if (utdelningsVecka != null && !utdelningsVecka.trim().equals("")) {
+            sb.append(" and p.utdelVecka = ?" + i);
+            words.add(utdelningsVecka);
+            i++;
+        }
 
         String countJpql = "select count(distinct p) from "
                 + Patient.class.getSimpleName() // Pharamaceut:s can se all patients.

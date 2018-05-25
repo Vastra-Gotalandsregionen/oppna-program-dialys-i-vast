@@ -5,8 +5,10 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 
 import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
@@ -21,7 +23,7 @@ import java.util.Date;
 @Service
 public class JwtUtil {
 
-    private static String secret;
+    static String secret;
 
     @Value("${jwt.sign.secret}")
     private String jwtSignSecret;
@@ -49,6 +51,25 @@ public class JwtUtil {
                     .withClaim("sjukskoterska", sjukskoterska)
                     .withClaim("admin", admin)
                     .withClaim("pharmaceut", pharmaceut)
+                    .withIssuedAt(now)
+                    .withExpiresAt(timeAhead)
+                    .sign(Algorithm.HMAC256(secret));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static ObjectMapper objectMapper = new ObjectMapper();
+
+    public static String createToken(User user) {
+        try {
+            Date timeAhead = Date.from(Instant.now().plus(MINUTES_AGE, ChronoUnit.MINUTES));
+            Date now = Date.from(Instant.now());
+
+            return JWT.create()
+                    .withSubject(user.getUserName())
+                     //.withArrayClaim("roles", roles)
+                    .withClaim("user", objectMapper.writeValueAsString(user))
                     .withIssuedAt(now)
                     .withExpiresAt(timeAhead)
                     .sign(Algorithm.HMAC256(secret));
