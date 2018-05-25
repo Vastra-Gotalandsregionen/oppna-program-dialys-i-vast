@@ -9,6 +9,7 @@ export class User {
   mail: string;
   role: string;
   inactivated: boolean;
+  status:string = 'Aktiv';
   // Obsolete end
 
   mottagnings: Array<Mottagning> = [];

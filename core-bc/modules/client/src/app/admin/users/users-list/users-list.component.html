@@ -13,7 +13,19 @@
     <mat-form-field fxFlex="20%" >
      <input matInput type="text" placeholder="Sök" (keyup)="doSearch($event.target.value)">
     </mat-form-field>
+
+
+    <mat-form-field fxFlex="20%" fxLayoutAlign="end">
+      <mat-select [(value)]="selected" (change)="updateStatus()">
+        <mat-option value="Aktiv">Aktiv</mat-option>
+        <mat-option value="Inaktiv">Inaktiv</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
   </div>
+
+
 
   <mat-card-content>
     <mat-table #table [dataSource]="dataSources">

@@ -53,6 +53,9 @@ public class User implements Serializable {
     @Column(name = "admin")
     private Boolean admin;
 
+    @Column(name = "status")
+    private String status;
+
     @Column(name = "password_encrypted_flag")
     private Boolean passwordEncryptionFlag = false;
 
@@ -102,6 +105,14 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     /*public String getTyp() {

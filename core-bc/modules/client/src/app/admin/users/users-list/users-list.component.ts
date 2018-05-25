@@ -9,6 +9,7 @@ import {AuthService} from '../../../core/auth/auth.service';
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
 import {MatPaginator, MatTableDataSource} from "@angular/material";
+import {Subject} from "rxjs/Subject";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class UsersListComponent implements OnInit {
   dataSources = new MatTableDataSource<User>();
   displayedColumns = ['anvandare', 'namn', 'behorighet','redigera'];
   @ViewChild('page1') page1 : MatPaginator;
-
+  selected = 'Aktiv';
+  selectedChanged= new Subject();
   //usersWithoutData: string[] = [];
 
   constructor(private http: JwtHttp,
@@ -32,18 +34,19 @@ export class UsersListComponent implements OnInit {
               private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.updateUsers();
+    this.updateUsers(this.selected);
+    this.selectedChanged.subscribe(() => this.updateUsers(this.selected));
     /*this.http.get('/api/data/users').map<Response, string[]>(response => response.json())
     .subscribe(value => this.usersWithoutData = value);*/
   }
   doSearch(filterval: string){
     this.dataSources.filter = filterval;
   }
-  private updateUsers() {
+  private updateUsers(val: string) {
     this.http.get('/api/user').map<Response, User[]>(response => response.json())
       .subscribe(
         users => {
-          this.dataSources.data = users;
+          this.dataSources.data = users.filter(user => user.status == val);
           this.dataSources.paginator = this.page1;
         }
       );
@@ -61,7 +64,7 @@ export class UsersListComponent implements OnInit {
     user.inactivated = true;
     this.http.delete('/api/user/' + user.userName)
       .subscribe(response => {
-        this.updateUsers();
+        this.updateUsers(this.selected);
       });
   }
 
@@ -90,11 +93,17 @@ export class UsersListComponent implements OnInit {
         this.http.delete('/api/user/' + user.userName)
           .subscribe(response => {
             console.log(response);
-            this.updateUsers();
+            this.updateUsers(this.selected);
             //this.snackBar.open('Lyckades radera!', null, {duration: 3000});
           });
       }
     });
+  }
+
+  updateStatus()
+  {
+    //this.selected = this.selected == 'Aktiv'? 'Inaktiv': 'Aktiv';
+    this.selectedChanged.next();
   }
 
 }
