@@ -64,4 +64,28 @@ public class SearchLog extends AbstractEntity {
         this.result = result;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SearchLog)) return false;
+
+        SearchLog searchLog = (SearchLog) o;
+
+        if (id != null ? !id.equals(searchLog.id) : searchLog.id != null) return false;
+        if (date != null ? !date.equals(searchLog.date) : searchLog.date != null) return false;
+        if (userName != null ? !userName.equals(searchLog.userName) : searchLog.userName != null) return false;
+        if (filter != null ? !filter.equals(searchLog.filter) : searchLog.filter != null) return false;
+        return result != null ? result.equals(searchLog.result) : searchLog.result == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result1 = id != null ? id.hashCode() : 0;
+        result1 = 31 * result1 + (date != null ? date.hashCode() : 0);
+        result1 = 31 * result1 + (userName != null ? userName.hashCode() : 0);
+        result1 = 31 * result1 + (filter != null ? filter.hashCode() : 0);
+        result1 = 31 * result1 + (result != null ? result.hashCode() : 0);
+        return result1;
+    }
+
 }
