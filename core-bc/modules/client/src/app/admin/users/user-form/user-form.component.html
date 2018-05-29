@@ -17,6 +17,20 @@
           <input id="passWord" placeholder="Lösenord" type="password" matInput formControlName="passWord">
         </mat-input-container>
 
+        <h3>Status</h3>
+
+     <!--  <div fxLayout="column" fxLayoutGap="10px">
+          <mat-radio-button id="aktive" name="radioStatus" formControlName="radioStatus" value="Aktiv">Aktiv
+          </mat-radio-button>
+          <mat-radio-button id="Inaktive" name="radioStatus" formControlName="radioStatus" value="Inaktiv">InAktiv
+          </mat-radio-button>
+
+        </div> -->
+        <div ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">
+          <mat-checkbox id="aktiv" name="aktiv" formControlName="aktiv">Aktiv
+          </mat-checkbox>
+        </div>
+
         <h3>Behörigheter</h3>
 
         <div ngClass="{{formRef.submitted ? 'submitted' : ''}}" class="form-element">

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component,Input, OnInit} from '@angular/core';
 import {ErrorHandler} from '../../../shared/error-handler';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Response} from '@angular/http';
@@ -81,6 +81,7 @@ export class UserFormComponent implements OnInit {
       'sjukskoterska': [{value: this.user.sjukskoterska, disabled: false}, []],
       'admin': [{value: this.user.admin, disabled: false}, []],
       'pharmaceut': [{value: this.user.pharmaceut, disabled: false}, []],
+      'aktiv': [{value: this.user.status === 'Aktiv' ? true: false, disabled: false}, []],
     });
 
     let userIdField = this.userForm.get('userName');
@@ -112,6 +113,7 @@ export class UserFormComponent implements OnInit {
     this.user.pharmaceut = this.userForm.get('pharmaceut').value;
     this.user.admin = this.userForm.get('admin').value;
     this.user.sjukskoterska = this.userForm.get('sjukskoterska').value;
+    this.user.status = this.userForm.get('aktiv').value === true? 'Aktiv': 'Inaktiv';
 
     console.log('user', this.user);
     this.http.put('/api/user/', this.user)
@@ -152,8 +154,8 @@ export class UserFormComponent implements OnInit {
   };
 
   public onMottagningChecked(item: Mottagning) {
-    var index: number = -1;
-    var i: number = 0;
+    let index: number = -1;
+    let i: number = 0;
     for (const mottagning of this.user.mottagnings) {
       if (mottagning.id === item.id) {
         index = i;
