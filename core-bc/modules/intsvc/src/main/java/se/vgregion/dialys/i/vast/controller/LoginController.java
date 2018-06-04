@@ -69,6 +69,11 @@ public class LoginController {
                     if (!PasswordEncoder.getInstance().matches(loginRequest.getPassword(), user.getPassWord())) {
                         throw new FailedLoginException("Password dit not match with user i db either.");
                     }
+                    String res = user.getStatus();
+                    if(res.equals("Inaktiv")){
+                        throw new FailedLoginException( loginRequest.getUsername()+" är inte aktiv.");
+                    }
+
                 } else {
                     if (!user.getPassWord().equals(loginRequest.getPassword())) {
                         throw new FailedLoginException("Password dit not match with user i db either.");

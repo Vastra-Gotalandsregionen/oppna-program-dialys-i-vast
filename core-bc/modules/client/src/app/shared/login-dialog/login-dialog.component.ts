@@ -51,10 +51,11 @@ export class LoginDialogComponent implements OnInit {
           if (Object.getPrototypeOf(error) === Object.getPrototypeOf(new TimeoutError())) {
             this.loginMessage = 'Tidsgränsen för anropet gick ut.'
           } else if (error.status && error.status >= 400 && error.status < 500) {
-            this.loginMessage = 'Felaktiga inloggningsuppgifter';
-          } else {
+            this.loginMessage = 'Felaktiga inloggningsuppgifter /Inaktiv användare';
+          }  else {
             this.loginMessage = 'Tekniskt fel';
           }
+
 
           console.log(error);
         });
