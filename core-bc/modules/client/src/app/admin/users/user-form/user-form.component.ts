@@ -102,7 +102,7 @@ export class UserFormComponent implements OnInit {
   onMottagningChecked(mottagning: Mottagning) {
     if (this.doesUserHaveMottagning(mottagning)) {
       var i: number = 0;
-      for (const m of this.mottagnings) {
+      for (const m of this.user.mottagnings) {
         if (m.id === mottagning.id) {
           this.user.mottagnings.splice(i, 1);
           return;
