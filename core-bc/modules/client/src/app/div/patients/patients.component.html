@@ -14,34 +14,40 @@
 
     <mat-toolbar class="action-toolbar patient-search-toolbar">
 
-      <mat-input-container class="action-toolbar-item search-input-wrap" (keydown)="$event.stopPropagation();">
-        <input matInput placeholder="Skriv in personnummer eller för/efter-namn och tryck enter."
-               [formControl]="stateCtrl" [(ngModel)]="query" (keydown)="filterTextChange($event)">
-      </mat-input-container>
+      <mat-form-field class="action-toolbar-item search-input-wrap" (keydown)="$event.stopPropagation();">
+          <input matInput placeholder="Skriv in personnummer eller för/efter-namn och tryck enter."
+                 [formControl]="stateCtrl" [(ngModel)]="query" (keydown)="filterTextChange($event)" autocomplete="off">
+      </mat-form-field>
 
-      <mat-select class="status-select" [(value)]="status" placeholder="Status" (change)="updateState()">
-        <mat-option value="Aktiv">Aktiv</mat-option>
-        <mat-option value="Pausad">Pausad</mat-option>
-        <mat-option value="Avslutad">Avslutad</mat-option>
-      </mat-select>
+      <mat-form-field class="status-select-field">
+        <mat-select [(value)]="status" placeholder="Status" (change)="updateState()">
+          <mat-option value="Aktiv">Aktiv</mat-option>
+          <mat-option value="Pausad">Pausad</mat-option>
+          <mat-option value="Avslutad">Avslutad</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <mat-select class="distribution-day-select" [(value)]="utdelningsDag" placeholder="Utdelningsdag" (change)="updateState()">
-        <mat-option value="">Samtliga val</mat-option>
-        <mat-option value="Måndag">Måndag</mat-option>
-        <mat-option value="Tisdag">Tisdag</mat-option>
-        <mat-option value="Onsdag">Onsdag</mat-option>
-        <mat-option value="Torsdag">Torsdag</mat-option>
-        <mat-option value="Fredag">Fredag</mat-option>
-        <mat-option value="Lördag">Lördag</mat-option>
-        <mat-option value="Söndag">Söndag</mat-option>
-      </mat-select>
+      <mat-form-field class="distribution-day-select-field">
+        <mat-select [(value)]="utdelningsDag" placeholder="Utdelningsdag" (change)="updateState()">
+          <mat-option value="">Samtliga val</mat-option>
+          <mat-option value="Måndag">Måndag</mat-option>
+          <mat-option value="Tisdag">Tisdag</mat-option>
+          <mat-option value="Onsdag">Onsdag</mat-option>
+          <mat-option value="Torsdag">Torsdag</mat-option>
+          <mat-option value="Fredag">Fredag</mat-option>
+          <mat-option value="Lördag">Lördag</mat-option>
+          <mat-option value="Söndag">Söndag</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <mat-select class="distribution-week-select" [(value)]="utdelningsVecka" placeholder="Utdelningsvecka" (change)="updateState()">
-        <mat-option value="">Samtliga val</mat-option>
-        <mat-option value="Jämn">Jämn</mat-option>
-        <mat-option value="Ojämn">Ojämn</mat-option>
-        <mat-option value="Varje">Varje</mat-option>
-      </mat-select>
+      <mat-form-field class="distribution-week-select-field">
+        <mat-select [(value)]="utdelningsVecka" placeholder="Utdelningsvecka" (change)="updateState()">
+          <mat-option value="">Samtliga val</mat-option>
+          <mat-option value="Jämn">Jämn</mat-option>
+          <mat-option value="Ojämn">Ojämn</mat-option>
+          <mat-option value="Varje">Varje</mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <div class="action-toolbar-spacer"></div>
 
