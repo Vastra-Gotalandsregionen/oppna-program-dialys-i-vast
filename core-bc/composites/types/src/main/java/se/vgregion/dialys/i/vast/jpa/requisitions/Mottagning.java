@@ -63,6 +63,11 @@ public class Mottagning implements Serializable {
         this.id = id;
     }
 
+    public Mottagning(Integer id, String namn) {
+        this.id = id;
+        this.namn = namn;
+    }
+
     public Integer getId() {
         return id;
     }

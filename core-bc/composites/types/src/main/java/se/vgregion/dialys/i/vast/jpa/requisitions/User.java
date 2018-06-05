@@ -30,8 +30,6 @@ public class User implements Serializable {
     @Column(name = "UserName")
     private String userName;
 
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "PassWord")
     private String passWord;
@@ -45,13 +43,13 @@ public class User implements Serializable {
     private String typ;*/
 
     @Column(name = "sjukskoterska")
-    private Boolean sjukskoterska;
+    private Boolean sjukskoterska = false;
 
     @Column(name = "pharmaceut")
-    private Boolean pharmaceut;
+    private Boolean pharmaceut = false;
 
     @Column(name = "admin")
-    private Boolean admin;
+    private Boolean admin = false;
 
     @Column(name = "status")
     private String status;

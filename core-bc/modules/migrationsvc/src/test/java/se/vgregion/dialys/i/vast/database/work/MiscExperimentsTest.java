@@ -1,5 +1,6 @@
 package se.vgregion.dialys.i.vast.database.work;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import se.vgregion.arbetsplatskoder.db.migration.sql.ConnectionExt;
 
@@ -10,6 +11,7 @@ import java.util.Map;
 
 public class MiscExperimentsTest {
 
+    @Ignore
     @Test
     public void main() throws IOException {
         ConnectionExt con = AbstractDatabaseCopy.getTargetConnection();

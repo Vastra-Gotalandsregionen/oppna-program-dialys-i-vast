@@ -14,8 +14,9 @@ import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Patrik Björk
@@ -35,7 +36,7 @@ public class JwtUtil {
         secret = jwtSignSecret;
     }
 
-    public static String createToken(String userName, String displayName, Boolean sjukskoterska, Boolean admin, Boolean pharmaceut, String[] roles) {
+    public static String createTokenOld(String userName, String displayName, Boolean sjukskoterska, Boolean admin, Boolean pharmaceut, String[] roles) {
         try {
             Date timeAhead = Date.from(Instant.now().plus(MINUTES_AGE, ChronoUnit.MINUTES));
             Date now = Date.from(Instant.now());
@@ -66,16 +67,38 @@ public class JwtUtil {
             Date timeAhead = Date.from(Instant.now().plus(MINUTES_AGE, ChronoUnit.MINUTES));
             Date now = Date.from(Instant.now());
 
+            List<String> roles = new ArrayList<>();
+            if (noValueIsFalse(user.getSjukskoterska())) {
+                roles.add("sjukskoterska");
+            }
+            if (noValueIsFalse(user.getAdmin())) {
+                roles.add("admin");
+            }
+            if (noValueIsFalse(user.getPharmaceut())) {
+                roles.add("pharmaceut");
+            }
+
             return JWT.create()
                     .withSubject(user.getUserName())
-                     //.withArrayClaim("roles", roles)
-                    .withClaim("user", objectMapper.writeValueAsString(user))
+                    .withArrayClaim("roles", toTextArray(roles))
+                    // .withClaim("user", (String)objectMapper.writeValueAsString(user))
+                    .withClaim("pharmaceut", noValueIsFalse(user.getPharmaceut()))
+                    .withClaim("sjukskoterska", noValueIsFalse(user.getSjukskoterska()))
+                    .withClaim("admin", noValueIsFalse(user.getAdmin()))
                     .withIssuedAt(now)
                     .withExpiresAt(timeAhead)
                     .sign(Algorithm.HMAC256(secret));
         } catch (Exception e) {
+
             throw new RuntimeException(e);
         }
+    }
+
+    private static boolean noValueIsFalse(Boolean thatMightBeNull) {
+        if (thatMightBeNull == null) {
+            return false;
+        }
+        return thatMightBeNull;
     }
 
     public static DecodedJWT verify(String jwtToken) throws JWTVerificationException {
@@ -86,4 +109,14 @@ public class JwtUtil {
             throw new RuntimeException(e);
         }
     }
+
+    private static String[] toTextArray(List<String> that) {
+        String[] result = new String[that.size()];
+        int i = 0;
+        for (String s : that) {
+            result[i++] = s;
+        }
+        return result;
+    }
+
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Mottagning;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,20 +15,21 @@ public class JwtUtilTest {
     @Test
     public void main() {
         JwtUtil.secret = "hejsan";
-        String token = JwtUtil.createToken(
-                "foo",
-                "bar",
-                true,
-                true,
-                true,
-                null);
+
+        User user = new User();
+        user.setName("userName");
+        user.setMottagnings(new HashSet<>(Arrays.asList(new Mottagning(1,"Hiertat"))));
+        user.setName("John Doe");
+        user.setAdmin(true);
+        user.setPharmaceut(true);
+        user.setSjukskoterska(true);
+
+        String token = JwtUtil.createToken(user);
 
         System.out.println(token);
 
         DecodedJWT auth = JwtUtil.verify(token);
-        /*for (String aud : auth.getAudience()) {
-            System.out.println(" " + aud);
-        }*/
+
         for (String key : auth.getClaims().keySet()) {
             Claim v = auth.getClaim(key);
             System.out.println(" " + key + " = " + v.asString());
@@ -45,6 +47,7 @@ public class JwtUtilTest {
         user.setName("name");
         user.setAdmin(true);
         user.setSjukskoterska(true);
+        user.setPharmaceut(false);
 
         Set<Mottagning> mottagnings = new HashSet<>();
         Mottagning m1 = new Mottagning();

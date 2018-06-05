@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import se.vgregion.dialys.i.vast.jpa.AbstractEntity;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.repository.MottagningRepository;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
@@ -24,11 +25,15 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getUsers() {
+    public List<User> getUsers(@RequestParam(value = "userNameFilter", required = false) String userNameFilter) {
+        System.out.println("userNameFilter: " + userNameFilter);
+        if (userNameFilter != null && !"".equals(userNameFilter.trim())) {
+            return userRepository.findAllByUserName(userNameFilter);
+        }
         return userRepository.findAllByOrderByUserName();
     }
 
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<User> save(@RequestBody User user) {
         //System.out.println(user.getAnstallnings());
@@ -39,7 +44,7 @@ public class UserController {
     protected ResponseEntity<User> saveUserImp(@RequestBody User user) {
         User fromDb = userRepository.findOne(user.getUserName());
         if (fromDb != null) {
-            if (!fromDb.getPassWord().equals(user.getPassWord())) {
+            if (!AbstractEntity.equals(fromDb.getPassWord(), user.getPassWord())) {
                 user.setPasswordEncryptionFlag(false);
             }
         }
@@ -47,7 +52,7 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findOne(user.getUserName()));
     }
 
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "/{userName}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteUser(@PathVariable("userName") String userName) {
         userRepository.delete(userName);

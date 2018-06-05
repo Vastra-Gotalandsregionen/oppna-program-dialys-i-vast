@@ -1,16 +1,4 @@
 
-CREATE TABLE _user (
-    id character varying(255) NOT NULL,
-    displayname character varying(255),
-    firstname character varying(255),
-    inactivated boolean,
-    lastname character varying(255),
-    mail character varying(255),
-    role character varying(255),
-    thumbnailphoto bytea
-);
-
-
 --
 -- TOC entry 186 (class 1259 OID 48242)
 -- Name: ansvarig; Type: TABLE; Schema: public; Owner: -
@@ -871,7 +859,7 @@ ALTER SEQUENCE ticket_id_seq OWNED BY ticket.id;
 CREATE TABLE users (
     /*id integer NOT NULL,*/
     name character varying(255),
-    password character varying(255) NOT NULL,
+    password character varying(255),
     typ character varying(255),
     username character varying(255) NOT NULL,
     password_encrypted_flag boolean default false
@@ -1115,16 +1103,6 @@ ALTER TABLE ONLY ticket ALTER COLUMN id SET DEFAULT nextval('ticket_id_seq'::reg
 --
 
 ALTER TABLE ONLY usersroles ALTER COLUMN id SET DEFAULT nextval('usersroles_id_seq'::regclass);
-
-
---
--- TOC entry 2177 (class 2606 OID 48218)
--- Name: _user_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY _user
-    ADD CONSTRAINT _user_pkey PRIMARY KEY (id);
-
 
 --
 -- TOC entry 2185 (class 2606 OID 48247)

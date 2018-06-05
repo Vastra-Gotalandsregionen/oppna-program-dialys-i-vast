@@ -29,7 +29,7 @@ public class PostDeployWork {
         target.execute("update flik set aktiv = false where titel is null or titel = '' or titel = 'Obsoleta varor'");
         target.commit();
 
-        target.execute("update pd set typ = 'HD'");
+        target.execute("update pd set typ = 'PD'");
         target.commit();
 
         target.update("update patient set typ = 'PD' where id in \n" +

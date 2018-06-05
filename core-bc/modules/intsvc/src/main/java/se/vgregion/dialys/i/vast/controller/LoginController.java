@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import se.vgregion.dialys.i.vast.jpa.AbstractEntity;
 import se.vgregion.dialys.i.vast.jpa.requisitions.User;
 import se.vgregion.dialys.i.vast.json.LoginRequest;
 import se.vgregion.dialys.i.vast.repository.UserRepository;
@@ -19,13 +21,8 @@ import se.vgregion.dialys.i.vast.service.JwtUtil;
 import se.vgregion.dialys.i.vast.service.LdapLoginService;
 import se.vgregion.dialys.i.vast.util.PasswordEncoder;
 
-import javax.security.auth.login.FailedLoginException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
-/**
- * @author Patrik Björk
- */
 @Controller
 @RequestMapping("/login")
 public class LoginController {
@@ -46,54 +43,51 @@ public class LoginController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        try {
-            User user = null;
-            if (request.getHeader("iv-user") != null) {
-                user = ldapLoginService.loginOffline(request.getHeader("iv-user"));
-            } else {
-                user = ldapLoginService.login(loginRequest.getUsername(), loginRequest.getPassword());
-                /*if (user.getInactivated() != null && user.getInactivated()) {
-                    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-                }*/
-            }
-            String[] roles = getRoles(user);
-            String token = JwtUtil.createToken(user.getUserName(), user.getName(), user.getSjukskoterska(), user.getAdmin(), user.getPharmaceut(), roles);
-            return ResponseEntity.ok(token);
-        } catch (Exception e) {
-            try {
-                User user = userRepository.findOne(loginRequest.getUsername());
-                if (user == null) {
-                    throw new FailedLoginException("No such user: " + loginRequest.getUsername());
-                }
-                if (user.getPasswordEncryptionFlag()) {
-                    if (!PasswordEncoder.getInstance().matches(loginRequest.getPassword(), user.getPassWord())) {
-                        throw new FailedLoginException("Password dit not match with user i db either.");
-                    }
-                    String res = user.getStatus();
-                    if(res.equals("Inaktiv")){
-                        throw new FailedLoginException( loginRequest.getUsername()+" är inte aktiv.");
-                    }
+        User fromLdap = ldapLoginService.login(loginRequest.getUsername(), loginRequest.getPassword());
+        User fromDb = userRepository.findOne(loginRequest.getUsername());
 
-                } else {
-                    if (!user.getPassWord().equals(loginRequest.getPassword())) {
-                        throw new FailedLoginException("Password dit not match with user i db either.");
-                    } else {
-                        user.setPassWord(PasswordEncoder.getInstance().encodePassword(user.getPassWord()));
-                        user.setPasswordEncryptionFlag(true);
-                        userRepository.save(user);
-                    }
-                }
-                String[] roles = getRoles(user);
-                String token = JwtUtil.createToken(user.getUserName(), user.getName(), user.getSjukskoterska(), user.getAdmin(), user.getPharmaceut(), roles);
+        if (fromDb != null) {
+            if (!AbstractEntity.equals("Aktiv", fromDb.getStatus())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+            if (fromLdap != null) {
+                String token = JwtUtil.createToken(fromDb);
+                syncUserInformation(fromLdap, fromDb);
                 return ResponseEntity.ok(token);
-            } catch (Exception fle) {
-                LOGGER.warn(e.getClass().getCanonicalName() + " - " + e.getMessage());
-                LOGGER.warn(fle.getClass().getCanonicalName() + " - " + fle.getMessage());
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            } else {
+                return loginWithLocalUser(loginRequest, fromDb);
             }
         }
 
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+
+    @Transactional
+    ResponseEntity<String> loginWithLocalUser(LoginRequest loginRequest, User user) {
+        if (user.getPasswordEncryptionFlag()) {
+            if (!PasswordEncoder.getInstance().matches(loginRequest.getPassword(), user.getPassWord())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } else {
+            if (!AbstractEntity.equals(user.getPassWord(), loginRequest.getPassword())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            } else {
+                user.setPassWord(PasswordEncoder.getInstance().encodePassword(user.getPassWord()));
+                user.setPasswordEncryptionFlag(true);
+                userRepository.save(user);
+            }
+        }
+        return ResponseEntity.ok(JwtUtil.createToken(user));
+    }
+
+    @Transactional
+    void syncUserInformation(User fromLdapVersion, User toDbVersion) {
+        if (!AbstractEntity.equals(fromLdapVersion.getName(), toDbVersion.getName())) {
+            toDbVersion.setName(fromLdapVersion.getName());
+            userRepository.save(toDbVersion);
+        }
+    }
+
 
     @RequestMapping(value = "/renew", method = RequestMethod.POST)
     public ResponseEntity<String> renewJwt(@RequestBody String jwt) {
@@ -103,9 +97,11 @@ public class LoginController {
 
             User user = userRepository.findOne(decodedJWT.getSubject());
 
-            String[] roles = getRoles(user);
+            // String[] roles = getRoles(user);
 
-            String token = JwtUtil.createToken(user.getUserName(), user.getName(), user.getSjukskoterska(), user.getAdmin(), user.getPharmaceut(), roles);
+            // String token = JwtUtil.createToken(user.getUserName(), user.getName(), user.getSjukskoterska(), user.getAdmin(), user.getPharmaceut(), roles);
+
+            String token = JwtUtil.createToken(user);
 
             return ResponseEntity.ok(token);
         } catch (JWTVerificationException e) {
@@ -114,7 +110,7 @@ public class LoginController {
 
     }
 
-    String[] getRoles(User user) {
+    private String[] getRoles(User user) {
         return new String[]{
                 "ADMIN"
         };
@@ -129,6 +125,7 @@ public class LoginController {
         return roles;*/
     }
 
+/*
     @RequestMapping(value = "/impersonate", method = RequestMethod.POST)
     public ResponseEntity<String> impersonate(@RequestBody User userToImpersonate) {
 
@@ -165,4 +162,5 @@ public class LoginController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+*/
 }
