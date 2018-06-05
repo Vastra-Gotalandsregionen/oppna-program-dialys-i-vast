@@ -1,5 +1,6 @@
 package se.vgregion.dialys.i.vast.controller.domain;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,7 @@ import se.vgregion.dialys.i.vast.repository.PatientRepository;
 import se.vgregion.dialys.i.vast.repository.SearchLogRepository;
 import se.vgregion.dialys.i.vast.repository.ViewLogRepository;
 import se.vgregion.dialys.i.vast.service.AuthService;
+import se.vgregion.dialys.i.vast.service.JwtUtil;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
 import se.vgregion.dialys.i.vast.util.ReflectionUtil;
 
@@ -155,12 +157,15 @@ public class PatientController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Patient getPatient(@PathVariable("id") Integer id, @RequestHeader(value = "Authorization") String authorization) {
         System.out.println("authorization: " + authorization);
-        // System.out.println(JwtUtil.verify(authorization).getToken());
+        //System.out.println(JwtUtil.verify(authorization).getToken());
+        // DecodedJWT v = JwtUtil.verify(authorization);
+        // System.out.println(v.getSubject());
 
         Patient user = patientRepository.findOne(id);
 
         ViewLog viewLog = new ViewLog();
         viewLog.setPatientId(id);
+        // viewLog.setUserName(v.getSubject());
         viewLogRepository.save(viewLog);
 
         return user;

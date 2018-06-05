@@ -67,7 +67,12 @@ public class JwtUtilTest {
             Claim v = auth.getClaim(key);
             System.out.println(" " + key + " = " + v.asString());
         }
-        System.out.println(auth);
+        System.out.println(auth.getSubject());
+    }
+
+    @Test
+    public void foo() {
+
     }
 
 }

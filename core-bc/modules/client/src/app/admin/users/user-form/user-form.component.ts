@@ -17,8 +17,6 @@ export class UserFormComponent implements OnInit {
 
   user: User = new User();
 
-  userNames: Array<String> = [];
-
   inCreationMode: boolean = true;
   // If the user selected to make a new user and not edit an existing.
   demandPassword: boolean = true;
@@ -35,8 +33,6 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('userName: ' + this.userName);
-    console.log('this.user.userName: ' + this.user.userName);
     if (this.userName) {
       this.inCreationMode = false;
       this.http.get('/api/user/' + this.userName).map(response => response.json()).subscribe(
@@ -47,8 +43,8 @@ export class UserFormComponent implements OnInit {
         }
       );
     } else {
-      console.log('This is a new user!');
       this.user = new User();
+      this.user.status = 'Aktiv';
     }
 
     this.http.get('/api/mottagning').map(response => response.json()).subscribe(
@@ -57,39 +53,13 @@ export class UserFormComponent implements OnInit {
       }
     );
 
-    this.http.get('/api/user/').map(response => response.json()).subscribe(
-      (us: Array<User>) => {
-        console.log('u', us);
-        us.forEach(u => this.userNames.push(u.userName));
-      }
-    );
-
-
   }
 
   save() {
-    var error: string;
-    if (!this.user.userName || this.user.userName.trim() == '') {
-      error += '\nAnvändarnamn för inte vara tomt.';
-    }
-
-    if (this.inCreationMode) {
-
-    } else {
-
-    }
-
     this.http.put('/api/user/', this.user)
       .subscribe(result => {
         this.router.navigate(['/admin/users']);
       });
-
-    console.log(error);
-  }
-
-
-  checkPasswordNeed() {
-    console.log('checkPasswordNeed');
   }
 
   doesUserHaveMottagning(mottagning: Mottagning): boolean {
@@ -122,22 +92,17 @@ export class UserFormComponent implements OnInit {
     } else {
       this.user.status = 'Inaktiv';
     }
-    console.log('onStatusClick', this.user);
   }
 
   userNameChange($event) {
-    console.log("$event", $event);
     if (this.user.userName)
       this.http.get('/api/ad/' + this.user.userName).map(response => response.json()).subscribe(
         (us: Array<User>) => {
-          console.log("us", us);
           if (us.length > 0) {
             this.user.passWord = '';
             this.demandPassword = false;
-            console.log("Us 1", us);
           } else {
             this.demandPassword = true;
-            console.log("Us 2", us);
           }
         }
       );
@@ -145,7 +110,6 @@ export class UserFormComponent implements OnInit {
     if (this.inCreationMode)
       this.http.get('/api/user?userNameFilter=' + this.user.userName).map(response => response.json()).subscribe(
         (us: Array<User>) => {
-          console.log('u', us);
           this.userNameClash = us.length > 0;
         }
       );

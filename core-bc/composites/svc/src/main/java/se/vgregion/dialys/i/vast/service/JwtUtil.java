@@ -85,6 +85,7 @@ public class JwtUtil {
                     .withClaim("pharmaceut", noValueIsFalse(user.getPharmaceut()))
                     .withClaim("sjukskoterska", noValueIsFalse(user.getSjukskoterska()))
                     .withClaim("admin", noValueIsFalse(user.getAdmin()))
+                    .withClaim("displayName", user.getName())
                     .withIssuedAt(now)
                     .withExpiresAt(timeAhead)
                     .sign(Algorithm.HMAC256(secret));
