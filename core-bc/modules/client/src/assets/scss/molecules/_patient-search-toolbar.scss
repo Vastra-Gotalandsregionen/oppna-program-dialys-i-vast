@@ -1,20 +1,28 @@
 .patient-search-toolbar {
 
+  .mat-form-field {
+    .mat-form-field-infix {
+      width: 100%;
+    }
+  }
+
+  .status-select-field {
+    width: 15%;
+  }
+
+  .distribution-day-select-field {
+    margin-left: 10px;
+    width: 15%;
+  }
+
+  .distribution-week-select-field {
+    margin-left: 10px;
+    width: 15%;
+  }
+
   .search-input-wrap {
+    margin-left: 10px;
     width: 55%;
   }
-
-  .status-select {
-    width: 15%;
-  }
-
-  .distribution-day-select {
-    width: 15%;
-  }
-
-  .distribution-week-select {
-    width: 15%;
-  }
-
 
 }
