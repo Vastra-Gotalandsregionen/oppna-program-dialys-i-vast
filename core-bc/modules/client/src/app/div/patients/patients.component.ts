@@ -88,7 +88,7 @@ export class PatientsComponent implements OnInit {
         }*/
 
 
-        this.fetchDatas();
+        //this.fetchDatas();
 
         /*this.stateCtrl.valueChanges
           .skip(1) // Skip on init
