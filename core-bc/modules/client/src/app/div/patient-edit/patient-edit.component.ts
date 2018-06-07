@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Patient} from "../../model/Patient";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JwtHttp} from "../../core/jwt-http";
@@ -35,6 +35,8 @@ export class PatientEditComponent implements OnInit {
   @ViewChild('postNrInput') postNrInput: ElementRef;
   @ViewChild('postOrtInput') postOrtInput: ElementRef;
   @ViewChild('portkodInput') portkodInput: ElementRef;
+
+  tempAdressFromValue: Date;
 
   // 4
   @ViewChildren('tempAdressFrom') tempAdressFrom: ElementRef;
@@ -137,7 +139,6 @@ export class PatientEditComponent implements OnInit {
     }
     this.http.put('/api/patient', this.patient).map(response => response.json()).subscribe(
       (updated: Patient) => {
-        console.log('Saved', updated);
         this.snackBar.open('Lyckades spara!', null, {duration: 3000})
           .afterDismissed().subscribe(() => {
           if (!this.patient.id) {
@@ -237,5 +238,14 @@ export class PatientEditComponent implements OnInit {
       }
     );
   }
+
+  public toDate(src): Date {
+    var time = Date.parse(src);
+    if (isNaN(time) == false) {
+      return new Date(time);
+    }
+    return null;
+  }
+
 
 }

@@ -181,13 +181,14 @@
             <div class="dialys-form-field">
               <mat-input-container>
                 <input #tempAdressFrom
-                       id="tempAdressFrom"
-                       [ngModel]="patient.tempAdressFrom | date: 'yyyy-MM-dd'"
+                       [value]="patient.tempAdressFrom | date: 'yyyy-MM-dd'"
                        placeholder="Från och med"
                        type="date" matInput
                        [disabled]="!authService.getSjukskoterska()"
+                       (blur)="patient.tempAdressFrom = toDate($event.srcElement.value)"
                 >
               </mat-input-container>
+
             </div>
           </div>
 
@@ -195,15 +196,15 @@
             <div class="dialys-form-field">
               <mat-input-container>
                 <input id="tempAdressTom" #tempAdressTomInput
-                       [ngModel]="patient.tempAdressTom | date: 'yyyy-MM-dd'"
+                       [value]="patient.tempAdressTom | date: 'yyyy-MM-dd'"
                        placeholder="Till och med"
                        type="date" matInput
                        [disabled]="!authService.getSjukskoterska()"
+                       (blur)="patient.tempAdressTom = toDate($event.srcElement.value)"
                 >
               </mat-input-container>
             </div>
           </div>
-
 
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
