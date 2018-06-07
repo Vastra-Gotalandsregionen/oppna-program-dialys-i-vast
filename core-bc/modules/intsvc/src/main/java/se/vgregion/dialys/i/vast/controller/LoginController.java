@@ -53,6 +53,7 @@ public class LoginController {
             if (fromLdap != null) {
                 String token = JwtUtil.createToken(fromDb);
                 syncUserInformation(fromLdap, fromDb);
+                // System.out.println("Login-Token is " + token);
                 return ResponseEntity.ok(token);
             } else {
                 return loginWithLocalUser(loginRequest, fromDb);

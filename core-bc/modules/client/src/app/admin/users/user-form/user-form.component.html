@@ -4,17 +4,18 @@
     <mat-card-content>
 
       <mat-input-container>
-        <input id="userName" placeholder="Användarnamn" type="text" matInput [(ngModel)]="user.userName"
-               [disabled]="!inCreationMode" (change)="userNameChange($event)">
+        <input id="userNameInput" placeholder="Användarnamn" type="text" matInput [(ngModel)]="user.userName"
+               [disabled]="!inCreationMode" (change)="userNameChange($event)" autocomplete="off">
       </mat-input-container>
       <div *ngIf="userNameClash" style="color: darkorange;">
         Användarnamnet är upptaget
       </div>
       <mat-input-container>
-        <input id="name" [required]="demandPassword" placeholder="Namn" type="text" matInput [(ngModel)]="user.name" autocomplete="off">
+        <input id="nameInput" [required]="demandPassword" placeholder="Namn" type="text" matInput [(ngModel)]="user.name" autocomplete="off"
+               autocomplete="off">
       </mat-input-container>
       <mat-input-container *ngIf="demandPassword">
-        <input id="passWord" [required]="demandPassword" placeholder="Lösenord" type="password" matInput [(ngModel)]="user.passWord">
+        <input id="passWordInput" [required]="demandPassword" placeholder="Lösenord" type="password" matInput [(ngModel)]="user.passWord" autocomplete="off">
       </mat-input-container>
 
       <h3>Status</h3>

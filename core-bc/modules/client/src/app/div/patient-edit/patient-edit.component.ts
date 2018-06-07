@@ -5,6 +5,7 @@ import {JwtHttp} from "../../core/jwt-http";
 import {Mottagning} from "../../model/Mottagning";
 import {MatCheckbox, MatSnackBar} from "@angular/material";
 import {AuthService} from "../../core/auth/auth.service";
+import {User} from "../../model/user";
 
 @Component({
   selector: 'app-patient-edit',
@@ -62,6 +63,7 @@ export class PatientEditComponent implements OnInit {
   // 9
   @ViewChildren('statusInput') statusInput
 
+  private user: User;
 
   constructor(private route: ActivatedRoute,
               private http: JwtHttp,
@@ -71,10 +73,6 @@ export class PatientEditComponent implements OnInit {
 
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
-
   ngOnInit() {
     this.patient = new Patient();
     const id = this.route.snapshot.paramMap.get('id');
@@ -82,6 +80,12 @@ export class PatientEditComponent implements OnInit {
       this.fetchReferencedData();
     else
       this.fetchData(id);
+
+    this.http.get('/api/user/' + this.authService.getLoggedInUserId()).map(response => response.json()).subscribe(
+      (u: User) => {
+        this.user = u;
+      }
+    );
   }
 
   fetchData(id: string) {
@@ -101,8 +105,34 @@ export class PatientEditComponent implements OnInit {
       });
   }
 
+  checkMottagningsRequirements(): boolean {
+    const patientMottganingsIds: Array<number> = [];
+    const userMottganingsIds: Array<number> = [];
+    this.user.mottagnings.forEach(i => userMottganingsIds.push(i.id));
+    this.patient.mottagnings.forEach(i => patientMottganingsIds.push(i.id));
+    for (const patsId of patientMottganingsIds) {
+      if (userMottganingsIds.indexOf(patsId) > -1) {
+        return true;
+      }
+    }
+
+    this.snackBar.open('Du måste ha minst en mottagning gemensam med patienten.', null, {duration: 3000});
+    setTimeout(() => {
+      const domNode: HTMLElement = this.mottagningsHead.nativeElement;
+      if (domNode.scrollIntoView)
+        domNode.scrollIntoView();
+      if (domNode.focus)
+        domNode.focus();
+    }, 3000);
+
+    return false;
+  }
+
   saveToServerSide() {
     if (!this.checkRequiredFields()) {
+      return;
+    }
+    if (!this.checkMottagningsRequirements()) {
       return;
     }
     this.http.put('/api/patient', this.patient).map(response => response.json()).subscribe(
