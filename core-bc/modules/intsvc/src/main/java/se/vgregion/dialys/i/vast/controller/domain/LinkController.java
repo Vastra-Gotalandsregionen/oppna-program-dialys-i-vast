@@ -26,7 +26,7 @@ public class LinkController {
         return linkRepository.findAllByOrderById();
     }
 
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<Link> saveLink(@RequestBody Link link) {
         return ResponseEntity.ok(linkRepository.save(link));

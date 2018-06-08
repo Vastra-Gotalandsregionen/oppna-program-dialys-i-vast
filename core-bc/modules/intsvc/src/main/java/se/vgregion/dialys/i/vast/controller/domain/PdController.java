@@ -31,7 +31,7 @@ public class PdController {
         return result;
     }
 
-    //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    //@PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @Transactional
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<Pd> save(@RequestBody Pd pd) {
@@ -59,7 +59,7 @@ public class PdController {
         return ResponseEntity.ok(pdRepository.save(pd));
     }
 
-    /*@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")*/
+    /*@PreAuthorize("@authService.hasRole(authentication, 'admin')")*/
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") Integer patientId) {
         pdRepository.delete(patientId);

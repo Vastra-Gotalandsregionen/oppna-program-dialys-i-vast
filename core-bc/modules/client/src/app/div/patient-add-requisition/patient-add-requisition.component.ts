@@ -198,7 +198,7 @@ export class PatientAddRequisitionComponent implements OnInit{
       .share();
     $data.subscribe((pd: Pd) => {
       this.snackBar.open('Lyckades spara!', null, {duration: 3000}).afterDismissed().subscribe(() => {
-        this.location.back();
+        this.router.navigate(['/patienter', this.patient.id]);
       });
       this.saving = false;
     });

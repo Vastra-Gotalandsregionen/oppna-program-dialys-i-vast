@@ -23,14 +23,14 @@ public class MottagningController {
         return mottagningRepository.findAll();
     }
 
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         mottagningRepository.delete(id);
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<Void> save(@RequestBody Mottagning mottagning) {
         mottagningRepository.save(mottagning);

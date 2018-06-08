@@ -29,7 +29,7 @@ public class ContentController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     public ResponseEntity<Content> saveContent(@RequestBody Content content) {
         return ResponseEntity.ok(contentRepository.save(content));
     }

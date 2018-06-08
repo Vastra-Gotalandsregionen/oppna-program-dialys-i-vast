@@ -30,14 +30,14 @@ public class FlikController {
         return result;
     }
 
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "save", method = RequestMethod.PUT)
     public ResponseEntity<Flik> save(@RequestBody Flik mottagning) {
         Flik saved = flikRepository.save(mottagning);
         return ResponseEntity.ok(saved);
     }
 
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "list", method = RequestMethod.PUT)
     public ResponseEntity<List<Flik>> save(@RequestBody List<Flik> fliks) {
         List<Flik> saved = flikRepository.save(fliks);

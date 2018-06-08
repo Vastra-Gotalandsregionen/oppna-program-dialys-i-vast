@@ -34,7 +34,7 @@ public class BestInfoController {
         return bestRadRepository.getBestArtikelRads(id);
     }*/
 
-    //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    //@PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<BestInfo> save(@RequestBody BestInfo bestInfo) {
         for (BestPDRad bestPDRad : bestInfo.getBestPDRads()) {

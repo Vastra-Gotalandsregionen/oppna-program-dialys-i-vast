@@ -122,7 +122,7 @@ export class AuthService {
     /*const token = this.getToken();
     if (token) {
       const roles = <string[]>token.roles;
-      return roles.indexOf('ADMIN') > -1;
+      return roles.indexOf('admin') > -1;
     }
 
     return false;*/

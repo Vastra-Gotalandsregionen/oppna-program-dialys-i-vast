@@ -69,7 +69,7 @@ public class PatientController {
         return result;
     }*/
 
-    //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    //@PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @Transactional
     public ResponseEntity<Patient> save(@RequestBody Patient patient) {
@@ -142,7 +142,7 @@ public class PatientController {
         return result;
     }
 
-    /*@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    /*@PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") Integer patientId) {
         patientRepository.delete(patientId);

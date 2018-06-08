@@ -110,6 +110,9 @@ export class PatientEditComponent implements OnInit {
   }
 
   checkMottagningsRequirements(): boolean {
+    if (this.authService.getPharmaceut()) {
+      return true;
+    }
     const patientMottganingsIds: Array<number> = [];
     const userMottganingsIds: Array<number> = [];
     this.user.mottagnings.forEach(i => userMottganingsIds.push(i.id));

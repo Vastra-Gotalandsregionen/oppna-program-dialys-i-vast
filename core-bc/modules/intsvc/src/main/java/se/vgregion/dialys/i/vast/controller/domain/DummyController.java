@@ -52,7 +52,7 @@ public class DummyController {
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @ResponseBody
-    @PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     public ResponseEntity<Dummy> saveAo3(@RequestBody Dummy dummy) {
 
         if (dummy.getId() == null) {

@@ -47,7 +47,7 @@ public class FlikRotController {
         return flikRotRepository.fetch(id);
     }
 
-    //@PreAuthorize("@authService.hasRole(authentication, 'ADMIN')")
+    //@PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @Transactional
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.PUT)
