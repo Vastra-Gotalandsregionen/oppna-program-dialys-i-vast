@@ -35,6 +35,12 @@
             <mat-icon class="dialys-form-field-help" matTooltip="Hjälptext här.">help</mat-icon>
           </div>
 
+          <div *ngIf="!canBeSaved" class="dialys-form-field-ctn">
+            <div class="dialys-form-field" style="color: darkorange">
+              Personnummer finns redan.
+            </div>
+          </div>
+
           <div class="dialys-form-field-ctn">
             <div class="dialys-form-field">
               <mat-input-container>
@@ -442,7 +448,7 @@
       <div class="col c9">
         <div class="col-inner">
           <div class="btn-container">
-            <button type="submit" mat-raised-button class="btn"
+            <button type="submit" mat-raised-button class="btn" [disabled]="!canBeSaved"
                     (click)="saveToServerSide()">Spara patient
             </button> &nbsp;
             <button type="submit" mat-raised-button class="btn btn-secondary" onclick="window.history.back();">

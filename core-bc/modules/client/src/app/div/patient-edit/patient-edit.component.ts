@@ -67,6 +67,8 @@ export class PatientEditComponent implements OnInit {
 
   private user: User;
 
+  canBeSaved: boolean = true;
+
   constructor(private route: ActivatedRoute,
               private http: JwtHttp,
               private router: Router,
@@ -126,7 +128,6 @@ export class PatientEditComponent implements OnInit {
       if (domNode.focus)
         domNode.focus();
     }, 3000);
-
     return false;
   }
 
@@ -232,7 +233,9 @@ export class PatientEditComponent implements OnInit {
       return;
     this.http.get('/api/patient/pnr/' + this.patient.pnr, this.patient.pnr).map(response => response.json()).subscribe(
       (p: Patient) => {
+        this.canBeSaved = true;
         if (p.id) {
+          this.canBeSaved = false;
           this.abortShowErrorAndFocus("Personnummer finns redan!", this.pnrInput);
         }
       }

@@ -135,8 +135,6 @@ public class PatientFinder {
 
         leavJustOnePdAndBestInfo(result);
 
-        System.out.println("Time to search " + (System.currentTimeMillis() - startTime));
-
         return result;
     }
 

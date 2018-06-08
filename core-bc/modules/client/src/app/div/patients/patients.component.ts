@@ -74,47 +74,6 @@ export class PatientsComponent implements OnInit {
         if (params.sort) {
           this.sort = {field: params.sort, ascending: params.asc === 'true'}
         }
-
-        /*if (params.onlyActiveDatas) {
-          this.onlyActiveDatas = params.onlyActiveDatas === 'true';
-        } else {
-          //this.onlyActiveDatas = this.loggedIn;
-        }*/
-
-        /*if (params.onlyMyDatas) {
-          this.onlyMyDatas = params.onlyMyDatas === 'true';
-        } else {
-          //this.onlyMyDatas = this.loggedIn;
-        }*/
-
-
-        //this.fetchDatas();
-
-        /*this.stateCtrl.valueChanges
-          .skip(1) // Skip on init
-          .debounceTime(50) // Primarily to avoid many requests if user presses and holds backspace button.
-          .subscribe(query => {
-            this.query = query;
-            this.updateState();
-          });*/
-
-
-        /*this.onlyActiveDatasCtrl.valueChanges
-          .skip(1) // Skip on init
-          .subscribe(value => {
-            this.onlyActiveDatas = value;
-            this.updateState();
-          });*/
-
-        /*
-                this.onlyMyDatasCtrl.valueChanges
-                  .skip(1) // Skip on init
-                  .subscribe(value => {
-                    this.onlyMyDatas = value;
-                    this.updateState();
-                  });
-        */
-
       });
   }
 
@@ -156,7 +115,6 @@ export class PatientsComponent implements OnInit {
   }
 
   private handleResponse(response) {
-    console.log('handleResponse', JSON.stringify(response));
     response.content.forEach((p: Patient) => {
       p.pds.sort((a: Pd, b: Pd) => (a.datum > b.datum ? -1 : 1));
       // Sort it backwards so that u will get the current pd first.
@@ -165,7 +123,6 @@ export class PatientsComponent implements OnInit {
           p.pds[0].bestInfos.sort((a: BestInfo, b: BestInfo) => (a.datum > b.datum ? -1 : 1))
       }
     });
-    console.log("Resultat", response.content);
     this.response = response;
 
     this.totalPagesArr = new Array(0);
@@ -288,28 +245,5 @@ export class PatientsComponent implements OnInit {
   get admin() {
     return this.authService.isAdmin() || this.authService.getAdmin();
   }
-
-  /*
-    confirmDelete(data: Patient) {
-      let dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        data: {
-          text: 'Är du säker att du vill ta bort vald arbetsplatskod?',
-          confirmButtonText: 'Ta bort'
-        },
-        panelClass: 'dialys-dialog'
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result === 'confirm') {
-          this.http.delete('/api/data/' + data.id)
-            .subscribe(response => {
-              // console.log(response);
-              this.updateState();
-              this.snackBar.open('Lyckades spara!', null, {duration: 3000});
-            });
-        }
-      });
-    }
-  */
 
 }
