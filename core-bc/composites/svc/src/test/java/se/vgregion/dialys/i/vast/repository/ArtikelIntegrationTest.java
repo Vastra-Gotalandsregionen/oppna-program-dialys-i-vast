@@ -8,7 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Artikel;
-import se.vgregion.dialys.i.vast.jpa.requisitions.Flik;
 
 import java.util.List;
 import java.util.Random;

@@ -17,12 +17,12 @@ import java.text.ParseException;
  * </code>
  * Do the corresponding thingy
  */
-public class DatabaseCopy extends AbstractDatabaseCopy {
+public class ProdDatabaseCopy extends AbstractDatabaseCopy {
 
     public static void main(String[] args) throws IOException, ParseException {
         getApplicationInfo(); // You don't need this. Just to check if another property file is present.
 
-        AbstractDatabaseCopy dc = new DatabaseCopy();
+        AbstractDatabaseCopy dc = new ProdDatabaseCopy();
 
         dc.init();
 
@@ -32,14 +32,13 @@ public class DatabaseCopy extends AbstractDatabaseCopy {
         dc.connectUsersWithAnsvarig();
 
         // Todo: This should not be done when running job for production... comment away then.
-        dc.obfuscateUserPasswords();
+        /*dc.obfuscateUserPasswords();*/
         dc.miscPatientsUpdates();
-        dc.obfuscatePatients();
+        /*dc.obfuscatePatients();*/
         dc.removeOrphanPdAndBestInfoAndBestPDRad();
         dc.insertObsoleteFlik();
 
         dc.fixJpaSequence();
-        dc.dropSomeTables();
     }
 
 }

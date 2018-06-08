@@ -38,10 +38,6 @@ public class User implements Serializable {
     @Column(name = "Name")
     private String name;
 
-    /*@Size(max = 2)
-    @Column(name = "Typ")
-    private String typ;*/
-
     @Column(name = "sjukskoterska")
     private Boolean sjukskoterska = false;
 
@@ -56,12 +52,6 @@ public class User implements Serializable {
 
     @Column(name = "password_encrypted_flag")
     private Boolean passwordEncryptionFlag = false;
-
-/*    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Ansvarig> ansvariga;*/
-
-/*    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Anstallning> anstallnings;*/
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "anstallning",
@@ -113,14 +103,6 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    /*public String getTyp() {
-        return typ;
-    }
-
-    public void setTyp(String typ) {
-        this.typ = typ;
-    }*/
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -143,16 +125,8 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "se.vgregion.dialys.i.vast.jpa.requisitions.User[ userName=" + userName + " ]";
+        return "User[ userName=" + userName + " ]";
     }
-
-/*    public Set<Ansvarig> getAnsvariga() {
-        return ansvariga;
-    }
-
-    public void setAnsvariga(Set<Ansvarig> ansvariga) {
-        this.ansvariga = ansvariga;
-    }*/
 
     public Boolean getPasswordEncryptionFlag() {
         return passwordEncryptionFlag;
@@ -194,11 +168,4 @@ public class User implements Serializable {
         this.mottagnings = mottagnings;
     }
 
-  /*  public Set<Anstallning> getAnstallnings() {
-        return anstallnings;
-    }
-
-    public void setAnstallnings(Set<Anstallning> anstallnings) {
-        this.anstallnings = anstallnings;
-    }*/
 }

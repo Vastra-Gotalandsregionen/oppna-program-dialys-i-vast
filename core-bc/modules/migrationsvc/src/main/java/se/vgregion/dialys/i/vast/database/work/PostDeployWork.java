@@ -3,9 +3,11 @@ package se.vgregion.dialys.i.vast.database.work;
 import se.vgregion.arbetsplatskoder.db.migration.sql.ConnectionExt;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * After first deploy of the application - run this.
@@ -146,6 +148,8 @@ public class PostDeployWork {
             }
         }
 
+        target.execute("update users set status = 'Aktiv'");
+
         target.commit();
     }
 
@@ -206,7 +210,27 @@ public class PostDeployWork {
 
         target.execute("update mottagning set status = 'Aktiv'");
         target.commit();
+
+        dropSomeTables();
     }
 
+
+    public static void dropSomeTables() {
+        List<String> names = Arrays.asList(("BestallningOLD\n" +
+                "BestLakemedelRad\n" +
+                "Dosering\n" +
+                "Dtproperties\n" +
+                "DtpropertiesPK\n" +
+                "PatientLakemedel\n" +
+                "Ticket\n" +
+                "Placering\n" +
+                "Lakemedel\n" +
+                "Apotek\n" +
+                "Dummy").split(Pattern.quote("\n")));
+        for (String name : names) {
+            System.out.println("Removes " + name);
+            target.execute("drop table if exists " + name);
+        }
+    }
 
 }

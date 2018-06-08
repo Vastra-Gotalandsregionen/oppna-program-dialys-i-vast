@@ -1,7 +1,6 @@
 package se.vgregion.dialys.i.vast.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import se.vgregion.dialys.i.vast.jpa.Dummy;
 import se.vgregion.dialys.i.vast.jpa.SearchLog;
 
 /**

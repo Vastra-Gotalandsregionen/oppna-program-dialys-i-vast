@@ -107,46 +107,6 @@ CREATE SEQUENCE artikel_id_seq
 
 ALTER SEQUENCE artikel_id_seq OWNED BY artikel.id;
 
-
---
--- TOC entry 192 (class 1259 OID 48272)
--- Name: bestallningold; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE bestallningold (
-    id integer NOT NULL,
-    antal integer,
-    bestid integer,
-    datum timestamp without time zone,
-    fritext character varying(255),
-    levdatum timestamp without time zone,
-    pdartikelid integer,
-    utskrivare character varying(255)
-);
-
-
---
--- TOC entry 191 (class 1259 OID 48270)
--- Name: bestallningold_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE bestallningold_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- TOC entry 2358 (class 0 OID 0)
--- Dependencies: 191
--- Name: bestallningold_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE bestallningold_id_seq OWNED BY bestallningold.id;
-
-
 --
 -- TOC entry 194 (class 1259 OID 48283)
 -- Name: bestinfo; Type: TABLE; Schema: public; Owner: -
@@ -945,15 +905,6 @@ ALTER TABLE ONLY apotek ALTER COLUMN id SET DEFAULT nextval('apotek_id_seq'::reg
 
 ALTER TABLE ONLY artikel ALTER COLUMN id SET DEFAULT nextval('artikel_id_seq'::regclass);
 
-
---
--- TOC entry 2155 (class 2604 OID 48275)
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bestallningold ALTER COLUMN id SET DEFAULT nextval('bestallningold_id_seq'::regclass);
-
-
 --
 -- TOC entry 2156 (class 2604 OID 48286)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
@@ -1129,16 +1080,6 @@ ALTER TABLE ONLY apotek
 
 ALTER TABLE ONLY artikel
     ADD CONSTRAINT artikel_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2191 (class 2606 OID 48280)
--- Name: bestallningold_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bestallningold
-    ADD CONSTRAINT bestallningold_pkey PRIMARY KEY (id);
-
 
 --
 -- TOC entry 2193 (class 2606 OID 48291)

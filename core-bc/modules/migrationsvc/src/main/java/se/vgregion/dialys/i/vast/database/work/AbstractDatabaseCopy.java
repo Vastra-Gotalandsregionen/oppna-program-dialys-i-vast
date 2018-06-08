@@ -21,6 +21,22 @@ import static java.nio.file.Files.readAllBytes;
 
 public abstract class AbstractDatabaseCopy {
 
+    public static final List<String> oldTables = initOldTables();
+
+    private static List<String> initOldTables() {
+        return Arrays.asList(("BestallningOLD\n" +
+                "BestLakemedelRad\n" +
+                "Dosering\n" +
+                "Dtproperties\n" +
+                "DtpropertiesPK\n" +
+                "PatientLakemedel\n" +
+                "Ticket\n" +
+                "Placering\n" +
+                "Lakemedel\n" +
+                "Apotek\n" +
+                "Dummy").split(Pattern.quote("\n")));
+    }
+
     protected ConnectionExt source;
 
     protected ConnectionExt target;
@@ -457,26 +473,29 @@ public abstract class AbstractDatabaseCopy {
     }
 
     protected void fixJpaSequence() {
-        /*target.execute("DROP SEQUENCE if exists public.hibernate_sequence");
+        try {
+            target.execute("DROP SEQUENCE if exists public.hibernate_sequence");
 
-        target.execute("CREATE SEQUENCE public.hibernate_sequence\n" +
-                "        INCREMENT 1\n" +
-                "        MINVALUE 1\n" +
-                "        MAXVALUE 9223372036854775807\n" +
-                "        START 207994\n" +
-                "        CACHE 1;\n" +
-                // "        ALTER TABLE public.hibernate_sequence;\n" +
-                "        ");
+            target.execute("CREATE SEQUENCE public.hibernate_sequence\n" +
+                    "        INCREMENT 1\n" +
+                    "        MINVALUE 1\n" +
+                    "        MAXVALUE 9223372036854775807\n" +
+                    "        START 207994\n" +
+                    "        CACHE 1;\n" +
+                    // "        ALTER TABLE public.hibernate_sequence;\n" +
+                    "        ");
 
-        target.commit();*/
-    }
+            target.commit();
 
-    public void dropSomeTables() {
-        target.execute("drop table usersRoles");
-        target.execute("drop table roles");
-        target.execute("drop table rolesPages");
-        target.execute("drop table pages");
-        target.execute("drop table sysDiagrams");
+            System.out.println(
+                    "fixJpaSequence succeeded. The index public.hibernate_sequence start value is set to 207994."
+            );
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println(
+                    "fixJpaSequence failed. Maybe because the index public.hibernate_sequence already exists."
+            );
+        }
     }
 
 }
