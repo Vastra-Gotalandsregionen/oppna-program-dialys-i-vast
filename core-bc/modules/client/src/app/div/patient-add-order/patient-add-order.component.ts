@@ -52,6 +52,8 @@ export class PatientAddOrderComponent implements OnInit {
 
         $data.subscribe((data: Patient) => {
           this.data = data;
+          Patient.init(this.data);
+          data.sortPds();
           this.rekvisId = data.pds[0].id;
           this.rekvisdatum = data.pds[0].datum;
           const $articles = this.http.get('/api/artikels/' + this.rekvisId)

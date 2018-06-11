@@ -84,23 +84,75 @@
           </div>
         </div>
 
-        <div class="dialys-details-item">
+        <!--<div class="dialys-details-item">
           <div class="dialys-details-item-label">Epost:</div>
           <div class="dialys-details-item-data">
             {{patient.epost}}
           </div>
-        </div>
+        </div>-->
 
-        <div class="dialys-details-item" *ngIf="patient.leveransMottagningsOmbud != null">
+        <!--<div class="dialys-details-item" *ngIf="patient.leveransMottagningsOmbud != null">
           <div class="dialys-details-item-label">Ombud för anrop:</div>
           <div class="dialys-details-item-data">
             {{patient.leveransMottagningsOmbud}}
+          </div>
+        </div>-->
+
+      </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngIf="showTempAddress">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>date_range</mat-icon>
+          Temporäradress
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="dialys-details">
+
+        <div class="dialys-details-item">
+          <div class="dialys-details-item-label">Från och med:</div>
+          <div class="dialys-details-item-data">
+            {{patient.tempAdressFrom | date: 'yyyy-MM-dd'}}
+          </div>
+        </div>
+
+        <div class="dialys-details-item">
+          <div class="dialys-details-item-label">Till och med:</div>
+          <div class="dialys-details-item-data">
+            {{patient.tempAdressTom | date: 'yyyy-MM-dd'}}
+          </div>
+        </div>
+
+        <div class="dialys-details-item">
+          <div class="dialys-details-item-label">Gatuadress:</div>
+          <div class="dialys-details-item-data">
+            {{patient.tempAdress}}
+          </div>
+        </div>
+
+        <div class="dialys-details-item">
+          <div class="dialys-details-item-label">Postnummer</div>
+          <div class="dialys-details-item-data">
+            {{patient.tempPostNr}}
+          </div>
+        </div>
+
+        <div class="dialys-details-item">
+          <div class="dialys-details-item-label">Postort</div>
+          <div class="dialys-details-item-data">
+            {{patient.tempPostOrt}}
           </div>
         </div>
 
       </div>
 
     </mat-expansion-panel>
+
 
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -122,9 +174,9 @@
         </div>
 
         <div class="dialys-details-item">
-          <div class="dialys-details-item-label">utdelningstid:</div>
+          <div class="dialys-details-item-label">Utdelningstid:</div>
           <div class="dialys-details-item-data">
-            {{patient.utdelDag}}
+            {{patient.utdelText}}
           </div>
         </div>
 
@@ -139,6 +191,13 @@
           <div class="dialys-details-item-label">Ombud för avrop:</div>
           <div class="dialys-details-item-data">
             {{patient.avropsOmbud}}
+          </div>
+        </div>
+
+        <div class="dialys-details-item" *ngIf="patient.leveransMottagningsOmbud != null">
+          <div class="dialys-details-item-label">Ombud för leveransmottagning:</div>
+          <div class="dialys-details-item-data">
+            {{patient.leveransMottagningsOmbud}}
           </div>
         </div>
 

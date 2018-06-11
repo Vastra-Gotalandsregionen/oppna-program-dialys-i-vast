@@ -81,7 +81,7 @@ public class LdapLoginService {
         String firstName = ((String) (result).getAttributes().get("givenName").get());
         String lastName = ((String) (result).getAttributes().get("sn").get());
         user.setName(firstName + " " + lastName);
-        String mail = ((String) (result).getAttributes().get("mail").get());
+        // String mail = ((String) (result).getAttributes().get("mail").get());
         String displayName = ((String) (result).getAttributes().get("displayName").get());
         user.setName(displayName);
         return user;

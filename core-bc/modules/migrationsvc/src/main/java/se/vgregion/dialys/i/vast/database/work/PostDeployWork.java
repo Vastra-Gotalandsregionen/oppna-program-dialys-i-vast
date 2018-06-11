@@ -131,7 +131,6 @@ public class PostDeployWork {
                 100_000
         );
 
-        target.execute("update users set admin = true, pharmaceut = false, sjukskoterska = false");
         target.commit();
 
         for (Map<String, Object> userAndRole : result) {
