@@ -5,14 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
 import se.vgregion.dialys.i.vast.jpa.requisitions.BestPDRad;
-import se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel;
 import se.vgregion.dialys.i.vast.repository.BestInfoRepository;
-import se.vgregion.dialys.i.vast.repository.BestRadRepository;
 import se.vgregion.dialys.i.vast.repository.PDArtikelRepository;
 import se.vgregion.dialys.i.vast.repository.PdRepository;
-import se.vgregion.dialys.i.vast.vymodel.BestArtikelRad;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/bestInfo")
@@ -28,11 +23,11 @@ public class BestInfoController {
     private PdRepository pdRepository;
 
 
-/*    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public List<BestArtikelRad> getBestallningRaderInfo(@PathVariable("id") Integer id) {
-        return bestRadRepository.getBestArtikelRads(id);
-    }*/
+    public BestInfo get(@PathVariable("id") Integer id) {
+        return bestInfoRepository.findOne(id);
+    }
 
     //@PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)

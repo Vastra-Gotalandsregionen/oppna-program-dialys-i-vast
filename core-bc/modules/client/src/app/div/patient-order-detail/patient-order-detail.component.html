@@ -78,6 +78,29 @@
 
         </mat-table>
 
+        <br/>
+
+        <div class="form-element">
+          <mat-form-field class="order-comment">
+                <textarea matInput placeholder="Fritext" readonly
+                          [(ngModel)]=bestInfo.fritext
+                          name="fritxt"
+                          #fritext="ngModel">
+                </textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-element">
+          <mat-form-field class="order-delivery-date">
+            <input matInput readonly
+                   placeholder="Leveransdatum"
+                   [(ngModel)]=bestInfo.levDatum
+                   name="leveransdatum"
+                   #levdatum="ngModel">
+          </mat-form-field>
+        </div>
+
+
       </div>
 
       <div class="btn-container">

@@ -5,6 +5,7 @@ import {JwtHttp} from "../../core/jwt-http";
 import {BestRad} from "../../model/BestRad";
 import {MatTableDataSource} from "@angular/material";
 import {Util} from "../../core/util/util";
+import {BestInfo} from "../../model/BestInfo";
 
 
 @Component({
@@ -23,6 +24,9 @@ export class PatientOrderDetailComponent implements OnInit {
   efternamn: string;
   dataSources = new MatTableDataSource<BestRad>();
   displayedColumns = ['artikel', 'mangd', 'pdartikel', 'antal'];
+
+  bestInfo: BestInfo = new BestInfo();
+
   constructor(private route:ActivatedRoute, protected http: JwtHttp) {}
 
   ngOnInit() {
@@ -35,6 +39,13 @@ export class PatientOrderDetailComponent implements OnInit {
     const $data = this.http.get('/api/bestallning/' + this.bestallningsId).map(response => response.json());
 
     $data.subscribe((data: BestRad[]) => {
+
+      this.http.get('/api/bestInfo/' + this.bestallningsId).map(response => response.json()).subscribe(
+        (bestInfo:BestInfo) => {
+          this.bestInfo = bestInfo;
+        }
+      );
+
       this.dataSources.data = data;
       if (this.id) {
 
