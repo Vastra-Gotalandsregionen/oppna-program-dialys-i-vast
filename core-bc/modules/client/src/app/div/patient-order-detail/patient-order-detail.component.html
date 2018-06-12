@@ -94,9 +94,8 @@
           <mat-form-field class="order-delivery-date">
             <input matInput readonly
                    placeholder="Leveransdatum"
-                   [(ngModel)]=bestInfo.levDatum
-                   name="leveransdatum"
-                   #levdatum="ngModel">
+                   [value]="bestInfo.levDatum | date: 'yyyy-MM-dd'"
+                   name="leveransdatum">
           </mat-form-field>
         </div>
 

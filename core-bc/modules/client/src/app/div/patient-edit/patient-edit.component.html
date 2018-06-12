@@ -29,7 +29,7 @@
             <div class="dialys-form-field">
               <mat-input-container>
                 <input id="name" #pnrInput required [(ngModel)]="patient.pnr" placeholder="Personnummer" type="text"
-                       matInput [disabled]="!authService.getSjukskoterska()" (change)="checkPnrDuplicate()">
+                       matInput [disabled]="!authService.getSjukskoterska()" (blur)="checkPnrDuplicate()">
               </mat-input-container>
             </div>
             <mat-icon class="dialys-form-field-help" matTooltip="Hjälptext här.">help</mat-icon>
@@ -334,11 +334,14 @@
 
               <mat-radio-group #utdelVeckaInput [(ngModel)]="patient.utdelVecka">
                 <mat-label>Utdelningsvecka:</mat-label>
+                <br/>
                 <mat-radio-button>Ingen uppgift</mat-radio-button>
                 |
                 <mat-radio-button value="Jämn">Jämn</mat-radio-button>
                 |
                 <mat-radio-button value="Ojämn">Ojämn</mat-radio-button>
+                |
+                <mat-radio-button value="Var tredje">Var tredje</mat-radio-button>
                 |
                 <mat-radio-button value="Varje">Varje</mat-radio-button>
               </mat-radio-group>
