@@ -14,7 +14,7 @@
 
     <mat-toolbar class="action-toolbar patient-search-toolbar">
 
-      <mat-form-field class="action-toolbar-item search-input-wrap" (keydown)="$event.stopPropagation();">
+      <mat-form-field class="action-toolbar-item search-input-wrap">
           <input matInput placeholder="Skriv in personnummer eller för/efter-namn och tryck enter."
                  [formControl]="stateCtrl" [(ngModel)]="query" (keydown)="filterTextChange($event)" autocomplete="off">
       </mat-form-field>
