@@ -12,6 +12,7 @@ import {PatientDetailComponent} from "./patient-detail/patient-detail.component"
 import { PatientAddRequisitionSaveDialogComponent } from './patient-add-requisition-save-dialog/patient-add-requisition-save-dialog.component';
 import { RequisitionViewComponent } from './requisition-view/requisition-view.component';
 import {RequisitionDataService} from "./services/requisition-data.service";
+import {BestInfoEditComponent} from "./best-info-edit/best-info-edit.component";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {RequisitionDataService} from "./services/requisition-data.service";
   declarations: [
     PatientsComponent,
     PatientAddOrderComponent,
+    BestInfoEditComponent,
     PatientAddRequisitionComponent,
     PatientDetailComponent,
     PatientEditComponent,

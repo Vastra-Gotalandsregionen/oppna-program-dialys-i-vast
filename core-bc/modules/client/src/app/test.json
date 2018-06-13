@@ -1,0 +1,2883 @@
+{
+  "id": 803,
+  "pnr": "23880505-0669",
+  "efternamn": "Karlsson",
+  "fornamn": "Karl",
+  "adress": "Östra Gunnesgärde 8 A",
+  "postNr": "41749",
+  "postOrt": "Göteborg",
+  "telefon": "031-550736",
+  "mobil": "0703-180137",
+  "epost": "Öhrstrand",
+  "portkod": "",
+  "utdelDag": null,
+  "utdelVecka": null,
+  "utdelText": "",
+  "ovrigt": null,
+  "typ": "PD",
+  "leveransPaminnelse": null,
+  "avropsOmbud": null,
+  "leveransMottagningsOmbud": null,
+  "status": "Aktiv",
+  "tempAdressFrom": null,
+  "tempAdressTom": null,
+  "tempAdress": null,
+  "tempPostNr": null,
+  "tempPostOrt": null,
+  "mottagnings": [
+    {
+      "id": 1,
+      "namn": "PD Mottagning SU",
+      "apotekID": 1,
+      "status": "Aktiv"
+    }
+  ],
+  "pds": [
+    {
+      "id": 3827,
+      "patientID": 803,
+      "datum": 1287698400000,
+      "ersatter": 0,
+      "giltighet": 1319234400000,
+      "sskID": 0,
+      "las": 0,
+      "typ": "PD",
+      "bestInfos": [
+        {
+          "id": 21538,
+          "pdid": 3827,
+          "datum": 1288566000000,
+          "utskrivare": "Ulrika Dahlgren",
+          "levDatum": 1288825200000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 83921,
+              "bestID": 21538,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64923,
+                "pdid": 3827,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64923
+            },
+            {
+              "id": 83920,
+              "bestID": 21538,
+              "antal": 8,
+              "pdArtikel": {
+                "id": 64922,
+                "pdid": 3827,
+                "artikelID": 37,
+                "maxantal": null,
+                "artikel": {
+                  "id": 37,
+                  "namn": "Selutrio 40",
+                  "storlek": "4 x 2000 ml",
+                  "artNr": "151446",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64922
+            }
+          ]
+        },
+        {
+          "id": 21418,
+          "pdid": 3827,
+          "datum": 1287698400000,
+          "utskrivare": "Anita Zurka",
+          "levDatum": -2208992400000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 83482,
+              "bestID": 21418,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64925,
+                "pdid": 3827,
+                "artikelID": 69,
+                "maxantal": null,
+                "artikel": {
+                  "id": 69,
+                  "namn": "Klorhexidinsprit 5 mg/ml",
+                  "storlek": "250 ml",
+                  "artNr": "538025",
+                  "ordning": 4,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64925
+            },
+            {
+              "id": 83485,
+              "bestID": 21418,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64918,
+                "pdid": 3827,
+                "artikelID": 91,
+                "maxantal": null,
+                "artikel": {
+                  "id": 91,
+                  "namn": "Desinfektion; Ytdesinfektion 70 % 1000 ml",
+                  "storlek": "1 st",
+                  "artNr": "104262381",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64918
+            },
+            {
+              "id": 83479,
+              "bestID": 21418,
+              "antal": 16,
+              "pdArtikel": {
+                "id": 64922,
+                "pdid": 3827,
+                "artikelID": 37,
+                "maxantal": null,
+                "artikel": {
+                  "id": 37,
+                  "namn": "Selutrio 40",
+                  "storlek": "4 x 2000 ml",
+                  "artNr": "151446",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64922
+            },
+            {
+              "id": 83483,
+              "bestID": 21418,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64912,
+                "pdid": 3827,
+                "artikelID": 80,
+                "maxantal": null,
+                "artikel": {
+                  "id": 80,
+                  "namn": "Kompress höggradigt ren 7,5 x 7,5 cm",
+                  "storlek": "150 st",
+                  "artNr": "102747664",
+                  "ordning": 44,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64912
+            },
+            {
+              "id": 83484,
+              "bestID": 21418,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64916,
+                "pdid": 3827,
+                "artikelID": 89,
+                "maxantal": null,
+                "artikel": {
+                  "id": 89,
+                  "namn": "Desinfektion; Handdesinfektion 600 ml",
+                  "storlek": "1 st",
+                  "artNr": "103435137",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64916
+            },
+            {
+              "id": 83480,
+              "bestID": 21418,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64923,
+                "pdid": 3827,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64923
+            },
+            {
+              "id": 83481,
+              "bestID": 21418,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64924,
+                "pdid": 3827,
+                "artikelID": 43,
+                "maxantal": null,
+                "artikel": {
+                  "id": 43,
+                  "namn": "Tompåse 3 l art.nr PDB-230",
+                  "storlek": "8 st",
+                  "artNr": "203532",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64924
+            }
+          ]
+        },
+        {
+          "id": 22107,
+          "pdid": 3827,
+          "datum": 1292194800000,
+          "utskrivare": "Veronica Thunberg",
+          "levDatum": 1292454000000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 86206,
+              "bestID": 22107,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64918,
+                "pdid": 3827,
+                "artikelID": 91,
+                "maxantal": null,
+                "artikel": {
+                  "id": 91,
+                  "namn": "Desinfektion; Ytdesinfektion 70 % 1000 ml",
+                  "storlek": "1 st",
+                  "artNr": "104262381",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64918
+            },
+            {
+              "id": 86204,
+              "bestID": 22107,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64923,
+                "pdid": 3827,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64923
+            },
+            {
+              "id": 86205,
+              "bestID": 22107,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64916,
+                "pdid": 3827,
+                "artikelID": 89,
+                "maxantal": null,
+                "artikel": {
+                  "id": 89,
+                  "namn": "Desinfektion; Handdesinfektion 600 ml",
+                  "storlek": "1 st",
+                  "artNr": "103435137",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64916
+            },
+            {
+              "id": 86203,
+              "bestID": 22107,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 64922,
+                "pdid": 3827,
+                "artikelID": 37,
+                "maxantal": null,
+                "artikel": {
+                  "id": 37,
+                  "namn": "Selutrio 40",
+                  "storlek": "4 x 2000 ml",
+                  "artNr": "151446",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64922
+            }
+          ]
+        },
+        {
+          "id": 21708,
+          "pdid": 3827,
+          "datum": 1289775600000,
+          "utskrivare": "Veronica Thunberg",
+          "levDatum": 1290034800000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 84558,
+              "bestID": 21708,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64923,
+                "pdid": 3827,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64923
+            },
+            {
+              "id": 84559,
+              "bestID": 21708,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 64916,
+                "pdid": 3827,
+                "artikelID": 89,
+                "maxantal": null,
+                "artikel": {
+                  "id": 89,
+                  "namn": "Desinfektion; Handdesinfektion 600 ml",
+                  "storlek": "1 st",
+                  "artNr": "103435137",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64916
+            },
+            {
+              "id": 84557,
+              "bestID": 21708,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 64922,
+                "pdid": 3827,
+                "artikelID": 37,
+                "maxantal": null,
+                "artikel": {
+                  "id": 37,
+                  "namn": "Selutrio 40",
+                  "storlek": "4 x 2000 ml",
+                  "artNr": "151446",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64922
+            }
+          ]
+        },
+        {
+          "id": 21919,
+          "pdid": 3827,
+          "datum": 1290985200000,
+          "utskrivare": "Ulrika Dahlgren",
+          "levDatum": 1291244400000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 85362,
+              "bestID": 21919,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 64922,
+                "pdid": 3827,
+                "artikelID": 37,
+                "maxantal": null,
+                "artikel": {
+                  "id": 37,
+                  "namn": "Selutrio 40",
+                  "storlek": "4 x 2000 ml",
+                  "artNr": "151446",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64922
+            },
+            {
+              "id": 85363,
+              "bestID": 21919,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 64923,
+                "pdid": 3827,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 64923
+            }
+          ]
+        }
+      ],
+      "pdArtikels": [
+        {
+          "id": 64916,
+          "pdid": 3827,
+          "artikelID": 89,
+          "maxantal": null,
+          "artikel": {
+            "id": 89,
+            "namn": "Desinfektion; Handdesinfektion 600 ml",
+            "storlek": "1 st",
+            "artNr": "103435137",
+            "ordning": 3,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64919,
+          "pdid": 3827,
+          "artikelID": 92,
+          "maxantal": null,
+          "artikel": {
+            "id": 92,
+            "namn": "(UTGÅTT) Skinprep Hudskyddsmedel",
+            "storlek": "50 st",
+            "artNr": "262857",
+            "ordning": 47,
+            "aktiv": false,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64917,
+          "pdid": 3827,
+          "artikelID": 90,
+          "maxantal": null,
+          "artikel": {
+            "id": 90,
+            "namn": "Desinfektion; Handdesinfektion 150 ml",
+            "storlek": "1 st",
+            "artNr": "747410",
+            "ordning": 2,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64918,
+          "pdid": 3827,
+          "artikelID": 91,
+          "maxantal": null,
+          "artikel": {
+            "id": 91,
+            "namn": "Desinfektion; Ytdesinfektion 70 % 1000 ml",
+            "storlek": "1 st",
+            "artNr": "104262381",
+            "ordning": 5,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64920,
+          "pdid": 3827,
+          "artikelID": 296,
+          "maxantal": null,
+          "artikel": {
+            "id": 296,
+            "namn": "Förband häftkant 8x10 Curapore",
+            "storlek": "50 st",
+            "artNr": "106117989",
+            "ordning": 13,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64921,
+          "pdid": 3827,
+          "artikelID": 332,
+          "maxantal": null,
+          "artikel": {
+            "id": 332,
+            "namn": "Häfta Mepitac, 2 cm x 3 m",
+            "storlek": "1 st",
+            "artNr": "102740636",
+            "ordning": 34,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64926,
+          "pdid": 3827,
+          "artikelID": 72,
+          "maxantal": null,
+          "artikel": {
+            "id": 72,
+            "namn": "Häftborttagningsmedel våtservett",
+            "storlek": "50 st",
+            "artNr": "104094081",
+            "ordning": 8,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64924,
+          "pdid": 3827,
+          "artikelID": 43,
+          "maxantal": null,
+          "artikel": {
+            "id": 43,
+            "namn": "Tompåse 3 l art.nr PDB-230",
+            "storlek": "8 st",
+            "artNr": "203532",
+            "ordning": 2,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64925,
+          "pdid": 3827,
+          "artikelID": 69,
+          "maxantal": null,
+          "artikel": {
+            "id": 69,
+            "namn": "Klorhexidinsprit 5 mg/ml",
+            "storlek": "250 ml",
+            "artNr": "538025",
+            "ordning": 4,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64912,
+          "pdid": 3827,
+          "artikelID": 80,
+          "maxantal": null,
+          "artikel": {
+            "id": 80,
+            "namn": "Kompress höggradigt ren 7,5 x 7,5 cm",
+            "storlek": "150 st",
+            "artNr": "102747664",
+            "ordning": 44,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64923,
+          "pdid": 3827,
+          "artikelID": 39,
+          "maxantal": null,
+          "artikel": {
+            "id": 39,
+            "namn": "Jodhatt PDC-203P",
+            "storlek": "60 st",
+            "artNr": "270041",
+            "ordning": 1,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64913,
+          "pdid": 3827,
+          "artikelID": 147,
+          "maxantal": null,
+          "artikel": {
+            "id": 147,
+            "namn": "Häfta Transpore 2,5 cm x 9,1 m",
+            "storlek": "1 st",
+            "artNr": "102740578",
+            "ordning": 39,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64922,
+          "pdid": 3827,
+          "artikelID": 37,
+          "maxantal": null,
+          "artikel": {
+            "id": 37,
+            "namn": "Selutrio 40",
+            "storlek": "4 x 2000 ml",
+            "artNr": "151446",
+            "ordning": 3,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64915,
+          "pdid": 3827,
+          "artikelID": 87,
+          "maxantal": null,
+          "artikel": {
+            "id": 87,
+            "namn": "Häfta Leukofix 2,5 cm x 5 m",
+            "storlek": "1 st",
+            "artNr": "101077071",
+            "ordning": 32,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64914,
+          "pdid": 3827,
+          "artikelID": 88,
+          "maxantal": null,
+          "artikel": {
+            "id": 88,
+            "namn": "(UTGÅTT) Häfta Vit Bona Grip 2,5 cm ",
+            "storlek": "1 st",
+            "artNr": "331920",
+            "ordning": 11,
+            "aktiv": false,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 64911,
+          "pdid": 3827,
+          "artikelID": 79,
+          "maxantal": null,
+          "artikel": {
+            "id": 79,
+            "namn": "(UTGÅTT) Opsite flexigrid 10 cm x 12 m",
+            "storlek": "10cm x 12m",
+            "artNr": "330561",
+            "ordning": 5,
+            "aktiv": false,
+            "maxantal": null
+          }
+        }
+      ]
+    },
+    {
+      "id": 3949,
+      "patientID": 803,
+      "datum": 1292799600000,
+      "ersatter": 0,
+      "giltighet": 1324335600000,
+      "sskID": 0,
+      "las": 0,
+      "typ": "PD",
+      "bestInfos": [
+        {
+          "id": 22896,
+          "pdid": 3949,
+          "datum": 1297033200000,
+          "utskrivare": "Ulrika Dahlgren",
+          "levDatum": 1297292400000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 89089,
+              "bestID": 22896,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            },
+            {
+              "id": 89090,
+              "bestID": 22896,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67057,
+                "pdid": 3949,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67057
+            },
+            {
+              "id": 89091,
+              "bestID": 22896,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            }
+          ]
+        },
+        {
+          "id": 23377,
+          "pdid": 3949,
+          "datum": 1299798000000,
+          "utskrivare": "Ulrika Dahlgren",
+          "levDatum": 1300143600000,
+          "fritext": "hämtas apoteket su 15/3 förmiddag",
+          "bestPDRads": [
+            {
+              "id": 90850,
+              "bestID": 23377,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            }
+          ]
+        },
+        {
+          "id": 22530,
+          "pdid": 3949,
+          "datum": 1294786800000,
+          "utskrivare": "Ulrika Dahlgren",
+          "levDatum": 1294959600000,
+          "fritext": "tilllägg för lev 14/1",
+          "bestPDRads": [
+            {
+              "id": 87750,
+              "bestID": 22530,
+              "antal": 3,
+              "pdArtikel": {
+                "id": 67063,
+                "pdid": 3949,
+                "artikelID": 37,
+                "maxantal": null,
+                "artikel": {
+                  "id": 37,
+                  "namn": "Selutrio 40",
+                  "storlek": "4 x 2000 ml",
+                  "artNr": "151446",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67063
+            }
+          ]
+        },
+        {
+          "id": 23667,
+          "pdid": 3949,
+          "datum": 1301868000000,
+          "utskrivare": "Linda Dodange-Åling",
+          "levDatum": 1302127200000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 91942,
+              "bestID": 23667,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            },
+            {
+              "id": 91941,
+              "bestID": 23667,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            }
+          ]
+        },
+        {
+          "id": 23285,
+          "pdid": 3949,
+          "datum": 1299452400000,
+          "utskrivare": "Linda Dodange-Åling",
+          "levDatum": 1299711600000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 90551,
+              "bestID": 23285,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            }
+          ]
+        },
+        {
+          "id": 22294,
+          "pdid": 3949,
+          "datum": 1292972400000,
+          "utskrivare": "Tarja Enojärvi",
+          "levDatum": 1294873200000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 86891,
+              "bestID": 22294,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            },
+            {
+              "id": 86892,
+              "bestID": 22294,
+              "antal": 15,
+              "pdArtikel": {
+                "id": 67061,
+                "pdid": 3949,
+                "artikelID": 44,
+                "maxantal": null,
+                "artikel": {
+                  "id": 44,
+                  "namn": "Tompåse 15 l art.nr PDX015",
+                  "storlek": "1 st",
+                  "artNr": "210029",
+                  "ordning": 9,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67061
+            },
+            {
+              "id": 86890,
+              "bestID": 22294,
+              "antal": 15,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            },
+            {
+              "id": 86893,
+              "bestID": 22294,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67062,
+                "pdid": 3949,
+                "artikelID": 186,
+                "maxantal": null,
+                "artikel": {
+                  "id": 186,
+                  "namn": "Steril hatt med jod, art nr PDC-223P",
+                  "storlek": "30 st",
+                  "artNr": "210016",
+                  "ordning": 10,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67062
+            }
+          ]
+        },
+        {
+          "id": 23865,
+          "pdid": 3949,
+          "datum": 1303077600000,
+          "utskrivare": "Elisabeth Wald",
+          "levDatum": 1303336800000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 92706,
+              "bestID": 23865,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            },
+            {
+              "id": 92705,
+              "bestID": 23865,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67057,
+                "pdid": 3949,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67057
+            },
+            {
+              "id": 92704,
+              "bestID": 23865,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            },
+            {
+              "id": 92707,
+              "bestID": 23865,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67065,
+                "pdid": 3949,
+                "artikelID": 72,
+                "maxantal": null,
+                "artikel": {
+                  "id": 72,
+                  "namn": "Häftborttagningsmedel våtservett",
+                  "storlek": "50 st",
+                  "artNr": "104094081",
+                  "ordning": 8,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67065
+            }
+          ]
+        },
+        {
+          "id": 23482,
+          "pdid": 3949,
+          "datum": 1300662000000,
+          "utskrivare": "Veronica Thunberg",
+          "levDatum": 1300662000000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 91262,
+              "bestID": 23482,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            },
+            {
+              "id": 91261,
+              "bestID": 23482,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            }
+          ]
+        },
+        {
+          "id": 23098,
+          "pdid": 3949,
+          "datum": 1298242800000,
+          "utskrivare": "Elisabeth Wald",
+          "levDatum": 1298502000000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 89877,
+              "bestID": 23098,
+              "antal": 16,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            },
+            {
+              "id": 89878,
+              "bestID": 23098,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            },
+            {
+              "id": 89880,
+              "bestID": 23098,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67075,
+                "pdid": 3949,
+                "artikelID": 296,
+                "maxantal": null,
+                "artikel": {
+                  "id": 296,
+                  "namn": "Förband häftkant 8x10 Curapore",
+                  "storlek": "50 st",
+                  "artNr": "106117989",
+                  "ordning": 13,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67075
+            },
+            {
+              "id": 89879,
+              "bestID": 23098,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67065,
+                "pdid": 3949,
+                "artikelID": 72,
+                "maxantal": null,
+                "artikel": {
+                  "id": 72,
+                  "namn": "Häftborttagningsmedel våtservett",
+                  "storlek": "50 st",
+                  "artNr": "104094081",
+                  "ordning": 8,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67065
+            }
+          ]
+        },
+        {
+          "id": 24027,
+          "pdid": 3949,
+          "datum": 1304287200000,
+          "utskrivare": "Elisabeth Wald",
+          "levDatum": 1304546400000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 93361,
+              "bestID": 24027,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            },
+            {
+              "id": 93360,
+              "bestID": 24027,
+              "antal": 15,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            }
+          ]
+        },
+        {
+          "id": 22317,
+          "pdid": 3949,
+          "datum": 1293404400000,
+          "utskrivare": "Elisabeth Wald",
+          "levDatum": 1293663600000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 86997,
+              "bestID": 22317,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67057,
+                "pdid": 3949,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67057
+            },
+            {
+              "id": 86998,
+              "bestID": 22317,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67071,
+                "pdid": 3949,
+                "artikelID": 89,
+                "maxantal": null,
+                "artikel": {
+                  "id": 89,
+                  "namn": "Desinfektion; Handdesinfektion 600 ml",
+                  "storlek": "1 st",
+                  "artNr": "103435137",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67071
+            },
+            {
+              "id": 86996,
+              "bestID": 22317,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 67063,
+                "pdid": 3949,
+                "artikelID": 37,
+                "maxantal": null,
+                "artikel": {
+                  "id": 37,
+                  "namn": "Selutrio 40",
+                  "storlek": "4 x 2000 ml",
+                  "artNr": "151446",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67063
+            }
+          ]
+        },
+        {
+          "id": 22702,
+          "pdid": 3949,
+          "datum": 1295823600000,
+          "utskrivare": "Veronica Thunberg",
+          "levDatum": 1296082800000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 88361,
+              "bestID": 22702,
+              "antal": 12,
+              "pdArtikel": {
+                "id": 67077,
+                "pdid": 3949,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67077
+            },
+            {
+              "id": 88363,
+              "bestID": 22702,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67060,
+                "pdid": 3949,
+                "artikelID": 41,
+                "maxantal": null,
+                "artikel": {
+                  "id": 41,
+                  "namn": "Avloppsslang, 10 m, art.nr PDD-10",
+                  "storlek": "20 st",
+                  "artNr": "203534",
+                  "ordning": 6,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67060
+            },
+            {
+              "id": 88362,
+              "bestID": 22702,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67059,
+                "pdid": 3949,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67059
+            },
+            {
+              "id": 88364,
+              "bestID": 22702,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 67071,
+                "pdid": 3949,
+                "artikelID": 89,
+                "maxantal": null,
+                "artikel": {
+                  "id": 89,
+                  "namn": "Desinfektion; Handdesinfektion 600 ml",
+                  "storlek": "1 st",
+                  "artNr": "103435137",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 67071
+            }
+          ]
+        }
+      ],
+      "pdArtikels": [
+        {
+          "id": 67068,
+          "pdid": 3949,
+          "artikelID": 147,
+          "maxantal": null,
+          "artikel": {
+            "id": 147,
+            "namn": "Häfta Transpore 2,5 cm x 9,1 m",
+            "storlek": "1 st",
+            "artNr": "102740578",
+            "ordning": 39,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67069,
+          "pdid": 3949,
+          "artikelID": 88,
+          "maxantal": null,
+          "artikel": {
+            "id": 88,
+            "namn": "(UTGÅTT) Häfta Vit Bona Grip 2,5 cm ",
+            "storlek": "1 st",
+            "artNr": "331920",
+            "ordning": 11,
+            "aktiv": false,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67067,
+          "pdid": 3949,
+          "artikelID": 80,
+          "maxantal": null,
+          "artikel": {
+            "id": 80,
+            "namn": "Kompress höggradigt ren 7,5 x 7,5 cm",
+            "storlek": "150 st",
+            "artNr": "102747664",
+            "ordning": 44,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67066,
+          "pdid": 3949,
+          "artikelID": 79,
+          "maxantal": null,
+          "artikel": {
+            "id": 79,
+            "namn": "(UTGÅTT) Opsite flexigrid 10 cm x 12 m",
+            "storlek": "10cm x 12m",
+            "artNr": "330561",
+            "ordning": 5,
+            "aktiv": false,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67057,
+          "pdid": 3949,
+          "artikelID": 39,
+          "maxantal": null,
+          "artikel": {
+            "id": 39,
+            "namn": "Jodhatt PDC-203P",
+            "storlek": "60 st",
+            "artNr": "270041",
+            "ordning": 1,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67060,
+          "pdid": 3949,
+          "artikelID": 41,
+          "maxantal": null,
+          "artikel": {
+            "id": 41,
+            "namn": "Avloppsslang, 10 m, art.nr PDD-10",
+            "storlek": "20 st",
+            "artNr": "203534",
+            "ordning": 6,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67061,
+          "pdid": 3949,
+          "artikelID": 44,
+          "maxantal": null,
+          "artikel": {
+            "id": 44,
+            "namn": "Tompåse 15 l art.nr PDX015",
+            "storlek": "1 st",
+            "artNr": "210029",
+            "ordning": 9,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67058,
+          "pdid": 3949,
+          "artikelID": 43,
+          "maxantal": null,
+          "artikel": {
+            "id": 43,
+            "namn": "Tompåse 3 l art.nr PDB-230",
+            "storlek": "8 st",
+            "artNr": "203532",
+            "ordning": 2,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67059,
+          "pdid": 3949,
+          "artikelID": 140,
+          "maxantal": null,
+          "artikel": {
+            "id": 140,
+            "namn": "Slangset till APD art.nr PDL-2003",
+            "storlek": "10 st",
+            "artNr": "204385",
+            "ordning": 5,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67062,
+          "pdid": 3949,
+          "artikelID": 186,
+          "maxantal": null,
+          "artikel": {
+            "id": 186,
+            "namn": "Steril hatt med jod, art nr PDC-223P",
+            "storlek": "30 st",
+            "artNr": "210016",
+            "ordning": 10,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67063,
+          "pdid": 3949,
+          "artikelID": 37,
+          "maxantal": null,
+          "artikel": {
+            "id": 37,
+            "namn": "Selutrio 40",
+            "storlek": "4 x 2000 ml",
+            "artNr": "151446",
+            "ordning": 3,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67064,
+          "pdid": 3949,
+          "artikelID": 69,
+          "maxantal": null,
+          "artikel": {
+            "id": 69,
+            "namn": "Klorhexidinsprit 5 mg/ml",
+            "storlek": "250 ml",
+            "artNr": "538025",
+            "ordning": 4,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67065,
+          "pdid": 3949,
+          "artikelID": 72,
+          "maxantal": null,
+          "artikel": {
+            "id": 72,
+            "namn": "Häftborttagningsmedel våtservett",
+            "storlek": "50 st",
+            "artNr": "104094081",
+            "ordning": 8,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67071,
+          "pdid": 3949,
+          "artikelID": 89,
+          "maxantal": null,
+          "artikel": {
+            "id": 89,
+            "namn": "Desinfektion; Handdesinfektion 600 ml",
+            "storlek": "1 st",
+            "artNr": "103435137",
+            "ordning": 3,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67076,
+          "pdid": 3949,
+          "artikelID": 332,
+          "maxantal": null,
+          "artikel": {
+            "id": 332,
+            "namn": "Häfta Mepitac, 2 cm x 3 m",
+            "storlek": "1 st",
+            "artNr": "102740636",
+            "ordning": 34,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67070,
+          "pdid": 3949,
+          "artikelID": 87,
+          "maxantal": null,
+          "artikel": {
+            "id": 87,
+            "namn": "Häfta Leukofix 2,5 cm x 5 m",
+            "storlek": "1 st",
+            "artNr": "101077071",
+            "ordning": 32,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67077,
+          "pdid": 3949,
+          "artikelID": 36,
+          "maxantal": null,
+          "artikel": {
+            "id": 36,
+            "namn": "Selutrio 40",
+            "storlek": "2 x 5000 ml",
+            "artNr": "085089",
+            "ordning": 2,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67072,
+          "pdid": 3949,
+          "artikelID": 90,
+          "maxantal": null,
+          "artikel": {
+            "id": 90,
+            "namn": "Desinfektion; Handdesinfektion 150 ml",
+            "storlek": "1 st",
+            "artNr": "747410",
+            "ordning": 2,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67075,
+          "pdid": 3949,
+          "artikelID": 296,
+          "maxantal": null,
+          "artikel": {
+            "id": 296,
+            "namn": "Förband häftkant 8x10 Curapore",
+            "storlek": "50 st",
+            "artNr": "106117989",
+            "ordning": 13,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67073,
+          "pdid": 3949,
+          "artikelID": 91,
+          "maxantal": null,
+          "artikel": {
+            "id": 91,
+            "namn": "Desinfektion; Ytdesinfektion 70 % 1000 ml",
+            "storlek": "1 st",
+            "artNr": "104262381",
+            "ordning": 5,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 67074,
+          "pdid": 3949,
+          "artikelID": 92,
+          "maxantal": null,
+          "artikel": {
+            "id": 92,
+            "namn": "(UTGÅTT) Skinprep Hudskyddsmedel",
+            "storlek": "50 st",
+            "artNr": "262857",
+            "ordning": 47,
+            "aktiv": false,
+            "maxantal": null
+          }
+        }
+      ]
+    },
+    {
+      "id": 4222,
+      "patientID": 803,
+      "datum": 1304373600000,
+      "ersatter": 0,
+      "giltighet": 1335996000000,
+      "sskID": 0,
+      "las": 0,
+      "typ": "PD",
+      "bestInfos": [
+        {
+          "id": 24753,
+          "pdid": 4222,
+          "datum": 1309125600000,
+          "utskrivare": "Elisabeth Wald",
+          "levDatum": 1309384800000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 96061,
+              "bestID": 24753,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            },
+            {
+              "id": 96062,
+              "bestID": 24753,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            }
+          ]
+        },
+        {
+          "id": 25810,
+          "pdid": 4222,
+          "datum": 1316383200000,
+          "utskrivare": "Elisabeth Wald",
+          "levDatum": 1316642400000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 100151,
+              "bestID": 25810,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            },
+            {
+              "id": 100152,
+              "bestID": 25810,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71905,
+                "pdid": 4222,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71905
+            },
+            {
+              "id": 100153,
+              "bestID": 25810,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            }
+          ]
+        },
+        {
+          "id": 25476,
+          "pdid": 4222,
+          "datum": 1314050400000,
+          "utskrivare": "Maria Olsson",
+          "levDatum": 1314223200000,
+          "fritext": "",
+          "bestPDRads": []
+        },
+        {
+          "id": 24933,
+          "pdid": 4222,
+          "datum": 1310335200000,
+          "utskrivare": "Elisabeth Wald",
+          "levDatum": 1310594400000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 96778,
+              "bestID": 24933,
+              "antal": 15,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            },
+            {
+              "id": 96779,
+              "bestID": 24933,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            }
+          ]
+        },
+        {
+          "id": 25094,
+          "pdid": 4222,
+          "datum": 1311544800000,
+          "utskrivare": "Linda Dodange-Åling",
+          "levDatum": 1311804000000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 97417,
+              "bestID": 25094,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            },
+            {
+              "id": 97419,
+              "bestID": 25094,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            },
+            {
+              "id": 97418,
+              "bestID": 25094,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71905,
+                "pdid": 4222,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71905
+            },
+            {
+              "id": 97420,
+              "bestID": 25094,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71911,
+                "pdid": 4222,
+                "artikelID": 69,
+                "maxantal": null,
+                "artikel": {
+                  "id": 69,
+                  "namn": "Klorhexidinsprit 5 mg/ml",
+                  "storlek": "250 ml",
+                  "artNr": "538025",
+                  "ordning": 4,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71911
+            },
+            {
+              "id": 97421,
+              "bestID": 25094,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71896,
+                "pdid": 4222,
+                "artikelID": 89,
+                "maxantal": null,
+                "artikel": {
+                  "id": 89,
+                  "namn": "Desinfektion; Handdesinfektion 600 ml",
+                  "storlek": "1 st",
+                  "artNr": "103435137",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71896
+            }
+          ]
+        },
+        {
+          "id": 25271,
+          "pdid": 4222,
+          "datum": 1312754400000,
+          "utskrivare": "Linda Dodange-Åling",
+          "levDatum": 1313013600000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 98064,
+              "bestID": 25271,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            },
+            {
+              "id": 98065,
+              "bestID": 25271,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            }
+          ]
+        },
+        {
+          "id": 24217,
+          "pdid": 4222,
+          "datum": 1305496800000,
+          "utskrivare": "Ulrika Dahlgren",
+          "levDatum": 1305756000000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 94078,
+              "bestID": 24217,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            },
+            {
+              "id": 94079,
+              "bestID": 24217,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            }
+          ]
+        },
+        {
+          "id": 25627,
+          "pdid": 4222,
+          "datum": 1315173600000,
+          "utskrivare": "Elisabeth Wald",
+          "levDatum": 1315432800000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 99439,
+              "bestID": 25627,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            },
+            {
+              "id": 99438,
+              "bestID": 25627,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            }
+          ]
+        },
+        {
+          "id": 24380,
+          "pdid": 4222,
+          "datum": 1306360800000,
+          "utskrivare": "Ulrika Dahlgren",
+          "levDatum": 1306879200000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 94706,
+              "bestID": 24380,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71905,
+                "pdid": 4222,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71905
+            },
+            {
+              "id": 94707,
+              "bestID": 24380,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            },
+            {
+              "id": 94705,
+              "bestID": 24380,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            }
+          ]
+        },
+        {
+          "id": 25453,
+          "pdid": 4222,
+          "datum": 1313964000000,
+          "utskrivare": "Titti Tobiasson",
+          "levDatum": 1314223200000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 98773,
+              "bestID": 25453,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            },
+            {
+              "id": 98772,
+              "bestID": 25453,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            }
+          ]
+        },
+        {
+          "id": 24559,
+          "pdid": 4222,
+          "datum": 1307916000000,
+          "utskrivare": "Linda Dodange-Åling",
+          "levDatum": 1308175200000,
+          "fritext": "",
+          "bestPDRads": [
+            {
+              "id": 95334,
+              "bestID": 24559,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71896,
+                "pdid": 4222,
+                "artikelID": 89,
+                "maxantal": null,
+                "artikel": {
+                  "id": 89,
+                  "namn": "Desinfektion; Handdesinfektion 600 ml",
+                  "storlek": "1 st",
+                  "artNr": "103435137",
+                  "ordning": 3,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71896
+            },
+            {
+              "id": 95335,
+              "bestID": 24559,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71898,
+                "pdid": 4222,
+                "artikelID": 91,
+                "maxantal": null,
+                "artikel": {
+                  "id": 91,
+                  "namn": "Desinfektion; Ytdesinfektion 70 % 1000 ml",
+                  "storlek": "1 st",
+                  "artNr": "104262381",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71898
+            },
+            {
+              "id": 95336,
+              "bestID": 24559,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71900,
+                "pdid": 4222,
+                "artikelID": 296,
+                "maxantal": null,
+                "artikel": {
+                  "id": 296,
+                  "namn": "Förband häftkant 8x10 Curapore",
+                  "storlek": "50 st",
+                  "artNr": "106117989",
+                  "ordning": 13,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71900
+            },
+            {
+              "id": 95331,
+              "bestID": 24559,
+              "antal": 14,
+              "pdArtikel": {
+                "id": 71903,
+                "pdid": 4222,
+                "artikelID": 36,
+                "maxantal": null,
+                "artikel": {
+                  "id": 36,
+                  "namn": "Selutrio 40",
+                  "storlek": "2 x 5000 ml",
+                  "artNr": "085089",
+                  "ordning": 2,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71903
+            },
+            {
+              "id": 95333,
+              "bestID": 24559,
+              "antal": 2,
+              "pdArtikel": {
+                "id": 71907,
+                "pdid": 4222,
+                "artikelID": 140,
+                "maxantal": null,
+                "artikel": {
+                  "id": 140,
+                  "namn": "Slangset till APD art.nr PDL-2003",
+                  "storlek": "10 st",
+                  "artNr": "204385",
+                  "ordning": 5,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71907
+            },
+            {
+              "id": 95332,
+              "bestID": 24559,
+              "antal": 1,
+              "pdArtikel": {
+                "id": 71905,
+                "pdid": 4222,
+                "artikelID": 39,
+                "maxantal": null,
+                "artikel": {
+                  "id": 39,
+                  "namn": "Jodhatt PDC-203P",
+                  "storlek": "60 st",
+                  "artNr": "270041",
+                  "ordning": 1,
+                  "aktiv": true,
+                  "maxantal": null
+                }
+              },
+              "pdartikelID": 71905
+            }
+          ]
+        }
+      ],
+      "pdArtikels": [
+        {
+          "id": 71895,
+          "pdid": 4222,
+          "artikelID": 87,
+          "maxantal": null,
+          "artikel": {
+            "id": 87,
+            "namn": "Häfta Leukofix 2,5 cm x 5 m",
+            "storlek": "1 st",
+            "artNr": "101077071",
+            "ordning": 32,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71899,
+          "pdid": 4222,
+          "artikelID": 92,
+          "maxantal": null,
+          "artikel": {
+            "id": 92,
+            "namn": "(UTGÅTT) Skinprep Hudskyddsmedel",
+            "storlek": "50 st",
+            "artNr": "262857",
+            "ordning": 47,
+            "aktiv": false,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71902,
+          "pdid": 4222,
+          "artikelID": 333,
+          "maxantal": null,
+          "artikel": {
+            "id": 333,
+            "namn": "Häfta Flexi-Trak, large, 4 x 1 1/2",
+            "storlek": "50 st",
+            "artNr": "102731809",
+            "ordning": 31,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71900,
+          "pdid": 4222,
+          "artikelID": 296,
+          "maxantal": null,
+          "artikel": {
+            "id": 296,
+            "namn": "Förband häftkant 8x10 Curapore",
+            "storlek": "50 st",
+            "artNr": "106117989",
+            "ordning": 13,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71901,
+          "pdid": 4222,
+          "artikelID": 332,
+          "maxantal": null,
+          "artikel": {
+            "id": 332,
+            "namn": "Häfta Mepitac, 2 cm x 3 m",
+            "storlek": "1 st",
+            "artNr": "102740636",
+            "ordning": 34,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71892,
+          "pdid": 4222,
+          "artikelID": 80,
+          "maxantal": null,
+          "artikel": {
+            "id": 80,
+            "namn": "Kompress höggradigt ren 7,5 x 7,5 cm",
+            "storlek": "150 st",
+            "artNr": "102747664",
+            "ordning": 44,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71898,
+          "pdid": 4222,
+          "artikelID": 91,
+          "maxantal": null,
+          "artikel": {
+            "id": 91,
+            "namn": "Desinfektion; Ytdesinfektion 70 % 1000 ml",
+            "storlek": "1 st",
+            "artNr": "104262381",
+            "ordning": 5,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71897,
+          "pdid": 4222,
+          "artikelID": 90,
+          "maxantal": null,
+          "artikel": {
+            "id": 90,
+            "namn": "Desinfektion; Handdesinfektion 150 ml",
+            "storlek": "1 st",
+            "artNr": "747410",
+            "ordning": 2,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71891,
+          "pdid": 4222,
+          "artikelID": 79,
+          "maxantal": null,
+          "artikel": {
+            "id": 79,
+            "namn": "(UTGÅTT) Opsite flexigrid 10 cm x 12 m",
+            "storlek": "10cm x 12m",
+            "artNr": "330561",
+            "ordning": 5,
+            "aktiv": false,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71896,
+          "pdid": 4222,
+          "artikelID": 89,
+          "maxantal": null,
+          "artikel": {
+            "id": 89,
+            "namn": "Desinfektion; Handdesinfektion 600 ml",
+            "storlek": "1 st",
+            "artNr": "103435137",
+            "ordning": 3,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71893,
+          "pdid": 4222,
+          "artikelID": 147,
+          "maxantal": null,
+          "artikel": {
+            "id": 147,
+            "namn": "Häfta Transpore 2,5 cm x 9,1 m",
+            "storlek": "1 st",
+            "artNr": "102740578",
+            "ordning": 39,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71894,
+          "pdid": 4222,
+          "artikelID": 88,
+          "maxantal": null,
+          "artikel": {
+            "id": 88,
+            "namn": "(UTGÅTT) Häfta Vit Bona Grip 2,5 cm ",
+            "storlek": "1 st",
+            "artNr": "331920",
+            "ordning": 11,
+            "aktiv": false,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71906,
+          "pdid": 4222,
+          "artikelID": 43,
+          "maxantal": null,
+          "artikel": {
+            "id": 43,
+            "namn": "Tompåse 3 l art.nr PDB-230",
+            "storlek": "8 st",
+            "artNr": "203532",
+            "ordning": 2,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71905,
+          "pdid": 4222,
+          "artikelID": 39,
+          "maxantal": null,
+          "artikel": {
+            "id": 39,
+            "namn": "Jodhatt PDC-203P",
+            "storlek": "60 st",
+            "artNr": "270041",
+            "ordning": 1,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71903,
+          "pdid": 4222,
+          "artikelID": 36,
+          "maxantal": null,
+          "artikel": {
+            "id": 36,
+            "namn": "Selutrio 40",
+            "storlek": "2 x 5000 ml",
+            "artNr": "085089",
+            "ordning": 2,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71909,
+          "pdid": 4222,
+          "artikelID": 44,
+          "maxantal": null,
+          "artikel": {
+            "id": 44,
+            "namn": "Tompåse 15 l art.nr PDX015",
+            "storlek": "1 st",
+            "artNr": "210029",
+            "ordning": 9,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71904,
+          "pdid": 4222,
+          "artikelID": 37,
+          "maxantal": null,
+          "artikel": {
+            "id": 37,
+            "namn": "Selutrio 40",
+            "storlek": "4 x 2000 ml",
+            "artNr": "151446",
+            "ordning": 3,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71907,
+          "pdid": 4222,
+          "artikelID": 140,
+          "maxantal": null,
+          "artikel": {
+            "id": 140,
+            "namn": "Slangset till APD art.nr PDL-2003",
+            "storlek": "10 st",
+            "artNr": "204385",
+            "ordning": 5,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71910,
+          "pdid": 4222,
+          "artikelID": 186,
+          "maxantal": null,
+          "artikel": {
+            "id": 186,
+            "namn": "Steril hatt med jod, art nr PDC-223P",
+            "storlek": "30 st",
+            "artNr": "210016",
+            "ordning": 10,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71908,
+          "pdid": 4222,
+          "artikelID": 41,
+          "maxantal": null,
+          "artikel": {
+            "id": 41,
+            "namn": "Avloppsslang, 10 m, art.nr PDD-10",
+            "storlek": "20 st",
+            "artNr": "203534",
+            "ordning": 6,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71911,
+          "pdid": 4222,
+          "artikelID": 69,
+          "maxantal": null,
+          "artikel": {
+            "id": 69,
+            "namn": "Klorhexidinsprit 5 mg/ml",
+            "storlek": "250 ml",
+            "artNr": "538025",
+            "ordning": 4,
+            "aktiv": true,
+            "maxantal": null
+          }
+        },
+        {
+          "id": 71912,
+          "pdid": 4222,
+          "artikelID": 72,
+          "maxantal": null,
+          "artikel": {
+            "id": 72,
+            "namn": "Häftborttagningsmedel våtservett",
+            "storlek": "50 st",
+            "artNr": "104094081",
+            "ordning": 8,
+            "aktiv": true,
+            "maxantal": null
+          }
+        }
+      ]
+    }
+  ],
+  "samtycke": true,
+  "lasText": null
+}

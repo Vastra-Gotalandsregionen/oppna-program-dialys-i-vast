@@ -116,8 +116,8 @@
             <mat-cell *matCellDef="let bestInfo"> {{bestInfo.levDatum | date:'yyyy-MM-dd'}}</mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-header-row *matHeaderRowDef="['id', 'datum', 'utskrivare', 'levdatum']"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: ['id', 'datum', 'utskrivare', 'levdatum'];"></mat-row>
 
         </mat-table>
         <mat-paginator #page1

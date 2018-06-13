@@ -26,7 +26,6 @@ export class PatientDetailComponent implements OnInit {
   showOldRequisitions: boolean;
   gamlarekvisfinns: boolean;
   dataSource1 = new MatTableDataSource<BestInfo>();
-  displayedColumns = ['id', 'datum', 'utskrivare', 'levdatum'];
   panelOpenState: Number[] = [];
   @ViewChild('page1') page1 : MatPaginator;
 

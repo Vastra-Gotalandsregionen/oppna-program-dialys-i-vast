@@ -1,5 +1,6 @@
 import {Pd} from "./Pd";
 import {BestInfo} from "./BestInfo";
+import {PDArtikel} from "./PDArtikel";
 
 export class BestPDRad {
   pdartikelID: number;
@@ -7,4 +8,5 @@ export class BestPDRad {
   bestID: number;
   bestInfo: BestInfo;
   id: number;
+  pdArtikel: PDArtikel;
 }
