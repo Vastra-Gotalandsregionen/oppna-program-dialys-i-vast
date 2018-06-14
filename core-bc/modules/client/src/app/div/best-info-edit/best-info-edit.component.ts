@@ -18,18 +18,14 @@ import {Pd} from "../../model/Pd";
 })
 export class BestInfoEditComponent implements OnInit {
 
-  /*  id: string;
-
-    artikels: PDArtikelRow[];
-    rekvisId: number;
-    rekvisdatum: Date;*/
-
   data: Patient = new Patient();
   bestInfo: BestInfo = new BestInfo();
   pd: Pd = new Pd();
 
   @Input()
   params: CustomParams;
+
+  readonly: boolean = false;
 
   constructor(protected route: ActivatedRoute,
               protected http: JwtHttp,
@@ -40,9 +36,7 @@ export class BestInfoEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log("params", params);
       this.params = <CustomParams> params;
-
       this.initData(this.params);
     });
   }
@@ -58,14 +52,14 @@ export class BestInfoEditComponent implements OnInit {
         // Edit an existing BestInfo.
         this.data.pds.forEach((pd) => {
           pd.bestInfos.forEach((bi) => {
-            if (bi.id == pars.bestInfoId){
+            if (bi.id == pars.bestInfoId) {
               this.pd = pd;
               this.bestInfo = bi;
             }
           });
         });
-        console.log('pars.bestInfoId', pars.bestInfoId);
-
+        this.pd.sortBestInfos();
+        this.readonly = this.pd.bestInfos.indexOf(this.bestInfo) != 0;
       } else {
         // Create a new BestInfo
         this.pd = this.data.pds[0];
@@ -93,17 +87,13 @@ export class BestInfoEditComponent implements OnInit {
         (b1, b2) => b1.pdArtikel.artikel.namn > b2.pdArtikel.artikel.namn ? +1 : -1
       );
 
-      console.log("pd", this.pd);
+      /*console.log("pd", this.pd);
       console.log("bestInfo", this.bestInfo);
-      console.log("data", this.data);
+      console.log("data", this.data);*/
     });
   }
 
-  userHasEditPermission(data: Patient) {
-    return this.authService.userHasDataEditPermission(data);
-  }
-
-  saveToServer(orderModel: NgForm) {
+  saveToServer() {
     if (!this.bestInfo.datum) {
       this.bestInfo.datum = new Date();
     }
@@ -117,8 +107,6 @@ export class BestInfoEditComponent implements OnInit {
       return;
     }
 
-    console.log('before dave', clone);
-
     this.http.put('/api/bestInfo/', clone)
       .map(response => response.json())
       .share().subscribe((what: any) => {
@@ -126,44 +114,12 @@ export class BestInfoEditComponent implements OnInit {
       this.router.navigate(['/patienter', this.data.id]);
     });
 
-    /*
-        for (let rad of this.bestInfo.bestPDRads) {
-          this.bestInfo.bestPDRads = this.bestInfo.bestPDRads.filter(item => item.antal != null
-            || item.antal > 0);
-        }
-        this.bestInfo.datum = new Date();
-        this.bestInfo.fritext = orderModel.form.controls.fritxt.value;
-        this.bestInfo.levDatum = orderModel.form.controls.leveransdatum.value;
-        this.bestInfo.pdid = +this.rekvisId;
-        const $data = this.http.put('/api/bestInfo/', this.bestInfo)
-          .map(response => response.json())
-          .share();
-        $data.subscribe((patient: BestInfo) => {
-          console.log("saveToServer callback");
-          this.snackBar.open('Lyckades spara!', null, {duration: 3000});
-          console.log("saveToServer callback - end");
-          console.log(orderModel.form);
-          console.log('saved' + JSON.stringify(orderModel.value))
-          this.router.navigate(['/patienter', this.id])
-        });*/
-
-
   }
 
   print(title: string, printNodeId: string): boolean {
     let printContents = document.getElementById(printNodeId).innerHTML;
     return Util.print(title, printContents);
   }
-
-  logProps(pdArtikel: any) {
-    for (var k in pdArtikel)
-      console.log(k, pdArtikel[k]);
-    return '';
-  }
-}
-
-export class PDArtikelRow extends PDArtikel {
-  bestPdRow: BestPDRad;
 }
 
 export interface CustomParams extends Params {

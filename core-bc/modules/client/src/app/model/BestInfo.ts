@@ -10,4 +10,8 @@ export class BestInfo {
   pdid: number;
   utskrivare: string;
   bestPDRads: Array<BestPDRad> = [];
+
+  public sortBestPDRads() {
+
+  }
 }

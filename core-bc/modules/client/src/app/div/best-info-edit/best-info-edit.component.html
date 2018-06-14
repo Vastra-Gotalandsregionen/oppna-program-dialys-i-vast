@@ -84,7 +84,7 @@
                   <input type="number"
                          [value]="rad.antal"
                          (blur)="rad.antal=$event.srcElement.value"
-                         [disabled]="!rad.pdArtikel.artikel.aktiv"
+                         [disabled]="!rad.pdArtikel.artikel.aktiv || readonly"
                          name="antalfp"
                          matInput>
                 </mat-form-field>
@@ -101,6 +101,7 @@
                 <textarea matInput placeholder="Fritext"
                           [(ngModel)]=bestInfo.fritext
                           name="fritxt"
+                          [readonly]="readonly"
                           #fritext="ngModel">
                 </textarea>
             </mat-form-field>
@@ -112,6 +113,7 @@
                      placeholder="Leveransdatum"
                      [value]="bestInfo.levDatum | date: 'yyyy-MM-dd'"
                      (blur)="bestInfo.levDatum=$event.srcElement.value"
+                     [readonly]="readonly"
                      name="leveransdatum">
             </mat-form-field>
           </div>
@@ -119,7 +121,7 @@
         </div>
 
         <div class="btn-container">
-          <button type="submit" mat-raised-button class="btn">Spara beställning</button> &nbsp;
+          <button [disabled]="readonly" type="submit" mat-raised-button class="btn">Spara beställning</button> &nbsp;
           <button (click)="print('Beställning', 'bastallningsTableWrap')" mat-raised-button class="btn btn-secondary">
             Skriv ut
           </button> &nbsp;

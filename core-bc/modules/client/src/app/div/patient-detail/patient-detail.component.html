@@ -172,11 +172,11 @@
                 <mat-cell *matCellDef="let bestInfo"> {{bestInfo.datum | date:'yyyy-MM-dd'}}</mat-cell>
               </ng-container>
 
-<!--              <ng-container matColumnDef="utskrivare">
+              <ng-container matColumnDef="utskrivare">
                 <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Utskrivare</span>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let bestInfo"> {{bestInfo.utskrivare}}</mat-cell>
-              </ng-container>-->
+              </ng-container>
 
               <ng-container matColumnDef="levdatum">
                 <mat-header-cell *matHeaderCellDef><span style="font-size:16px;font-weight:bold">Leveransdatum</span>
@@ -184,8 +184,8 @@
                 <mat-cell *matCellDef="let bestInfo"> {{bestInfo.levDatum | date:'yyyy-MM-dd'}}</mat-cell>
               </ng-container>
 
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              <mat-header-row *matHeaderRowDef="['id', 'datum', 'utskrivare', 'levdatum']"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: ['id', 'datum', 'utskrivare', 'levdatum'];"></mat-row>
 
             </mat-table>
 

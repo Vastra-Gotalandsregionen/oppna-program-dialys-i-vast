@@ -31,6 +31,7 @@ public class LdapLoginServiceIntegrationTest {
         System.out.println(user);
     }
 
+    @Ignore
     @Test
     public void findDatabaseUsersInLdap() throws FailedLoginException {
         List<User> users = userRepository.findAll();

@@ -20,8 +20,6 @@ export class Pd {
     if (this.bestInfos)
       this.bestInfos.sort((a: BestInfo, b: BestInfo) =>
         (((a.datum + ' ' + a.id) > (b.datum + ' ' + b.id)) ? -1 : 1));
-    /*this.bestInfos.sort((a: BestInfo, b: BestInfo) =>
-      ((a.datum > b.datum || (a.datum == b.datum && a.id > b.id)) ? -1 : 1));*/
   }
 
   private static template: Pd = new Pd();
