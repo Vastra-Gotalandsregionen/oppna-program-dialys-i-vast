@@ -50,16 +50,20 @@ export class BestInfoEditComponent implements OnInit {
 
       if (pars.bestInfoId) {
         // Edit an existing BestInfo.
+        var indexOfPd: number;
+        var pdLoopIndex:number = 0;
         this.data.pds.forEach((pd) => {
           pd.bestInfos.forEach((bi) => {
             if (bi.id == pars.bestInfoId) {
               this.pd = pd;
               this.bestInfo = bi;
+              indexOfPd = pdLoopIndex;
             }
           });
+          pdLoopIndex++;
         });
         this.pd.sortBestInfos();
-        this.readonly = this.pd.bestInfos.indexOf(this.bestInfo) != 0;
+        this.readonly = this.pd.bestInfos.indexOf(this.bestInfo) != 0 || indexOfPd > 0;
       } else {
         // Create a new BestInfo
         this.pd = this.data.pds[0];
@@ -99,7 +103,7 @@ export class BestInfoEditComponent implements OnInit {
     }
     var clone: BestInfo = JSON.parse(JSON.stringify(this.bestInfo));
     clone.bestPDRads = clone.bestPDRads.filter(
-      item => item.antal != null || item.antal > 0
+      item => !(!item.antal || item.antal == 0)
     );
 
     if (clone.bestPDRads.length == 0) {
