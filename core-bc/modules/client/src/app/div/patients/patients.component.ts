@@ -1,7 +1,7 @@
 import {FormControl} from '@angular/forms';
 import {Location} from '@angular/common';
 import {Component, HostListener, OnInit} from '@angular/core';
-import {RequestOptions, Response, ResponseOptions, URLSearchParams} from '@angular/http';
+import {RequestOptions, URLSearchParams} from '@angular/http';
 import {Patient} from '../../model/Patient';
 import {RestResponse} from '../../model/rest-response';
 import {Observable} from 'rxjs/Observable';
@@ -53,6 +53,10 @@ export class PatientsComponent implements OnInit {
     // this.onlyMyDatasCtrl = new FormControl();
   }
 
+  shouldDisplayResult(): boolean {
+    return (!this.blank(this.query) || this.page > 0 || !this.blank(this.status) || !this.blank(this.utdelningsVecka) || !this.blank(this.utdelningsDag))
+  }
+
   ngOnInit() {
     this.returnurl = this.router.url;
     this.route.queryParams
@@ -86,19 +90,13 @@ export class PatientsComponent implements OnInit {
     }
   }
 
-  private blank(s: string) : boolean {
+  private blank(s: string): boolean {
     if (s && s.trim() != '') return false;
     return true;
   }
 
   public updateState() {
-    console.log('q',this.query + " " +this.blank(this.query));
-
-    console.log('s',this.status + " " + this.blank(this.status));
-
-    console.log(this.page);
-
-    if (!this.blank(this.query) || this.page > 0 || !this.blank(this.status)) {
+    if (this.shouldDisplayResult()) {
       const queryPart = (this.query ? '&query=' + this.query : '');
       const pagePart = (this.page > 0 ? '&page=' + this.page : '');
       const sortPart = (this.sort ? '&sort=' + this.sort.field + '&asc=' + this.sort.ascending : '');
@@ -122,7 +120,7 @@ export class PatientsComponent implements OnInit {
   }
 
   private fetchDatas() {
-    if (!this.blank(this.query) || this.page > 0 || !this.blank(this.status)) {
+    if (this.shouldDisplayResult()) {
       this.observeData()
         .subscribe(response => {
           this.handleResponse(response);
