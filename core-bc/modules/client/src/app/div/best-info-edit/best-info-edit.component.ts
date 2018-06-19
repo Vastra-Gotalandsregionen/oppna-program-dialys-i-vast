@@ -122,6 +122,7 @@ export class BestInfoEditComponent implements OnInit {
 
   print(title: string, printNodeId: string): boolean {
     let printContents = document.getElementById(printNodeId).innerHTML;
+    printContents = "<style> .printing input, .printing textarea { display: none; } </style> </style><div class='printing'>" + printContents + "</div>";
     return Util.print(title, printContents);
   }
 }

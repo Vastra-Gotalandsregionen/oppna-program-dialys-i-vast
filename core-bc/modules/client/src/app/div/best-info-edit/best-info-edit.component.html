@@ -55,7 +55,82 @@
 
       <form novalidate (ngSubmit)="saveToServer(orderModel)" #orderModel="ngForm" class="order-form">
         <div id="bastallningsTableWrap">
-          <mat-table #table dense [dataSource]="bestInfo.bestPDRads" class="order-table">
+          <table class="dialys-table order-table" style="color: rgba(0,0,0,.54); margin: 9px;">
+            <tbody>
+
+            <tr class="print-field">
+              <td>
+                Personnummer:<br/>
+                {{data.pnr}}
+              </td>
+              <td colspan="2">
+                Förnamn:<br/>
+                {{data.fornamn}}
+              </td>
+              <td colspan="2">
+                Efternamn:<br/>
+                {{data.efternamn}}
+              </td>
+              <td>
+              </td>
+            </tr>
+
+            <tr style="background: #dfdfdf; height: 48px;">
+              <td>
+                Artikel
+              </td>
+
+              <td>
+                Mängd / frp
+              </td>
+
+              <td>
+                Artikelnr
+              </td>
+
+              <td>
+                Maxantal frp
+              </td>
+
+              <td>
+                Antal frp
+              </td>
+            </tr>
+
+            <tr *ngFor="let rad of bestInfo.bestPDRads">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+                {{rad.pdArtikel.artikel.namn}}
+              </td>
+
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+                {{rad.pdArtikel.artikel.storlek}}
+              </td>
+
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+                {{rad.pdArtikel.artikel.artNr}}
+              </td>
+
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+                {{rad.pdArtikel.maxantal}}
+              </td>
+
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+                <mat-form-field class="order-row-amount">
+                  <input type="number"
+                         [value]="rad.antal"
+                         (blur)="rad.antal=$event.srcElement.value"
+                         [disabled]="!rad.pdArtikel.artikel.aktiv || readonly"
+                         name="antalfp"
+                         matInput>
+                </mat-form-field>
+                <span class="print-field"> {{rad.antal}} </span>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+
+          <!--<mat-table #table dense [dataSource]="bestInfo.bestPDRads" class="order-table">
             <ng-container matColumnDef="artikel">
               <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
               <mat-cell *matCellDef="let rad">{{rad.pdArtikel.artikel.namn}}</mat-cell>
@@ -68,7 +143,7 @@
             <ng-container matColumnDef="pdartikel">
               <mat-header-cell *matHeaderCellDef>Artikelnr</mat-header-cell>
               <mat-cell *matCellDef="let rad">
-                  {{rad.pdArtikel.artikel.artNr}}
+                {{rad.pdArtikel.artikel.artNr}}
               </mat-cell>
             </ng-container>
 
@@ -97,7 +172,7 @@
             <mat-header-row *matHeaderRowDef="['artikel', 'mangd', 'pdartikel','maxantal', 'antal']"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ['artikel', 'mangd', 'pdartikel','maxantal', 'antal'];"></mat-row>
 
-          </mat-table>
+          </mat-table>-->
 
           <div class="form-element">
             <mat-form-field class="order-comment">
@@ -108,6 +183,7 @@
                           #fritext="ngModel">
                 </textarea>
             </mat-form-field>
+            <span class="print-field">'{{bestInfo.fritext}}' </span>
           </div>
 
           <div class="form-element">
@@ -119,6 +195,7 @@
                      [readonly]="readonly"
                      name="leveransdatum">
             </mat-form-field>
+            <span class="print-field">'{{bestInfo.levDatum | date: 'yyyy-MM-dd'}}' </span>
           </div>
 
         </div>
@@ -128,7 +205,8 @@
           <button (click)="print('Beställning', 'bastallningsTableWrap')" mat-raised-button class="btn btn-secondary">
             Skriv ut
           </button> &nbsp;
-          <button routerLink="/patienter/{{data.id}}" type="button" mat-raised-button class="btn btn-secondary">Avbryt
+          <button routerLink="/patienter/{{data.id}}" type="button" mat-raised-button class="btn btn-secondary">
+            Avbryt
           </button> &nbsp;
         </div>
 
