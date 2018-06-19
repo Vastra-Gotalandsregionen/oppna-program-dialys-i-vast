@@ -74,12 +74,15 @@
 
             <ng-container matColumnDef="maxantal">
               <mat-header-cell *matHeaderCellDef>Maxantal frp</mat-header-cell>
-              <mat-cell *matCellDef="let rad">{{rad.pdArtikel.maxantal}}</mat-cell>
+              <mat-cell *matCellDef="let rad">
+                <div>{{rad.pdArtikel.maxantal}}</div>
+              </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="antal">
               <mat-header-cell *matHeaderCellDef>Antal frp</mat-header-cell>
               <mat-cell *matCellDef="let rad">
+                <span class="print-field"> {{rad.antal}} </span>
                 <mat-form-field class="order-row-amount">
                   <input type="number"
                          [value]="rad.antal"
