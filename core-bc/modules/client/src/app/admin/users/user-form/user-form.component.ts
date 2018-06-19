@@ -45,6 +45,7 @@ export class UserFormComponent implements OnInit {
     } else {
       this.user = new User();
       this.user.status = 'Aktiv';
+      this.userStatus = true;
     }
 
     this.http.get('/api/mottagning').map(response => response.json()).subscribe(

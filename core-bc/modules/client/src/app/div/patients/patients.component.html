@@ -21,6 +21,7 @@
 
       <mat-form-field class="status-select-field">
         <mat-select [(value)]="status" placeholder="Status" (change)="updateState()">
+          <mat-option value="">Samtliga val</mat-option>
           <mat-option value="Aktiv">Aktiv</mat-option>
           <mat-option value="Pausad">Pausad</mat-option>
           <mat-option value="Avslutad">Avslutad</mat-option>

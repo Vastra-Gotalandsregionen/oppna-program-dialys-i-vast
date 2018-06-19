@@ -126,7 +126,7 @@ public class PatientController {
 
         Pageable pageable = makePageable(page, sort, asc);
 
-        if (isBlank(query) && isBlank(week) && isBlank(day)) {
+        if (isBlank(query) && isBlank(week) && isBlank(day) && isBlank(status)) {
             return objectMapper.writeValueAsString(new PageImpl(new ArrayList(), pageable, 0l));
         }
 

@@ -1,7 +1,7 @@
 import {FormControl} from '@angular/forms';
 import {Location} from '@angular/common';
 import {Component, HostListener, OnInit} from '@angular/core';
-import {RequestOptions, URLSearchParams} from '@angular/http';
+import {RequestOptions, Response, ResponseOptions, URLSearchParams} from '@angular/http';
 import {Patient} from '../../model/Patient';
 import {RestResponse} from '../../model/rest-response';
 import {Observable} from 'rxjs/Observable';
@@ -22,7 +22,7 @@ export class PatientsComponent implements OnInit {
 
   stateCtrl: FormControl;
   onlyActiveDatasCtrl: FormControl;
-  status: string = 'Aktiv';
+  status: string = '';
 
   returnurl: string;
   query: string;
@@ -74,7 +74,10 @@ export class PatientsComponent implements OnInit {
         if (params.sort) {
           this.sort = {field: params.sort, ascending: params.asc === 'true'}
         }
+        this.updateState();
       });
+
+
   }
 
   public filterTextChange(event) {
@@ -83,8 +86,19 @@ export class PatientsComponent implements OnInit {
     }
   }
 
+  private blank(s: string) : boolean {
+    if (s && s.trim() != '') return false;
+    return true;
+  }
+
   public updateState() {
-    if (this.query || this.page > 0 || this.sort || /*this.onlyMyDatas ||*/ this.status) {
+    console.log('q',this.query + " " +this.blank(this.query));
+
+    console.log('s',this.status + " " + this.blank(this.status));
+
+    console.log(this.page);
+
+    if (!this.blank(this.query) || this.page > 0 || !this.blank(this.status)) {
       const queryPart = (this.query ? '&query=' + this.query : '');
       const pagePart = (this.page > 0 ? '&page=' + this.page : '');
       const sortPart = (this.sort ? '&sort=' + this.sort.field + '&asc=' + this.sort.ascending : '');
@@ -108,10 +122,14 @@ export class PatientsComponent implements OnInit {
   }
 
   private fetchDatas() {
-    this.observeData()
-      .subscribe(response => {
-        this.handleResponse(response);
-      });
+    if (!this.blank(this.query) || this.page > 0 || !this.blank(this.status)) {
+      this.observeData()
+        .subscribe(response => {
+          this.handleResponse(response);
+        });
+    } else {
+      this.response = null;
+    }
   }
 
   private handleResponse(response) {
