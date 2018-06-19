@@ -42,7 +42,7 @@ export class Util {
 
   public static print(title: string, printContents: string): boolean {
       let popupWin;
-      popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+      popupWin = window.open('', '_blank', 'top=0,left=0,height=800,width=auto, resizable=yes, scrollbars=yes');
       popupWin.document.open();
       popupWin.document.write(`
         <html>
