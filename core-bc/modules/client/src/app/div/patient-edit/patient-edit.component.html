@@ -189,7 +189,7 @@
                 <input #tempAdressFrom
                        [value]="patient.tempAdressFrom | date: 'yyyy-MM-dd'"
                        placeholder="Från och med"
-                       type="date" matInput
+                       type="date" matInput lang="sv"
                        [disabled]="!authService.getSjukskoterska()"
                        (blur)="patient.tempAdressFrom = toDate($event.srcElement.value)"
                 >
@@ -204,7 +204,7 @@
                 <input id="tempAdressTom" #tempAdressTomInput
                        [value]="patient.tempAdressTom | date: 'yyyy-MM-dd'"
                        placeholder="Till och med"
-                       type="date" matInput
+                       type="date" matInput lang="sv"
                        [disabled]="!authService.getSjukskoterska()"
                        (blur)="patient.tempAdressTom = toDate($event.srcElement.value)"
                 >

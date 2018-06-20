@@ -10,6 +10,7 @@
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
   <link href="assets/vendor/material-font/icon-family-Material_Icons.css" rel="stylesheet">
   <script src="assets/vendor/ckeditor-standard-4.7.3/ckeditor.js" async></script>
+  <script src="assets/js/date-input-polyfill.dist.js" async></script>
 </head>
 
 <body>
@@ -17,6 +18,16 @@
 <app-root>
   <span class="loading-indicator"><i class="icon icon-spinner"></i></span>
 </app-root>
+<script>
+  if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+    $('input[type=date]')
+      .attr('type', 'text')
+      .datepicker({
+        // Consistent format with the HTML5 picker
+        dateFormat: 'yy-mm-dd'
+      });
+  }
+</script>
 </body>
 
 </html>

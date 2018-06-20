@@ -62,14 +62,17 @@
               <td>
                 Personnummer:<br/>
                 {{data.pnr}}
+                <br/><br/>
               </td>
               <td colspan="2">
                 Förnamn:<br/>
                 {{data.fornamn}}
+                <br/><br/>
               </td>
               <td colspan="2">
                 Efternamn:<br/>
                 {{data.efternamn}}
+                <br/><br/>
               </td>
               <td>
               </td>
@@ -180,15 +183,18 @@
                           [(ngModel)]=bestInfo.fritext
                           name="fritxt"
                           [readonly]="readonly"
-                          #fritext="ngModel">
+                          #fritext="ngModel"
+                          maxlength="200">
                 </textarea>
             </mat-form-field>
             <span class="print-field">'{{bestInfo.fritext}}' </span>
           </div>
 
+          <br class="print-field"/>
+
           <div class="form-element">
             <mat-form-field class="order-delivery-date">
-              <input matInput type="date"
+              <input matInput type="date" lang="sv"
                      placeholder="Leveransdatum"
                      [value]="bestInfo.levDatum | date: 'yyyy-MM-dd'"
                      (blur)="bestInfo.levDatum=$event.srcElement.value"
