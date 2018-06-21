@@ -103,13 +103,18 @@ public abstract class AbstractDatabaseCopy {
 
     private void insert(String table, List<Map<String, Object>> items) {
         int c = 1;
-        for (Map<String, Object> item : items) {
-            target.insert(table, item);
-            if (c % 10000 == 0) {
-                target.commit();
-                System.out.print(" " + (c / 1000) + "t");
+        try {
+            for (Map<String, Object> item : items) {
+                target.insert(table, item);
+                if (c % 10000 == 0) {
+                    target.commit();
+                    System.out.print(" " + (c / 1000) + "t");
+                }
+                c++;
             }
-            c++;
+            target.commit();
+        } catch (Exception e) {
+            System.out.println("Failed to insert. Stopped after " + c + " items.");
         }
     }
 
