@@ -127,6 +127,9 @@
       </div>
 
       <div id="rekvisitionsTableWrap" [hidden]=true>
+        <div>
+          {{patient.fornamn}} {{patient.efternamn}}
+        </div>
         <mat-table #table dense [dataSource]="datasource">
           <ng-container matColumnDef="artikel">
             <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
