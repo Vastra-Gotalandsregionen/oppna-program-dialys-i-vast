@@ -146,8 +146,14 @@
             <mat-header-cell *matHeaderCellDef>Artikelnr</mat-header-cell>
             <mat-cell *matCellDef="let rad">{{rad.artikel.artNr}}</mat-cell>
           </ng-container>
-          <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+
+          <ng-container matColumnDef="maxantal">
+            <mat-header-cell *matHeaderCellDef>Maxantal</mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.maxantal}}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="['artikel', 'mangd', 'artikelnr', 'maxantal']"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: ['artikel', 'mangd', 'artikelnr', 'maxantal']"></mat-row>
         </mat-table>
       </div>
 
