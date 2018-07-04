@@ -32,7 +32,7 @@
                        matInput [disabled]="!authService.getSjukskoterska()" (blur)="checkPnrDuplicate()">
               </mat-input-container>
             </div>
-            <mat-icon class="dialys-form-field-help" matTooltip="ÅÅMMDD-NNNC">help</mat-icon>
+            <mat-icon class="dialys-form-field-help" matTooltip="ÅÅÅÅMMDD-NNNC">help</mat-icon>
           </div>
 
           <div *ngIf="!canBeSaved" class="dialys-form-field-ctn">
@@ -382,6 +382,7 @@
                 <input #leveransMottagningsOmbudInput [(ngModel)]="patient.leveransMottagningsOmbud"
                        placeholder="Ombud för leveransmottagning"
                        type="text" matInput>
+                <mat-icon class="dialys-form-field-help" matTooltip="Namn och telefonnummer.">help</mat-icon>
               </mat-input-container>
             </div>
           </div>

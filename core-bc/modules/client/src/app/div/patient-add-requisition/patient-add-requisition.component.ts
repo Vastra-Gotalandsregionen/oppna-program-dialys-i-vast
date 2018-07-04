@@ -31,7 +31,7 @@ export class PatientAddRequisitionComponent implements OnInit{
   displayedColumns = ['namn', 'storlek', 'artNr', 'ordination', 'maxantal'];
 
   datasource = new MatTableDataSource<PDArtikel>();
-  displayedColumns2 = ['artikel', 'mangd', 'artikelnr'];
+
   @Input()
   selectedArtiklar = [];
 

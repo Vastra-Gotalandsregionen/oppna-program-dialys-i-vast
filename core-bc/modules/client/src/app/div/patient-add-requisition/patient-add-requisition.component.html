@@ -97,7 +97,8 @@
                     <mat-input-container *ngIf="editable">
                       <input id="name" [(ngModel)]="artikelToPdArtikels.get(rad).maxantal" type="number"
                              matInput="2147483647" min="0"
-                             [disabled]="selectedArtiklar.indexOf(rad) === -1" [required]="selectedArtiklar.indexOf(rad) != -1">
+                             [disabled]="selectedArtiklar.indexOf(rad) === -1"
+                             [required]="selectedArtiklar.indexOf(rad) != -1">
                     </mat-input-container>
                     <div *ngIf="!editable">
                       {{artikelToPdArtikels.get(rad).maxantal}}
@@ -121,12 +122,16 @@
         <button type="submit" mat-raised-button class="btn" (click)="saveToServer()" [disabled]="saving || !editable">
           Spara rekvisition
         </button> &nbsp;
-        <button type="button" mat-raised-button class="btn btn-secondary"(click)="skrivut()">Skriv ut</button> &nbsp;
-        <!-- <button routerLink="/patienter/{{id}}" mat-raised-button class="btn btn-secondary">Avbryt</button> &nbsp;-->
+        <button type="button" mat-raised-button class="btn btn-secondary" (click)="skrivut()">Skriv ut</button> &nbsp;
         <button mat-raised-button class="btn btn-secondary" (click)="avbryt()">Avbryt</button> &nbsp;
       </div>
 
       <div id="rekvisitionsTableWrap" [hidden]=true>
+        <div>
+          {{patient.fornamn}} {{patient.efternamn}}
+          <br/>
+          <br/>
+        </div>
         <mat-table #table dense [dataSource]="datasource">
           <ng-container matColumnDef="artikel">
             <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
@@ -141,8 +146,14 @@
             <mat-header-cell *matHeaderCellDef>Artikelnr</mat-header-cell>
             <mat-cell *matCellDef="let rad">{{rad.artikel.artNr}}</mat-cell>
           </ng-container>
-          <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+
+          <ng-container matColumnDef="maxantal">
+            <mat-header-cell *matHeaderCellDef>Maxantal</mat-header-cell>
+            <mat-cell *matCellDef="let rad">{{rad.maxantal}}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="['artikel', 'mangd', 'artikelnr', 'maxantal']"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: ['artikel', 'mangd', 'artikelnr', 'maxantal']"></mat-row>
         </mat-table>
       </div>
 
