@@ -55,10 +55,10 @@
 
       <form novalidate (ngSubmit)="saveToServer(orderModel)" #orderModel="ngForm" class="order-form">
         <div id="bastallningsTableWrap">
-          <table class="dialys-table order-table" style="color: rgba(0,0,0,.54); margin: 9px;">
+          <table class="dialys-table order-table" style="color: rgba(0,0,0,1); margin: 9px;">
             <tbody>
 
-            <tr class="print-field">
+            <tr class="print-field" style="font-size: 26px">
               <td>
                 Personnummer:<br/>
                 {{data.pnr}}
@@ -101,23 +101,23 @@
             </tr>
 
             <tr *ngFor="let rad of bestInfo.bestPDRads">
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey ">
                 {{rad.pdArtikel.artikel.namn}}
               </td>
 
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey  ">
                 {{rad.pdArtikel.artikel.storlek}}
               </td>
 
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey  ">
                 {{rad.pdArtikel.artikel.artNr}}
               </td>
 
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey  ">
                 {{rad.pdArtikel.maxantal}}
               </td>
 
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey ">
                 <mat-form-field class="order-row-amount">
                   <input type="number"
                          [value]="rad.antal"
