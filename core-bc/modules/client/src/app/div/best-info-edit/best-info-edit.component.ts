@@ -3,11 +3,9 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
 import {JwtHttp} from "../../core/jwt-http";
-import {PDArtikel} from "../../model/PDArtikel";
 import {BestPDRad} from "../../model/BestPDRad";
 import {BestInfo} from "../../model/BestInfo";
 import {MatSnackBar} from "@angular/material";
-import {NgForm} from "@angular/forms";
 import {Util} from "../../core/util/util";
 import {Pd} from "../../model/Pd";
 
@@ -51,7 +49,7 @@ export class BestInfoEditComponent implements OnInit {
       if (pars.bestInfoId) {
         // Edit an existing BestInfo.
         var indexOfPd: number;
-        var pdLoopIndex:number = 0;
+        var pdLoopIndex: number = 0;
         this.data.pds.forEach((pd) => {
           pd.bestInfos.forEach((bi) => {
             if (bi.id == pars.bestInfoId) {
@@ -122,9 +120,19 @@ export class BestInfoEditComponent implements OnInit {
 
   print(title: string, printNodeId: string): boolean {
     let printContents = document.getElementById(printNodeId).innerHTML;
-    printContents = "<style> .printing input, .printing textarea { display: none; } </style> </style><div class='printing'>" + printContents + "</div>";
+    printContents = "<style> .printing input, .printing textarea, .printing .zero-items { display: none; } </style> </style><div class='printing'>" + printContents + "</div>";
     return Util.print(title, printContents);
   }
+
+  printThose(items: BestPDRad[]): BestPDRad[] {
+    const result: BestPDRad[] = [];
+    for (const item of items) {
+      if(item.antal && item.antal > 0)
+        result.push(item);
+    }
+    return result;
+  }
+
 }
 
 export interface CustomParams extends Params {

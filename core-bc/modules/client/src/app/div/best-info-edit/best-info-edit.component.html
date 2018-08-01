@@ -100,24 +100,30 @@
               </td>
             </tr>
 
-            <tr *ngFor="let rad of bestInfo.bestPDRads">
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey ">
+            <tr *ngFor="let rad of (bestInfo.bestPDRads)"
+                class="{{(rad.antal && rad.antal > 0 ? 'non-zero-items' : 'zero-items')}}">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
+                  style="border-bottom:solid; border-width: 1px; border-color: grey ">
                 {{rad.pdArtikel.artikel.namn}}
               </td>
 
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey  ">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
+                  style="border-bottom:solid; border-width: 1px; border-color: grey  ">
                 {{rad.pdArtikel.artikel.storlek}}
               </td>
 
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey  ">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
+                  style="border-bottom:solid; border-width: 1px; border-color: grey  ">
                 {{rad.pdArtikel.artikel.artNr}}
               </td>
 
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey  ">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
+                  style="border-bottom:solid; border-width: 1px; border-color: grey  ">
                 {{rad.pdArtikel.maxantal}}
               </td>
 
-              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted" style="border-bottom:solid; border-width: 1px; border-color: grey ">
+              <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
+                  style="border-bottom:solid; border-width: 1px; border-color: grey ">
                 <mat-form-field class="order-row-amount">
                   <input type="number"
                          [value]="rad.antal"
@@ -132,50 +138,6 @@
 
             </tbody>
           </table>
-
-          <!--<mat-table #table dense [dataSource]="bestInfo.bestPDRads" class="order-table">
-            <ng-container matColumnDef="artikel">
-              <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
-              <mat-cell *matCellDef="let rad">{{rad.pdArtikel.artikel.namn}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="mangd">
-              <mat-header-cell *matHeaderCellDef>Mängd / frp</mat-header-cell>
-              <mat-cell *matCellDef="let rad" style="margin-left: 30px">{{rad.pdArtikel.artikel.storlek}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="pdartikel">
-              <mat-header-cell *matHeaderCellDef>Artikelnr</mat-header-cell>
-              <mat-cell *matCellDef="let rad">
-                {{rad.pdArtikel.artikel.artNr}}
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="maxantal">
-              <mat-header-cell *matHeaderCellDef>Maxantal frp</mat-header-cell>
-              <mat-cell *matCellDef="let rad">
-                <div>{{rad.pdArtikel.maxantal}}</div>
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="antal">
-              <mat-header-cell *matHeaderCellDef>Antal frp</mat-header-cell>
-              <mat-cell *matCellDef="let rad">
-                <span class="print-field"> {{rad.antal}} </span>
-                <mat-form-field class="order-row-amount">
-                  <input type="number"
-                         [value]="rad.antal"
-                         (blur)="rad.antal=$event.srcElement.value"
-                         [disabled]="!rad.pdArtikel.artikel.aktiv || readonly"
-                         name="antalfp"
-                         matInput>
-                </mat-form-field>
-              </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="['artikel', 'mangd', 'pdartikel','maxantal', 'antal']"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: ['artikel', 'mangd', 'pdartikel','maxantal', 'antal'];"></mat-row>
-
-          </mat-table>-->
 
           <div class="form-element">
             <mat-form-field class="order-comment">
