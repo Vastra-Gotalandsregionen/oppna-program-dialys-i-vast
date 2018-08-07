@@ -78,17 +78,18 @@ public class JwtUtil {
                 roles.add("pharmaceut");
             }
 
-            return JWT.create()
+            String r = JWT.create()
                     .withSubject(user.getUserName())
                     .withArrayClaim("roles", toTextArray(roles))
                     // .withClaim("user", (String)objectMapper.writeValueAsString(user))
-                    .withClaim("pharmaceut", noValueIsFalse(user.getPharmaceut()))
-                    .withClaim("sjukskoterska", noValueIsFalse(user.getSjukskoterska()))
-                    .withClaim("admin", noValueIsFalse(user.getAdmin()))
+                    .withClaim("pharmaceut", "" + noValueIsFalse(user.getPharmaceut()))
+                    .withClaim("sjukskoterska", "" + noValueIsFalse(user.getSjukskoterska()))
+                    .withClaim("admin", "" + noValueIsFalse(user.getAdmin()))
                     .withClaim("displayName", user.getName())
                     .withIssuedAt(now)
                     .withExpiresAt(timeAhead)
                     .sign(Algorithm.HMAC256(secret));
+            return r;
         } catch (Exception e) {
 
             throw new RuntimeException(e);
@@ -103,6 +104,9 @@ public class JwtUtil {
     }
 
     public static DecodedJWT verify(String jwtToken) throws JWTVerificationException {
+        if (jwtToken.startsWith("Bearer")) {
+            jwtToken = jwtToken.substring("Bearer".length()).trim();
+        }
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
             return verifier.verify(jwtToken);

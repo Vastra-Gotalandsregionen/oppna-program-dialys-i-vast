@@ -167,15 +167,22 @@ public class Patient implements Serializable {
     @Column(name = "Samtycke")
     private Boolean samtycke;
 
-/*    @Column(name = "IsDeleted")
-    private Boolean isDeleted;*/
-
-/*    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pas", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_patient_ansvarig"))
-    private Ansvarig ansvarig;*/
-
     @Column(name = "lasText")
     private String lasText;
+
+    @Column(name = "regdatum")
+    private Date regdatum;
+
+    @Column(name = "redigeringsdatum")
+    private Date redigeringsdatum;
+
+    @ManyToOne
+    @JoinColumn(name = "registrator", referencedColumnName = "userName", foreignKey = @ForeignKey(name = "fk_patientregistrator"))
+    private User registrator;
+
+    @ManyToOne
+    @JoinColumn(name = "redigerare", referencedColumnName = "userName", foreignKey = @ForeignKey(name = "fk_patientredigerare"))
+    private User redigerare;
 
     public Patient() {
     }
@@ -452,5 +459,37 @@ public class Patient implements Serializable {
 
     public void setTempPostOrt(String tempPostOrt) {
         this.tempPostOrt = tempPostOrt;
+    }
+
+    public Date getRegdatum() {
+        return regdatum;
+    }
+
+    public void setRegdatum(Date regdatum) {
+        this.regdatum = regdatum;
+    }
+
+    public Date getRedigeringsdatum() {
+        return redigeringsdatum;
+    }
+
+    public void setRedigeringsdatum(Date andringsdatum) {
+        this.redigeringsdatum = andringsdatum;
+    }
+
+    public User getRegistrator() {
+        return registrator;
+    }
+
+    public void setRegistrator(User registrator) {
+        this.registrator = registrator;
+    }
+
+    public User getRedigerare() {
+        return redigerare;
+    }
+
+    public void setRedigerare(User editor) {
+        this.redigerare = editor;
     }
 }

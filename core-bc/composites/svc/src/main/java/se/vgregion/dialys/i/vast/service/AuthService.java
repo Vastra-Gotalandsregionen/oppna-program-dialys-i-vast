@@ -21,7 +21,6 @@ public class AuthService {
     }
 
     public boolean hasRole(Authentication authentication, String role) {
-        System.out.println("hasRole " + authentication + " " + role);
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()).contains(role);
     }

@@ -17,7 +17,8 @@ public class JwtUtilTest {
         JwtUtil.secret = "hejsan";
 
         User user = new User();
-        user.setName("userName");
+        user.setName("name");
+        user.setUserName("userName");
         user.setMottagnings(new HashSet<>(Arrays.asList(new Mottagning(1,"Hiertat"))));
         user.setName("John Doe");
         user.setAdmin(true);
@@ -34,7 +35,7 @@ public class JwtUtilTest {
             Claim v = auth.getClaim(key);
             System.out.println(" " + key + " = " + v.asString());
         }
-        System.out.println(auth);
+        System.out.println(auth.getSubject());
     }
 
     @Test

@@ -81,7 +81,7 @@
           <span class="title-orders">{{headerdata.bestInfos != null ? headerdata.bestInfos.length : '0'}} beställningar</span>
         </mat-panel-title>
         <mat-panel-description *ngIf="giltigRekvisitionFinns">
-          <mat-icon routerLink="/patienter/{{data.id}}/requisition/{{headerdata.id}}">open_in_browser</mat-icon>
+          <mat-icon title="Se/ändra rekvisition" routerLink="/patienter/{{data.id}}/requisition/{{headerdata.id}}">open_in_browser</mat-icon>
           &nbsp;
           <mat-icon>add_shopping_cart</mat-icon>
           <span>
@@ -145,7 +145,7 @@
               <span class="title-orders">{{dat.bestInfos != null ? dat.bestInfos.length : '0'}} beställningar</span>
             </mat-panel-title>
             <mat-panel-description>
-              <mat-icon routerLink="/patienter/{{data.id}}/requisition/{{dat.id}}">open_in_browser</mat-icon>
+              <mat-icon title="Se/ändra rekvisition" routerLink="/patienter/{{data.id}}/requisition/{{dat.id}}">open_in_browser</mat-icon>
               &nbsp;
               <mat-icon>add_shopping_cart</mat-icon>
               <span>
@@ -211,15 +211,15 @@
   <mat-toolbar class="meta-toolbar">
 
     <div class="meta-toolbar-item">
-      <span>Skapad:</span> <span>{{data.regDatum | dateX: 'YYYY-MM-DD HH:mm'}}</span>
+      <span>Skapad:</span> <span>{{data.regdatum | dateX: 'YYYY-MM-DD HH:mm'}}</span>
     </div>
 
     <div class="meta-toolbar-item">
-      <span>Ändrad:</span> <span>{{data.andringsdatum}}</span>
+      <span>Ändrad:</span> <span>{{data.redigeringsdatum | dateX: 'YYYY-MM-DD HH:mm'}}</span>
     </div>
 
     <div class="meta-toolbar-item">
-      <span>Senast ändrad av:</span> <span>{{data.userIdNew || data.userName}}</span>
+      <span>Senast ändrad av:</span> <span>{{data.redigerare ? data.redigerare.name : (data.registrator ? data.registrator.name : '')}}</span>
     </div>
 
     <div class="meta-toolbar-spacer"></div>

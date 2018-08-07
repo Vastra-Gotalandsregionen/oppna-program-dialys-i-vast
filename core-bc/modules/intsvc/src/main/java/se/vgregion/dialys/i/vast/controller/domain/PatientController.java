@@ -13,15 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import se.vgregion.dialys.i.vast.jpa.ChangeLog;
 import se.vgregion.dialys.i.vast.jpa.SearchLog;
 import se.vgregion.dialys.i.vast.jpa.ViewLog;
-import se.vgregion.dialys.i.vast.jpa.requisitions.BestInfo;
-import se.vgregion.dialys.i.vast.jpa.requisitions.BestPDRad;
-import se.vgregion.dialys.i.vast.jpa.requisitions.PDArtikel;
-import se.vgregion.dialys.i.vast.jpa.requisitions.Patient;
-import se.vgregion.dialys.i.vast.repository.PatientRepository;
-import se.vgregion.dialys.i.vast.repository.SearchLogRepository;
-import se.vgregion.dialys.i.vast.repository.ViewLogRepository;
+import se.vgregion.dialys.i.vast.jpa.requisitions.*;
+import se.vgregion.dialys.i.vast.repository.*;
 import se.vgregion.dialys.i.vast.service.AuthService;
 import se.vgregion.dialys.i.vast.service.JwtUtil;
 import se.vgregion.dialys.i.vast.service.PatientFinder;
@@ -55,6 +51,12 @@ public class PatientController {
     @Autowired
     SearchLogRepository searchLogRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    ChangeLogRepository changeLogRepository;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @PostConstruct
@@ -72,9 +74,28 @@ public class PatientController {
     //@PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @Transactional
-    public ResponseEntity<Patient> save(@RequestBody Patient patient) {
+    public ResponseEntity<Patient> save(@RequestBody Patient patient, @RequestHeader(name = "authorization") String authorization) {
+        DecodedJWT token = JwtUtil.verify(authorization);
+        User user = userRepository.findOne(token.getSubject());
         if (patient.getId() != null) {
             Patient previousVersion = patientRepository.getOne(patient.getId());
+            ChangeLog changeLog = new ChangeLog();
+            try {
+                String change = objectMapper.writeValueAsString(previousVersion);
+                System.out.println("Längden på change är " + change.length());
+                changeLog.setPreviousValue(change);
+                changeLog.setDate(new Date());
+                changeLog.setPatientId(patient.getId());
+                changeLog.setUserName(user.getUserName());
+                changeLogRepository.save(changeLog);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            patient.setRedigeringsdatum(new Date());
+            patient.setRedigerare(user);
+        } else {
+            patient.setRegdatum(new Date());
+            patient.setRegistrator(user);
         }
         return ResponseEntity.ok(patientRepository.save(patient));
     }
@@ -156,18 +177,10 @@ public class PatientController {
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Patient getPatient(@PathVariable("id") Integer id, @RequestHeader(value = "Authorization") String authorization) {
-        System.out.println("authorization: " + authorization);
-        //System.out.println(JwtUtil.verify(authorization).getToken());
-        // DecodedJWT v = JwtUtil.verify(authorization);
-        // System.out.println(v.getSubject());
-
         Patient user = patientRepository.findOne(id);
-
         ViewLog viewLog = new ViewLog();
         viewLog.setPatientId(id);
-        // viewLog.setUserName(v.getSubject());
         viewLogRepository.save(viewLog);
-
         return user;
     }
 
