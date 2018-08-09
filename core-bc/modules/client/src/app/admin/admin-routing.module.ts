@@ -15,17 +15,17 @@ const routes: Routes = [
       },
       {
         path: 'users',
-        canActivate: [AdminGuard],
+        // canActivate: [AdminGuard],
         loadChildren: './users/users.module#UsersModule'
       },
       {
         path: 'mottagnings',
-        canActivate: [AdminGuard],
+        // canActivate: [AdminGuard],
         loadChildren: './mottagnings/mottagnings.module#MottagningsModule'
       },
       {
         path: 'artikels/:typ',
-        canActivate: [AdminGuard],
+        // canActivate: [AdminGuard],
         loadChildren: './artikels/artikels.module#ArtikelsModule'
       },
       {
@@ -40,7 +40,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule], providers:[AdminGuard]
 })
 export class AdminRoutingModule {
 }

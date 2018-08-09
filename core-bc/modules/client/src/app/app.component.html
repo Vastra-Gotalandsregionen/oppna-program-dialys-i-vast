@@ -26,9 +26,9 @@
                 <button *ngIf="!getShowDebug()" mat-button (click)="setShowDebug(true)" matTooltip="Visa debug-läge"><mat-icon>visibility_off</mat-icon></button>
               </span>-->
 
-              <span *ngIf="getLoggedInUserId()" class="header-control-item">
+              <!--<span *ngIf="getLoggedInUserId()" class="header-control-item">
                 <span class="user-avatar" [style.background-image]="userAvatarBackgroundImageStyle()"></span>
-              </span>
+              </span>-->
 
               <span *ngIf="getLoggedInDisplayName()" class="header-control-item">
                 {{getLoggedInDisplayName()}}
@@ -63,8 +63,8 @@
               </a>
             </mat-list-item>
 
-            <mat-list-item>
-              <a routerLink="admin" routerLinkActive="active" *ngIf="getAdmin()">
+            <mat-list-item *ngIf="getAdmin()">
+              <a routerLink="admin" routerLinkActive="active">
                 <span class="nav-label">Administration</span>
               </a>
             </mat-list-item>

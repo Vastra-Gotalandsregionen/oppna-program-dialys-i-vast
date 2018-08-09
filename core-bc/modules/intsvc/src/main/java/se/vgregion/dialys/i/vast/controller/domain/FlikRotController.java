@@ -3,6 +3,7 @@ package se.vgregion.dialys.i.vast.controller.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import se.vgregion.dialys.i.vast.jpa.requisitions.Artikel;
@@ -47,7 +48,7 @@ public class FlikRotController {
         return flikRotRepository.fetch(id);
     }
 
-    //@PreAuthorize("@authService.hasRole(authentication, 'admin')")
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     @Transactional
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.PUT)

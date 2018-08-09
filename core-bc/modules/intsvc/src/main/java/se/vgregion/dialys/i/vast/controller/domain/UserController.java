@@ -25,6 +25,7 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     public List<User> getUsers(@RequestParam(value = "userNameFilter", required = false) String userNameFilter) {
         System.out.println("userNameFilter: " + userNameFilter);
         if (userNameFilter != null && !"".equals(userNameFilter.trim())) {
@@ -41,6 +42,7 @@ public class UserController {
     }
 
     @Transactional
+    @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     protected ResponseEntity<User> saveUserImp(@RequestBody User user) {
         User fromDb = userRepository.findOne(user.getUserName());
         if (fromDb != null) {

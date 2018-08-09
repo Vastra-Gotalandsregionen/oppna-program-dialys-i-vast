@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {UsersListComponent} from './users-list/users-list.component';
 import {UserEditComponent} from './user-edit/user-edit.component';
 import {UserCreateComponent} from './user-create/user-create.component';
+import {AdminGuard} from "../../core/guard/admin.guard";
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule], providers:[AdminGuard]
 })
-export class UsersRoutingModule { }
+export class UsersRoutingModule {
+}

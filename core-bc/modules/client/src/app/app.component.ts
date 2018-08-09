@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {StateService} from './core/state/state.service';
-import {MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 import {LoginDialogComponent} from './shared/login-dialog/login-dialog.component';
 import {AuthService} from './core/auth/auth.service';
 import {Router} from '@angular/router';
@@ -18,11 +18,12 @@ export class AppComponent {
               private stateService: StateService,
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
-              private router: Router) {}
+              private router: Router) {
+  }
 
   openLogin() {
 
-    const dialogConfig:MatDialogConfig = {
+    const dialogConfig: MatDialogConfig = {
       disableClose: false,
       hasBackdrop: true,
       panelClass: 'dialys-dialog'
@@ -44,7 +45,7 @@ export class AppComponent {
     return this.stateService.showContentEdit;
   }
 
-  setShowContentEdit(value : boolean) {
+  setShowContentEdit(value: boolean) {
     this.stateService.showContentEdit = value;
   }
 
@@ -52,7 +53,7 @@ export class AppComponent {
     return this.stateService.showDebug;
   }
 
-  setShowDebug(value : boolean) {
+  setShowDebug(value: boolean) {
     this.stateService.showDebug = value;
   }
 
@@ -70,15 +71,16 @@ export class AppComponent {
 
   getAdmin(): boolean {
     this.getUser();
-    return this.authService.getAdmin();
+    var r: any = this.authService.getAdmin();
+    return (r + '') == 'true';
   }
 
   getPharmaceut(): boolean {
-    return this.authService.getPharmaceut();
+    return (this.authService.getPharmaceut() + '') == 'true';
   }
 
   getSjukskoterska(): boolean {
-    return this.authService.getSjukskoterska();
+    return (this.authService.getSjukskoterska() + '') == 'true';
   }
 
   public getUser(): User {
