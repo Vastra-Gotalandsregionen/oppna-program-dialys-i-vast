@@ -503,4 +503,9 @@ public abstract class AbstractDatabaseCopy {
         }
     }
 
+    protected void deleteUnusedArtiklar() {
+
+        target.update("delete from artikel where id not in (select artikelid from pdartikel)");
+    }
+
 }

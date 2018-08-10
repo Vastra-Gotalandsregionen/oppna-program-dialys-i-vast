@@ -3,10 +3,9 @@ package se.vgregion.dialys.i.vast.database.work;
 import se.vgregion.arbetsplatskoder.db.migration.sql.ConnectionExt;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -231,5 +230,6 @@ public class PostDeployWork {
             target.execute("drop table if exists " + name);
         }
     }
+
 
 }
