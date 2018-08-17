@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class Data {
 
-    public Map<String, Object> toMap(Object... keysAndValues) {
+    public static Map<String, Object> toMap(Object... keysAndValues) {
         if (keysAndValues.length % 2 > 0) throw new RuntimeException();
         Map<String, Object> result = new HashMap<>();
         for (int i = 0; i < keysAndValues.length; i += 2) {
