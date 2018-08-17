@@ -40,10 +40,6 @@ export class LoginDialogComponent implements OnInit {
         .timeout(10000)
         .finally(() => this.stateService.stopShowProgress())
         .subscribe(response => {
-          console.log(response);
-
-          // this.location.navigate(['/']);
-
           this.authService.jwt = response.text();
 
           this.dialogRef.close(response);

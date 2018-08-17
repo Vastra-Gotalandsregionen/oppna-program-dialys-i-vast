@@ -92,9 +92,7 @@ export class UsersListComponent implements OnInit {
       if (result === 'confirm') {
         this.http.delete('/api/user/' + user.userName)
           .subscribe(response => {
-            console.log(response);
             this.updateUsers(this.selected);
-            //this.snackBar.open('Lyckades radera!', null, {duration: 3000});
           });
       }
     });

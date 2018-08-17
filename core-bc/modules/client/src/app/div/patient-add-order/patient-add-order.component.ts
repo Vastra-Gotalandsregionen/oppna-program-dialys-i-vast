@@ -104,11 +104,7 @@ export class PatientAddOrderComponent implements OnInit {
       .map(response => response.json())
       .share();
     $data.subscribe((patient: BestInfo) => {
-      console.log("saveToServer callback");
       this.snackBar.open('Lyckades spara!', null, {duration: 3000});
-      console.log("saveToServer callback - end");
-      console.log(orderModel.form);
-      console.log('saved' + JSON.stringify(orderModel.value))
       this.router.navigate(['/patienter', this.id])
     });
 

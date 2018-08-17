@@ -43,7 +43,6 @@ export class ArtikelsListComponent implements OnInit {
       (flikRot: FlikRot) => {
         this.flikRot = flikRot;
         this.fliks = flikRot.fliks;
-        console.log('fliks', this.fliks);
         const groups: Grupp[] = [];
         this.fliks.forEach(f => f.grupps.forEach(g => groups.push(g)));
         this.fetchArtikelUsageFromServer(groups);
@@ -147,7 +146,6 @@ export class ArtikelsListComponent implements OnInit {
   saveToServerSide() {
     this.http.put('/api/flikrot', this.flikRot).map(response => response.json()).subscribe(
       (fliks: Array<Flik>) => {
-        console.log('saved-fliks', fliks);
         this.fetchDataFromServer();
       }
     );

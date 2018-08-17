@@ -95,12 +95,7 @@ export class PatientAddRequisitionComponent implements OnInit{
         flik.grupps.forEach((grupp: Grupp) => {
           grupp.artikels.sort((a: Artikel, b: Artikel) => (a.namn > b.namn ? 1 : -1));
           grupp.artikels.forEach((artikel: Artikel) => {
-            //var pdArtikel = new PDArtikel();
             var pdArtikel = (pdArtikelsByArtikelKey.has(artikel.id)) ? pdArtikelsByArtikelKey.get(artikel.id) : new PDArtikel();
-            /*if (this.pd.id) {
-              console.log('existing pdArtikel', pdArtikel);
-            }*/
-            // if (!pdArtikel) throw new Error('pdArtikel must have a value');
             pdArtikel.artikel = artikel;
             this.artikelToPdArtikels.set(artikel, pdArtikel);
             if (pdArtikelsByArtikelKey.has(artikel.id)) {

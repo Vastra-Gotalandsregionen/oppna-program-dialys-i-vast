@@ -21,7 +21,6 @@ export class MottagningsListComponent implements OnInit {
   mottagnings: MottagningExt[];
 
   ngOnInit() {
-    console.log('MottagningsListComponent');
     this.fetchListItems();
   }
 
@@ -62,7 +61,6 @@ export class MottagningsListComponent implements OnInit {
       if (result === 'confirm') {
         this.http.delete('/api/mottagning/' + mottagning.id)
           .subscribe(response => {
-            console.log(response);
             this.fetchListItems();
           });
       }
@@ -80,7 +78,6 @@ export class MottagningsListComponent implements OnInit {
       if (result != null) {
         this.http.put('/api/mottagning/', result)
           .subscribe(response => {
-            console.log(response);
             this.fetchListItems();
           });
       }

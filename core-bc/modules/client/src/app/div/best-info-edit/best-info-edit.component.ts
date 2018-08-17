@@ -89,9 +89,6 @@ export class BestInfoEditComponent implements OnInit {
         (b1, b2) => b1.pdArtikel.artikel.namn > b2.pdArtikel.artikel.namn ? +1 : -1
       );
 
-      /*console.log("pd", this.pd);
-      console.log("bestInfo", this.bestInfo);
-      console.log("data", this.data);*/
     });
   }
 

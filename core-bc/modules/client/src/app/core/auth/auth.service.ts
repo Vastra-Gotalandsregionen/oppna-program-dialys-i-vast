@@ -101,7 +101,10 @@ export class AuthService {
 
   getAdmin(): boolean {
     const token = this.getToken();
-    return token ? token.admin : false;
+    if (token)
+      return 'true' === (token.admin + '');
+    else
+      return false;
   }
 
   getUser(): User {
@@ -110,12 +113,18 @@ export class AuthService {
 
   getPharmaceut(): boolean {
     const token = this.getToken();
-    return token ? token.pharmaceut : false;
+    if (token)
+      return 'true' === (token.pharmaceut + '');
+    else
+      return false;
   }
 
   public getSjukskoterska(): boolean {
     const token = this.getToken();
-    return token ? token.sjukskoterska : false;
+    if (token)
+      return 'true' === (token.sjukskoterska + '');
+    else
+      return false;
   }
 
   isAdmin() {

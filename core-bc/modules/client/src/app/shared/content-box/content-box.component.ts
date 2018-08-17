@@ -68,8 +68,6 @@ export class ContentBoxComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // debugger;
-    // console.log(this.contentDiv.nativeElement.offsetHeight)
   }
 
   editContent() {

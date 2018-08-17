@@ -27,7 +27,6 @@ export class PatientDetailsComponent implements OnInit {
 
         $data.subscribe((data: Patient) => {
           this.patient = data;
-          console.log('data.tempAdressFrom', data.tempAdressFrom instanceof Date);
           this.showTempAddress = data.tempAdressFrom && new Date(data.tempAdressFrom).getTime() < Date.now();
           if (data.tempAdressTom && new Date(data.tempAdressTom).getTime() < Date.now()) {
             this.showTempAddress = false;

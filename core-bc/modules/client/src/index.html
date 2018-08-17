@@ -19,7 +19,7 @@
   <span class="loading-indicator"><i class="icon icon-spinner"></i></span>
 </app-root>
 <script>
-  if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+  if (window['Modernizr'] && (!Modernizr.touch || !Modernizr.inputtypes.date)) {
     $('input[type=date]')
       .attr('type', 'text')
       .datepicker({
