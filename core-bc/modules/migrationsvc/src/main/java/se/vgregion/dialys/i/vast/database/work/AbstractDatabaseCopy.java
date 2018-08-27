@@ -466,6 +466,20 @@ public abstract class AbstractDatabaseCopy {
         connectionExt.commit();
     }
 
+    protected void fixShortPersonalNumbers() {
+        target.update(
+                "UPDATE\n" +
+                "    patient p1\n" +
+                "SET\n" +
+                "    pnr = ('19' || p2.pnr) \n" +
+                "FROM\n" +
+                "    patient AS p2\n" +
+                "WHERE\n" +
+                "    p1.pnr = p2.pnr and character_length(rtrim(p2.pnr)) != 12"
+        );
+        target.commit();
+    }
+
     protected void insertObsoleteFlik() {
         // public.flik{titel={Baxter}, ordning={1}, typ={PD}, id={1}}
         Map<String, Object> obsoleteFlik = new HashMap<>();

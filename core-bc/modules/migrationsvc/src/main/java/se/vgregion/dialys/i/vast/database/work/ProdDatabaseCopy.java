@@ -39,6 +39,7 @@ public class ProdDatabaseCopy extends AbstractDatabaseCopy {
         dc.removeOrphanPdAndBestInfoAndBestPDRad();
         dc.insertObsoleteFlik();
 
+        dc.fixShortPersonalNumbers();
         dc.fixJpaSequence();
     }
 
