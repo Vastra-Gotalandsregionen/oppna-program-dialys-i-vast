@@ -28,7 +28,7 @@ public class UserController {
     @PreAuthorize("@authService.hasRole(authentication, 'admin')")
     public List<User> getUsers(@RequestParam(value = "userNameFilter", required = false) String userNameFilter) {
         if (userNameFilter != null && !"".equals(userNameFilter.trim())) {
-            return userRepository.findAllByUserName(userNameFilter);
+            return userRepository.findAllByUserName(userNameFilter.toLowerCase());
         }
         return userRepository.findAllByOrderByUserName();
     }

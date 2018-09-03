@@ -23,4 +23,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("select u from User u where u.userName like :userNameFilter order by u.userName")
     List<User> findAllByUserName(@Param("userNameFilter") String userNameFilter);
 
+    @Query("select u from User u where lower(u.userName) = :userName")
+    User findOneByLowercaseUserName(@Param("userName") String userName);
+
 }

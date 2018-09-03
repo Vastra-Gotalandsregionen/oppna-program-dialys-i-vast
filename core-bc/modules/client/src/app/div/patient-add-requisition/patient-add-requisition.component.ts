@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Patient} from '../../model/Patient';
 import {AuthService} from '../../core/auth/auth.service';
@@ -20,7 +20,7 @@ import {Util} from "../../core/util/util";
   templateUrl: './patient-add-requisition.component.html',
   styleUrls: ['./patient-add-requisition.component.css'],
 })
-export class PatientAddRequisitionComponent implements OnInit{
+export class PatientAddRequisitionComponent implements OnInit {
 
   id: string;
   patient: Patient;
@@ -240,13 +240,16 @@ export class PatientAddRequisitionComponent implements OnInit{
     });
   }
 
-  skrivut(){
-    this.datasource.data= this.pd.pdArtikels;
-      //this.reqdataService.pdsToPrint = this.pd;
-     // this.router.navigate(['/patienter',this.patient.id, 'requisitionview']);
-    setTimeout(()=> {this.print('Rekvistioner', 'rekvisitionsTableWrap')})
+  skrivut() {
+    this.datasource.data = this.pd.pdArtikels;
+    //this.reqdataService.pdsToPrint = this.pd;
+    // this.router.navigate(['/patienter',this.patient.id, 'requisitionview']);
+    setTimeout(() => {
+      this.print('Rekvistioner', 'rekvisitionsTableWrap')
+    })
   }
-   print(title: string, printNodeId: string): boolean {
+
+  print(title: string, printNodeId: string): boolean {
     let printContents = document.getElementById(printNodeId).innerHTML;
     return Util.print(title, printContents);
   }

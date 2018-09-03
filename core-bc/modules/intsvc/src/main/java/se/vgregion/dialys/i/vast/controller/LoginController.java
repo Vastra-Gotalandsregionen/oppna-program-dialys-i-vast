@@ -22,6 +22,7 @@ import se.vgregion.dialys.i.vast.service.LdapLoginService;
 import se.vgregion.dialys.i.vast.util.PasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/login")
@@ -43,8 +44,14 @@ public class LoginController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        User fromLdap = ldapLoginService.login(loginRequest.getUsername(), loginRequest.getPassword());
-        User fromDb = userRepository.findOne(loginRequest.getUsername());
+        User fromLdap = null;
+        try {
+            fromLdap = ldapLoginService.login(loginRequest.getUsername(), loginRequest.getPassword());
+        } catch (Exception e) {
+            // Do nothing.
+        }
+
+        User fromDb = userRepository.findOneByLowercaseUserName(loginRequest.getUsername().toLowerCase());
 
         if (fromDb != null) {
             if (!AbstractEntity.equals("Aktiv", fromDb.getStatus())) {

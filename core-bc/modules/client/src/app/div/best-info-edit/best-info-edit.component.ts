@@ -124,8 +124,21 @@ export class BestInfoEditComponent implements OnInit {
   printThose(items: BestPDRad[]): BestPDRad[] {
     const result: BestPDRad[] = [];
     for (const item of items) {
-      if(item.antal && item.antal > 0)
+      if (item.antal && item.antal > 0)
         result.push(item);
+    }
+    return result;
+  }
+
+  filter(these: Array<BestPDRad>): Array<BestPDRad> {
+    const result: Array<BestPDRad> = [];
+    if (this.readonly) {
+      for (const that of these)
+        if (that.antal > 0) result.push(that);
+    } else {
+      for (const that of these)
+        if (that.antal > 0 || that.pdArtikel.artikel.aktiv)
+          result.push(that);
     }
     return result;
   }

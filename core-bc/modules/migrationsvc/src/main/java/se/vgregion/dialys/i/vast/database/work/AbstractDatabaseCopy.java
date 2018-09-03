@@ -469,14 +469,22 @@ public abstract class AbstractDatabaseCopy {
     protected void fixShortPersonalNumbers() {
         target.update(
                 "UPDATE\n" +
-                "    patient p1\n" +
-                "SET\n" +
-                "    pnr = ('19' || p2.pnr) \n" +
-                "FROM\n" +
-                "    patient AS p2\n" +
-                "WHERE\n" +
-                "    p1.pnr = p2.pnr and character_length(rtrim(p2.pnr)) != 12"
+                        "    patient p1\n" +
+                        "SET\n" +
+                        "    pnr = ('19' || p2.pnr) \n" +
+                        "FROM\n" +
+                        "    patient AS p2\n" +
+                        "WHERE\n" +
+                        "    p1.pnr = p2.pnr and character_length(rtrim(p2.pnr)) != 12"
         );
+        target.commit();
+    }
+
+    protected void putHyphenInPersonalNumbers() {
+        target.update(
+                "update patient p set pnr = p2.pnr2 \n" +
+                        "from (select substring(pnr, 0, 9) || '-' || substring(pnr, 9, 14) as pnr2, pnr from patient) p2\n" +
+                        "where p2.pnr = p.pnr");
         target.commit();
     }
 

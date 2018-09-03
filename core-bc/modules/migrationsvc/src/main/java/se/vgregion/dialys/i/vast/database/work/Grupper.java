@@ -19,12 +19,13 @@ public class Grupper {
         this.flikar = flikar;
     }
 
-    int counter = 26;
+    private int counter = 0;
 
     public Map<String, Object> getGrupp(Map<String, String> forThatArticle) {
         Map<String, Object> flik = flikar.getFlik(forThatArticle);
 
         String groupName = forThatArticle.get("Undergrupp");
+        groupName = groupName.replaceAll("[^a-öA-Ö]", "");
         if (namedItems.containsKey(groupName)) {
             return namedItems.get(groupName);
         }
@@ -45,6 +46,7 @@ public class Grupper {
                     "ordning",counter++,
                     "titel", groupName
             );
+            System.out.println("ny grupp " + item);
             con.insert("grupp", item);
 
             return item;

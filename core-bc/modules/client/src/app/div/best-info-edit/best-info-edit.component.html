@@ -100,11 +100,12 @@
               </td>
             </tr>
 
-            <tr *ngFor="let rad of (bestInfo.bestPDRads)"
+            <tr *ngFor="let rad of filter(bestInfo.bestPDRads)" style="{{((!bestInfo.id && !rad.pdArtikel.artikel.aktiv) || (bestInfo.id && (!rad.antal || rad.antal == 0)) ? 'background-color:blue;' : '' )}}"
                 class="{{(rad.antal && rad.antal > 0 ? 'non-zero-items' : 'zero-items')}}">
               <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
                   style="border-bottom:solid; border-width: 1px; border-color: grey ">
-                {{rad.pdArtikel.artikel.namn}}
+                {{rad.pdArtikel.artikel.namn}} {{rad.antal}} {{bestInfo.id}}
+                <img onerror="console.log('Hej');" src="" *ngIf="(!bestInfo.id && !rad.pdArtikel.artikel.aktiv) || (bestInfo.id && (!rad.antal || rad.antal == 0))" style="display:none;">
               </td>
 
               <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"

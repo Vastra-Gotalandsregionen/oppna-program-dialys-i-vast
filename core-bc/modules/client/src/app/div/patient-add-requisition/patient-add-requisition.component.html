@@ -127,11 +127,34 @@
       </div>
 
       <div id="rekvisitionsTableWrap" [hidden]=true>
-        <div>
+
+        <table style="width: 100%;">
+          <tr class="print-field" style="font-size: 26px">
+            <td style="width: 30%;">
+              Personnummer:<br/>
+              {{patient.pnr}}
+              <br/><br/>
+            </td>
+            <td style="width: 30%;">
+              Förnamn:<br/>
+              {{patient.fornamn}}
+              <br/><br/>
+            </td>
+            <td style="width: 30%;">
+              Efternamn:<br/>
+              {{patient.efternamn}}
+              <br/><br/>
+            </td>
+            <td>
+            </td>
+          </tr>
+        </table>
+
+        <!--<div>
           {{patient.fornamn}} {{patient.efternamn}}
           <br/>
           <br/>
-        </div>
+        </div>-->
         <mat-table #table dense [dataSource]="datasource">
           <ng-container matColumnDef="artikel">
             <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
@@ -152,8 +175,13 @@
             <mat-cell *matCellDef="let rad">{{rad.maxantal}}</mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="['artikel', 'mangd', 'artikelnr', 'maxantal']"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: ['artikel', 'mangd', 'artikelnr', 'maxantal']"></mat-row>
+          <ng-container matColumnDef="antal">
+            <mat-header-cell *matHeaderCellDef>Antal</mat-header-cell>
+            <mat-cell *matCellDef="let rad">&nbsp;</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="['artikel', 'mangd', 'artikelnr', 'maxantal', 'antal']"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: ['artikel', 'mangd', 'artikelnr', 'maxantal', 'antal']"></mat-row>
         </mat-table>
       </div>
 

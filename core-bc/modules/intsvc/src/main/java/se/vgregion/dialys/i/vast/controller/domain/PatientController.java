@@ -177,11 +177,13 @@ public class PatientController {
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Patient getPatient(@PathVariable("id") Integer id, @RequestHeader(value = "Authorization") String authorization) {
-        Patient user = patientRepository.findOne(id);
+        DecodedJWT token = JwtUtil.verify(authorization);
+        Patient patient = patientRepository.findOne(id);
         ViewLog viewLog = new ViewLog();
+        viewLog.setUserName(token.getSubject());
         viewLog.setPatientId(id);
         viewLogRepository.save(viewLog);
-        return user;
+        return patient;
     }
 
     @ResponseBody
