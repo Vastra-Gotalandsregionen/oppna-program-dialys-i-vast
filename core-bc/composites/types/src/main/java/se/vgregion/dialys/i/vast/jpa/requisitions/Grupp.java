@@ -48,6 +48,7 @@ public class Grupp implements Serializable {
     private Flik flik;
 
     public Grupp() {
+
     }
 
     public Grupp(Integer id) {

@@ -100,12 +100,30 @@
               </td>
             </tr>
 
-            <tr *ngFor="let rad of filter(bestInfo.bestPDRads)" style="{{((!bestInfo.id && !rad.pdArtikel.artikel.aktiv) || (bestInfo.id && (!rad.antal || rad.antal == 0)) ? 'background-color:blue;' : '' )}}"
+            <tr *ngFor="let rad of filter(bestInfo.bestPDRads)"
+                style="{{((!bestInfo.id && !rad.pdArtikel.artikel.aktiv) || (bestInfo.id && (!rad.antal || rad.antal == 0)) ? 'background-color:blue;' : '' )}}"
                 class="{{(rad.antal && rad.antal > 0 ? 'non-zero-items' : 'zero-items')}}">
               <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
                   style="border-bottom:solid; border-width: 1px; border-color: grey ">
-                {{rad.pdArtikel.artikel.namn}} {{rad.antal}} {{bestInfo.id}}
-                <img onerror="console.log('Hej');" src="" *ngIf="(!bestInfo.id && !rad.pdArtikel.artikel.aktiv) || (bestInfo.id && (!rad.antal || rad.antal == 0))" style="display:none;">
+                {{rad.pdArtikel.artikel.namn}} {{rad.pdArtikel.artikel.aktiv}}
+                <!--<img onerror="console.log('Hej');" src=""
+                     *ngIf="(!bestInfo.id && !rad.pdArtikel.artikel.aktiv) || (bestInfo.id && (!rad.antal || rad.antal == 0))"
+                     style="display:none;">-->
+
+                <div *ngIf="!rad.pdArtikel.artikel.aktiv && !readonly">
+                  <span title="Varan kan inte längre beställas.">
+                        <mat-icon style="vertical-align: middle; color: red;" *ngIf="!rad.aktiv">warning</mat-icon>
+                        Inaktiv
+                  </span>
+                </div>
+
+                <div *ngIf="!rad.pdArtikel.artikel.aktiv && !readonly" class="print-field">
+                  <span title="Varan kan inte längre beställas.">
+                        <mat-icon style="vertical-align: middle; color: red;" *ngIf="!rad.aktiv">warning</mat-icon>
+                        Inaktiv (Varan kan inte längre beställas)
+                  </span>
+                </div>
+
               </td>
 
               <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
@@ -125,11 +143,13 @@
 
               <td class="mat-cell cdk-column-artikel mat-column-artikel ng-star-inserted"
                   style="border-bottom:solid; border-width: 1px; border-color: grey ">
-                <mat-form-field class="order-row-amount">
-                  <input type="number"
+
+                <mat-form-field class="order-row-amount" *ngIf="rad.pdArtikel.artikel.aktiv || true">
+                  <input type="number" min="0"
                          [value]="rad.antal"
                          (blur)="rad.antal=$event.srcElement.value"
                          [disabled]="!rad.pdArtikel.artikel.aktiv || readonly"
+                         (keydown)="isNumberKey($event)"
                          name="antalfp"
                          matInput>
                 </mat-form-field>

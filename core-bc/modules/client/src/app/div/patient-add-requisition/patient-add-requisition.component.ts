@@ -253,6 +253,16 @@ export class PatientAddRequisitionComponent implements OnInit {
     let printContents = document.getElementById(printNodeId).innerHTML;
     return Util.print(title, printContents);
   }
+
+  filter(artikels: Array<Artikel>): Array<Artikel> {
+    const result: Array<Artikel> = [];
+    for (const artikel of artikels) {
+      if (artikel.aktiv || (!artikel.aktiv && this.selectedArtiklar.indexOf(artikel) > -1 && this.pd.id))
+        result.push(artikel);
+    }
+    return result;
+  }
+
 }
 
 
@@ -266,7 +276,6 @@ export class FlikReq extends Flik {
   public static asFlikReqs(fliks: Flik[]): FlikReq[] {
     return <FlikReq[]> fliks;
   }
-
 
 }
 

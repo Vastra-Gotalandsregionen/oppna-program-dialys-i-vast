@@ -10,9 +10,7 @@
   </mat-toolbar>
 
   <mat-card class="dialys-card">
-
     <mat-card-content>
-
       <div class="row">
         <div class="col c6">
           <div class="col-inner">
@@ -63,7 +61,7 @@
           <mat-tab-group class="chip-tab-group" dynamicHeight="true" [@.disabled]="true">
             <mat-tab *ngFor="let grupp of asGruppReqs(flik.grupps)" label="{{grupp.titel}} ({{grupp.artikelCount}})">
 
-              <mat-table #table dense [dataSource]="grupp.artikels">
+              <mat-table #table dense [dataSource]="filter(grupp.artikels)">
                 <ng-container matColumnDef="namn">
                   <mat-header-cell *matHeaderCellDef>Artikel</mat-header-cell>
                   <mat-cell *matCellDef="let rad">{{rad.namn}}</mat-cell>
@@ -88,6 +86,10 @@
                                   [checked]="selectedArtiklar.indexOf(rad) != -1" (change)="onItemSelect(rad)">
                     </mat-checkbox>
                     <mat-icon *ngIf="!editable && selectedArtiklar.indexOf(rad) != -1">checked</mat-icon>
+                    <span *ngIf="!rad.aktiv" title="Varan kan inte längre beställas.">
+                      <mat-icon style="vertical-align: middle; color: red;" *ngIf="!rad.aktiv">warning</mat-icon>
+                      Inaktiv
+                    </span>
                   </mat-cell>
                 </ng-container>
 
