@@ -108,6 +108,7 @@ export class PatientAddRequisitionComponent implements OnInit {
         });
 
       });
+      this.filterArtiklar();
       this.putArtikelCountIntoTreeNodes();
     });
 
@@ -257,10 +258,30 @@ export class PatientAddRequisitionComponent implements OnInit {
   filter(artikels: Array<Artikel>): Array<Artikel> {
     const result: Array<Artikel> = [];
     for (const artikel of artikels) {
-      if (artikel.aktiv || (!artikel.aktiv && this.selectedArtiklar.indexOf(artikel) > -1 && this.pd.id))
+      if (artikel.aktiv || (!artikel.aktiv && this.selectedArtiklar.indexOf(artikel) > -1 && this.pd.id)) {
         result.push(artikel);
+      } else {
+        var index: number = this.selectedArtiklar.indexOf(artikel);
+        if (index > -1){
+          this.selectedArtiklar.splice(index, 1);
+          console.log(artikel);
+        }
+        // this.pd.pdArtikels.push(pdArtikel);
+         var  pdArtikel:PDArtikel = this.artikelToPdArtikels.get(artikel);
+        var index: number = this.pd.pdArtikels.indexOf(pdArtikel);
+        if (index > -1)
+          this.pd.pdArtikels.splice(index, 1);
+      }
     }
     return result;
+  }
+
+  filterArtiklar() {
+    for (const flik of this.fliks) {
+      for (const grupp of flik.grupps) {
+        grupp.artikels = this.filter(grupp.artikels);
+      }
+    }
   }
 
 }
