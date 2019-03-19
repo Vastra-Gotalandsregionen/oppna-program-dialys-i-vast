@@ -138,14 +138,14 @@ export class BestInfoEditComponent implements OnInit {
     } else {
       for (const that of these)
         // if (that.antal > 0 || that.pdArtikel.artikel.aktiv)
-          result.push(that);
+        result.push(that);
     }
     return result;
   }
 
-  isNumberKey(evt): boolean{
+  isNumberKey(evt): boolean {
     var charCode = (evt.which) ? evt.which : event['keyCode'];
-    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    if ((charCode > 31 && (charCode < 48 || charCode > 57)) && !(charCode > 95 && charCode < 106))
       return false;
     return true;
   }
