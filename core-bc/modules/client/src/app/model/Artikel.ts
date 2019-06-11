@@ -7,5 +7,5 @@ export class Artikel{
   antal: number;
   maxantal: number;
   id: number;
-  aktiv: boolean;
+  aktiv: boolean = false;
 }

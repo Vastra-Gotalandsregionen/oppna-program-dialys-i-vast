@@ -119,7 +119,7 @@
                       </button>
                     </div>
                     <div>
-                      <button mat-button (click)="openEditDialog(toArtikelExt(artikel))">
+                      <button *ngIf="artikel.editable" mat-button (click)="openEditDialog(toArtikelExt(artikel))">
                         <mat-icon>edit</mat-icon>
                         Ändra
                       </button>
