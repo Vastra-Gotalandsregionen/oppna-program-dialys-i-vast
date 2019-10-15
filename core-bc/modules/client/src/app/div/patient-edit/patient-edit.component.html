@@ -1,7 +1,7 @@
 <mat-toolbar class="action-toolbar">
   <h1>
 
-    {{patient && patient.pnr ? 'Redigera patient' : 'Skapa patient'}}: {{patient ? patient.pnr : 'N/A'}}
+    {{patient && patient.pnr ? 'Redigera patient' : 'Skapa patient'}}: {{patient ? (patient.pnr + ' (' + patient.id + ')') : 'N/A'}}
   </h1>
   <div class="action-toolbar-spacer"></div>
   <app-back-button class="action-toolbar-item"></app-back-button>

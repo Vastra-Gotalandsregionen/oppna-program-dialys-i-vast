@@ -54,7 +54,7 @@ public class PatientFinder {
 
         int i = 1;
 
-        for (String k : Arrays.asList("pnr", "fornamn", "efternamn")) {
+        for (String k : Arrays.asList("p.pnr", "p.fornamn", "p.efternamn", "cast(p.id as string)")) {
             for (String cs : constraintsFrags) {
                 if (!cs.endsWith("%")) {
                     cs = cs + "%";
@@ -64,7 +64,7 @@ public class PatientFinder {
                 }
                 cs = cs.toLowerCase();
                 words.add(cs);
-                conditions.add("lower(p." + k + ") like ?" + i);
+                conditions.add("lower(" + k + ") like ?" + i);
                 i++;
             }
         }
@@ -124,6 +124,8 @@ public class PatientFinder {
                 + sb.toString()
                 + " "
                 + makeOrderByPart("p", pageable);
+
+        System.out.println(selectJpql);
 
         Page<Patient> result = query(
                 Patient.class,

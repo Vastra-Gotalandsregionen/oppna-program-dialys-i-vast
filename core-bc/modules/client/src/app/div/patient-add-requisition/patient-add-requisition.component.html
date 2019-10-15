@@ -1,7 +1,7 @@
 <div *ngIf="patient">
   <mat-toolbar class="action-toolbar">
     <h1>
-      {{pd.id ? 'Rekvisition' : 'Ny rekvisition'}}: {{patient.pnr}} ({{pd.typ}})
+      {{pd.id ? 'Rekvisition' : 'Ny ' + pd.typ + '-rekvisition'}}: {{patient.pnr}} ({{patient.id}})
     </h1>
     <div class="action-toolbar-spacer"></div>
 
@@ -132,9 +132,14 @@
 
         <table style="width: 100%;">
           <tr class="print-field" style="font-size: 26px">
-            <td style="width: 30%;">
+            <td style="width: 30%">
               Personnummer:<br/>
               {{patient.pnr}}
+              <br/><br/>
+            </td>
+            <td style="width: 10%;">
+              Id:<br/>
+              {{patient.id}}
               <br/><br/>
             </td>
             <td style="width: 30%;">

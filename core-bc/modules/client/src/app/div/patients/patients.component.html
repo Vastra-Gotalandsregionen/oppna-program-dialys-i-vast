@@ -68,6 +68,7 @@
             <mat-icon>arrow_drop_up</mat-icon>
           </button>
         </th>
+        <th class="row-id">Id</th>
         <th class="row-efternamn">
           <button class="sort-button" mat-button (click)="toggleSort('efternamn')"
                   [ngClass]="{'sort-field': sort?.field === 'efternamn', 'asc': sort?.ascending, 'desc': sort?.ascending === false}">
@@ -98,6 +99,11 @@
         <td>
           <a routerLink="{{patient.id}}" routerLinkActive="active">
             {{patient.pnr}}
+          </a>
+        </td>
+        <td>
+          <a routerLink="{{patient.id}}" routerLinkActive="active">
+            {{patient.id}}
           </a>
         </td>
         <td>

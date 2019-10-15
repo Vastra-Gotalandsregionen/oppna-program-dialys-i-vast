@@ -2,7 +2,7 @@
 
   <mat-toolbar class="action-toolbar">
     <h1>
-      {{bestInfo.id ? 'Ändra beställning' : 'Ny beställning:'}} {{data.pnr}} ({{data.typ}})
+      {{bestInfo.id ? 'Ändra ' + data.typ + '-beställning' : 'Ny ' + data.typ + '-beställning:'}} {{data.pnr}} ({{data.id}})
     </h1>
     <div class="action-toolbar-spacer"></div>
     <app-back-button class="action-toolbar-item"></app-back-button>
@@ -62,6 +62,11 @@
               <td>
                 Personnummer:<br/>
                 {{data.pnr}}
+                <br/><br/>
+              </td>
+              <td>
+                Id:<br/>
+                {{data.id}}
                 <br/><br/>
               </td>
               <td colspan="2">

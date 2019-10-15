@@ -40,9 +40,10 @@
   &.dialys-patients-table {
     table-layout: fixed;
 
-    .row-pnr { width: 20%; }
+    .row-pnr { width: 15%; }
+    .row-id { width: 10%; }
     .row-fornamn { width: 15%; }
-    .row-efternamn { width: 20%; }
+    .row-efternamn { width: 15%; }
 
     .row-distribution-day { width: 10%; }
     .row-distribution-week { width: 10%; }
