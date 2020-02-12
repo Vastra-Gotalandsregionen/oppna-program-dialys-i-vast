@@ -187,6 +187,13 @@
           </div>
         </div>
 
+        <div class="dialys-details-item">
+          <div class="dialys-details-item-label">Påminnelse för patient:</div>
+          <div class="dialys-details-item-data">
+            {{patient.leveransPaminnelse == true ? 'Ja': 'Nej'}}
+          </div>
+        </div>
+
         <div class="dialys-details-item" *ngIf="patient.avropsOmbud != null">
           <div class="dialys-details-item-label">Ombud för beställning:</div>
           <div class="dialys-details-item-data">
