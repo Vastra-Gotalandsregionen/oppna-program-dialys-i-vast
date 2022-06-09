@@ -1,7 +1,8 @@
 <mat-toolbar class="action-toolbar">
   <h1>
 
-    {{patient && patient.pnr ? 'Redigera patient' : 'Skapa patient'}}: {{patient.pnr}} {{(patient && patient.id) ? (' (' + patient.id + ')') : '(N/A)'}}
+    {{patient && patient.pnr ? 'Redigera patient' : 'Skapa patient'}}
+    : {{patient.pnr}} {{(patient && patient.id) ? (' (' + patient.id + ')') : '(N/A)'}}
   </h1>
   <div class="action-toolbar-spacer"></div>
   <app-back-button class="action-toolbar-item"></app-back-button>
@@ -77,13 +78,19 @@
       <div class="col c9">
         <div class="col-inner">
 
-          <div class="dialys-form-field-ctn">
+          <div class="dialys-form-field-ctn" *ngIf="patient.typ != 'PD'">
             <div class="dialys-form-field">
               <label class="field-label">Välj typ av patient:</label>
               <mat-radio-group #typInput [(ngModel)]="patient.typ" [disabled]="!authService.getSjukskoterska()">
                 <mat-radio-button value="PD">PD</mat-radio-button>
                 <mat-radio-button value="HD">HD</mat-radio-button>
               </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="dialys-form-field-ctn" *ngIf="patient.typ == 'PD'">
+            <div class="dialys-form-field">
+              <label class="field-label">Typ av patient: PD</label>
             </div>
           </div>
 
@@ -100,10 +107,14 @@
             <div class="dialys-form-field">
               <h3 #mottagningsHead>Mottagningar </h3>
               <div class="form-element" *ngFor="let mottagning of mottagnings">
-                <mat-checkbox #mottagningInputs [checked]="doesPatientHaveMottagning(mottagning)"
-                              [disabled]="!authService.getSjukskoterska()"
+                <mat-checkbox #mottagningInputs
+                              *ngIf="mottagning.status != 'Avslutad' || doesPatientHaveMottagning(mottagning)"
+                              [checked]="doesPatientHaveMottagning(mottagning)"
+                              [disabled]="!authService.getSjukskoterska() || (mottagning.status == 'Pausad' && !doesPatientHaveMottagning(mottagning))"
                               (change)="onMottagningChecked(mottagning)">
-                  {{mottagning.namn}}
+                  <span [ngStyle]="{color: (mottagning.status == 'Avslutad') ? 'red' : ''}">{{mottagning.namn}}
+                    <span *ngIf="mottagning.status != 'Aktiv'">({{mottagning.status}})</span></span>
+
                 </mat-checkbox>
               </div>
 
@@ -278,14 +289,14 @@
             </div>
           </div>
 
-<!--          <div class="dialys-form-field-ctn">
-            <div class="dialys-form-field">
-              <mat-input-container>
-                <input #epostInput id="epost" [(ngModel)]="patient.epost" placeholder="Epost" type="text" matInput
-                       [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
-              </mat-input-container>
-            </div>
-          </div>-->
+          <!--          <div class="dialys-form-field-ctn">
+                      <div class="dialys-form-field">
+                        <mat-input-container>
+                          <input #epostInput id="epost" [(ngModel)]="patient.epost" placeholder="Epost" type="text" matInput
+                                 [maxlength]="255" [disabled]="!authService.getSjukskoterska()">
+                        </mat-input-container>
+                      </div>
+                    </div>-->
         </div>
       </div>
     </div>

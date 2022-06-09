@@ -51,6 +51,13 @@
         </mat-select>
       </mat-form-field>
 
+      <mat-form-field class="distribution-week-select-field">
+        <mat-select [(value)]="typ" placeholder="Typ" (change)="updateState()">
+          <mat-option value="PD">PD</mat-option>
+          <mat-option value="HD"><del>HD</del></mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <div class="action-toolbar-spacer"></div>
 
     </mat-toolbar>

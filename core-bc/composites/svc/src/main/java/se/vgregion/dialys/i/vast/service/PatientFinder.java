@@ -39,7 +39,8 @@ public class PatientFinder {
      * @param status
      * @return
      */
-    public Page<Patient> search(String constraints, Pageable pageable, String userName, String status, String utdelningsVecka, String utdelningsDag) {
+    public Page<Patient> search(String constraints, Pageable pageable, String userName, String status, String utdelningsVecka, String utdelningsDag, String type) {
+        System.out.println("PatientFinder");
         long startTime = System.currentTimeMillis();
         if (constraints == null) {
             constraints = "";
@@ -79,8 +80,6 @@ public class PatientFinder {
         }
 
 
-
-
         User user = userRepository.findOne(userName);
         boolean worksAsPharmaceut = user != null && user.getPharmaceut() != null && user.getPharmaceut();
 
@@ -104,6 +103,13 @@ public class PatientFinder {
         if (utdelningsVecka != null && !utdelningsVecka.trim().equals("")) {
             sb.append(" and p.utdelVecka = ?" + i);
             words.add(utdelningsVecka);
+            i++;
+        }
+
+        if (type != null && !type.trim().equals("")) {
+            System.out.println("Type is " + type);
+            sb.append(" and p.typ = ?" + i);
+            words.add(type.toUpperCase());
             i++;
         }
 

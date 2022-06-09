@@ -38,6 +38,7 @@ export class PatientsComponent implements OnInit {
   sort: { field: string, ascending: boolean };
   utdelningsDag: string;
   utdelningsVecka: string;
+  typ: string = 'PD';
 
   constructor(private http: JwtHttp,
               location: Location,
@@ -54,7 +55,7 @@ export class PatientsComponent implements OnInit {
   }
 
   shouldDisplayResult(): boolean {
-    return (!this.blank(this.query) || this.page > 0 || !this.blank(this.status) || !this.blank(this.utdelningsVecka) || !this.blank(this.utdelningsDag))
+    return (!this.blank(this.query) || this.page > 0 || !this.blank(this.status) || !this.blank(this.utdelningsVecka) || !this.blank(this.utdelningsDag) || !this.blank(this.typ))
   }
 
   ngOnInit() {
@@ -65,6 +66,7 @@ export class PatientsComponent implements OnInit {
         this.query = params.query;
         this.utdelningsVecka = params.week;
         this.utdelningsDag = params.day;
+        this.typ = params.typ;
 
         if (params.page) {
           this.page = Number(params.page);
@@ -103,8 +105,8 @@ export class PatientsComponent implements OnInit {
       const statusPart = (this.status ? `&status=${this.status}` : '');
       const utdelningsDagPart = (this.utdelningsDag ? ('&day=' + this.utdelningsDag) : '');
       const utdelningsVeckaPart = (this.utdelningsVecka ? ('&week=' + this.utdelningsVecka) : '');
-      let fullQueryPart = queryPart + pagePart + sortPart + statusPart + utdelningsVeckaPart + utdelningsDagPart;
-
+      const type = (this.typ ? ('&type=' + this.typ) : '&type=' + (this.typ = 'PD'));
+      let fullQueryPart = queryPart + pagePart + sortPart + statusPart + utdelningsVeckaPart + utdelningsDagPart + type;
       if (fullQueryPart.startsWith('&')) {
         fullQueryPart = fullQueryPart.substring(1);
       }
@@ -184,6 +186,10 @@ export class PatientsComponent implements OnInit {
 
     if (this.utdelningsVecka) {
       params.set('week', this.utdelningsVecka);
+    }
+
+    if (this.typ) {
+      params.set('type', this.typ);
     }
 
     params.set("userName", this.authService.getLoggedInUserId());

@@ -63,3 +63,4 @@ deploy-client-prod.sh
 deploy-client-stage.sh
 deploy-server-prod.sh
 deploy-server-stage.sh
+*.sh

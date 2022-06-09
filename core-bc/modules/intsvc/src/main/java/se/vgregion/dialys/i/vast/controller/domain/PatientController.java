@@ -142,6 +142,7 @@ public class PatientController {
                               @RequestParam(value = "sort", required = false) String sort,
                               @RequestParam(value = "week", required = false) String week,
                               @RequestParam(value = "day", required = false) String day,
+                              @RequestParam(value = "type", required = false) String type,
                               @RequestParam(value = "asc", required = false) boolean asc,
                               @RequestHeader(value = "Authorization") String authorization) throws JsonProcessingException {
 
@@ -150,8 +151,8 @@ public class PatientController {
         if (isBlank(query) && isBlank(week) && isBlank(day) && isBlank(status)) {
             return objectMapper.writeValueAsString(new PageImpl(new ArrayList(), pageable, 0l));
         }
-
-        String result = objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status, week, day));
+        System.out.println("Type is: " + type);
+        String result = objectMapper.writeValueAsString(patientFinder.search(query, pageable, userName, status, week, day, type));
 
         SearchLog log = new SearchLog();
         log.setDate(new Date());

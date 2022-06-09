@@ -26,7 +26,7 @@ public class PatientFinderIntegrationTest {
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "pnr").ignoreCase();
         Sort sort = new Sort(order);
         Pageable pageable = new PageRequest(0, 20, sort);
-        Page<Patient> result = patientFinder.search(null, pageable, "anger5", "Aktiv", null, null);
+        Page<Patient> result = patientFinder.search(null, pageable, "anger5", "Aktiv", null, null, null);
         for (Patient patient : result.getContent()) {
             System.out.println(patient);
         }

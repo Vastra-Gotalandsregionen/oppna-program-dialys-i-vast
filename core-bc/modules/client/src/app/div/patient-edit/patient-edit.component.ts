@@ -80,11 +80,12 @@ export class PatientEditComponent implements OnInit {
   ngOnInit() {
     this.patient = new Patient();
     const id = this.route.snapshot.paramMap.get('id');
-    if (id === 'create')
+    if (id === 'create') {
       this.fetchReferencedData();
-    else
+      this.patient.typ = 'PD';
+    } else {
       this.fetchData(id);
-
+    }
     this.http.get('/api/user/' + this.authService.getLoggedInUserId()).map(response => response.json()).subscribe(
       (u: User) => {
         this.user = u;
