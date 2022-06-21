@@ -7,4 +7,5 @@ It is intended to be used by personnel from the Västra Götaland region, a coun
 <br/>Prescriptions are lists of items, plastic bags/gloves - non prescription midicins. 
 <br/>Orders are a sub-selection of these item-lists. These orders can then be accessed from the hospital
  pharmacy when the patient or personel comes to collect them. 
-
+## About npm
+Version 8.0.0 works with this project.

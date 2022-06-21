@@ -1,6 +1,6 @@
 <mat-toolbar class="action-toolbar">
   <h1>
-    Artiklar, grupper och undergrupper {{flikRot.id}}
+    Artiklar, grupper och undergrupper {{flikRot && flikRot.id ? flikRot.id : ''}}
   </h1>
   <div class="action-toolbar-spacer"></div>
   <a class="action-toolbar-item" mat-fab (click)="createNewFlik()" matTooltip="Lägg till ny flik">
